@@ -138,12 +138,12 @@ export async function createUser(
       },
     });
 
-    // Create membership in the active tenant
+    // Create membership in the active tenant (mirror the selected role)
     await prisma.membership.create({
       data: {
         userId: user.id,
         tenantId: ctx.tenantId,
-        role: "EMPLOYEE",
+        role: parsed.role,
       },
     });
 
@@ -191,6 +191,14 @@ export async function updateUser(
       where: { id },
       data: parsed,
     });
+
+    // Sync role change to tenant membership so effectiveRole matches
+    if (parsed.role) {
+      await prisma.membership.update({
+        where: { userId_tenantId: { userId: id, tenantId: ctx.tenantId } },
+        data: { role: parsed.role },
+      });
+    }
 
     await logAudit({
       actorId: ctx.user.id,

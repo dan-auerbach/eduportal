@@ -23,7 +23,7 @@ export type TenantContext = {
 
 export class TenantAccessError extends Error {
   code: string;
-  constructor(message = "Nimate dostopa do tega podjetja", code = "FORBIDDEN") {
+  constructor(message = "Access denied", code = "FORBIDDEN") {
     super(message);
     this.name = "TenantAccessError";
     this.code = code;
@@ -127,8 +127,15 @@ export async function getTenantContext(): Promise<TenantContext> {
   }
 
   // Validate locale — fallback to "en" if the DB value is not supported
-  const { isValidLocale, DEFAULT_LOCALE } = await import("@/lib/i18n");
+  const { isValidLocale, DEFAULT_LOCALE, setLocale } = await import("@/lib/i18n");
   const tenantLocale = isValidLocale(tenant.locale) ? tenant.locale : DEFAULT_LOCALE;
+
+  // Set the active locale immediately so that any subsequent t() calls
+  // in the same request use the correct language.
+  // This is critical because in Next.js App Router, page and layout
+  // Server Components execute in parallel — the page may call t()
+  // before the layout has a chance to call setLocale().
+  setLocale(tenantLocale);
 
   return {
     tenantId: tenant.id,

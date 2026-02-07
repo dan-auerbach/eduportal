@@ -1,0 +1,797 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// MULTI-TENANT: PODJETJA (TENANTS)
+// ============================================
+
+model Tenant {
+  id         String       @id @default(cuid())
+  name       String
+  slug       String       @unique
+  logoUrl    String?
+  theme      TenantTheme  @default(DEFAULT)
+  plan       TenantPlan   @default(FREE)
+  locale     String       @default("en")
+  createdAt  DateTime     @default(now())
+  archivedAt DateTime?
+
+  memberships        Membership[]
+  modules            Module[]
+  groups             Group[]
+  tags               Tag[]
+  userGroups         UserGroup[]
+  sections           Section[]
+  sectionCompletions SectionCompletion[]
+  quizzes            Quiz[]
+  quizQuestions      QuizQuestion[]
+  quizAttempts       QuizAttempt[]
+  moduleGroups       ModuleGroup[]
+  modulePrerequisites ModulePrerequisite[]
+  moduleTags         ModuleTag[]
+  comments           Comment[]
+  notifications      Notification[]
+  notificationDedups NotificationDedup[]
+  certificates       Certificate[]
+  auditLogs          AuditLog[]
+  userPermissions    UserPermission[]
+  attachments        Attachment[]
+  selfAssessments    ModuleSelfAssessment[]
+  progressOverrides  ProgressOverride[]
+  moduleAccesses     UserModuleLastAccess[]
+  changeLogs         ModuleChangeLog[]
+  moduleReviews      UserModuleReview[]
+  categories          ModuleCategory[]
+  companyPinnedModules CompanyPinnedModule[]
+  changelogEntries     ChangelogEntry[]
+}
+
+enum TenantTheme {
+  DEFAULT
+  OCEAN
+  SUNSET
+}
+
+enum TenantPlan {
+  FREE
+  STARTER
+  PRO
+}
+
+model Membership {
+  id        String     @id @default(cuid())
+  userId    String
+  tenantId  String
+  role      TenantRole @default(EMPLOYEE)
+  createdAt DateTime   @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
+  @@index([userId])
+}
+
+enum TenantRole {
+  OWNER
+  SUPER_ADMIN
+  ADMIN
+  HR
+  EMPLOYEE
+  VIEWER
+}
+
+// ============================================
+// UPORABNIKI IN AVTENTIKACIJA
+// ============================================
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  avatar       String?
+  role         Role      @default(EMPLOYEE)
+  isActive     Boolean   @default(true)
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastLoginAt  DateTime?
+
+  memberships        Membership[]
+  groups             UserGroup[]
+  permissions        UserPermission[]
+  sectionCompletions SectionCompletion[]
+  quizAttempts       QuizAttempt[]
+  comments           Comment[]
+  certificates       Certificate[]
+  notifications      Notification[]
+  createdModules     Module[]               @relation("ModuleCreator")
+  auditLogs          AuditLog[]             @relation("AuditActor")
+  progressOverrides  ProgressOverride[]     @relation("OverrideBy")
+  selfAssessments    ModuleSelfAssessment[]
+  moduleAccesses     UserModuleLastAccess[]
+  changeLogs         ModuleChangeLog[]      @relation("ChangeLogAuthor")
+  moduleReviews      UserModuleReview[]
+  pinnedModules      UserPinnedModule[]
+  changelogEntries   ChangelogEntry[]    @relation("ChangelogAuthor")
+
+  @@index([role, isActive])
+}
+
+enum Role {
+  OWNER
+  SUPER_ADMIN
+  ADMIN
+  EMPLOYEE
+}
+
+// ============================================
+// FINE-GRAINED PERMISSIONS
+// ============================================
+
+model UserPermission {
+  id         String     @id @default(cuid())
+  userId     String
+  tenantId   String
+  permission Permission
+  scope      Json?
+  grantedAt  DateTime   @default(now())
+  grantedBy  String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, permission, tenantId])
+  @@index([userId])
+  @@index([tenantId])
+}
+
+enum Permission {
+  MANAGE_ALL_MODULES
+  MANAGE_OWN_MODULES
+  VIEW_ALL_PROGRESS
+  VIEW_GROUP_PROGRESS
+  MANAGE_USERS
+  MANAGE_GROUPS
+  MANAGE_QUIZZES
+  OVERRIDE_PROGRESS
+  VIEW_ANALYTICS
+  VIEW_AUDIT_LOG
+  EXPORT_REPORTS
+}
+
+// ============================================
+// SKUPINE ZAPOSLENIH
+// ============================================
+
+model Group {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  description String?
+  color       String?
+  createdAt   DateTime @default(now())
+
+  tenant  Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  users   UserGroup[]
+  modules ModuleGroup[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId])
+}
+
+model UserGroup {
+  userId     String
+  groupId    String
+  tenantId   String
+  assignedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group  Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([userId, groupId])
+  @@index([groupId])
+  @@index([tenantId])
+}
+
+// ============================================
+// IZOBRAŽEVALNI MODULI
+// ============================================
+
+model Module {
+  id            String       @id @default(cuid())
+  tenantId      String
+  title         String
+  description   String
+  coverImage    String?
+  status        ModuleStatus @default(DRAFT)
+  sortOrder     Int          @default(0)
+  estimatedTime Int?
+  difficulty    Difficulty   @default(BEGINNER)
+  isMandatory   Boolean      @default(false)
+  version       Int          @default(1)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  publishedAt   DateTime?
+  createdById   String
+  categoryId    String?
+
+  tenant          Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy       User                   @relation("ModuleCreator", fields: [createdById], references: [id])
+  category        ModuleCategory?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  groups          ModuleGroup[]
+  sections        Section[]
+  quizzes         Quiz[]
+  comments        Comment[]
+  certificates    Certificate[]
+  tags            ModuleTag[]
+  prerequisites   ModulePrerequisite[]   @relation("DependentModule")
+  dependents      ModulePrerequisite[]   @relation("PrereqModule")
+  selfAssessments ModuleSelfAssessment[]
+  lastAccesses    UserModuleLastAccess[]
+  overrides       ProgressOverride[]
+  changeLogs      ModuleChangeLog[]
+  reviews         UserModuleReview[]
+  userPins        UserPinnedModule[]
+  companyPins     CompanyPinnedModule[]
+
+  @@index([tenantId, status])
+  @@index([createdById])
+}
+
+enum ModuleStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model ModuleGroup {
+  moduleId     String
+  groupId      String
+  tenantId     String
+  assignedAt   DateTime @default(now())
+  deadlineDays Int?
+  isMandatory  Boolean  @default(false)
+
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  group  Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([moduleId, groupId])
+  @@index([groupId])
+  @@index([tenantId])
+}
+
+model ModulePrerequisite {
+  dependentModuleId    String
+  prerequisiteModuleId String
+  tenantId             String
+
+  dependentModule    Module @relation("DependentModule", fields: [dependentModuleId], references: [id], onDelete: Cascade)
+  prerequisiteModule Module @relation("PrereqModule", fields: [prerequisiteModuleId], references: [id], onDelete: Cascade)
+  tenant             Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([dependentModuleId, prerequisiteModuleId])
+  @@index([tenantId])
+}
+
+// ============================================
+// SEKCIJE ZNOTRAJ MODULA
+// ============================================
+
+model Section {
+  id                   String      @id @default(cuid())
+  moduleId             String
+  tenantId             String
+  title                String
+  content              String      @db.Text
+  sortOrder            Int         @default(0)
+  type                 SectionType @default(TEXT)
+  unlockAfterSectionId String?
+
+  module             Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  unlockAfterSection Section?            @relation("SectionUnlock", fields: [unlockAfterSectionId], references: [id])
+  unlockedSections   Section[]           @relation("SectionUnlock")
+  attachments        Attachment[]
+  completions        SectionCompletion[]
+
+  @@index([moduleId, sortOrder])
+  @@index([tenantId])
+}
+
+enum SectionType {
+  TEXT
+  VIDEO
+  ATTACHMENT
+  MIXED
+}
+
+// ============================================
+// NORMALIZIRAN PROGRESS PO SEKCIJAH
+// ============================================
+
+model SectionCompletion {
+  id          String   @id @default(cuid())
+  userId      String
+  sectionId   String
+  tenantId    String
+  completedAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sectionId])
+  @@index([userId])
+  @@index([sectionId])
+  @@index([tenantId])
+}
+
+// ============================================
+// SLEDENJE AKTIVNOSTI
+// ============================================
+
+model UserModuleLastAccess {
+  userId         String
+  moduleId       String
+  tenantId       String
+  lastAccessedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([userId, moduleId])
+  @@index([moduleId])
+  @@index([lastAccessedAt])
+  @@index([tenantId])
+}
+
+// ============================================
+// PRILOGE
+// ============================================
+
+model Attachment {
+  id          String         @id @default(cuid())
+  sectionId   String
+  tenantId    String
+  fileName    String
+  storagePath String
+  fileType    AttachmentType
+  fileSize    Int
+  mimeType    String
+  checksum    String?
+  uploadedAt  DateTime       @default(now())
+
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId])
+  @@index([tenantId])
+}
+
+enum AttachmentType {
+  PDF
+  WORD
+  IMAGE
+  OTHER
+}
+
+// ============================================
+// KVIZI
+// ============================================
+
+model Quiz {
+  id           String   @id @default(cuid())
+  moduleId     String
+  tenantId     String
+  title        String
+  description  String?
+  passingScore Int      @default(70)
+  maxAttempts  Int      @default(3)
+  timeLimit    Int?
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  module    Module         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant    Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  attempts  QuizAttempt[]
+
+  @@index([moduleId])
+  @@index([tenantId])
+}
+
+model QuizQuestion {
+  id          String       @id @default(cuid())
+  quizId      String
+  tenantId    String
+  question    String       @db.Text
+  type        QuestionType @default(SINGLE_CHOICE)
+  options     Json
+  explanation String?
+  points      Int          @default(1)
+  sortOrder   Int          @default(0)
+
+  quiz   Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([quizId])
+  @@index([tenantId])
+}
+
+enum QuestionType {
+  SINGLE_CHOICE
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+}
+
+model QuizAttempt {
+  id          String    @id @default(cuid())
+  quizId      String
+  userId      String
+  tenantId    String
+  score       Float
+  passed      Boolean
+  answers     Json
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  quiz   Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([quizId])
+  @@index([userId, quizId])
+  @@index([userId, startedAt])
+  @@index([tenantId])
+}
+
+// ============================================
+// SAMOOCENA
+// ============================================
+
+model ModuleSelfAssessment {
+  id        String   @id @default(cuid())
+  userId    String
+  moduleId  String
+  tenantId  String
+  rating    Int
+  note      String?
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@index([moduleId])
+  @@index([tenantId])
+}
+
+// ============================================
+// PROGRESS OVERRIDE
+// ============================================
+
+model ProgressOverride {
+  id               String   @id @default(cuid())
+  userId           String
+  moduleId         String
+  tenantId         String
+  overrideById     String
+  reason           String   @db.Text
+  allowCertificate Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  overrideBy User   @relation("OverrideBy", fields: [overrideById], references: [id])
+  module     Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant     Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@index([userId])
+  @@index([tenantId])
+}
+
+// ============================================
+// CERTIFIKATI
+// ============================================
+
+model Certificate {
+  id          String   @id @default(cuid())
+  userId      String
+  moduleId    String
+  tenantId    String
+  issuedAt    DateTime @default(now())
+  storagePath String?
+  uniqueCode  String   @unique @default(cuid())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@index([tenantId])
+}
+
+// ============================================
+// KOMENTARJI
+// ============================================
+
+model Comment {
+  id         String   @id @default(cuid())
+  moduleId   String
+  userId     String
+  tenantId   String
+  parentId   String?
+  content    String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isResolved Boolean  @default(false)
+
+  module  Module    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant  Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies Comment[] @relation("CommentReplies")
+
+  @@index([moduleId])
+  @@index([userId])
+  @@index([tenantId])
+}
+
+// ============================================
+// NOTIFIKACIJE
+// ============================================
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  tenantId  String
+  type      NotificationType
+  title     String
+  message   String
+  link      String?
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@index([tenantId])
+}
+
+enum NotificationType {
+  NEW_MODULE
+  DEADLINE_REMINDER
+  QUIZ_RESULT
+  COMMENT_REPLY
+  CERTIFICATE_ISSUED
+  PROGRESS_OVERRIDE
+  MODULE_UPDATED
+  SYSTEM
+}
+
+model NotificationDedup {
+  id        String           @id @default(cuid())
+  userId    String
+  tenantId  String
+  type      NotificationType
+  entityId  String
+  dedupKey  String
+  createdAt DateTime         @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type, entityId, dedupKey])
+  @@index([createdAt])
+  @@index([tenantId])
+}
+
+// ============================================
+// KATEGORIJE MODULOV (PODROČJA)
+// ============================================
+
+model ModuleCategory {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  modules Module[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId, sortOrder])
+}
+
+// ============================================
+// PRIPENJANJE MODULOV
+// ============================================
+
+model UserPinnedModule {
+  userId   String
+  moduleId String
+  pinnedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, moduleId])
+  @@index([moduleId])
+}
+
+model CompanyPinnedModule {
+  tenantId   String
+  moduleId   String
+  pinnedAt   DateTime @default(now())
+  pinnedById String
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@id([tenantId, moduleId])
+  @@index([moduleId])
+}
+
+// ============================================
+// TAGS
+// ============================================
+
+model Tag {
+  id       String      @id @default(cuid())
+  tenantId String
+  name     String
+
+  tenant  Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  modules ModuleTag[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId])
+}
+
+model ModuleTag {
+  moduleId String
+  tagId    String
+  tenantId String
+
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([moduleId, tagId])
+  @@index([tenantId])
+}
+
+// ============================================
+// SLEDENJE SPREMEMBAM MODULOV
+// ============================================
+
+model ModuleChangeLog {
+  id            String   @id @default(cuid())
+  moduleId      String
+  tenantId      String
+  version       Int
+  changeSummary String   @db.Text
+  changedById   String
+  createdAt     DateTime @default(now())
+
+  module    Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant    Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  changedBy User   @relation("ChangeLogAuthor", fields: [changedById], references: [id])
+
+  @@index([moduleId])
+  @@index([createdAt])
+  @@index([tenantId])
+}
+
+model UserModuleReview {
+  userId          String
+  moduleId        String
+  tenantId        String
+  lastSeenVersion Int
+  acknowledgedAt  DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([userId, moduleId])
+  @@index([tenantId])
+}
+
+// ============================================
+// AUDIT LOG
+// ============================================
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  actorId    String?
+  tenantId   String?
+  action     AuditAction
+  entityType String
+  entityId   String
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime    @default(now())
+
+  actor  User?   @relation("AuditActor", fields: [actorId], references: [id])
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([action])
+  @@index([tenantId])
+}
+
+// ============================================
+// CHANGELOG / POSODOBITVE
+// ============================================
+
+model ChangelogEntry {
+  id        String   @id @default(cuid())
+  tenantId  String?
+  version   String
+  title     String
+  summary   String
+  isCurrent Boolean  @default(false)
+  createdById String?
+  createdAt DateTime @default(now())
+
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy User?    @relation("ChangelogAuthor", fields: [createdById], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([isCurrent])
+}
+
+enum AuditAction {
+  USER_CREATED
+  USER_UPDATED
+  USER_DEACTIVATED
+  USER_DELETED
+  USER_LOGIN
+  USER_PASSWORD_RESET
+  MODULE_CREATED
+  MODULE_UPDATED
+  MODULE_PUBLISHED
+  MODULE_ARCHIVED
+  MODULE_ASSIGNED
+  SECTION_COMPLETED
+  QUIZ_ATTEMPTED
+  PROGRESS_OVERRIDDEN
+  CERTIFICATE_ISSUED
+  PERMISSION_GRANTED
+  PERMISSION_REVOKED
+  GROUP_CREATED
+  GROUP_UPDATED
+  DATA_EXPORTED
+  DATA_ANONYMIZED
+  MODULE_VERSION_BUMPED
+  TENANT_CREATED
+  TENANT_UPDATED
+  TENANT_ARCHIVED
+  MEMBERSHIP_CHANGED
+  OWNER_IMPERSONATION
+}

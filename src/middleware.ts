@@ -14,8 +14,13 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
-  // Allow API auth routes and cron routes
-  if (pathname.startsWith("/api/auth") || pathname.startsWith("/api/cron")) {
+  // Allow API auth, cron, and public asset routes (logos, covers)
+  if (
+    pathname.startsWith("/api/auth") ||
+    pathname.startsWith("/api/cron") ||
+    pathname.startsWith("/api/logos") ||
+    pathname.startsWith("/api/covers")
+  ) {
     return NextResponse.next();
   }
 

@@ -652,7 +652,8 @@ function VideoEditor({
       }
     } catch (err) {
       console.error("Video upload error:", err);
-      toast.error(t("admin.sectionEditor.videoUploadError"));
+      const msg = err instanceof Error ? err.message : String(err);
+      toast.error(msg || t("admin.sectionEditor.videoUploadError"));
     } finally {
       setUploading(false);
     }

@@ -33,7 +33,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com https://*.public.blob.vercel-storage.com https://img.youtube.com https://i.ytimg.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://*.vercel-storage.com https://*.public.blob.vercel-storage.com",
+      "connect-src 'self' https://vercel.com https://*.vercel.com https://*.vercel-storage.com https://*.public.blob.vercel-storage.com",
       "media-src 'self' https://*.public.blob.vercel-storage.com",
       "frame-src https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",

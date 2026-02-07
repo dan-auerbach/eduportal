@@ -7,6 +7,8 @@ import { rateLimit } from "./rate-limit";
 
 export type Role = "OWNER" | "SUPER_ADMIN" | "ADMIN" | "EMPLOYEE";
 
+const ROLE_REFRESH_INTERVAL_MS = 5 * 60 * 1000; // Refresh role from DB every 5 minutes
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
@@ -58,6 +60,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    ...authConfig.callbacks,
+    async jwt({ token, user }) {
+      // Run the base jwt callback (sets initial token fields)
+      const baseToken = await authConfig.callbacks.jwt({ token, user } as Parameters<NonNullable<typeof authConfig.callbacks.jwt>>[0]);
+
+      // Periodically refresh role from DB to prevent stale JWT roles
+      // This only runs in Node.js runtime (server actions, API routes), not in Edge middleware
+      const lastRefresh = (baseToken as { roleRefreshedAt?: number }).roleRefreshedAt ?? 0;
+      if (Date.now() - lastRefresh > ROLE_REFRESH_INTERVAL_MS) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: baseToken.id },
+            select: { role: true, firstName: true, lastName: true },
+          });
+          if (dbUser) {
+            baseToken.role = dbUser.role as Role;
+            baseToken.firstName = dbUser.firstName;
+            baseToken.lastName = dbUser.lastName;
+          }
+          (baseToken as { roleRefreshedAt?: number }).roleRefreshedAt = Date.now();
+        } catch {
+          // DB error — keep existing token values, try again next time
+        }
+      }
+
+      return baseToken;
+    },
+  },
 });
 
 export type SessionUser = {

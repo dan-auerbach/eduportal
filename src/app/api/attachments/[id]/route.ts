@@ -1,13 +1,11 @@
-import { NextResponse } from "next/server";
-import { createReadStream } from "fs";
-import { readFile } from "fs/promises";
 import { createHash } from "crypto";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { checkModuleAccess } from "@/lib/permissions";
 import { getActiveTenantId } from "@/lib/tenant";
+import { storage } from "@/lib/storage";
 
-export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session?.user) {
     return new Response("Unauthorized", { status: 401 });
@@ -39,30 +37,26 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     return new Response("Forbidden", { status: 403 });
   }
 
+  // Read from storage (local or R2)
+  const obj = await storage.get(attachment.storagePath);
+  if (!obj) {
+    return new Response("File not found", { status: 404 });
+  }
+
   // Verify integrity if checksum exists
   if (attachment.checksum) {
-    try {
-      const buffer = await readFile(attachment.storagePath);
-      const hash = createHash("sha256").update(buffer).digest("hex");
-      if (hash !== attachment.checksum) {
-        console.error(`Checksum mismatch for attachment ${id}`);
-        return new Response("File integrity error", { status: 500 });
-      }
-    } catch {
-      return new Response("File not found on disk", { status: 404 });
+    const hash = createHash("sha256").update(obj.data).digest("hex");
+    if (hash !== attachment.checksum) {
+      console.error(`Checksum mismatch for attachment ${id}`);
+      return new Response("File integrity error", { status: 500 });
     }
   }
 
-  try {
-    const buffer = await readFile(attachment.storagePath);
-    return new Response(buffer, {
-      headers: {
-        "Content-Type": attachment.mimeType,
-        "Content-Disposition": `inline; filename="${attachment.fileName}"`,
-        "Content-Length": String(attachment.fileSize),
-      },
-    });
-  } catch {
-    return new Response("File not found", { status: 404 });
-  }
+  return new Response(new Uint8Array(obj.data), {
+    headers: {
+      "Content-Type": attachment.mimeType,
+      "Content-Disposition": `inline; filename="${attachment.fileName}"`,
+      "Content-Length": String(obj.size),
+    },
+  });
 }

@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { createHash, randomBytes } from "crypto";
-import path from "path";
-import fs from "fs/promises";
-import sharp from "sharp";
+import { storage, generateHashKey } from "@/lib/storage";
 
 const COVER_MAX_SIZE = 1000 * 1024; // 1000 KB = ~1 MB
-const COVER_MAX_WIDTH = 800; // resize to max 800px wide
-const COVER_QUALITY = 80; // JPEG quality
-const COVER_DIR = path.join(process.env.STORAGE_DIR || "./storage/uploads", "covers");
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -18,6 +12,24 @@ const ALLOWED_MIME_TYPES = new Set([
 ]);
 
 const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".svg"]);
+
+const SVG_DANGEROUS_PATTERNS = [
+  /<script[\s>]/i,
+  /on\w+\s*=/i,
+  /javascript:/i,
+  /data:text\/html/i,
+  /<foreignObject/i,
+  /<iframe/i,
+  /<embed/i,
+  /<object/i,
+  /xlink:href\s*=\s*["'](?!#)/i,
+  /href\s*=\s*["'](?!#)/i,
+];
+
+function getExtension(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  return dot >= 0 ? filename.slice(dot).toLowerCase() : "";
+}
 
 export async function POST(req: Request) {
   // 1. Auth check
@@ -51,7 +63,7 @@ export async function POST(req: Request) {
     }
 
     // 4. Extension check
-    const ext = path.extname(file.name).toLowerCase();
+    const ext = getExtension(file.name);
     if (!ALLOWED_EXTENSIONS.has(ext)) {
       return NextResponse.json(
         { error: "Neveljavna končnica datoteke" },
@@ -64,25 +76,13 @@ export async function POST(req: Request) {
 
     let processedBuffer: Buffer;
     let outputExt: string;
+    let contentType: string;
 
     if (file.type === "image/svg+xml") {
       // SVG: sanitize
       const svgString = buffer.toString("utf-8");
 
-      const dangerousPatterns = [
-        /<script[\s>]/i,
-        /on\w+\s*=/i,
-        /javascript:/i,
-        /data:text\/html/i,
-        /<foreignObject/i,
-        /<iframe/i,
-        /<embed/i,
-        /<object/i,
-        /xlink:href\s*=\s*["'](?!#)/i,
-        /href\s*=\s*["'](?!#)/i,
-      ];
-
-      for (const pattern of dangerousPatterns) {
+      for (const pattern of SVG_DANGEROUS_PATTERNS) {
         if (pattern.test(svgString)) {
           return NextResponse.json(
             { error: "SVG vsebuje nedovoljeno vsebino" },
@@ -100,46 +100,37 @@ export async function POST(req: Request) {
 
       processedBuffer = buffer;
       outputExt = ".svg";
+      contentType = "image/svg+xml";
     } else {
-      // Raster images: validate, resize, compress
-      try {
-        const metadata = await sharp(buffer).metadata();
-        if (!metadata.width || !metadata.height) {
-          return NextResponse.json(
-            { error: "Neveljavna slikovna datoteka" },
-            { status: 400 }
-          );
-        }
-
-        // Resize to max width, preserve aspect ratio, compress as JPEG
-        processedBuffer = await sharp(buffer)
-          .resize(COVER_MAX_WIDTH, undefined, {
-            fit: "inside",
-            withoutEnlargement: true,
-          })
-          .jpeg({ quality: COVER_QUALITY, mozjpeg: true })
-          .toBuffer();
-
-        outputExt = ".jpg";
-      } catch {
+      // Raster images: accept as-is (no sharp dependency)
+      if (buffer.length < 4) {
         return NextResponse.json(
           { error: "Datoteka ni veljavna slika" },
           { status: 400 }
         );
       }
+
+      const isPng = buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47;
+      const isJpeg = buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF;
+
+      if (!isPng && !isJpeg) {
+        return NextResponse.json(
+          { error: "Datoteka ni veljavna slika" },
+          { status: 400 }
+        );
+      }
+
+      processedBuffer = buffer;
+      outputExt = isPng ? ".png" : ".jpg";
+      contentType = isPng ? "image/png" : "image/jpeg";
     }
 
-    // 6. Generate unique filename
-    const hash = createHash("sha256").update(processedBuffer).digest("hex").slice(0, 12);
-    const random = randomBytes(4).toString("hex");
-    const filename = `${hash}-${random}${outputExt}`;
+    // 6. Save to storage
+    const key = generateHashKey("covers", outputExt, processedBuffer);
+    await storage.put(key, processedBuffer, contentType);
 
-    // 7. Save to covers directory
-    await fs.mkdir(COVER_DIR, { recursive: true });
-    const filePath = path.join(COVER_DIR, filename);
-    await fs.writeFile(filePath, processedBuffer);
-
-    // 8. Return the public URL path
+    // 7. Return the storage key as URL path
+    const filename = key.split("/").pop()!;
     const coverUrl = `/api/covers/${filename}`;
 
     return NextResponse.json({ coverUrl, filename });

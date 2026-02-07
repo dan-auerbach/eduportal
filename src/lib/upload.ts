@@ -1,13 +1,8 @@
 import { createHash } from "crypto";
-import path from "path";
-import fs from "fs/promises";
 import { isAllowedMime, isAllowedExtension } from "./validators";
+import { storage, generateStorageKey } from "./storage";
 
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE || "26214400", 10);
-
-function sanitizeFilename(filename: string): string {
-  return filename.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
-}
 
 export class UploadError extends Error {
   constructor(message: string) {
@@ -41,13 +36,9 @@ export async function processUpload(file: File): Promise<{
   const buffer = Buffer.from(await file.arrayBuffer());
   const checksum = createHash("sha256").update(buffer).digest("hex");
 
-  // 5. Save to private storage
-  const storageDir = process.env.STORAGE_DIR || "./storage/uploads";
-  await fs.mkdir(storageDir, { recursive: true });
+  // 5. Save to storage (local filesystem or R2)
+  const key = generateStorageKey("attachments", file.name, buffer);
+  await storage.put(key, buffer, file.type);
 
-  const filename = `${Date.now()}-${checksum.slice(0, 8)}-${sanitizeFilename(file.name)}`;
-  const storagePath = path.join(storageDir, filename);
-  await fs.writeFile(storagePath, buffer);
-
-  return { storagePath, mimeType: file.type, checksum, fileSize: file.size };
+  return { storagePath: key, mimeType: file.type, checksum, fileSize: file.size };
 }

@@ -46,3 +46,8 @@ next-env.d.ts
 # private storage
 /storage/uploads/*
 !/storage/.gitkeep
+
+# Cloudflare / OpenNext
+/.open-next/
+.wrangler/
+.dev.vars

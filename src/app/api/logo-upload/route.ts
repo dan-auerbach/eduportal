@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { createHash, randomBytes } from "crypto";
-import path from "path";
-import fs from "fs/promises";
-import sharp from "sharp";
+import { storage, generateHashKey } from "@/lib/storage";
 
 const LOGO_MAX_SIZE = 500 * 1024; // 500 KB
-const LOGO_OUTPUT_SIZE = 256; // px — resize to 256x256 max
-const LOGO_QUALITY = 80;
-const LOGO_DIR = path.join(process.env.STORAGE_DIR || "./storage/uploads", "logos");
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -23,6 +17,24 @@ const ALLOWED_EXTENSIONS = new Set([
   ".png",
   ".svg",
 ]);
+
+const SVG_DANGEROUS_PATTERNS = [
+  /<script[\s>]/i,
+  /on\w+\s*=/i,
+  /javascript:/i,
+  /data:text\/html/i,
+  /<foreignObject/i,
+  /<iframe/i,
+  /<embed/i,
+  /<object/i,
+  /xlink:href\s*=\s*["'](?!#)/i,
+  /href\s*=\s*["'](?!#)/i,
+];
+
+function getExtension(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  return dot >= 0 ? filename.slice(dot).toLowerCase() : "";
+}
 
 export async function POST(req: Request) {
   // 1. Auth check
@@ -39,7 +51,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Datoteka ni bila poslana" }, { status: 400 });
     }
 
-    // 2. Size check (before reading into memory)
+    // 2. Size check
     if (file.size > LOGO_MAX_SIZE) {
       return NextResponse.json(
         { error: "Logotip ne sme presegati 500 KB" },
@@ -55,8 +67,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // 4. Extension check — must match MIME
-    const ext = path.extname(file.name).toLowerCase();
+    // 4. Extension check
+    const ext = getExtension(file.name);
     if (!ALLOWED_EXTENSIONS.has(ext)) {
       return NextResponse.json(
         { error: "Neveljavna končnica datoteke" },
@@ -67,29 +79,16 @@ export async function POST(req: Request) {
     // 5. Read buffer
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    // 6. Validate actual image content (magic bytes)
+    // 6. Validate and determine output
     let processedBuffer: Buffer;
     let outputExt: string;
+    let contentType: string;
 
     if (file.type === "image/svg+xml") {
-      // SVG: sanitize — strip scripts, event handlers, external references
+      // SVG: sanitize — reject dangerous content
       const svgString = buffer.toString("utf-8");
 
-      // Reject SVG with suspicious content
-      const dangerousPatterns = [
-        /<script[\s>]/i,
-        /on\w+\s*=/i, // onclick, onload, etc.
-        /javascript:/i,
-        /data:text\/html/i,
-        /<foreignObject/i,
-        /<iframe/i,
-        /<embed/i,
-        /<object/i,
-        /xlink:href\s*=\s*["'](?!#)/i, // external xlink refs (allow internal #id)
-        /href\s*=\s*["'](?!#)/i, // external hrefs in SVG
-      ];
-
-      for (const pattern of dangerousPatterns) {
+      for (const pattern of SVG_DANGEROUS_PATTERNS) {
         if (pattern.test(svgString)) {
           return NextResponse.json(
             { error: "SVG vsebuje nedovoljeno vsebino" },
@@ -98,7 +97,6 @@ export async function POST(req: Request) {
         }
       }
 
-      // Ensure it actually starts with SVG-like content
       if (!svgString.trimStart().startsWith("<")) {
         return NextResponse.json(
           { error: "Neveljavna SVG datoteka" },
@@ -108,46 +106,39 @@ export async function POST(req: Request) {
 
       processedBuffer = buffer;
       outputExt = ".svg";
+      contentType = "image/svg+xml";
     } else {
-      // Raster images: validate with sharp, resize and compress
-      try {
-        const metadata = await sharp(buffer).metadata();
-        if (!metadata.width || !metadata.height) {
-          return NextResponse.json(
-            { error: "Neveljavna slikovna datoteka" },
-            { status: 400 }
-          );
-        }
-
-        // Resize to max 256x256, preserving aspect ratio, and compress as PNG
-        processedBuffer = await sharp(buffer)
-          .resize(LOGO_OUTPUT_SIZE, LOGO_OUTPUT_SIZE, {
-            fit: "inside",
-            withoutEnlargement: true,
-          })
-          .png({ quality: LOGO_QUALITY, compressionLevel: 9 })
-          .toBuffer();
-
-        outputExt = ".png";
-      } catch {
+      // Raster images: accept as-is (no sharp dependency)
+      // Basic validation: check magic bytes
+      if (buffer.length < 4) {
         return NextResponse.json(
           { error: "Datoteka ni veljavna slika" },
           { status: 400 }
         );
       }
+
+      // Check PNG magic bytes (89 50 4E 47) or JPEG (FF D8 FF)
+      const isPng = buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47;
+      const isJpeg = buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF;
+
+      if (!isPng && !isJpeg) {
+        return NextResponse.json(
+          { error: "Datoteka ni veljavna slika" },
+          { status: 400 }
+        );
+      }
+
+      processedBuffer = buffer;
+      outputExt = isPng ? ".png" : ".jpg";
+      contentType = isPng ? "image/png" : "image/jpeg";
     }
 
-    // 7. Generate unique filename
-    const hash = createHash("sha256").update(processedBuffer).digest("hex").slice(0, 12);
-    const random = randomBytes(4).toString("hex");
-    const filename = `${hash}-${random}${outputExt}`;
+    // 7. Save to storage
+    const key = generateHashKey("logos", outputExt, processedBuffer);
+    await storage.put(key, processedBuffer, contentType);
 
-    // 8. Save to logos directory
-    await fs.mkdir(LOGO_DIR, { recursive: true });
-    const filePath = path.join(LOGO_DIR, filename);
-    await fs.writeFile(filePath, processedBuffer);
-
-    // 9. Return the public URL path
+    // 8. Return the storage key as URL path
+    const filename = key.split("/").pop()!;
     const logoUrl = `/api/logos/${filename}`;
 
     return NextResponse.json({ logoUrl, filename });

@@ -100,7 +100,9 @@ export async function getModule(
         sections: {
           orderBy: { sortOrder: "asc" },
           include: {
-            attachments: true,
+            attachments: {
+              select: { id: true, fileName: true, mimeType: true, fileSize: true, storagePath: true },
+            },
             _count: { select: { completions: true } },
           },
         },

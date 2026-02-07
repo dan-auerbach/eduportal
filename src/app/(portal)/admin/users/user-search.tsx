@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { t } from "@/lib/i18n";
@@ -11,19 +11,30 @@ export function UserSearch({ defaultValue }: { defaultValue: string }) {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState(defaultValue);
+  const isFirstRender = useRef(true);
 
-  function handleSearch(term: string) {
-    setValue(term);
-    const params = new URLSearchParams(searchParams.toString());
-    if (term) {
-      params.set("q", term);
-    } else {
-      params.delete("q");
+  // Debounce: wait 300ms after last keystroke before navigating
+  useEffect(() => {
+    // Skip on initial mount
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
-    startTransition(() => {
-      router.push(`/admin/users?${params.toString()}`);
-    });
-  }
+
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value) {
+        params.set("q", value);
+      } else {
+        params.delete("q");
+      }
+      startTransition(() => {
+        router.push(`/admin/users?${params.toString()}`);
+      });
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [value, searchParams, router]);
 
   return (
     <div className="relative max-w-sm">
@@ -31,7 +42,7 @@ export function UserSearch({ defaultValue }: { defaultValue: string }) {
       <Input
         placeholder={t("admin.users.searchPlaceholder")}
         value={value}
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         className="pl-9"
       />
       {isPending && (

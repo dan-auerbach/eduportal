@@ -62,6 +62,16 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      {
+        // Cache API-served images (logos, covers) for 1 hour, stale-while-revalidate 1 day
+        source: "/api/(logos|covers)/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, stale-while-revalidate=86400",
+          },
+        ],
+      },
     ];
   },
 };

@@ -41,7 +41,17 @@ export async function GET(req: Request) {
         module: { status: "PUBLISHED" },
       },
       include: {
-        group: { include: { users: { include: { user: true } } } },
+        group: {
+          include: {
+            users: {
+              select: {
+                userId: true,
+                assignedAt: true,
+                user: { select: { id: true, email: true, firstName: true, lastName: true } },
+              },
+            },
+          },
+        },
         module: { select: { id: true, title: true } },
       },
     });

@@ -166,6 +166,7 @@ export function ModuleCard({ module }: { module: ModuleCardProps }) {
               src={module.coverImage}
               alt={module.title}
               fill
+              loading="lazy"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />

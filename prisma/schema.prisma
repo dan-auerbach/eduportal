@@ -249,6 +249,7 @@ model Module {
 
   @@index([tenantId, status])
   @@index([createdById])
+  @@index([categoryId])
 }
 
 enum ModuleStatus {
@@ -344,6 +345,7 @@ model SectionCompletion {
   @@index([userId])
   @@index([sectionId])
   @@index([tenantId])
+  @@index([userId, tenantId])
 }
 
 // ============================================
@@ -465,6 +467,7 @@ model QuizAttempt {
   @@index([userId, quizId])
   @@index([userId, startedAt])
   @@index([tenantId])
+  @@index([userId, tenantId, passed])
 }
 
 // ============================================
@@ -510,6 +513,7 @@ model ProgressOverride {
   @@unique([userId, moduleId])
   @@index([userId])
   @@index([tenantId])
+  @@index([userId, tenantId])
 }
 
 // ============================================
@@ -531,6 +535,8 @@ model Certificate {
 
   @@unique([userId, moduleId])
   @@index([tenantId])
+  @@index([userId])
+  @@index([userId, tenantId])
 }
 
 // ============================================
@@ -580,6 +586,7 @@ model Notification {
   @@index([userId, isRead])
   @@index([userId, createdAt])
   @@index([tenantId])
+  @@index([userId, tenantId, isRead])
 }
 
 enum NotificationType {
@@ -607,6 +614,7 @@ model NotificationDedup {
   @@unique([userId, type, entityId, dedupKey])
   @@index([createdAt])
   @@index([tenantId])
+  @@index([userId, tenantId])
 }
 
 // ============================================
@@ -745,6 +753,7 @@ model AuditLog {
   @@index([createdAt])
   @@index([action])
   @@index([tenantId])
+  @@index([tenantId, createdAt])
 }
 
 // ============================================

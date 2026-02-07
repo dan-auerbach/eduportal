@@ -657,6 +657,16 @@ export async function deleteSection(
       await requirePermission(currentUser, "MANAGE_OWN_MODULES");
     }
 
+    // Clean up video blob if exists
+    if (existing.videoBlobUrl) {
+      try {
+        const { del } = await import("@vercel/blob");
+        await del(existing.videoBlobUrl);
+      } catch {
+        // Ignore blob deletion errors
+      }
+    }
+
     // Clear any references to this section in unlockAfterSectionId
     await prisma.section.updateMany({
       where: { unlockAfterSectionId: id, tenantId: ctx.tenantId },
@@ -716,6 +726,8 @@ export async function duplicateSection(
         type: existing.type,
         sortOrder: nextOrder,
         unlockAfterSectionId: null,
+        // Copy video source type but NOT blob data (duplicate won't share video file)
+        videoSourceType: existing.videoSourceType,
       },
     });
 

@@ -35,6 +35,9 @@ type SectionData = {
   sortOrder: number;
   type: "TEXT" | "VIDEO" | "ATTACHMENT" | "MIXED";
   unlockAfterSectionId: string | null;
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD";
+  videoBlobUrl: string | null;
+  videoMimeType: string | null;
   attachments: {
     id: string;
     fileName: string;
@@ -375,6 +378,23 @@ export function SectionViewer({
                 {(activeSection.type === "VIDEO" ||
                   activeSection.type === "MIXED") &&
                   (() => {
+                    // Uploaded video
+                    if (activeSection.videoSourceType === "UPLOAD" && activeSection.videoBlobUrl) {
+                      return (
+                        <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">
+                          <video
+                            src={activeSection.videoBlobUrl}
+                            controls
+                            className="h-full w-full"
+                            preload="metadata"
+                          >
+                            {t("sectionViewer.videoNotSupported")}
+                          </video>
+                        </div>
+                      );
+                    }
+
+                    // YouTube/Vimeo URL
                     const youtubeId = extractYouTubeId(activeSection.content);
                     if (!youtubeId) return null;
                     return (

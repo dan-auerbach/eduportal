@@ -111,6 +111,9 @@ export default async function ModuleViewerPage({
     sortOrder: s.sortOrder,
     type: s.type,
     unlockAfterSectionId: s.unlockAfterSectionId,
+    videoSourceType: s.videoSourceType,
+    videoBlobUrl: s.videoBlobUrl,
+    videoMimeType: s.videoMimeType,
     attachments: s.attachments,
   }));
 

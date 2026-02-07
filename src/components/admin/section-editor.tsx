@@ -63,7 +63,7 @@ import {
   FileText,
 } from "lucide-react";
 import { RichTextEditor } from "./rich-text-editor";
-import type { SectionType } from "@/generated/prisma/client";
+import type { SectionType, VideoSourceType } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
 
 function getSectionTypeLabel(sectionType: SectionType): string {
@@ -77,6 +77,11 @@ interface SectionData {
   type: SectionType;
   sortOrder: number;
   unlockAfterSectionId: string | null;
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD";
+  videoBlobUrl: string | null;
+  videoFileName: string | null;
+  videoSize: number | null;
+  videoMimeType: string | null;
 }
 
 interface SectionEditorSheetProps {
@@ -99,6 +104,7 @@ export function SectionEditorSheet({
   const [localContent, setLocalContent] = useState("");
   const [localType, setLocalType] = useState<SectionType>("TEXT");
   const [localUnlockAfter, setLocalUnlockAfter] = useState("none");
+  const [localVideoSourceType, setLocalVideoSourceType] = useState<VideoSourceType>("YOUTUBE_VIMEO_URL");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("saved");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -108,6 +114,7 @@ export function SectionEditorSheet({
     content: "",
     type: "TEXT" as SectionType,
     unlockAfter: "none",
+    videoSourceType: "YOUTUBE_VIMEO_URL" as VideoSourceType,
   });
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionIdRef = useRef<string | null>(null);
@@ -119,12 +126,14 @@ export function SectionEditorSheet({
       setLocalContent(section.content);
       setLocalType(section.type);
       setLocalUnlockAfter(section.unlockAfterSectionId || "none");
+      setLocalVideoSourceType(section.videoSourceType || "YOUTUBE_VIMEO_URL");
       setSaveStatus("saved");
       savedValuesRef.current = {
         title: section.title,
         content: section.content,
         type: section.type,
         unlockAfter: section.unlockAfterSectionId || "none",
+        videoSourceType: section.videoSourceType || "YOUTUBE_VIMEO_URL",
       };
       sectionIdRef.current = section.id;
     }
@@ -135,9 +144,10 @@ export function SectionEditorSheet({
       localTitle !== savedValuesRef.current.title ||
       localContent !== savedValuesRef.current.content ||
       localType !== savedValuesRef.current.type ||
-      localUnlockAfter !== savedValuesRef.current.unlockAfter
+      localUnlockAfter !== savedValuesRef.current.unlockAfter ||
+      localVideoSourceType !== savedValuesRef.current.videoSourceType
     );
-  }, [localTitle, localContent, localType, localUnlockAfter]);
+  }, [localTitle, localContent, localType, localUnlockAfter, localVideoSourceType]);
 
   const handleSave = useCallback(async () => {
     if (!sectionIdRef.current) return;
@@ -151,6 +161,7 @@ export function SectionEditorSheet({
       type: localType,
       unlockAfterSectionId:
         localUnlockAfter === "none" ? null : localUnlockAfter,
+      videoSourceType: localVideoSourceType,
     };
 
     const result = await updateSection(sectionIdRef.current, data);
@@ -162,13 +173,14 @@ export function SectionEditorSheet({
         content: localContent,
         type: localType,
         unlockAfter: localUnlockAfter,
+        videoSourceType: localVideoSourceType,
       };
       router.refresh();
     } else {
       setSaveStatus("unsaved");
       toast.error(result.error);
     }
-  }, [localTitle, localContent, localType, localUnlockAfter, isDirty, router]);
+  }, [localTitle, localContent, localType, localUnlockAfter, localVideoSourceType, isDirty, router]);
 
   // Autosave debounce
   useEffect(() => {
@@ -190,7 +202,7 @@ export function SectionEditorSheet({
         clearTimeout(debounceTimerRef.current);
       }
     };
-  }, [localTitle, localContent, localType, localUnlockAfter, section, isDirty, handleSave]);
+  }, [localTitle, localContent, localType, localUnlockAfter, localVideoSourceType, section, isDirty, handleSave]);
 
   function handleClose() {
     if (isDirty() && saveStatus === "unsaved") {
@@ -336,6 +348,12 @@ export function SectionEditorSheet({
                 type={localType}
                 content={localContent}
                 onChange={setLocalContent}
+                videoSourceType={localVideoSourceType}
+                onVideoSourceTypeChange={setLocalVideoSourceType}
+                sectionId={section?.id ?? null}
+                videoBlobUrl={section?.videoBlobUrl ?? null}
+                videoFileName={section?.videoFileName ?? null}
+                videoSize={section?.videoSize ?? null}
               />
 
               {/* Advanced section */}
@@ -449,20 +467,54 @@ function TypeSpecificEditor({
   type,
   content,
   onChange,
+  videoSourceType,
+  onVideoSourceTypeChange,
+  sectionId,
+  videoBlobUrl,
+  videoFileName,
+  videoSize,
 }: {
   type: SectionType;
   content: string;
   onChange: (value: string) => void;
+  videoSourceType: VideoSourceType;
+  onVideoSourceTypeChange: (v: VideoSourceType) => void;
+  sectionId: string | null;
+  videoBlobUrl: string | null;
+  videoFileName: string | null;
+  videoSize: number | null;
 }) {
   switch (type) {
     case "TEXT":
       return <TextEditor content={content} onChange={onChange} />;
     case "VIDEO":
-      return <VideoEditor content={content} onChange={onChange} />;
+      return (
+        <VideoEditor
+          content={content}
+          onChange={onChange}
+          videoSourceType={videoSourceType}
+          onVideoSourceTypeChange={onVideoSourceTypeChange}
+          sectionId={sectionId}
+          videoBlobUrl={videoBlobUrl}
+          videoFileName={videoFileName}
+          videoSize={videoSize}
+        />
+      );
     case "ATTACHMENT":
       return <AttachmentEditor content={content} onChange={onChange} />;
     case "MIXED":
-      return <MixedEditor content={content} onChange={onChange} />;
+      return (
+        <MixedEditor
+          content={content}
+          onChange={onChange}
+          videoSourceType={videoSourceType}
+          onVideoSourceTypeChange={onVideoSourceTypeChange}
+          sectionId={sectionId}
+          videoBlobUrl={videoBlobUrl}
+          videoFileName={videoFileName}
+          videoSize={videoSize}
+        />
+      );
     default:
       return <TextEditor content={content} onChange={onChange} />;
   }
@@ -506,41 +558,245 @@ function extractYouTubeId(url: string): string | null {
 function VideoEditor({
   content,
   onChange,
+  videoSourceType,
+  onVideoSourceTypeChange,
+  sectionId,
+  videoBlobUrl,
+  videoFileName,
+  videoSize,
 }: {
   content: string;
   onChange: (value: string) => void;
+  videoSourceType: VideoSourceType;
+  onVideoSourceTypeChange: (v: VideoSourceType) => void;
+  sectionId: string | null;
+  videoBlobUrl: string | null;
+  videoFileName: string | null;
+  videoSize: number | null;
 }) {
   const videoId = useMemo(() => extractYouTubeId(content), [content]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  // Local state to show newly uploaded video immediately
+  const [localBlobUrl, setLocalBlobUrl] = useState<string | null>(null);
+  const [localFileName, setLocalFileName] = useState<string | null>(null);
+  const [localFileSize, setLocalFileSize] = useState<number | null>(null);
+
+  // Sync local state with props
+  useEffect(() => {
+    setLocalBlobUrl(videoBlobUrl);
+    setLocalFileName(videoFileName);
+    setLocalFileSize(videoSize);
+  }, [videoBlobUrl, videoFileName, videoSize]);
+
+  const handleFileUpload = useCallback(async (file: File) => {
+    if (!sectionId) {
+      toast.error(t("admin.sectionEditor.videoSaveFirst"));
+      return;
+    }
+
+    const allowedTypes = ["video/mp4", "video/webm", "video/ogg", "video/quicktime"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error(t("admin.sectionEditor.videoInvalidFormat"));
+      return;
+    }
+
+    if (file.size > 500 * 1024 * 1024) {
+      toast.error(t("admin.sectionEditor.videoTooLarge"));
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("sectionId", sectionId);
+
+      const res = await fetch("/api/videos/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || t("admin.sectionEditor.videoUploadError"));
+        return;
+      }
+
+      setLocalBlobUrl(data.videoBlobUrl);
+      setLocalFileName(data.videoFileName);
+      setLocalFileSize(data.videoSize);
+      toast.success(t("admin.sectionEditor.videoUploaded"));
+    } catch {
+      toast.error(t("admin.sectionEditor.videoUploadError"));
+    } finally {
+      setUploading(false);
+      setUploadProgress(0);
+    }
+  }, [sectionId]);
+
+  const handleRemoveVideo = useCallback(async () => {
+    if (!sectionId || !localBlobUrl) return;
+
+    try {
+      // Clear video fields by saving section without video data
+      const res = await fetch("/api/videos/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      // We don't need a delete endpoint - just clear the section fields
+      // The upload endpoint handles old blob cleanup on re-upload
+    } catch {
+      // Ignore
+    }
+
+    setLocalBlobUrl(null);
+    setLocalFileName(null);
+    setLocalFileSize(null);
+    // Clear the content if it was being used as video URL
+    onChange("");
+  }, [sectionId, localBlobUrl, onChange]);
 
   return (
     <div className="space-y-4">
+      {/* Video source selector */}
       <div className="space-y-2">
-        <Label>{t("admin.sectionEditor.videoUrlLabel")}</Label>
-        <Input
-          value={content}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={t("admin.sectionEditor.videoUrlPlaceholder")}
-        />
+        <Label>{t("admin.sectionEditor.videoSource")}</Label>
+        <Select
+          value={videoSourceType}
+          onValueChange={(v) => onVideoSourceTypeChange(v as VideoSourceType)}
+        >
+          <SelectTrigger className="w-[280px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="YOUTUBE_VIMEO_URL">
+              {t("admin.sectionEditor.videoSourceUrl")}
+            </SelectItem>
+            <SelectItem value="UPLOAD">
+              {t("admin.sectionEditor.videoSourceUpload")}
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-      {videoId ? (
-        <div className="space-y-2">
-          <Label className="text-muted-foreground">
-            {t("admin.sectionEditor.videoPreview")}
-          </Label>
-          <div className="aspect-video w-full overflow-hidden rounded-md border bg-muted">
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
-              className="h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+
+      {/* YouTube/Vimeo URL mode */}
+      {videoSourceType === "YOUTUBE_VIMEO_URL" && (
+        <>
+          <div className="space-y-2">
+            <Label>{t("admin.sectionEditor.videoUrlLabel")}</Label>
+            <Input
+              value={content}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={t("admin.sectionEditor.videoUrlPlaceholder")}
             />
           </div>
-        </div>
-      ) : content ? (
-        <p className="text-sm text-destructive">
-          {t("admin.sectionEditor.invalidVideoUrl")}
-        </p>
-      ) : null}
+          {videoId ? (
+            <div className="space-y-2">
+              <Label className="text-muted-foreground">
+                {t("admin.sectionEditor.videoPreview")}
+              </Label>
+              <div className="aspect-video w-full overflow-hidden rounded-md border bg-muted">
+                <iframe
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  className="h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          ) : content ? (
+            <p className="text-sm text-destructive">
+              {t("admin.sectionEditor.invalidVideoUrl")}
+            </p>
+          ) : null}
+        </>
+      )}
+
+      {/* Upload mode */}
+      {videoSourceType === "UPLOAD" && (
+        <>
+          {localBlobUrl ? (
+            <div className="space-y-3">
+              {/* Video preview */}
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">
+                  {t("admin.sectionEditor.videoPreview")}
+                </Label>
+                <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
+                  <video
+                    src={localBlobUrl}
+                    controls
+                    className="h-full w-full"
+                    preload="metadata"
+                  />
+                </div>
+              </div>
+
+              {/* File info + actions */}
+              <div className="flex items-center gap-3 rounded-md border px-3 py-2">
+                <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="flex-1 text-sm truncate">
+                  {localFileName || t("admin.sectionEditor.videoFile")}
+                </span>
+                {localFileSize && (
+                  <span className="text-xs text-muted-foreground shrink-0">
+                    {formatFileSize(localFileSize)}
+                  </span>
+                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                >
+                  {t("admin.sectionEditor.videoReplace")}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => fileInputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") fileInputRef.current?.click();
+              }}
+              className="flex flex-col items-center justify-center rounded-md border-2 border-dashed px-6 py-8 transition-colors cursor-pointer border-muted-foreground/25 hover:border-muted-foreground/50"
+            >
+              {uploading ? (
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+              ) : (
+                <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+              )}
+              <p className="text-sm font-medium">
+                {uploading
+                  ? t("admin.sectionEditor.videoUploading")
+                  : t("admin.sectionEditor.videoDropHint")}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {t("admin.sectionEditor.videoFormatHint")}
+              </p>
+            </div>
+          )}
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="video/mp4,video/webm,video/ogg,video/quicktime,.mp4,.webm,.ogg,.mov"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleFileUpload(file);
+              if (fileInputRef.current) fileInputRef.current.value = "";
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
@@ -700,9 +956,21 @@ function parseMixedContent(content: string): MixedContent {
 function MixedEditor({
   content,
   onChange,
+  videoSourceType,
+  onVideoSourceTypeChange,
+  sectionId,
+  videoBlobUrl,
+  videoFileName,
+  videoSize,
 }: {
   content: string;
   onChange: (value: string) => void;
+  videoSourceType: VideoSourceType;
+  onVideoSourceTypeChange: (v: VideoSourceType) => void;
+  sectionId: string | null;
+  videoBlobUrl: string | null;
+  videoFileName: string | null;
+  videoSize: number | null;
 }) {
   const mixed = useMemo(() => parseMixedContent(content), [content]);
 
@@ -721,6 +989,12 @@ function MixedEditor({
       <VideoEditor
         content={mixed.videoUrl}
         onChange={(url) => updateField("videoUrl", url)}
+        videoSourceType={videoSourceType}
+        onVideoSourceTypeChange={onVideoSourceTypeChange}
+        sectionId={sectionId}
+        videoBlobUrl={videoBlobUrl}
+        videoFileName={videoFileName}
+        videoSize={videoSize}
       />
       <Separator />
       <AttachmentEditor

@@ -299,14 +299,21 @@ model ModulePrerequisite {
 // ============================================
 
 model Section {
-  id                   String      @id @default(cuid())
+  id                   String            @id @default(cuid())
   moduleId             String
   tenantId             String
   title                String
-  content              String      @db.Text
-  sortOrder            Int         @default(0)
-  type                 SectionType @default(TEXT)
+  content              String            @db.Text
+  sortOrder            Int               @default(0)
+  type                 SectionType       @default(TEXT)
   unlockAfterSectionId String?
+  // Video upload fields
+  videoSourceType      VideoSourceType   @default(YOUTUBE_VIMEO_URL)
+  videoBlobUrl         String?
+  videoBlobPathname    String?
+  videoMimeType        String?
+  videoSize            Int?
+  videoFileName        String?
 
   module             Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -317,6 +324,11 @@ model Section {
 
   @@index([moduleId, sortOrder])
   @@index([tenantId])
+}
+
+enum VideoSourceType {
+  YOUTUBE_VIMEO_URL
+  UPLOAD
 }
 
 enum SectionType {

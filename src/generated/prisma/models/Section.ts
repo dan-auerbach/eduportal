@@ -28,10 +28,12 @@ export type AggregateSection = {
 
 export type SectionAvgAggregateOutputType = {
   sortOrder: number | null
+  videoSize: number | null
 }
 
 export type SectionSumAggregateOutputType = {
   sortOrder: number | null
+  videoSize: number | null
 }
 
 export type SectionMinAggregateOutputType = {
@@ -43,6 +45,12 @@ export type SectionMinAggregateOutputType = {
   sortOrder: number | null
   type: $Enums.SectionType | null
   unlockAfterSectionId: string | null
+  videoSourceType: $Enums.VideoSourceType | null
+  videoBlobUrl: string | null
+  videoBlobPathname: string | null
+  videoMimeType: string | null
+  videoSize: number | null
+  videoFileName: string | null
 }
 
 export type SectionMaxAggregateOutputType = {
@@ -54,6 +62,12 @@ export type SectionMaxAggregateOutputType = {
   sortOrder: number | null
   type: $Enums.SectionType | null
   unlockAfterSectionId: string | null
+  videoSourceType: $Enums.VideoSourceType | null
+  videoBlobUrl: string | null
+  videoBlobPathname: string | null
+  videoMimeType: string | null
+  videoSize: number | null
+  videoFileName: string | null
 }
 
 export type SectionCountAggregateOutputType = {
@@ -65,16 +79,24 @@ export type SectionCountAggregateOutputType = {
   sortOrder: number
   type: number
   unlockAfterSectionId: number
+  videoSourceType: number
+  videoBlobUrl: number
+  videoBlobPathname: number
+  videoMimeType: number
+  videoSize: number
+  videoFileName: number
   _all: number
 }
 
 
 export type SectionAvgAggregateInputType = {
   sortOrder?: true
+  videoSize?: true
 }
 
 export type SectionSumAggregateInputType = {
   sortOrder?: true
+  videoSize?: true
 }
 
 export type SectionMinAggregateInputType = {
@@ -86,6 +108,12 @@ export type SectionMinAggregateInputType = {
   sortOrder?: true
   type?: true
   unlockAfterSectionId?: true
+  videoSourceType?: true
+  videoBlobUrl?: true
+  videoBlobPathname?: true
+  videoMimeType?: true
+  videoSize?: true
+  videoFileName?: true
 }
 
 export type SectionMaxAggregateInputType = {
@@ -97,6 +125,12 @@ export type SectionMaxAggregateInputType = {
   sortOrder?: true
   type?: true
   unlockAfterSectionId?: true
+  videoSourceType?: true
+  videoBlobUrl?: true
+  videoBlobPathname?: true
+  videoMimeType?: true
+  videoSize?: true
+  videoFileName?: true
 }
 
 export type SectionCountAggregateInputType = {
@@ -108,6 +142,12 @@ export type SectionCountAggregateInputType = {
   sortOrder?: true
   type?: true
   unlockAfterSectionId?: true
+  videoSourceType?: true
+  videoBlobUrl?: true
+  videoBlobPathname?: true
+  videoMimeType?: true
+  videoSize?: true
+  videoFileName?: true
   _all?: true
 }
 
@@ -206,6 +246,12 @@ export type SectionGroupByOutputType = {
   sortOrder: number
   type: $Enums.SectionType
   unlockAfterSectionId: string | null
+  videoSourceType: $Enums.VideoSourceType
+  videoBlobUrl: string | null
+  videoBlobPathname: string | null
+  videoMimeType: string | null
+  videoSize: number | null
+  videoFileName: string | null
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
   _sum: SectionSumAggregateOutputType | null
@@ -240,6 +286,12 @@ export type SectionWhereInput = {
   sortOrder?: Prisma.IntFilter<"Section"> | number
   type?: Prisma.EnumSectionTypeFilter<"Section"> | $Enums.SectionType
   unlockAfterSectionId?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFilter<"Section"> | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoBlobPathname?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
+  videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   unlockAfterSection?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
@@ -257,6 +309,12 @@ export type SectionOrderByWithRelationInput = {
   sortOrder?: Prisma.SortOrder
   type?: Prisma.SortOrder
   unlockAfterSectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoSourceType?: Prisma.SortOrder
+  videoBlobUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoBlobPathname?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoSize?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoFileName?: Prisma.SortOrderInput | Prisma.SortOrder
   module?: Prisma.ModuleOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
   unlockAfterSection?: Prisma.SectionOrderByWithRelationInput
@@ -277,6 +335,12 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   sortOrder?: Prisma.IntFilter<"Section"> | number
   type?: Prisma.EnumSectionTypeFilter<"Section"> | $Enums.SectionType
   unlockAfterSectionId?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFilter<"Section"> | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoBlobPathname?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
+  videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   unlockAfterSection?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
@@ -294,6 +358,12 @@ export type SectionOrderByWithAggregationInput = {
   sortOrder?: Prisma.SortOrder
   type?: Prisma.SortOrder
   unlockAfterSectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoSourceType?: Prisma.SortOrder
+  videoBlobUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoBlobPathname?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoSize?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoFileName?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
   _max?: Prisma.SectionMaxOrderByAggregateInput
@@ -313,6 +383,12 @@ export type SectionScalarWhereWithAggregatesInput = {
   sortOrder?: Prisma.IntWithAggregatesFilter<"Section"> | number
   type?: Prisma.EnumSectionTypeWithAggregatesFilter<"Section"> | $Enums.SectionType
   unlockAfterSectionId?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeWithAggregatesFilter<"Section"> | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  videoBlobPathname?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  videoMimeType?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  videoSize?: Prisma.IntNullableWithAggregatesFilter<"Section"> | number | null
+  videoFileName?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
 }
 
 export type SectionCreateInput = {
@@ -321,6 +397,12 @@ export type SectionCreateInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -338,6 +420,12 @@ export type SectionUncheckedCreateInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -349,6 +437,12 @@ export type SectionUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -366,6 +460,12 @@ export type SectionUncheckedUpdateInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -380,6 +480,12 @@ export type SectionCreateManyInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
 }
 
 export type SectionUpdateManyMutationInput = {
@@ -388,6 +494,12 @@ export type SectionUpdateManyMutationInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionUncheckedUpdateManyInput = {
@@ -399,6 +511,12 @@ export type SectionUncheckedUpdateManyInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionListRelationFilter = {
@@ -425,10 +543,17 @@ export type SectionCountOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   type?: Prisma.SortOrder
   unlockAfterSectionId?: Prisma.SortOrder
+  videoSourceType?: Prisma.SortOrder
+  videoBlobUrl?: Prisma.SortOrder
+  videoBlobPathname?: Prisma.SortOrder
+  videoMimeType?: Prisma.SortOrder
+  videoSize?: Prisma.SortOrder
+  videoFileName?: Prisma.SortOrder
 }
 
 export type SectionAvgOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
+  videoSize?: Prisma.SortOrder
 }
 
 export type SectionMaxOrderByAggregateInput = {
@@ -440,6 +565,12 @@ export type SectionMaxOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   type?: Prisma.SortOrder
   unlockAfterSectionId?: Prisma.SortOrder
+  videoSourceType?: Prisma.SortOrder
+  videoBlobUrl?: Prisma.SortOrder
+  videoBlobPathname?: Prisma.SortOrder
+  videoMimeType?: Prisma.SortOrder
+  videoSize?: Prisma.SortOrder
+  videoFileName?: Prisma.SortOrder
 }
 
 export type SectionMinOrderByAggregateInput = {
@@ -451,10 +582,17 @@ export type SectionMinOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   type?: Prisma.SortOrder
   unlockAfterSectionId?: Prisma.SortOrder
+  videoSourceType?: Prisma.SortOrder
+  videoBlobUrl?: Prisma.SortOrder
+  videoBlobPathname?: Prisma.SortOrder
+  videoMimeType?: Prisma.SortOrder
+  videoSize?: Prisma.SortOrder
+  videoFileName?: Prisma.SortOrder
 }
 
 export type SectionSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
+  videoSize?: Prisma.SortOrder
 }
 
 export type SectionScalarRelationFilter = {
@@ -570,6 +708,10 @@ export type EnumSectionTypeFieldUpdateOperationsInput = {
   set?: $Enums.SectionType
 }
 
+export type EnumVideoSourceTypeFieldUpdateOperationsInput = {
+  set?: $Enums.VideoSourceType
+}
+
 export type SectionUpdateOneWithoutUnlockedSectionsNestedInput = {
   create?: Prisma.XOR<Prisma.SectionCreateWithoutUnlockedSectionsInput, Prisma.SectionUncheckedCreateWithoutUnlockedSectionsInput>
   connectOrCreate?: Prisma.SectionCreateOrConnectWithoutUnlockedSectionsInput
@@ -642,6 +784,12 @@ export type SectionCreateWithoutTenantInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -657,6 +805,12 @@ export type SectionUncheckedCreateWithoutTenantInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -700,6 +854,12 @@ export type SectionScalarWhereInput = {
   sortOrder?: Prisma.IntFilter<"Section"> | number
   type?: Prisma.EnumSectionTypeFilter<"Section"> | $Enums.SectionType
   unlockAfterSectionId?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFilter<"Section"> | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoBlobPathname?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
+  videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
 }
 
 export type SectionCreateWithoutModuleInput = {
@@ -708,6 +868,12 @@ export type SectionCreateWithoutModuleInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -723,6 +889,12 @@ export type SectionUncheckedCreateWithoutModuleInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -760,6 +932,12 @@ export type SectionCreateWithoutUnlockedSectionsInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -776,6 +954,12 @@ export type SectionUncheckedCreateWithoutUnlockedSectionsInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -791,6 +975,12 @@ export type SectionCreateWithoutUnlockAfterSectionInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -806,6 +996,12 @@ export type SectionUncheckedCreateWithoutUnlockAfterSectionInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -838,6 +1034,12 @@ export type SectionUpdateWithoutUnlockedSectionsInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -854,6 +1056,12 @@ export type SectionUncheckedUpdateWithoutUnlockedSectionsInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -880,6 +1088,12 @@ export type SectionCreateWithoutCompletionsInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -896,6 +1110,12 @@ export type SectionUncheckedCreateWithoutCompletionsInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -922,6 +1142,12 @@ export type SectionUpdateWithoutCompletionsInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -938,6 +1164,12 @@ export type SectionUncheckedUpdateWithoutCompletionsInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -948,6 +1180,12 @@ export type SectionCreateWithoutAttachmentsInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -964,6 +1202,12 @@ export type SectionUncheckedCreateWithoutAttachmentsInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -990,6 +1234,12 @@ export type SectionUpdateWithoutAttachmentsInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -1006,6 +1256,12 @@ export type SectionUncheckedUpdateWithoutAttachmentsInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -1018,6 +1274,12 @@ export type SectionCreateManyTenantInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
 }
 
 export type SectionUpdateWithoutTenantInput = {
@@ -1026,6 +1288,12 @@ export type SectionUpdateWithoutTenantInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1041,6 +1309,12 @@ export type SectionUncheckedUpdateWithoutTenantInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1054,6 +1328,12 @@ export type SectionUncheckedUpdateManyWithoutTenantInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionCreateManyModuleInput = {
@@ -1064,6 +1344,12 @@ export type SectionCreateManyModuleInput = {
   sortOrder?: number
   type?: $Enums.SectionType
   unlockAfterSectionId?: string | null
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
 }
 
 export type SectionUpdateWithoutModuleInput = {
@@ -1072,6 +1358,12 @@ export type SectionUpdateWithoutModuleInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1087,6 +1379,12 @@ export type SectionUncheckedUpdateWithoutModuleInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1100,6 +1398,12 @@ export type SectionUncheckedUpdateManyWithoutModuleInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
   unlockAfterSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionCreateManyUnlockAfterSectionInput = {
@@ -1110,6 +1414,12 @@ export type SectionCreateManyUnlockAfterSectionInput = {
   content: string
   sortOrder?: number
   type?: $Enums.SectionType
+  videoSourceType?: $Enums.VideoSourceType
+  videoBlobUrl?: string | null
+  videoBlobPathname?: string | null
+  videoMimeType?: string | null
+  videoSize?: number | null
+  videoFileName?: string | null
 }
 
 export type SectionUpdateWithoutUnlockAfterSectionInput = {
@@ -1118,6 +1428,12 @@ export type SectionUpdateWithoutUnlockAfterSectionInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1133,6 +1449,12 @@ export type SectionUncheckedUpdateWithoutUnlockAfterSectionInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1146,6 +1468,12 @@ export type SectionUncheckedUpdateManyWithoutUnlockAfterSectionInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+  videoSourceType?: Prisma.EnumVideoSourceTypeFieldUpdateOperationsInput | $Enums.VideoSourceType
+  videoBlobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoBlobPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1206,6 +1534,12 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sortOrder?: boolean
   type?: boolean
   unlockAfterSectionId?: boolean
+  videoSourceType?: boolean
+  videoBlobUrl?: boolean
+  videoBlobPathname?: boolean
+  videoMimeType?: boolean
+  videoSize?: boolean
+  videoFileName?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1224,6 +1558,12 @@ export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sortOrder?: boolean
   type?: boolean
   unlockAfterSectionId?: boolean
+  videoSourceType?: boolean
+  videoBlobUrl?: boolean
+  videoBlobPathname?: boolean
+  videoMimeType?: boolean
+  videoSize?: boolean
+  videoFileName?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1238,6 +1578,12 @@ export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sortOrder?: boolean
   type?: boolean
   unlockAfterSectionId?: boolean
+  videoSourceType?: boolean
+  videoBlobUrl?: boolean
+  videoBlobPathname?: boolean
+  videoMimeType?: boolean
+  videoSize?: boolean
+  videoFileName?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1252,9 +1598,15 @@ export type SectionSelectScalar = {
   sortOrder?: boolean
   type?: boolean
   unlockAfterSectionId?: boolean
+  videoSourceType?: boolean
+  videoBlobUrl?: boolean
+  videoBlobPathname?: boolean
+  videoMimeType?: boolean
+  videoSize?: boolean
+  videoFileName?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleId" | "tenantId" | "title" | "content" | "sortOrder" | "type" | "unlockAfterSectionId", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleId" | "tenantId" | "title" | "content" | "sortOrder" | "type" | "unlockAfterSectionId" | "videoSourceType" | "videoBlobUrl" | "videoBlobPathname" | "videoMimeType" | "videoSize" | "videoFileName", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1294,6 +1646,12 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sortOrder: number
     type: $Enums.SectionType
     unlockAfterSectionId: string | null
+    videoSourceType: $Enums.VideoSourceType
+    videoBlobUrl: string | null
+    videoBlobPathname: string | null
+    videoMimeType: string | null
+    videoSize: number | null
+    videoFileName: string | null
   }, ExtArgs["result"]["section"]>
   composites: {}
 }
@@ -1731,6 +2089,12 @@ export interface SectionFieldRefs {
   readonly sortOrder: Prisma.FieldRef<"Section", 'Int'>
   readonly type: Prisma.FieldRef<"Section", 'SectionType'>
   readonly unlockAfterSectionId: Prisma.FieldRef<"Section", 'String'>
+  readonly videoSourceType: Prisma.FieldRef<"Section", 'VideoSourceType'>
+  readonly videoBlobUrl: Prisma.FieldRef<"Section", 'String'>
+  readonly videoBlobPathname: Prisma.FieldRef<"Section", 'String'>
+  readonly videoMimeType: Prisma.FieldRef<"Section", 'String'>
+  readonly videoSize: Prisma.FieldRef<"Section", 'Int'>
+  readonly videoFileName: Prisma.FieldRef<"Section", 'String'>
 }
     
 

@@ -231,7 +231,13 @@ export const SectionScalarFieldEnum = {
   content: 'content',
   sortOrder: 'sortOrder',
   type: 'type',
-  unlockAfterSectionId: 'unlockAfterSectionId'
+  unlockAfterSectionId: 'unlockAfterSectionId',
+  videoSourceType: 'videoSourceType',
+  videoBlobUrl: 'videoBlobUrl',
+  videoBlobPathname: 'videoBlobPathname',
+  videoMimeType: 'videoMimeType',
+  videoSize: 'videoSize',
+  videoFileName: 'videoFileName'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]

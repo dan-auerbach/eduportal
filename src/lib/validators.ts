@@ -111,6 +111,7 @@ export const UpdateSectionSchema = z.object({
   type: z.enum(["TEXT", "VIDEO", "ATTACHMENT", "MIXED"]).optional(),
   sortOrder: z.number().int().min(0).optional(),
   unlockAfterSectionId: z.string().cuid().nullable().optional(),
+  videoSourceType: z.enum(["YOUTUBE_VIMEO_URL", "UPLOAD"]).optional(),
 });
 
 // ---- Group forms ----

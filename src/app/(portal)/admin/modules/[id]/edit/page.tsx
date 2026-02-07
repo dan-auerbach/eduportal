@@ -120,6 +120,11 @@ export default async function AdminModuleEditPage({
           type: s.type,
           sortOrder: s.sortOrder,
           unlockAfterSectionId: s.unlockAfterSectionId,
+          videoSourceType: s.videoSourceType,
+          videoBlobUrl: s.videoBlobUrl,
+          videoFileName: s.videoFileName,
+          videoSize: s.videoSize,
+          videoMimeType: s.videoMimeType,
         }))}
         groups={module.groups.map((g) => ({
           moduleId: module.id,

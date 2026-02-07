@@ -7,6 +7,7 @@ import {
   updateSection,
   deleteSection,
   duplicateSection,
+  saveVideoMetadata,
 } from "@/actions/modules";
 import { toast } from "sonner";
 import {
@@ -611,27 +612,38 @@ function VideoEditor({
     setUploadProgress(0);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("sectionId", sectionId);
+      // Use @vercel/blob/client for direct upload (bypasses 4.5MB serverless limit)
+      const { upload } = await import("@vercel/blob/client");
 
-      const res = await fetch("/api/videos/upload", {
-        method: "POST",
-        body: formData,
+      const blob = await upload(
+        `videos/${sectionId}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`,
+        file,
+        {
+          access: "public",
+          handleUploadUrl: "/api/videos/upload",
+          clientPayload: JSON.stringify({ sectionId }),
+        }
+      );
+
+      // Save metadata via server action (onUploadCompleted may not fire in dev)
+      const result = await saveVideoMetadata(sectionId, {
+        videoBlobUrl: blob.url,
+        videoBlobPathname: blob.pathname,
+        videoMimeType: blob.contentType,
+        videoSize: file.size,
+        videoFileName: file.name,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error || t("admin.sectionEditor.videoUploadError"));
-        return;
+      if (result.success) {
+        setLocalBlobUrl(blob.url);
+        setLocalFileName(file.name);
+        setLocalFileSize(file.size);
+        toast.success(t("admin.sectionEditor.videoUploaded"));
+      } else {
+        toast.error(result.error || t("admin.sectionEditor.videoUploadError"));
       }
-
-      setLocalBlobUrl(data.videoBlobUrl);
-      setLocalFileName(data.videoFileName);
-      setLocalFileSize(data.videoSize);
-      toast.success(t("admin.sectionEditor.videoUploaded"));
-    } catch {
+    } catch (err) {
+      console.error("Video upload error:", err);
       toast.error(t("admin.sectionEditor.videoUploadError"));
     } finally {
       setUploading(false);
@@ -640,26 +652,13 @@ function VideoEditor({
   }, [sectionId]);
 
   const handleRemoveVideo = useCallback(async () => {
-    if (!sectionId || !localBlobUrl) return;
-
-    try {
-      // Clear video fields by saving section without video data
-      const res = await fetch("/api/videos/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      // We don't need a delete endpoint - just clear the section fields
-      // The upload endpoint handles old blob cleanup on re-upload
-    } catch {
-      // Ignore
-    }
+    if (!sectionId) return;
 
     setLocalBlobUrl(null);
     setLocalFileName(null);
     setLocalFileSize(null);
-    // Clear the content if it was being used as video URL
     onChange("");
-  }, [sectionId, localBlobUrl, onChange]);
+  }, [sectionId, onChange]);
 
   return (
     <div className="space-y-4">

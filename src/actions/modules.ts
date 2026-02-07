@@ -1284,3 +1284,68 @@ export async function acknowledgeModuleUpdate(
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri potrjevanju posodobitve" };
   }
 }
+
+// ---------------------------------------------------------------------------
+// saveVideoMetadata - save video blob metadata to section after client upload
+// ---------------------------------------------------------------------------
+export async function saveVideoMetadata(
+  sectionId: string,
+  data: {
+    videoBlobUrl: string;
+    videoBlobPathname: string;
+    videoMimeType: string;
+    videoSize: number;
+    videoFileName: string;
+  }
+): Promise<ActionResult<void>> {
+  try {
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
+
+    const existing = await prisma.section.findUnique({
+      where: { id: sectionId, tenantId: ctx.tenantId },
+      include: { module: { select: { createdById: true } } },
+    });
+
+    if (!existing) {
+      return { success: false, error: "Section not found" };
+    }
+
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    if (!canManageAll) {
+      if (existing.module.createdById !== currentUser.id) {
+        return { success: false, error: "Forbidden" };
+      }
+      const canManageOwn = await hasPermission(currentUser, "MANAGE_OWN_MODULES");
+      if (!canManageOwn) {
+        return { success: false, error: "Forbidden" };
+      }
+    }
+
+    // Clean up old blob if exists
+    if (existing.videoBlobUrl && existing.videoBlobUrl !== data.videoBlobUrl) {
+      try {
+        const { del } = await import("@vercel/blob");
+        await del(existing.videoBlobUrl);
+      } catch {
+        // Ignore
+      }
+    }
+
+    await prisma.section.update({
+      where: { id: sectionId },
+      data: {
+        videoSourceType: "UPLOAD",
+        videoBlobUrl: data.videoBlobUrl,
+        videoBlobPathname: data.videoBlobPathname,
+        videoMimeType: data.videoMimeType,
+        videoSize: data.videoSize,
+        videoFileName: data.videoFileName,
+      },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri shranjevanju video podatkov" };
+  }
+}

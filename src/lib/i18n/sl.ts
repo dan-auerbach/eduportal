@@ -49,6 +49,10 @@ export const sl = {
     noModulesYet: "Še ni znanj",
     page: "Stran",
     showingEntries: "Prikazujem {start} do {end} od {total} vnosov",
+    firstName: "Ime",
+    lastName: "Priimek",
+    email: "E-pošta",
+    password: "Geslo",
   },
 
   // ── Roles ────────────────────────────────────────────────────────
@@ -890,6 +894,9 @@ export const sl = {
     totalModules: "Skupaj znanj",
     active: "Aktivno",
     archivedLabel: "Arhivirano",
+    initialAdmin: "Začetni Super Admin",
+    initialAdminHint: "Ta oseba bo imela polni dostop do upravljanja podjetja.",
+    adminPasswordHint: "Najmanj 8 znakov",
   },
 
   // ── Owner ────────────────────────────────────────────────────────

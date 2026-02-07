@@ -147,6 +147,11 @@ export const CreateTenantSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "Slug sme vsebovati le male črke, številke in vezaje"),
   logoUrl: logoUrlSchema.optional(),
   theme: z.enum(["DEFAULT", "OCEAN", "SUNSET"]).default("DEFAULT"),
+  // Initial Super Admin
+  adminEmail: z.string().email("Neveljaven email"),
+  adminPassword: z.string().min(8, "Geslo mora imeti vsaj 8 znakov"),
+  adminFirstName: z.string().min(1, "Ime je obvezno"),
+  adminLastName: z.string().min(1, "Priimek je obvezen"),
 });
 
 export const UpdateTenantSchema = z.object({

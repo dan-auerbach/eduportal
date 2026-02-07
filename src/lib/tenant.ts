@@ -68,14 +68,20 @@ export async function getTenantContext(): Promise<TenantContext> {
 
     if (memberships.length === 1) {
       tenantId = memberships[0].tenantId;
-      // Auto-set the cookie for future requests
-      cookieStore.set(TENANT_COOKIE, tenantId, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365,
-      });
+      // Auto-set the cookie for future requests (may fail in server components — that's OK)
+      try {
+        cookieStore.set(TENANT_COOKIE, tenantId, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 365,
+        });
+      } catch {
+        // cookies().set() throws in Server Components (read-only context).
+        // The tenant will still be resolved for this request; the cookie
+        // will be set once the user hits a Server Action or Route Handler.
+      }
     } else if (memberships.length === 0 && !isOwner) {
       throw new TenantAccessError("Niste član nobenega podjetja", "NO_MEMBERSHIP");
     } else if (isOwner) {

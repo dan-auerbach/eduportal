@@ -44,6 +44,10 @@ export function TenantCreateForm() {
       slug: formData.get("slug") as string,
       logoUrl: logoUrl || undefined,
       theme,
+      adminEmail: formData.get("adminEmail") as string,
+      adminPassword: formData.get("adminPassword") as string,
+      adminFirstName: formData.get("adminFirstName") as string,
+      adminLastName: formData.get("adminLastName") as string,
     };
 
     const result = await createTenant(data);
@@ -105,6 +109,33 @@ export function TenantCreateForm() {
             <SelectItem value="SUNSET">{t("tenant.themes.SUNSET")}</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+
+      {/* ── Initial Super Admin ───────────────────────────── */}
+      <div className="border-t pt-4 mt-4">
+        <h3 className="text-sm font-semibold mb-3">{t("tenant.initialAdmin")}</h3>
+        <p className="text-xs text-muted-foreground mb-4">{t("tenant.initialAdminHint")}</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="adminFirstName">{t("common.firstName")}</Label>
+            <Input id="adminFirstName" name="adminFirstName" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="adminLastName">{t("common.lastName")}</Label>
+            <Input id="adminLastName" name="adminLastName" required />
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 mt-3">
+          <div className="space-y-2">
+            <Label htmlFor="adminEmail">{t("common.email")}</Label>
+            <Input id="adminEmail" name="adminEmail" type="email" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="adminPassword">{t("common.password")}</Label>
+            <Input id="adminPassword" name="adminPassword" type="password" minLength={8} required />
+            <p className="text-xs text-muted-foreground">{t("tenant.adminPasswordHint")}</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex gap-2">

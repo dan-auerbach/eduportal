@@ -49,6 +49,10 @@ export const en = {
     noModulesYet: "No knowledge items yet",
     page: "Page",
     showingEntries: "Showing {start} to {end} of {total} entries",
+    firstName: "First name",
+    lastName: "Last name",
+    email: "Email",
+    password: "Password",
   },
 
   // ── Roles ────────────────────────────────────────────────────────
@@ -890,6 +894,9 @@ export const en = {
     totalModules: "Total knowledge",
     active: "Active",
     archivedLabel: "Archived",
+    initialAdmin: "Initial Super Admin",
+    initialAdminHint: "This person will have full access to manage the company.",
+    adminPasswordHint: "Minimum 8 characters",
   },
 
   // ── Owner ────────────────────────────────────────────────────────

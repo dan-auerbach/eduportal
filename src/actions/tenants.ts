@@ -14,6 +14,7 @@ import {
 import type { ActionResult } from "@/types";
 import type { TenantPlan, TenantRole } from "@/generated/prisma/client";
 import { checkUserLimit } from "@/lib/plan";
+import { hash } from "bcryptjs";
 
 // ---------------------------------------------------------------------------
 // getTenants - Owner-only. List all tenants with member count and module count.
@@ -120,6 +121,18 @@ export async function createTenant(
       return { success: false, error: "Podjetje s to URL oznako ze obstaja" };
     }
 
+    // Check if admin email is already taken
+    const existingUser = await prisma.user.findUnique({
+      where: { email: parsed.adminEmail },
+    });
+    if (existingUser) {
+      return { success: false, error: "Uporabnik s tem emailom že obstaja" };
+    }
+
+    // Hash the admin password
+    const passwordHash = await hash(parsed.adminPassword, 12);
+
+    // Create tenant + initial Super Admin + membership in a transaction
     const tenant = await prisma.tenant.create({
       data: {
         name: parsed.name,
@@ -129,13 +142,48 @@ export async function createTenant(
       },
     });
 
+    const adminUser = await prisma.user.create({
+      data: {
+        email: parsed.adminEmail,
+        passwordHash,
+        firstName: parsed.adminFirstName,
+        lastName: parsed.adminLastName,
+        role: "ADMIN", // global role — tenant role is SUPER_ADMIN
+      },
+    });
+
+    await prisma.membership.create({
+      data: {
+        userId: adminUser.id,
+        tenantId: tenant.id,
+        role: "SUPER_ADMIN",
+      },
+    });
+
     await logAudit({
       actorId: user.id,
       tenantId: tenant.id,
       action: "TENANT_CREATED",
       entityType: "Tenant",
       entityId: tenant.id,
-      metadata: { name: tenant.name, slug: tenant.slug },
+      metadata: {
+        name: tenant.name,
+        slug: tenant.slug,
+        initialAdmin: parsed.adminEmail,
+      },
+    });
+
+    await logAudit({
+      actorId: user.id,
+      tenantId: tenant.id,
+      action: "USER_CREATED",
+      entityType: "User",
+      entityId: adminUser.id,
+      metadata: {
+        email: parsed.adminEmail,
+        role: "SUPER_ADMIN",
+        action: "initial_admin",
+      },
     });
 
     revalidatePath("/owner/tenants");

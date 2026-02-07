@@ -81,7 +81,7 @@ export default async function AdminAuditLogPage({
 }) {
   const ctx = await getTenantContext();
   if (ctx.user.role !== "OWNER") {
-    throw new ForbiddenError("Nimate potrebnih pravic");
+    throw new ForbiddenError(t("common.forbidden"));
   }
 
   const params = await searchParams;

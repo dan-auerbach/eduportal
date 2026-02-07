@@ -56,7 +56,7 @@ export function AddUpdateForm() {
             <Input
               value={version}
               onChange={(e) => setVersion(e.target.value)}
-              placeholder="1.03"
+              placeholder={t("updates.versionPlaceholder")}
               required
             />
           </div>
@@ -65,7 +65,7 @@ export function AddUpdateForm() {
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Dodana funkcija"
+              placeholder={t("updates.titlePlaceholder")}
               required
             />
           </div>
@@ -74,7 +74,7 @@ export function AddUpdateForm() {
             <Input
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
-              placeholder="Uporabniki lahko po novem..."
+              placeholder={t("updates.descriptionPlaceholder")}
               required
             />
           </div>

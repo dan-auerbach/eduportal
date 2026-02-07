@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2 } from "lucide-react";
 import { SelectTenantButton } from "./select-tenant-button";
+import { t } from "@/lib/i18n";
 
 export default async function SelectTenantPage() {
   const user = await getCurrentUser();
@@ -31,11 +32,11 @@ export default async function SelectTenantPage() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <Building2 className="mx-auto h-12 w-12 text-muted-foreground mb-2" />
-            <CardTitle>Niste član nobenega podjetja</CardTitle>
+            <CardTitle>{t("tenant.noMembership")}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-center text-sm text-muted-foreground">
-              Obrnite se na skrbnika za dodajanje v podjetje.
+              {t("tenant.contactAdmin")}
             </p>
           </CardContent>
         </Card>
@@ -49,9 +50,9 @@ export default async function SelectTenantPage() {
       <div className="w-full max-w-2xl px-4">
         <div className="text-center mb-8">
           <Building2 className="mx-auto h-12 w-12 text-primary mb-4" />
-          <h1 className="text-2xl font-bold">Izberite podjetje</h1>
+          <h1 className="text-2xl font-bold">{t("tenant.selectTenantTitle")}</h1>
           <p className="text-muted-foreground mt-1">
-            {"Član ste več podjetij. Izberite, v katero želite vstopiti."}
+            {t("tenant.selectTenantDescription")}
           </p>
         </div>
 

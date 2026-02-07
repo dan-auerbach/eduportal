@@ -29,7 +29,7 @@ export function SelectTenantButton({ tenantId }: SelectTenantButtonProps) {
 
   return (
     <Button onClick={handleSelect} disabled={loading} className="w-full">
-      {loading ? t("common.loading") : "Izberi"}
+      {loading ? t("common.loading") : t("tenant.select")}
     </Button>
   );
 }

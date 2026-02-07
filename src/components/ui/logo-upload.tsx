@@ -44,13 +44,13 @@ export function LogoUpload({ value, onChange }: LogoUploadProps) {
         const data = await res.json();
 
         if (!res.ok) {
-          toast.error(data.error || "Napaka pri nalaganju");
+          toast.error(data.error || t("common.uploadError"));
           return;
         }
 
         onChange(data.logoUrl);
       } catch {
-        toast.error("Napaka pri nalaganju logotipa");
+        toast.error(t("tenant.logoUploadError"));
       } finally {
         setUploading(false);
       }
@@ -99,7 +99,7 @@ export function LogoUpload({ value, onChange }: LogoUploadProps) {
           <div className="relative h-16 w-16 rounded-md border bg-muted/30 flex items-center justify-center overflow-hidden">
             <img
               src={value}
-              alt="Logo"
+              alt={t("tenant.logoAlt")}
               className="h-full w-full object-contain"
             />
           </div>

@@ -53,6 +53,10 @@ export const en = {
     lastName: "Last name",
     email: "Email",
     password: "Password",
+    forbidden: "You do not have the required permissions",
+    uploadError: "Upload error",
+    uploadFailed: "Upload failed",
+    select: "Select",
   },
 
   // ── Roles ────────────────────────────────────────────────────────
@@ -116,6 +120,7 @@ export const en = {
     notifications: "Notifications",
     profile: "Profile",
     logout: "Sign out",
+    openMenu: "Open menu",
     // Admin nav
     overview: "Overview",
     users: "Users",
@@ -249,6 +254,9 @@ export const en = {
     confirmDelete: "Are you sure you want to delete this update?",
     updateDeleted: "Update deleted.",
     deleteError: "Failed to delete update.",
+    titlePlaceholder: "New feature",
+    descriptionPlaceholder: "Users can now...",
+    versionPlaceholder: "1.03",
   },
 
   // ── Certificates ─────────────────────────────────────────────────
@@ -575,6 +583,21 @@ export const en = {
       coverImageRemove: "Remove",
       coverImageSuccess: "Cover image uploaded",
       coverImageRemoved: "Cover image removed",
+      coverImageTooLarge: "File exceeds {maxSize} KB",
+      coverImageInvalidFormat: "Allowed formats: JPG, PNG, SVG",
+      coverImageUploadError: "Error uploading image",
+      coverPreviewAlt: "Cover image preview",
+      untitledModule: "Untitled Module",
+      defaultDescription: "Module description",
+      // Rich text toolbar
+      toolbarBold: "Bold",
+      toolbarItalic: "Italic",
+      toolbarHeading2: "Heading 2",
+      toolbarHeading3: "Heading 3",
+      toolbarBulletList: "Bullet list",
+      toolbarOrderedList: "Ordered list",
+      toolbarLink: "Link",
+      linkPrompt: "URL:",
     },
 
     // ── Categories ──────────────────────────────────────────────
@@ -873,6 +896,13 @@ export const en = {
     logoUploading: "Uploading...",
     logoRemove: "Remove logo",
     logoDropHint: "Drag an image here or click to select",
+    logoAlt: "Logo",
+    logoUploadError: "Error uploading logo",
+    noMembership: "You are not a member of any company",
+    contactAdmin: "Contact an administrator to be added to a company.",
+    selectTenantTitle: "Select company",
+    selectTenantDescription: "You are a member of multiple companies. Select which one to enter.",
+    select: "Select",
     theme: "Theme",
     themes: {
       DEFAULT: "Default",
@@ -909,6 +939,8 @@ export const en = {
     dashboard: "Owner dashboard",
     subtitle: "Manage companies and users.",
     impersonating: "Viewing as: {tenant} (Owner mode)",
+    impersonatingPrefix: "Viewing as:",
+    impersonatingSuffix: "(Owner mode)",
     exitImpersonation: "Exit",
     enter: "Enter",
     enterAs: "Enter as",

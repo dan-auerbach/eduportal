@@ -53,6 +53,10 @@ export const sl = {
     lastName: "Priimek",
     email: "E-pošta",
     password: "Geslo",
+    forbidden: "Nimate potrebnih pravic",
+    uploadError: "Napaka pri nalaganju",
+    uploadFailed: "Nalaganje ni uspelo",
+    select: "Izberi",
   },
 
   // ── Roles ────────────────────────────────────────────────────────
@@ -116,6 +120,7 @@ export const sl = {
     notifications: "Obvestila",
     profile: "Profil",
     logout: "Odjava",
+    openMenu: "Odpri meni",
     // Admin nav
     overview: "Pregled",
     users: "Uporabniki",
@@ -249,6 +254,9 @@ export const sl = {
     confirmDelete: "Ali ste prepričani, da želite izbrisati to posodobitev?",
     updateDeleted: "Posodobitev izbrisana.",
     deleteError: "Napaka pri brisanju posodobitve.",
+    titlePlaceholder: "Dodana funkcija",
+    descriptionPlaceholder: "Uporabniki lahko po novem...",
+    versionPlaceholder: "1.03",
   },
 
   // ── Certificates ─────────────────────────────────────────────────
@@ -575,6 +583,21 @@ export const sl = {
       coverImageRemove: "Odstrani",
       coverImageSuccess: "Naslovna slika naložena",
       coverImageRemoved: "Naslovna slika odstranjena",
+      coverImageTooLarge: "Datoteka presega {maxSize} KB",
+      coverImageInvalidFormat: "Dovoljeni formati: JPG, PNG, SVG",
+      coverImageUploadError: "Napaka pri nalaganju slike",
+      coverPreviewAlt: "Predogled naslovne slike",
+      untitledModule: "Znanje brez naslova",
+      defaultDescription: "Opis znanja",
+      // Rich text toolbar
+      toolbarBold: "Krepko",
+      toolbarItalic: "Ležeče",
+      toolbarHeading2: "Naslov 2",
+      toolbarHeading3: "Naslov 3",
+      toolbarBulletList: "Neurejen seznam",
+      toolbarOrderedList: "Urejen seznam",
+      toolbarLink: "Povezava",
+      linkPrompt: "URL:",
     },
 
     // ── Categories ──────────────────────────────────────────────
@@ -873,6 +896,13 @@ export const sl = {
     logoUploading: "Nalagam...",
     logoRemove: "Odstrani logotip",
     logoDropHint: "Povlecite sliko sem ali kliknite za izbiro",
+    logoAlt: "Logotip",
+    logoUploadError: "Napaka pri nalaganju logotipa",
+    noMembership: "Niste član nobenega podjetja",
+    contactAdmin: "Obrnite se na skrbnika za dodajanje v podjetje.",
+    selectTenantTitle: "Izberite podjetje",
+    selectTenantDescription: "Član ste več podjetij. Izberite, v katero želite vstopiti.",
+    select: "Izberi",
     theme: "Tema",
     themes: {
       DEFAULT: "Privzeto",
@@ -909,6 +939,8 @@ export const sl = {
     dashboard: "Owner nadzorna plošča",
     subtitle: "Upravljanje podjetij in uporabnikov.",
     impersonating: "Gledate kot: {tenant} (Owner način)",
+    impersonatingPrefix: "Gledate kot:",
+    impersonatingSuffix: "(Owner način)",
     exitImpersonation: "Izhod",
     enter: "Vstopi",
     enterAs: "Vstopi kot",

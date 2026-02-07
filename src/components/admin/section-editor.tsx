@@ -606,10 +606,10 @@ function AttachmentEditor({
             toast.success(t("admin.sectionEditor.fileUploaded"));
           } else {
             const errData = await res.json().catch(() => null);
-            toast.error(errData?.error || "Upload failed");
+            toast.error(errData?.error || t("common.uploadFailed"));
           }
         } catch {
-          toast.error("Upload failed");
+          toast.error(t("common.uploadFailed"));
         }
       }
 

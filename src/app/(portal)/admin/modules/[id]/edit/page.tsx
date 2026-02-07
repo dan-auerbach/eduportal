@@ -25,8 +25,8 @@ export default async function AdminModuleEditPage({
   // Handle "new" module creation
   if (id === "new") {
     const result = await createModule({
-      title: "Untitled Module",
-      description: "Module description",
+      title: t("admin.editor.untitledModule"),
+      description: t("admin.editor.defaultDescription"),
       difficulty: "BEGINNER",
     });
 

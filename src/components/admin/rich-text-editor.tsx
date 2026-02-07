@@ -66,7 +66,7 @@ export function RichTextEditor({
       return;
     }
 
-    const url = window.prompt("URL:");
+    const url = window.prompt(t("admin.editor.linkPrompt"));
     if (url) {
       editor.chain().focus().setLink({ href: url }).run();
     }
@@ -82,14 +82,14 @@ export function RichTextEditor({
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBold().run()}
               active={editor.isActive("bold")}
-              title="Bold"
+              title={t("admin.editor.toolbarBold")}
             >
               <Bold className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleItalic().run()}
               active={editor.isActive("italic")}
-              title="Italic"
+              title={t("admin.editor.toolbarItalic")}
             >
               <Italic className="h-4 w-4" />
             </ToolbarButton>
@@ -99,7 +99,7 @@ export function RichTextEditor({
                 editor.chain().focus().toggleHeading({ level: 2 }).run()
               }
               active={editor.isActive("heading", { level: 2 })}
-              title="Heading 2"
+              title={t("admin.editor.toolbarHeading2")}
             >
               <Heading2 className="h-4 w-4" />
             </ToolbarButton>
@@ -108,7 +108,7 @@ export function RichTextEditor({
                 editor.chain().focus().toggleHeading({ level: 3 }).run()
               }
               active={editor.isActive("heading", { level: 3 })}
-              title="Heading 3"
+              title={t("admin.editor.toolbarHeading3")}
             >
               <Heading3 className="h-4 w-4" />
             </ToolbarButton>
@@ -116,14 +116,14 @@ export function RichTextEditor({
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBulletList().run()}
               active={editor.isActive("bulletList")}
-              title="Bullet List"
+              title={t("admin.editor.toolbarBulletList")}
             >
               <List className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
               active={editor.isActive("orderedList")}
-              title="Ordered List"
+              title={t("admin.editor.toolbarOrderedList")}
             >
               <ListOrdered className="h-4 w-4" />
             </ToolbarButton>
@@ -131,7 +131,7 @@ export function RichTextEditor({
             <ToolbarButton
               onClick={toggleLink}
               active={editor.isActive("link")}
-              title="Link"
+              title={t("admin.editor.toolbarLink")}
             >
               <LinkIcon className="h-4 w-4" />
             </ToolbarButton>

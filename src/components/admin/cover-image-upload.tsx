@@ -32,13 +32,13 @@ export function CoverImageUpload({
 
     // Client-side validation
     if (file.size > MAX_SIZE_BYTES) {
-      toast.error(`Datoteka presega ${MAX_SIZE_KB} KB`);
+      toast.error(t("admin.editor.coverImageTooLarge", { maxSize: MAX_SIZE_KB }));
       return;
     }
 
     const ext = file.name.toLowerCase().split(".").pop();
     if (!["jpg", "jpeg", "png", "svg"].includes(ext || "")) {
-      toast.error("Dovoljeni formati: JPG, PNG, SVG");
+      toast.error(t("admin.editor.coverImageInvalidFormat"));
       return;
     }
 
@@ -56,7 +56,7 @@ export function CoverImageUpload({
       const json = await res.json();
 
       if (!res.ok) {
-        toast.error(json.error || "Napaka pri nalaganju");
+        toast.error(json.error || t("common.uploadError"));
         return;
       }
 
@@ -64,7 +64,7 @@ export function CoverImageUpload({
       onImageChange(json.coverUrl);
       toast.success(t("admin.editor.coverImageSuccess"));
     } catch {
-      toast.error("Napaka pri nalaganju slike");
+      toast.error(t("admin.editor.coverImageUploadError"));
     } finally {
       setUploading(false);
       // Reset file input so the same file can be re-uploaded
@@ -95,13 +95,13 @@ export function CoverImageUpload({
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={previewUrl}
-                alt="Cover preview"
+                alt={t("admin.editor.coverPreviewAlt")}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (
               <Image
                 src={previewUrl}
-                alt="Cover preview"
+                alt={t("admin.editor.coverPreviewAlt")}
                 fill
                 className="object-cover"
                 sizes="400px"

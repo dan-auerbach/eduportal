@@ -12,6 +12,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bell, LogOut, User, Menu } from "lucide-react";
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 
 type HeaderProps = {
   tenantLogoUrl?: string | null;
@@ -37,10 +38,10 @@ export function Header({ tenantLogoUrl, onMenuClick }: HeaderProps) {
           onClick={onMenuClick}
         >
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Odpri meni</span>
+          <span className="sr-only">{t("nav.openMenu")}</span>
         </Button>
         {tenantLogoUrl && (
-          <img src={tenantLogoUrl} alt="Tenant logo" width={28} height={28} className="h-7 w-7 rounded object-contain hidden md:block" />
+          <img src={tenantLogoUrl} alt={t("tenant.logoAlt")} width={28} height={28} className="h-7 w-7 rounded object-contain hidden md:block" />
         )}
       </div>
       <div className="flex items-center gap-1 md:gap-3">
@@ -65,7 +66,7 @@ export function Header({ tenantLogoUrl, onMenuClick }: HeaderProps) {
             <DropdownMenuItem asChild>
               <Link href="/profile" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                Profil
+                {t("nav.profile")}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -74,7 +75,7 @@ export function Header({ tenantLogoUrl, onMenuClick }: HeaderProps) {
               className="flex items-center gap-2 text-destructive"
             >
               <LogOut className="h-4 w-4" />
-              Odjava
+              {t("nav.logout")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

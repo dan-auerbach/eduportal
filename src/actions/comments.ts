@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { requirePermission, ForbiddenError } from "@/lib/permissions";
-import { getTenantContext } from "@/lib/tenant";
+import { getTenantContext, hasMinRole } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { CreateCommentSchema } from "@/lib/validators";
 import type { ActionResult } from "@/types";
@@ -145,8 +145,8 @@ export async function resolveComment(
   try {
     const ctx = await getTenantContext();
 
-    // Only admins can resolve comments
-    if (ctx.user.role !== "SUPER_ADMIN" && ctx.user.role !== "ADMIN") {
+    // Only admins (by tenant role) can resolve comments
+    if (!hasMinRole(ctx.effectiveRole, "ADMIN")) {
       await requirePermission(ctx.user, "MANAGE_ALL_MODULES");
     }
 

@@ -4,6 +4,9 @@ import { zipSync, strToU8 } from "fflate";
 
 type Params = Promise<{ id: string }>;
 
+// Safety limit: max rows per table to prevent OOM on large tenants
+const MAX_ROWS = 50_000;
+
 export async function GET(
   _req: Request,
   { params }: { params: Params },
@@ -25,7 +28,7 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  // ── Fetch all tenant data in parallel ──────────────────────
+  // ── Fetch all tenant data in parallel (with row limits) ────
   const [
     memberships,
     groups,
@@ -55,6 +58,7 @@ export async function GET(
   ] = await Promise.all([
     prisma.membership.findMany({
       where: { tenantId },
+      take: MAX_ROWS,
       include: {
         user: {
           select: {
@@ -71,12 +75,13 @@ export async function GET(
         },
       },
     }),
-    prisma.group.findMany({ where: { tenantId } }),
-    prisma.userGroup.findMany({ where: { tenantId } }),
-    prisma.module.findMany({ where: { tenantId } }),
-    prisma.section.findMany({ where: { tenantId } }),
+    prisma.group.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.userGroup.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.module.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.section.findMany({ where: { tenantId }, take: MAX_ROWS }),
     prisma.attachment.findMany({
       where: { tenantId },
+      take: MAX_ROWS,
       select: {
         id: true,
         sectionId: true,
@@ -90,25 +95,25 @@ export async function GET(
         // storagePath excluded (internal path, not useful for export)
       },
     }),
-    prisma.quiz.findMany({ where: { tenantId } }),
-    prisma.quizQuestion.findMany({ where: { tenantId } }),
-    prisma.quizAttempt.findMany({ where: { tenantId } }),
-    prisma.sectionCompletion.findMany({ where: { tenantId } }),
-    prisma.progressOverride.findMany({ where: { tenantId } }),
-    prisma.certificate.findMany({ where: { tenantId } }),
-    prisma.notification.findMany({ where: { tenantId } }),
-    prisma.auditLog.findMany({ where: { tenantId }, orderBy: { createdAt: "desc" } }),
-    prisma.moduleCategory.findMany({ where: { tenantId } }),
-    prisma.tag.findMany({ where: { tenantId } }),
-    prisma.moduleTag.findMany({ where: { tenantId } }),
-    prisma.moduleGroup.findMany({ where: { tenantId } }),
-    prisma.companyPinnedModule.findMany({ where: { tenantId } }),
-    prisma.userModuleReview.findMany({ where: { tenantId } }),
-    prisma.moduleChangeLog.findMany({ where: { tenantId } }),
-    prisma.userSession.findMany({ where: { tenantId } }),
-    prisma.modulePrerequisite.findMany({ where: { tenantId } }),
-    prisma.moduleSelfAssessment.findMany({ where: { tenantId } }),
-    prisma.userModuleLastAccess.findMany({ where: { tenantId } }),
+    prisma.quiz.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.quizQuestion.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.quizAttempt.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.sectionCompletion.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.progressOverride.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.certificate.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.notification.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.auditLog.findMany({ where: { tenantId }, orderBy: { createdAt: "desc" }, take: MAX_ROWS }),
+    prisma.moduleCategory.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.tag.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.moduleTag.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.moduleGroup.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.companyPinnedModule.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.userModuleReview.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.moduleChangeLog.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.userSession.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.modulePrerequisite.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.moduleSelfAssessment.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.userModuleLastAccess.findMany({ where: { tenantId }, take: MAX_ROWS }),
   ]);
 
   // ── Build ZIP ──────────────────────────────────────────────
@@ -120,6 +125,7 @@ export async function GET(
     name: tenant.name,
     exportedAt: new Date().toISOString(),
     version: "1.0",
+    maxRowsPerTable: MAX_ROWS,
   };
 
   // Strip tenantId from the tenant object for cleanliness (it's in manifest)

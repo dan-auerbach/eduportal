@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { storage, generateHashKey } from "@/lib/storage";
+import { getTenantContext, hasMinRole } from "@/lib/tenant";
+import { TenantAccessError } from "@/lib/tenant";
 
 const COVER_MAX_SIZE = 1000 * 1024; // 1000 KB = ~1 MB
 
@@ -36,6 +38,19 @@ export async function POST(req: Request) {
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: "Nepooblaščen dostop" }, { status: 401 });
+  }
+
+  // Only HR+ roles can upload cover images
+  try {
+    const ctx = await getTenantContext();
+    if (!hasMinRole(ctx.effectiveRole, "HR")) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return NextResponse.json({ error: e.message }, { status: 403 });
+    }
+    throw e;
   }
 
   try {

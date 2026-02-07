@@ -1,19 +1,18 @@
 import { createHash } from "crypto";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { checkModuleAccess } from "@/lib/permissions";
-import { getActiveTenantId } from "@/lib/tenant";
+import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { storage } from "@/lib/storage";
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth();
-  if (!session?.user) {
+  let ctx;
+  try {
+    ctx = await getTenantContext();
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return new Response(e.message, { status: 403 });
+    }
     return new Response("Unauthorized", { status: 401 });
-  }
-
-  const tenantId = await getActiveTenantId();
-  if (!tenantId) {
-    return new Response("No active tenant", { status: 403 });
   }
 
   const { id } = await params;
@@ -28,11 +27,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   }
 
   // Verify attachment belongs to the active tenant
-  if (attachment.tenantId !== tenantId) {
+  if (attachment.tenantId !== ctx.tenantId) {
     return new Response("Not found", { status: 404 });
   }
 
-  const hasAccess = await checkModuleAccess(session.user.id!, attachment.section.moduleId);
+  const hasAccess = await checkModuleAccess(ctx.user.id, attachment.section.moduleId);
   if (!hasAccess) {
     return new Response("Forbidden", { status: 403 });
   }
@@ -52,10 +51,13 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     }
   }
 
+  // Sanitize filename to prevent header injection
+  const safeFileName = attachment.fileName.replace(/[^\w.\-]/g, "_");
+
   return new Response(new Uint8Array(obj.data), {
     headers: {
       "Content-Type": attachment.mimeType,
-      "Content-Disposition": `inline; filename="${attachment.fileName}"`,
+      "Content-Disposition": `inline; filename="${safeFileName}"`,
       "Content-Length": String(obj.size),
     },
   });

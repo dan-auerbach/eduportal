@@ -292,11 +292,13 @@ export async function resetUserPassword(
       return { success: false, error: "Uporabnik ne obstaja" };
     }
 
-    // Generate a random temporary password (12 chars, alphanumeric)
+    // Generate a cryptographically secure temporary password (12 chars, alphanumeric)
+    const { randomBytes } = await import("crypto");
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+    const bytes = randomBytes(12);
     let temporaryPassword = "";
     for (let i = 0; i < 12; i++) {
-      temporaryPassword += chars.charAt(Math.floor(Math.random() * chars.length));
+      temporaryPassword += chars.charAt(bytes[i] % chars.length);
     }
 
     const passwordHash = await hash(temporaryPassword, 12);

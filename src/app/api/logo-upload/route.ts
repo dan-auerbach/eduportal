@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { storage, generateHashKey } from "@/lib/storage";
+import { getTenantContext, hasMinRole } from "@/lib/tenant";
+import { TenantAccessError } from "@/lib/tenant";
 
 const LOGO_MAX_SIZE = 500 * 1024; // 500 KB
 
@@ -41,6 +43,19 @@ export async function POST(req: Request) {
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: "Nepooblaščen dostop" }, { status: 401 });
+  }
+
+  // Only ADMIN+ can upload logos
+  try {
+    const ctx = await getTenantContext();
+    if (!hasMinRole(ctx.effectiveRole, "ADMIN")) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return NextResponse.json({ error: e.message }, { status: 403 });
+    }
+    throw e;
   }
 
   try {

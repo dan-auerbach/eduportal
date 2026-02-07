@@ -67,11 +67,12 @@ export default async function AdminGroupDetailPage({
     notFound();
   }
 
-  // Get all users in tenant for add member functionality
+  // Get all users in tenant for add member functionality (capped at 500)
   const allUsers = await prisma.user.findMany({
     where: { deletedAt: null, isActive: true, memberships: { some: { tenantId: ctx.tenantId } } },
     select: { id: true, firstName: true, lastName: true, email: true },
     orderBy: { firstName: "asc" },
+    take: 500,
   });
 
   const memberIds = new Set(group.users.map((u) => u.userId));

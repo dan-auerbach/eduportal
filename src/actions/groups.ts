@@ -227,9 +227,12 @@ export async function addUserToGroup(
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_GROUPS");
 
-    const [user, group] = await Promise.all([
+    const [user, group, userMembership] = await Promise.all([
       prisma.user.findUnique({ where: { id: userId } }),
       prisma.group.findUnique({ where: { id: groupId } }),
+      prisma.membership.findUnique({
+        where: { userId_tenantId: { userId, tenantId: ctx.tenantId } },
+      }),
     ]);
 
     if (!user) {
@@ -242,6 +245,11 @@ export async function addUserToGroup(
     // Verify group belongs to active tenant
     if (group.tenantId !== ctx.tenantId) {
       return { success: false, error: "Skupina ne obstaja" };
+    }
+
+    // Verify user has membership in this tenant
+    if (!userMembership) {
+      return { success: false, error: "Uporabnik ni član tega podjetja" };
     }
 
     await prisma.userGroup.upsert({

@@ -93,8 +93,10 @@ class VercelBlobStorageProvider implements StorageProvider {
     const blob = result.blobs.find((b) => b.pathname === key);
     if (!blob) return null;
 
-    // Fetch the actual content
-    const res = await fetch(blob.url);
+    // Fetch the actual content (use downloadUrl if available for private blob support)
+    const blobAny = blob as unknown as Record<string, unknown>;
+    const fetchUrl = blobAny.downloadUrl ? String(blobAny.downloadUrl) : blob.url;
+    const res = await fetch(fetchUrl);
     if (!res.ok) return null;
 
     const arrayBuffer = await res.arrayBuffer();

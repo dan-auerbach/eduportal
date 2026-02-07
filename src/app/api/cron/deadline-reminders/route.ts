@@ -4,9 +4,17 @@ import { getModuleProgress } from "@/lib/progress";
 import { format, formatDistanceToNow } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
 import { t, setLocale, isValidLocale, DEFAULT_LOCALE } from "@/lib/i18n";
+import { timingSafeEqual } from "crypto";
+
+function verifyCronSecret(req: Request): boolean {
+  const header = req.headers.get("authorization") ?? "";
+  const expected = `Bearer ${process.env.CRON_SECRET ?? ""}`;
+  if (header.length !== expected.length) return false;
+  return timingSafeEqual(Buffer.from(header), Buffer.from(expected));
+}
 
 export async function GET(req: Request) {
-  if (req.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!verifyCronSecret(req)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

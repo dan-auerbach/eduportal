@@ -1,23 +1,21 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/auth";
-import { getActiveTenantId } from "@/lib/tenant";
+import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 
 const STALE_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutes
 
 export async function POST() {
-  let user;
+  let ctx;
   try {
-    user = await getCurrentUser();
-  } catch {
+    ctx = await getTenantContext();
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return NextResponse.json({ error: e.message }, { status: 403 });
+    }
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const tenantId = await getActiveTenantId();
-  if (!tenantId) {
-    return NextResponse.json({ error: "No tenant" }, { status: 400 });
-  }
-
+  const { user, tenantId } = ctx;
   const now = new Date();
   const staleThreshold = new Date(now.getTime() - STALE_THRESHOLD_MS);
 

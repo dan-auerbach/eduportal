@@ -61,6 +61,7 @@ export default async function AdminUsersPage({
         ...searchFilter,
       },
       orderBy: { createdAt: "desc" },
+      take: 200,
       include: {
         groups: {
           where: { group: { tenantId: ctx.tenantId } },

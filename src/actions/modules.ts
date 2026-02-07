@@ -7,6 +7,7 @@ import { logAudit } from "@/lib/audit";
 import { getTenantContext } from "@/lib/tenant";
 import { checkModuleLimit } from "@/lib/plan";
 import { validateSectionUnlockChain } from "@/lib/section-unlock";
+import { sanitizeHtml } from "@/lib/sanitize";
 import { t, setLocale } from "@/lib/i18n";
 import {
   CreateModuleSchema,
@@ -530,6 +531,11 @@ export async function createSection(
 
     const parsed = CreateSectionSchema.parse(data);
 
+    // Sanitize HTML content to prevent stored XSS
+    if (parsed.content) {
+      parsed.content = sanitizeHtml(parsed.content);
+    }
+
     // Auto-set sortOrder to be last
     const maxSort = await prisma.section.aggregate({
       where: { moduleId },
@@ -583,6 +589,11 @@ export async function updateSection(
     }
 
     const parsed = UpdateSectionSchema.parse(data);
+
+    // Sanitize HTML content to prevent stored XSS
+    if (parsed.content) {
+      parsed.content = sanitizeHtml(parsed.content);
+    }
 
     // If unlockAfterSectionId is being changed, validate the chain
     if (parsed.unlockAfterSectionId !== undefined) {

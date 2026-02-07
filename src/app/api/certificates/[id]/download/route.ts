@@ -1,7 +1,7 @@
-import { readFile } from "fs/promises";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getActiveTenantId } from "@/lib/tenant";
+import { getTenantContext, hasMinRole, TenantAccessError } from "@/lib/tenant";
+import { storage } from "@/lib/storage";
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
@@ -9,9 +9,14 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const tenantId = await getActiveTenantId();
-  if (!tenantId) {
-    return new Response("No active tenant", { status: 403 });
+  let ctx;
+  try {
+    ctx = await getTenantContext();
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return new Response(e.message, { status: 403 });
+    }
+    throw e;
   }
 
   const { id } = await params;
@@ -26,14 +31,14 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   }
 
   // Verify certificate belongs to the active tenant
-  if (certificate.tenantId !== tenantId) {
+  if (certificate.tenantId !== ctx.tenantId) {
     return new Response("Not found", { status: 404 });
   }
 
-  // Only the certificate owner or admins can download
-  const isOwner = certificate.userId === session.user.id;
-  const isAdmin = session.user.role === "SUPER_ADMIN" || session.user.role === "ADMIN";
-  if (!isOwner && !isAdmin) {
+  // Only the certificate owner or admins (by tenant role) can download
+  const isCertOwner = certificate.userId === ctx.user.id;
+  const isAdmin = hasMinRole(ctx.effectiveRole, "ADMIN");
+  if (!isCertOwner && !isAdmin) {
     return new Response("Forbidden", { status: 403 });
   }
 
@@ -42,12 +47,15 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   }
 
   try {
-    const buffer = await readFile(certificate.storagePath);
-    return new Response(buffer, {
+    const obj = await storage.get(certificate.storagePath);
+    if (!obj) {
+      return new Response("File not found", { status: 404 });
+    }
+    return new Response(new Uint8Array(obj.data), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="certificate-${certificate.uniqueCode}.pdf"`,
-        "Content-Length": String(buffer.length),
+        "Content-Length": String(obj.size),
       },
     });
   } catch {

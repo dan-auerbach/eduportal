@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { getTenantContext } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
-import { getModuleProgress, type ModuleProgress } from "@/lib/progress";
+import { getBatchedProgressForUser, type ModuleProgress } from "@/lib/progress";
 import { sortModules } from "@/lib/module-sort";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
@@ -75,26 +75,31 @@ export default async function DashboardPage() {
       },
     });
 
-    modulesWithProgress = await Promise.all(
-      allPublishedModules.map(async (module) => {
-        const progress = await getModuleProgress(user.id, module.id, ctx.tenantId);
-        return {
-          id: module.id,
-          title: module.title,
-          description: module.description,
-          difficulty: module.difficulty,
-          estimatedTime: module.estimatedTime,
-          coverImage: module.coverImage,
-          isMandatory: module.isMandatory,
-          tags: module.tags.map((t) => t.tag.name),
-          progress,
-          deadline: null,
-          categoryName: module.category?.name ?? null,
-          isUserPinned: userPinSet.has(module.id),
-          isCompanyPinned: companyPinSet.has(module.id),
-        };
-      })
+    // Batch-fetch progress for all modules in 6 queries (not 6*N)
+    const progressMap = await getBatchedProgressForUser(
+      user.id,
+      allPublishedModules.map((m) => m.id),
+      ctx.tenantId,
     );
+
+    modulesWithProgress = allPublishedModules.map((module) => {
+      const progress = progressMap.get(module.id)!;
+      return {
+        id: module.id,
+        title: module.title,
+        description: module.description,
+        difficulty: module.difficulty,
+        estimatedTime: module.estimatedTime,
+        coverImage: module.coverImage,
+        isMandatory: module.isMandatory,
+        tags: module.tags.map((t) => t.tag.name),
+        progress,
+        deadline: null,
+        categoryName: module.category?.name ?? null,
+        isUserPinned: userPinSet.has(module.id),
+        isCompanyPinned: companyPinSet.has(module.id),
+      };
+    });
   } else {
     const userGroups = await prisma.userGroup.findMany({
       where: { userId: user.id, group: { tenantId: ctx.tenantId } },
@@ -153,26 +158,32 @@ export default async function DashboardPage() {
       }
     }
 
-    modulesWithProgress = await Promise.all(
-      Array.from(uniqueModules.values()).map(async ({ module, deadline, isMandatory }) => {
-        const progress = await getModuleProgress(user.id, module.id, ctx.tenantId);
-        return {
-          id: module.id,
-          title: module.title,
-          description: module.description,
-          difficulty: module.difficulty,
-          estimatedTime: module.estimatedTime,
-          coverImage: module.coverImage,
-          isMandatory,
-          tags: module.tags.map((t) => t.tag.name),
-          progress,
-          deadline,
-          categoryName: module.category?.name ?? null,
-          isUserPinned: userPinSet.has(module.id),
-          isCompanyPinned: companyPinSet.has(module.id),
-        };
-      })
+    // Batch-fetch progress for all modules in 6 queries (not 6*N)
+    const uniqueModuleEntries = Array.from(uniqueModules.values());
+    const progressMap = await getBatchedProgressForUser(
+      user.id,
+      uniqueModuleEntries.map((e) => e.module.id),
+      ctx.tenantId,
     );
+
+    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory }) => {
+      const progress = progressMap.get(module.id)!;
+      return {
+        id: module.id,
+        title: module.title,
+        description: module.description,
+        difficulty: module.difficulty,
+        estimatedTime: module.estimatedTime,
+        coverImage: module.coverImage,
+        isMandatory,
+        tags: module.tags.map((t) => t.tag.name),
+        progress,
+        deadline,
+        categoryName: module.category?.name ?? null,
+        isUserPinned: userPinSet.has(module.id),
+        isCompanyPinned: companyPinSet.has(module.id),
+      };
+    });
   }
 
   // Sort using the recommended algorithm (pin-aware + smart ordering)

@@ -2,7 +2,7 @@ import { BookOpen } from "lucide-react";
 import { getTenantContext } from "@/lib/tenant";
 import { t } from "@/lib/i18n";
 import { prisma } from "@/lib/prisma";
-import { getModuleProgress } from "@/lib/progress";
+import { getBatchedProgressForUser } from "@/lib/progress";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
 import { ModuleFilters } from "@/components/modules/module-filters";
 import { CategoryTabBar } from "@/components/modules/category-tab-bar";
@@ -92,32 +92,37 @@ export default async function ModulesPage({
       },
     });
 
-    modulesWithProgress = await Promise.all(
-      allPublishedModules.map(async (module) => {
-        const progress = await getModuleProgress(user.id, module.id, ctx.tenantId);
-        return {
-          id: module.id,
-          title: module.title,
-          description: module.description,
-          difficulty: module.difficulty,
-          estimatedTime: module.estimatedTime,
-          coverImage: module.coverImage,
-          isMandatory: module.isMandatory,
-          tags: module.tags.map((t) => t.tag.name),
-          progress: {
-            percentage: progress.percentage,
-            status: progress.status,
-            completedSections: progress.completedSections,
-            totalSections: progress.totalSections,
-          },
-          deadline: null, // No per-user deadline for admin
-          needsReview: module.version > (reviewMap.get(module.id) ?? 0),
-          isUserPinned: userPinSet.has(module.id),
-          isCompanyPinned: companyPinSet.has(module.id),
-          categoryName: module.category?.name ?? null,
-        };
-      })
+    // Batch-fetch progress for all modules in 6 queries (not 6*N)
+    const progressMap = await getBatchedProgressForUser(
+      user.id,
+      allPublishedModules.map((m) => m.id),
+      ctx.tenantId,
     );
+
+    modulesWithProgress = allPublishedModules.map((module) => {
+      const progress = progressMap.get(module.id)!;
+      return {
+        id: module.id,
+        title: module.title,
+        description: module.description,
+        difficulty: module.difficulty,
+        estimatedTime: module.estimatedTime,
+        coverImage: module.coverImage,
+        isMandatory: module.isMandatory,
+        tags: module.tags.map((t) => t.tag.name),
+        progress: {
+          percentage: progress.percentage,
+          status: progress.status,
+          completedSections: progress.completedSections,
+          totalSections: progress.totalSections,
+        },
+        deadline: null, // No per-user deadline for admin
+        needsReview: module.version > (reviewMap.get(module.id) ?? 0),
+        isUserPinned: userPinSet.has(module.id),
+        isCompanyPinned: companyPinSet.has(module.id),
+        categoryName: module.category?.name ?? null,
+      };
+    });
   } else {
     // Regular user: get modules assigned via groups
     const userGroups = await prisma.userGroup.findMany({
@@ -178,32 +183,38 @@ export default async function ModulesPage({
       }
     }
 
-    modulesWithProgress = await Promise.all(
-      Array.from(uniqueModules.values()).map(async ({ module, deadline, isMandatory }) => {
-        const progress = await getModuleProgress(user.id, module.id, ctx.tenantId);
-        return {
-          id: module.id,
-          title: module.title,
-          description: module.description,
-          difficulty: module.difficulty,
-          estimatedTime: module.estimatedTime,
-          coverImage: module.coverImage,
-          isMandatory,
-          tags: module.tags.map((t) => t.tag.name),
-          progress: {
-            percentage: progress.percentage,
-            status: progress.status,
-            completedSections: progress.completedSections,
-            totalSections: progress.totalSections,
-          },
-          deadline,
-          needsReview: module.version > (reviewMap.get(module.id) ?? 0),
-          isUserPinned: userPinSet.has(module.id),
-          isCompanyPinned: companyPinSet.has(module.id),
-          categoryName: module.category?.name ?? null,
-        };
-      })
+    // Batch-fetch progress for all modules in 6 queries (not 6*N)
+    const uniqueModuleEntries = Array.from(uniqueModules.values());
+    const progressMap = await getBatchedProgressForUser(
+      user.id,
+      uniqueModuleEntries.map((e) => e.module.id),
+      ctx.tenantId,
     );
+
+    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory }) => {
+      const progress = progressMap.get(module.id)!;
+      return {
+        id: module.id,
+        title: module.title,
+        description: module.description,
+        difficulty: module.difficulty,
+        estimatedTime: module.estimatedTime,
+        coverImage: module.coverImage,
+        isMandatory,
+        tags: module.tags.map((t) => t.tag.name),
+        progress: {
+          percentage: progress.percentage,
+          status: progress.status,
+          completedSections: progress.completedSections,
+          totalSections: progress.totalSections,
+        },
+        deadline,
+        needsReview: module.version > (reviewMap.get(module.id) ?? 0),
+        isUserPinned: userPinSet.has(module.id),
+        isCompanyPinned: companyPinSet.has(module.id),
+        categoryName: module.category?.name ?? null,
+      };
+    });
   }
 
   // Get all available tags for filters

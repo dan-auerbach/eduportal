@@ -317,6 +317,146 @@ export async function getBatchedProgressForTenant(
   return { entries, userMap, moduleMap, groupModuleMap, groupNameMap };
 }
 
+// ── Batched progress for a single user across multiple modules ──────────
+
+/**
+ * Compute progress for a single user across many modules in bulk (6 queries total).
+ * Replaces the N+1 pattern of calling getModuleProgress() per-module.
+ */
+export async function getBatchedProgressForUser(
+  userId: string,
+  moduleIds: string[],
+  tenantId: string,
+): Promise<Map<string, ModuleProgress>> {
+  if (moduleIds.length === 0) return new Map();
+
+  const [
+    sectionCountsRaw,
+    completionsRaw,
+    quizzesRaw,
+    overridesRaw,
+    certificatesRaw,
+    lastAccessRaw,
+  ] = await Promise.all([
+    // Q1: Section counts per module
+    prisma.section.groupBy({
+      by: ["moduleId"],
+      where: { moduleId: { in: moduleIds } },
+      _count: { id: true },
+    }),
+    // Q2: Completed sections for this user in these modules
+    prisma.sectionCompletion.findMany({
+      where: { userId, section: { moduleId: { in: moduleIds } } },
+      select: { section: { select: { moduleId: true } } },
+    }),
+    // Q3: Quizzes with passed attempts for this user
+    prisma.quiz.findMany({
+      where: { moduleId: { in: moduleIds } },
+      include: {
+        attempts: {
+          where: { userId, passed: true },
+          take: 1,
+        },
+      },
+    }),
+    // Q4: Progress overrides
+    prisma.progressOverride.findMany({
+      where: { userId, moduleId: { in: moduleIds } },
+      select: { moduleId: true, allowCertificate: true },
+    }),
+    // Q5: Certificates
+    prisma.certificate.findMany({
+      where: { userId, moduleId: { in: moduleIds } },
+      select: { moduleId: true },
+    }),
+    // Q6: Last access
+    prisma.userModuleLastAccess.findMany({
+      where: { userId, moduleId: { in: moduleIds } },
+      select: { moduleId: true, lastAccessedAt: true },
+    }),
+  ]);
+
+  // Build lookup maps
+  const sectionCountMap = new Map<string, number>();
+  for (const sc of sectionCountsRaw) {
+    sectionCountMap.set(sc.moduleId, sc._count.id);
+  }
+
+  const completionCountMap = new Map<string, number>();
+  for (const c of completionsRaw) {
+    const mid = c.section.moduleId;
+    completionCountMap.set(mid, (completionCountMap.get(mid) ?? 0) + 1);
+  }
+
+  // Group quizzes by module
+  const moduleQuizMap = new Map<string, typeof quizzesRaw>();
+  for (const q of quizzesRaw) {
+    if (!moduleQuizMap.has(q.moduleId)) moduleQuizMap.set(q.moduleId, []);
+    moduleQuizMap.get(q.moduleId)!.push(q);
+  }
+
+  const overrideMap = new Map<string, { allowCertificate: boolean }>();
+  for (const o of overridesRaw) {
+    overrideMap.set(o.moduleId, { allowCertificate: o.allowCertificate });
+  }
+
+  const certificateSet = new Set<string>();
+  for (const c of certificatesRaw) {
+    certificateSet.add(c.moduleId);
+  }
+
+  const lastAccessMap = new Map<string, Date>();
+  for (const la of lastAccessRaw) {
+    lastAccessMap.set(la.moduleId, la.lastAccessedAt);
+  }
+
+  // Compute progress per module
+  const result = new Map<string, ModuleProgress>();
+
+  for (const moduleId of moduleIds) {
+    const totalSections = sectionCountMap.get(moduleId) ?? 0;
+    const completedSections = completionCountMap.get(moduleId) ?? 0;
+    const percentage = totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
+
+    const quizzes = moduleQuizMap.get(moduleId) ?? [];
+    const quizResults = quizzes.map((q) => ({
+      quizId: q.id,
+      quizTitle: q.title,
+      passed: q.attempts.length > 0,
+    }));
+    const allQuizzesPassed = quizzes.length === 0 || quizResults.every((q) => q.passed);
+    const hasQuizzes = quizzes.length > 0;
+
+    const override = overrideMap.get(moduleId);
+    const hasOverride = !!override;
+
+    let status: ModuleProgress["status"] = "NOT_STARTED";
+    if (hasOverride || (percentage === 100 && allQuizzesPassed)) {
+      status = "COMPLETED";
+    } else if (percentage === 100 && hasQuizzes && !allQuizzesPassed) {
+      status = "READY_FOR_QUIZ";
+    } else if (completedSections > 0 || quizzes.some((q) => q.attempts.length > 0)) {
+      status = "IN_PROGRESS";
+    }
+
+    result.set(moduleId, {
+      status,
+      completedSections,
+      totalSections,
+      percentage,
+      quizResults,
+      allQuizzesPassed,
+      hasQuizzes,
+      hasOverride,
+      overrideAllowsCertificate: override?.allowCertificate ?? false,
+      certificateIssued: certificateSet.has(moduleId),
+      lastAccessedAt: lastAccessMap.get(moduleId) ?? null,
+    });
+  }
+
+  return result;
+}
+
 export async function trackModuleAccess(userId: string, moduleId: string, tenantId: string) {
   await prisma.userModuleLastAccess.upsert({
     where: { userId_moduleId: { userId, moduleId } },

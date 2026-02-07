@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useMemo } from "react";
+import DOMPurify from "isomorphic-dompurify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -389,10 +390,10 @@ export function SectionViewer({
                     );
                   })()}
 
-                {/* Text content */}
+                {/* Text content — sanitized to prevent XSS */}
                 <div
                   className="prose prose-sm dark:prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: activeSection.content }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeSection.content) }}
                 />
 
                 {/* Attachments */}

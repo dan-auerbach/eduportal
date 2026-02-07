@@ -1,11 +1,26 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { processUpload, UploadError } from "@/lib/upload";
+import { getTenantContext, hasMinRole } from "@/lib/tenant";
+import { TenantAccessError } from "@/lib/tenant";
 
 export async function POST(req: Request) {
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Only HR+ roles can upload attachments
+  try {
+    const ctx = await getTenantContext();
+    if (!hasMinRole(ctx.effectiveRole, "HR")) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return NextResponse.json({ error: e.message }, { status: 403 });
+    }
+    throw e;
   }
 
   try {

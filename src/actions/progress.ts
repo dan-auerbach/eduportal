@@ -157,16 +157,29 @@ export async function overrideProgress(
       return { success: false, error: "Razlog za preglasitev je obvezen" };
     }
 
-    // Verify user and module exist
-    const [user, module] = await Promise.all([
+    // Verify user, module, and tenant membership
+    const [user, module, userMembership] = await Promise.all([
       prisma.user.findUnique({ where: { id: userId } }),
       prisma.module.findUnique({ where: { id: moduleId } }),
+      prisma.membership.findUnique({
+        where: { userId_tenantId: { userId, tenantId: ctx.tenantId } },
+      }),
     ]);
 
     if (!user) {
       return { success: false, error: "Uporabnik ne obstaja" };
     }
     if (!module) {
+      return { success: false, error: "Modul ne obstaja" };
+    }
+
+    // Verify user has membership in this tenant
+    if (!userMembership) {
+      return { success: false, error: "Uporabnik ni član tega podjetja" };
+    }
+
+    // Verify module belongs to this tenant
+    if (module.tenantId !== ctx.tenantId) {
       return { success: false, error: "Modul ne obstaja" };
     }
 

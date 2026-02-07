@@ -167,6 +167,7 @@ export function ModuleCard({ module }: { module: ModuleCardProps }) {
               alt={module.title}
               fill
               loading="lazy"
+              unoptimized={module.coverImage.startsWith("/api/")}
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />

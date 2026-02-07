@@ -52,3 +52,11 @@ next-env.d.ts
 .wrangler/
 .dev.vars
 .env*.local
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

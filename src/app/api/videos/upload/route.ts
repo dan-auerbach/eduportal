@@ -26,7 +26,7 @@ const ALLOWED_VIDEO_TYPES = [
 
 export async function POST(request: NextRequest) {
   try {
-    const { sectionId } = await request.json();
+    const { sectionId, fileName } = await request.json();
 
     if (!sectionId) {
       return NextResponse.json({ error: "No sectionId provided" }, { status: 400 });
@@ -63,7 +63,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Blob storage not configured" }, { status: 500 });
     }
 
-    const pathname = `videos/${ctx.tenantId}/${sectionId}/{filename}`;
+    // Sanitize filename and build pathname
+    const safeName = (fileName || "video")
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .slice(0, 100);
+    const pathname = `videos/${ctx.tenantId}/${sectionId}/${Date.now()}-${safeName}`;
 
     const clientToken = await generateClientTokenFromReadWriteToken({
       token,
@@ -74,7 +78,7 @@ export async function POST(request: NextRequest) {
       addRandomSuffix: true,
     });
 
-    return NextResponse.json({ clientToken });
+    return NextResponse.json({ clientToken, pathname });
   } catch (error) {
     console.error("Video upload token error:", error);
     return NextResponse.json(

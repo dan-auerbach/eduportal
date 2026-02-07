@@ -610,11 +610,11 @@ function VideoEditor({
     setUploading(true);
 
     try {
-      // Step 1: Get a scoped client token from our API
+      // Step 1: Get a scoped client token + pathname from our API
       const tokenRes = await fetch("/api/videos/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sectionId }),
+        body: JSON.stringify({ sectionId, fileName: file.name }),
       });
 
       if (!tokenRes.ok) {
@@ -623,19 +623,15 @@ function VideoEditor({
         return;
       }
 
-      const { clientToken } = await tokenRes.json();
+      const { clientToken, pathname } = await tokenRes.json();
 
       // Step 2: Upload directly to Vercel Blob from the browser (no size limit)
       const { put } = await import("@vercel/blob/client");
 
-      const blob = await put(
-        `videos/${sectionId}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`,
-        file,
-        {
-          access: "public",
-          token: clientToken,
-        }
-      );
+      const blob = await put(pathname, file, {
+        access: "public",
+        token: clientToken,
+      });
 
       // Step 3: Save metadata via server action
       const result = await saveVideoMetadata(sectionId, {

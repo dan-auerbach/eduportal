@@ -577,7 +577,6 @@ function VideoEditor({
 }) {
   const videoId = useMemo(() => extractYouTubeId(content), [content]);
   const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Local state to show newly uploaded video immediately
   const [localBlobUrl, setLocalBlobUrl] = useState<string | null>(null);

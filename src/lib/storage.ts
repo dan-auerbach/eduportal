@@ -1,11 +1,13 @@
 /**
- * Abstract storage layer — supports local filesystem (dev) and Cloudflare R2 (production).
+ * Abstract storage layer — supports local filesystem (dev) and Vercel Blob (production).
  *
  * Usage:
  *   import { storage } from "@/lib/storage";
  *   await storage.put("logos/abc.png", buffer, "image/png");
  *   const data = await storage.get("logos/abc.png");
  *   await storage.delete("logos/abc.png");
+ *
+ * Set STORAGE_BACKEND="vercel-blob" and BLOB_READ_WRITE_TOKEN for production.
  */
 
 import { createHash, randomBytes } from "crypto";
@@ -69,66 +71,30 @@ class LocalStorageProvider implements StorageProvider {
   }
 }
 
-// ── R2 provider (production / Cloudflare) ──────────────────────────────
+// ── Vercel Blob provider (production) ──────────────────────────────────
 
-class R2StorageProvider implements StorageProvider {
-  private baseUrl: string;
-  private accessKeyId: string;
-  private secretAccessKey: string;
-  private bucket: string;
-  private accountId: string;
-
-  constructor() {
-    this.accountId = process.env.R2_ACCOUNT_ID || "";
-    this.bucket = process.env.R2_BUCKET_NAME || "eduportal-uploads";
-    this.accessKeyId = process.env.R2_ACCESS_KEY_ID || "";
-    this.secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || "";
-    this.baseUrl = `https://${this.accountId}.r2.cloudflarestorage.com`;
-  }
-
-  private async signedFetch(method: string, key: string, body?: Buffer | Uint8Array, contentType?: string): Promise<Response> {
-    // Use S3-compatible API with simple auth headers
-    const url = `${this.baseUrl}/${this.bucket}/${key}`;
-    const date = new Date().toUTCString();
-
-    // Build AWS Signature V4 style auth (simplified for R2)
-    const headers: Record<string, string> = {
-      "x-amz-date": date,
-      "x-amz-content-sha256": "UNSIGNED-PAYLOAD",
-    };
-
-    if (contentType) {
-      headers["Content-Type"] = contentType;
-    }
-
-    // Use the @aws-sdk/client-s3 compatible approach through fetch with basic auth
-    // R2 supports S3 API — we use presigned-style approach
-    const { AwsClient } = await import("aws4fetch");
-    const client = new AwsClient({
-      accessKeyId: this.accessKeyId,
-      secretAccessKey: this.secretAccessKey,
-      service: "s3",
-      region: "auto",
-    });
-
-    return client.fetch(url, {
-      method,
-      headers: contentType ? { "Content-Type": contentType } : undefined,
-      body: body ? new Uint8Array(body) : undefined,
-    });
-  }
-
+class VercelBlobStorageProvider implements StorageProvider {
   async put(key: string, data: Buffer | Uint8Array, contentType: string): Promise<void> {
-    const res = await this.signedFetch("PUT", key, data, contentType);
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`R2 PUT failed (${res.status}): ${text}`);
-    }
+    const { put } = await import("@vercel/blob");
+    // Copy to plain ArrayBuffer to satisfy strict TS (Buffer<ArrayBufferLike> issue)
+    const bytes = new Uint8Array(data);
+    await put(key, new Blob([bytes], { type: contentType }), {
+      access: "public",
+      contentType,
+      addRandomSuffix: false,
+    });
   }
 
   async get(key: string): Promise<StorageObject | null> {
-    const res = await this.signedFetch("GET", key);
-    if (res.status === 404) return null;
+    const { list } = await import("@vercel/blob");
+
+    // Find the blob by prefix match
+    const result = await list({ prefix: key, limit: 1 });
+    const blob = result.blobs.find((b) => b.pathname === key);
+    if (!blob) return null;
+
+    // Fetch the actual content
+    const res = await fetch(blob.url);
     if (!res.ok) return null;
 
     const arrayBuffer = await res.arrayBuffer();
@@ -138,10 +104,13 @@ class R2StorageProvider implements StorageProvider {
   }
 
   async delete(key: string): Promise<void> {
-    const res = await this.signedFetch("DELETE", key);
-    if (!res.ok && res.status !== 404) {
-      const text = await res.text();
-      throw new Error(`R2 DELETE failed (${res.status}): ${text}`);
+    const { list, del } = await import("@vercel/blob");
+
+    // Find the blob URL first
+    const result = await list({ prefix: key, limit: 1 });
+    const blob = result.blobs.find((b) => b.pathname === key);
+    if (blob) {
+      await del(blob.url);
     }
   }
 }
@@ -164,8 +133,8 @@ const MIME_FROM_EXT: Record<string, string> = {
 
 function createStorage(): StorageProvider {
   const backend = process.env.STORAGE_BACKEND || "local";
-  if (backend === "r2") {
-    return new R2StorageProvider();
+  if (backend === "vercel-blob") {
+    return new VercelBlobStorageProvider();
   }
   return new LocalStorageProvider();
 }

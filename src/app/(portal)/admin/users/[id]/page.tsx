@@ -11,6 +11,7 @@ import {
   Users as UsersIcon,
   BookOpen,
   ArrowLeft,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -20,6 +21,9 @@ import { UserEditForm } from "./user-edit-form";
 import { UserPermissionsPanel } from "./user-permissions-panel";
 import type { Permission } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
+import { format } from "date-fns";
+import { getDateLocale } from "@/lib/i18n/date-locale";
+import { formatDuration } from "@/lib/utils";
 
 const ALL_PERMISSIONS: Permission[] = [
   "MANAGE_ALL_MODULES",
@@ -98,6 +102,33 @@ export default async function AdminUserDetailPage({
       };
     })
   );
+
+  // ── Usage stats ─────────────────────────────────────────────────
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+  const [usageAllTime, usage30d, lastSeenRow] = await Promise.all([
+    prisma.userSession.aggregate({
+      where: { userId: id, tenantId: ctx.tenantId },
+      _sum: { durationSeconds: true },
+      _count: { id: true },
+    }),
+    prisma.userSession.aggregate({
+      where: { userId: id, tenantId: ctx.tenantId, startedAt: { gte: thirtyDaysAgo } },
+      _sum: { durationSeconds: true },
+      _count: { id: true },
+    }),
+    prisma.userSession.findFirst({
+      where: { userId: id, tenantId: ctx.tenantId },
+      orderBy: { lastPingAt: "desc" },
+      select: { lastPingAt: true },
+    }),
+  ]);
+
+  const totalSecondsAll = usageAllTime._sum.durationSeconds ?? 0;
+  const totalSessionsAll = usageAllTime._count.id;
+  const seconds30d = usage30d._sum.durationSeconds ?? 0;
+  const sessions30d = usage30d._count.id;
+  const lastSeenAt = lastSeenRow?.lastPingAt ?? null;
 
   const initials = `${user.firstName[0]}${user.lastName[0]}`.toUpperCase();
   const userPermissions = user.permissions.map((p) => p.permission);
@@ -200,6 +231,54 @@ export default async function AdminUserDetailPage({
                   </Badge>
                 </Link>
               ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Usage Stats */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Clock className="h-4 w-4" />
+            {t("admin.users.usageCard")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {totalSessionsAll === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              {t("admin.users.noUsageData")}
+            </p>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-muted-foreground">{t("admin.users.totalTime")}</h4>
+                <p className="text-2xl font-bold">{formatDuration(totalSecondsAll)}</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-muted-foreground">{t("admin.users.totalSessions")}</h4>
+                <p className="text-2xl font-bold">{totalSessionsAll}</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-muted-foreground">
+                  {t("admin.users.last30days")} — {t("admin.users.time")}
+                </h4>
+                <p className="text-lg font-semibold">{formatDuration(seconds30d)}</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium text-muted-foreground">
+                  {t("admin.users.last30days")} — {t("admin.users.sessions")}
+                </h4>
+                <p className="text-lg font-semibold">{sessions30d}</p>
+              </div>
+              {lastSeenAt && (
+                <div className="sm:col-span-2 space-y-1">
+                  <h4 className="text-sm font-medium text-muted-foreground">{t("admin.users.lastActivity")}</h4>
+                  <p className="text-sm">
+                    {format(new Date(lastSeenAt), "d. MMM yyyy, HH:mm", { locale: getDateLocale() })}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </CardContent>

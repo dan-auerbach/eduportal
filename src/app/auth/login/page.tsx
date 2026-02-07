@@ -19,7 +19,7 @@ import {
   AlertCircle,
   Globe,
 } from "lucide-react";
-import { t, setLocale, getLocale, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n";
+import { t, setLocale, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n";
 
 const LOCALE_LABELS: Record<string, string> = {
   sl: "Slovenščina",
@@ -31,15 +31,24 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || searchParams.get("next") || "/dashboard";
 
-  // Locale state — read from localStorage or default
-  const [locale, setLocaleState] = useState<Locale>(getLocale());
+  // Locale state — always start with DEFAULT_LOCALE ("en") on both server and
+  // client to avoid hydration mismatch (the module-level activeLocale may differ
+  // between server and client if a prior request set it to "sl").
+  // We sync the real locale from localStorage after mount.
+  const [locale, setLocaleState] = useState<Locale>("en");
+
+  // Sync the module-level activeLocale to the React state so that all
+  // t() calls in this render produce the same output on server & client.
+  setLocale(locale);
 
   useEffect(() => {
     const saved = localStorage.getItem("eduportal-locale");
-    if (saved && SUPPORTED_LOCALES.includes(saved as Locale)) {
-      setLocale(saved as Locale);
-      setLocaleState(saved as Locale);
-    }
+    const resolved: Locale =
+      saved && SUPPORTED_LOCALES.includes(saved as Locale)
+        ? (saved as Locale)
+        : "en";
+    setLocale(resolved);
+    setLocaleState(resolved);
   }, []);
 
   function switchLocale(newLocale: Locale) {

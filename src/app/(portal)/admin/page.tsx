@@ -45,7 +45,10 @@ export default async function AdminDashboardPage() {
       },
     }),
     prisma.auditLog.findMany({
-      where: { tenantId: ctx.tenantId },
+      where: {
+        tenantId: ctx.tenantId,
+        action: { notIn: ["OWNER_IMPERSONATION", "TENANT_DELETED"] },
+      },
       take: 10,
       orderBy: { createdAt: "desc" },
       include: {

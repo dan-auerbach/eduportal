@@ -50,6 +50,7 @@ model Tenant {
   categories          ModuleCategory[]
   companyPinnedModules CompanyPinnedModule[]
   changelogEntries     ChangelogEntry[]
+  sessions             UserSession[]
 }
 
 enum TenantTheme {
@@ -123,6 +124,7 @@ model User {
   moduleReviews      UserModuleReview[]
   pinnedModules      UserPinnedModule[]
   changelogEntries   ChangelogEntry[]    @relation("ChangelogAuthor")
+  sessions           UserSession[]
 
   @@index([role, isActive])
 }
@@ -794,4 +796,26 @@ enum AuditAction {
   TENANT_ARCHIVED
   MEMBERSHIP_CHANGED
   OWNER_IMPERSONATION
+  TENANT_DELETED
+}
+
+// ============================================
+// SESSION TRACKING (USAGE ANALYTICS)
+// ============================================
+
+model UserSession {
+  id              String   @id @default(cuid())
+  userId          String
+  tenantId        String
+  startedAt       DateTime @default(now())
+  lastPingAt      DateTime @default(now())
+  durationSeconds Int      @default(0)
+  isActive        Boolean  @default(true)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId, tenantId, isActive])
+  @@index([userId, tenantId, startedAt])
+  @@index([tenantId])
 }

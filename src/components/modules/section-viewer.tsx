@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -95,6 +96,7 @@ export function SectionViewer({
   changeSummary,
   quizzes = [],
 }: SectionViewerProps) {
+  const router = useRouter();
   const [completedIds, setCompletedIds] = useState<Set<string>>(
     new Set(initialCompletedIds)
   );
@@ -125,19 +127,26 @@ export function SectionViewer({
     setActiveSectionId(section.id);
   }
 
+  const isLastSection = activeSectionIndex === sections.length - 1;
+
   function handleMarkComplete() {
     if (!activeSection || isPreview) return;
 
     startTransition(async () => {
       const result = await completeSection(activeSection.id);
       if (result.success) {
-        setCompletedIds((prev) => {
-          const next = new Set(prev);
-          next.add(activeSection.id);
-          return next;
-        });
+        const updatedSet = new Set(completedIds);
+        updatedSet.add(activeSection.id);
+        setCompletedIds(updatedSet);
 
-        // Check if this was the last section and quizzes exist
+        // If ALL sections are now complete, navigate to completion page
+        const allDone = sections.every((s) => updatedSet.has(s.id));
+        if (allDone) {
+          router.push(`/modules/${moduleId}/completed`);
+          return;
+        }
+
+        // Check if quizzes exist and are now ready
         if (result.data.readyForQuiz && quizzes.length > 0) {
           setShowQuizPrompt(true);
         }
@@ -145,9 +154,7 @@ export function SectionViewer({
         // Auto-advance to next unlocked section
         const nextSection = sections[activeSectionIndex + 1];
         if (nextSection) {
-          const updatedCompleted = new Set(completedIds);
-          updatedCompleted.add(activeSection.id);
-          if (isSectionUnlocked(nextSection, updatedCompleted)) {
+          if (isSectionUnlocked(nextSection, updatedSet)) {
             setActiveSectionId(nextSection.id);
           }
         }
@@ -439,34 +446,59 @@ export function SectionViewer({
               </Button>
 
               <div className="flex items-center gap-2">
-                {!isPreview && !completedSet.has(activeSection.id) && (
-                  <Button
-                    onClick={handleMarkComplete}
-                    disabled={isPending}
-                    size="sm"
-                  >
-                    {isPending ? (
-                      <Loader2 className="h-4 w-4 animate-spin mr-1" />
-                    ) : (
-                      <CheckCircle2 className="h-4 w-4 mr-1" />
-                    )}
-                    {t("sectionViewer.markCompleted")}
-                  </Button>
-                )}
+                {(() => {
+                  const allComplete = sections.every((s) => completedSet.has(s.id));
+                  // Would marking the current section finish the module?
+                  const wouldFinish =
+                    !completedSet.has(activeSection.id) &&
+                    sections.every((s) => s.id === activeSection.id || completedSet.has(s.id));
 
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={activeSectionIndex === sections.length - 1}
-                  onClick={() => {
-                    const next = sections[activeSectionIndex + 1];
-                    if (next && isSectionUnlocked(next, completedSet)) {
-                      setActiveSectionId(next.id);
-                    }
-                  }}
-                >
-                  {t("common.next")}
-                </Button>
+                  return (
+                    <>
+                      {/* Mark complete / Finish button */}
+                      {!isPreview && !completedSet.has(activeSection.id) && (
+                        <Button
+                          onClick={handleMarkComplete}
+                          disabled={isPending}
+                          size="sm"
+                        >
+                          {isPending ? (
+                            <Loader2 className="h-4 w-4 animate-spin mr-1" />
+                          ) : (
+                            <CheckCircle2 className="h-4 w-4 mr-1" />
+                          )}
+                          {wouldFinish
+                            ? t("sectionViewer.finishModule")
+                            : t("sectionViewer.markCompleted")}
+                        </Button>
+                      )}
+
+                      {/* All sections done: show completed label */}
+                      {!isPreview && allComplete && (
+                        <span className="flex items-center gap-1.5 text-sm text-green-600 dark:text-green-400 font-medium">
+                          <CheckCircle2 className="h-4 w-4" />
+                          {t("sectionViewer.moduleCompleted")}
+                        </span>
+                      )}
+
+                      {/* Next button */}
+                      {!isLastSection && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const next = sections[activeSectionIndex + 1];
+                            if (next && isSectionUnlocked(next, completedSet)) {
+                              setActiveSectionId(next.id);
+                            }
+                          }}
+                        >
+                          {t("common.next")}
+                        </Button>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </>

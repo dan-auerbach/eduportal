@@ -255,6 +255,7 @@ export type UserWhereInput = {
   moduleReviews?: Prisma.UserModuleReviewListRelationFilter
   pinnedModules?: Prisma.UserPinnedModuleListRelationFilter
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
+  sessions?: Prisma.UserSessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -287,6 +288,7 @@ export type UserOrderByWithRelationInput = {
   moduleReviews?: Prisma.UserModuleReviewOrderByRelationAggregateInput
   pinnedModules?: Prisma.UserPinnedModuleOrderByRelationAggregateInput
   changelogEntries?: Prisma.ChangelogEntryOrderByRelationAggregateInput
+  sessions?: Prisma.UserSessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -322,6 +324,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   moduleReviews?: Prisma.UserModuleReviewListRelationFilter
   pinnedModules?: Prisma.UserPinnedModuleListRelationFilter
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
+  sessions?: Prisma.UserSessionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -390,6 +393,7 @@ export type UserCreateInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -422,6 +426,7 @@ export type UserUncheckedCreateInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -454,6 +459,7 @@ export type UserUpdateInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -486,6 +492,7 @@ export type UserUncheckedUpdateInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -838,6 +845,20 @@ export type UserUpdateOneWithoutChangelogEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChangelogEntriesInput, Prisma.UserUpdateWithoutChangelogEntriesInput>, Prisma.UserUncheckedUpdateWithoutChangelogEntriesInput>
 }
 
+export type UserCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.UserUpsertWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
 export type UserCreateWithoutMembershipsInput = {
   id?: string
   email: string
@@ -867,6 +888,7 @@ export type UserCreateWithoutMembershipsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -898,6 +920,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -945,6 +968,7 @@ export type UserUpdateWithoutMembershipsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -976,6 +1000,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1007,6 +1032,7 @@ export type UserCreateWithoutPermissionsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1038,6 +1064,7 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1085,6 +1112,7 @@ export type UserUpdateWithoutPermissionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1116,6 +1144,7 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1147,6 +1176,7 @@ export type UserCreateWithoutGroupsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1178,6 +1208,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1225,6 +1256,7 @@ export type UserUpdateWithoutGroupsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1256,6 +1288,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -1287,6 +1320,7 @@ export type UserCreateWithoutCreatedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -1318,6 +1352,7 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -1365,6 +1400,7 @@ export type UserUpdateWithoutCreatedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -1396,6 +1432,7 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -1427,6 +1464,7 @@ export type UserCreateWithoutSectionCompletionsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -1458,6 +1496,7 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -1505,6 +1544,7 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -1536,6 +1576,7 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -1567,6 +1608,7 @@ export type UserCreateWithoutModuleAccessesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -1598,6 +1640,7 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -1645,6 +1688,7 @@ export type UserUpdateWithoutModuleAccessesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -1676,6 +1720,7 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -1707,6 +1752,7 @@ export type UserCreateWithoutQuizAttemptsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -1738,6 +1784,7 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -1785,6 +1832,7 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -1816,6 +1864,7 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -1847,6 +1896,7 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -1878,6 +1928,7 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -1925,6 +1976,7 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -1956,6 +2008,7 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -1987,6 +2040,7 @@ export type UserCreateWithoutProgressOverridesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -2018,6 +2072,7 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -2065,6 +2120,7 @@ export type UserUpdateWithoutProgressOverridesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -2096,6 +2152,7 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2127,6 +2184,7 @@ export type UserCreateWithoutCertificatesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2158,6 +2216,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2205,6 +2264,7 @@ export type UserUpdateWithoutCertificatesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2236,6 +2296,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -2267,6 +2328,7 @@ export type UserCreateWithoutCommentsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2298,6 +2360,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -2345,6 +2408,7 @@ export type UserUpdateWithoutCommentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -2376,6 +2440,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -2407,6 +2472,7 @@ export type UserCreateWithoutNotificationsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -2438,6 +2504,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -2485,6 +2552,7 @@ export type UserUpdateWithoutNotificationsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2516,6 +2584,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -2547,6 +2616,7 @@ export type UserCreateWithoutPinnedModulesInput = {
   changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -2578,6 +2648,7 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -2625,6 +2696,7 @@ export type UserUpdateWithoutPinnedModulesInput = {
   changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -2656,6 +2728,7 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -2687,6 +2760,7 @@ export type UserCreateWithoutChangeLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -2718,6 +2792,7 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -2765,6 +2840,7 @@ export type UserUpdateWithoutChangeLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -2796,6 +2872,7 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -2827,6 +2904,7 @@ export type UserCreateWithoutModuleReviewsInput = {
   changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -2858,6 +2936,7 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -2905,6 +2984,7 @@ export type UserUpdateWithoutModuleReviewsInput = {
   changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -2936,6 +3016,7 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -2967,6 +3048,7 @@ export type UserCreateWithoutAuditLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -2998,6 +3080,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3045,6 +3128,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -3076,6 +3160,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -3107,6 +3192,7 @@ export type UserCreateWithoutChangelogEntriesInput = {
   changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -3138,6 +3224,7 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -3185,6 +3272,7 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -3216,6 +3304,151 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+}
+
+export type UserUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -3241,6 +3474,7 @@ export type UserCountOutputType = {
   moduleReviews: number
   pinnedModules: number
   changelogEntries: number
+  sessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3261,6 +3495,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   moduleReviews?: boolean | UserCountOutputTypeCountModuleReviewsArgs
   pinnedModules?: boolean | UserCountOutputTypeCountPinnedModulesArgs
   changelogEntries?: boolean | UserCountOutputTypeCountChangelogEntriesArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
 }
 
 /**
@@ -3392,6 +3627,13 @@ export type UserCountOutputTypeCountChangelogEntriesArgs<ExtArgs extends runtime
   where?: Prisma.ChangelogEntryWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserSessionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3423,6 +3665,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   moduleReviews?: boolean | Prisma.User$moduleReviewsArgs<ExtArgs>
   pinnedModules?: boolean | Prisma.User$pinnedModulesArgs<ExtArgs>
   changelogEntries?: boolean | Prisma.User$changelogEntriesArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3490,6 +3733,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   moduleReviews?: boolean | Prisma.User$moduleReviewsArgs<ExtArgs>
   pinnedModules?: boolean | Prisma.User$pinnedModulesArgs<ExtArgs>
   changelogEntries?: boolean | Prisma.User$changelogEntriesArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3515,6 +3759,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     moduleReviews: Prisma.$UserModuleReviewPayload<ExtArgs>[]
     pinnedModules: Prisma.$UserPinnedModulePayload<ExtArgs>[]
     changelogEntries: Prisma.$ChangelogEntryPayload<ExtArgs>[]
+    sessions: Prisma.$UserSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3940,6 +4185,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   moduleReviews<T extends Prisma.User$moduleReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moduleReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserModuleReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pinnedModules<T extends Prisma.User$pinnedModulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pinnedModulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPinnedModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   changelogEntries<T extends Prisma.User$changelogEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$changelogEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChangelogEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4774,6 +5020,30 @@ export type User$changelogEntriesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ChangelogEntryScalarFieldEnum | Prisma.ChangelogEntryScalarFieldEnum[]
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserSession
+   */
+  select?: Prisma.UserSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserSession
+   */
+  omit?: Prisma.UserSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserSessionInclude<ExtArgs> | null
+  where?: Prisma.UserSessionWhereInput
+  orderBy?: Prisma.UserSessionOrderByWithRelationInput | Prisma.UserSessionOrderByWithRelationInput[]
+  cursor?: Prisma.UserSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserSessionScalarFieldEnum | Prisma.UserSessionScalarFieldEnum[]
 }
 
 /**

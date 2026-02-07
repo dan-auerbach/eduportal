@@ -9,7 +9,7 @@ import { Building2, Users, Plus } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { format } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
-import { ImpersonateButton } from "./impersonate-button";
+import { TenantActions } from "./tenant-actions";
 
 export default async function OwnerDashboardPage() {
   const user = await getCurrentUser();
@@ -133,14 +133,12 @@ export default async function OwnerDashboardPage() {
                     {format(new Date(tenant.createdAt), "d. MMMM yyyy", { locale: getDateLocale() })}
                   </p>
                   <div className="flex items-center gap-2 pt-1">
-                    {!tenant.archivedAt && (
-                      <ImpersonateButton tenantId={tenant.id} tenantName={tenant.name} />
-                    )}
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={`/owner/tenants/${tenant.id}`}>
-                        {t("common.edit")}
-                      </Link>
-                    </Button>
+                    <TenantActions
+                      tenantId={tenant.id}
+                      tenantName={tenant.name}
+                      tenantSlug={tenant.slug}
+                      isArchived={!!tenant.archivedAt}
+                    />
                   </div>
                 </CardContent>
               </Card>

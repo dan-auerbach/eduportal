@@ -81,7 +81,8 @@ export const ModelName = {
   ModuleChangeLog: 'ModuleChangeLog',
   UserModuleReview: 'UserModuleReview',
   AuditLog: 'AuditLog',
-  ChangelogEntry: 'ChangelogEntry'
+  ChangelogEntry: 'ChangelogEntry',
+  UserSession: 'UserSession'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -501,6 +502,19 @@ export const ChangelogEntryScalarFieldEnum = {
 } as const
 
 export type ChangelogEntryScalarFieldEnum = (typeof ChangelogEntryScalarFieldEnum)[keyof typeof ChangelogEntryScalarFieldEnum]
+
+
+export const UserSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  startedAt: 'startedAt',
+  lastPingAt: 'lastPingAt',
+  durationSeconds: 'durationSeconds',
+  isActive: 'isActive'
+} as const
+
+export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
 
 
 export const SortOrder = {

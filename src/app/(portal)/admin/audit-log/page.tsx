@@ -90,11 +90,21 @@ export default async function AdminAuditLogPage({
   const filterFrom = params.from || "";
   const filterTo = params.to || "";
 
-  // Build where clause (scoped to tenant)
-  const where: Record<string, unknown> = { tenantId: ctx.tenantId };
+  // Owner-only actions that admins should never see
+  const OWNER_ONLY_ACTIONS = ["OWNER_IMPERSONATION", "TENANT_DELETED"];
+
+  // Build where clause (scoped to tenant, excluding owner-only actions)
+  const where: Record<string, unknown> = {
+    tenantId: ctx.tenantId,
+  };
 
   if (filterAction) {
+    // When filtering by a specific action, use it directly
+    // (owner-only actions are excluded from the dropdown so this is safe)
     where.action = filterAction as AuditAction;
+  } else {
+    // Exclude owner-only actions from the default list
+    where.action = { notIn: OWNER_ONLY_ACTIONS };
   }
 
   if (filterFrom || filterTo) {

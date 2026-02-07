@@ -21,6 +21,7 @@ import { UserSearch } from "./user-search";
 import { UserActions } from "./user-actions";
 import { t } from "@/lib/i18n";
 import { Plus } from "lucide-react";
+import { formatDuration } from "@/lib/utils";
 import type { Role } from "@/generated/prisma/client";
 
 const roleBadgeVariant: Record<Role, string> = {
@@ -72,6 +73,58 @@ export default async function AdminUsersPage({
     prisma.membership.count({ where: { tenantId: ctx.tenantId } }),
   ]);
 
+  // ── Usage stats batch query (no N+1) ─────────────────────────────
+  const userIds = users.map((u) => u.id);
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+  const [usage30d, lastSeenRaw] = userIds.length > 0
+    ? await Promise.all([
+        // 30-day stats: total seconds + session count
+        prisma.userSession.groupBy({
+          by: ["userId"],
+          where: {
+            tenantId: ctx.tenantId,
+            userId: { in: userIds },
+            startedAt: { gte: thirtyDaysAgo },
+          },
+          _sum: { durationSeconds: true },
+          _count: { id: true },
+        }),
+        // All-time last seen
+        prisma.userSession.groupBy({
+          by: ["userId"],
+          where: {
+            tenantId: ctx.tenantId,
+            userId: { in: userIds },
+          },
+          _max: { lastPingAt: true },
+        }),
+      ])
+    : [[], []];
+
+  // Build lookup maps
+  const usageMap = new Map<string, { seconds30d: number; sessions30d: number; lastSeenAt: Date | null }>();
+
+  for (const row of usage30d) {
+    usageMap.set(row.userId, {
+      seconds30d: row._sum.durationSeconds ?? 0,
+      sessions30d: row._count.id,
+      lastSeenAt: null,
+    });
+  }
+  for (const row of lastSeenRaw) {
+    const existing = usageMap.get(row.userId);
+    if (existing) {
+      existing.lastSeenAt = row._max.lastPingAt;
+    } else {
+      usageMap.set(row.userId, {
+        seconds30d: 0,
+        sessions30d: 0,
+        lastSeenAt: row._max.lastPingAt,
+      });
+    }
+  }
+
   const limits = getPlanLimits(ctx.tenantPlan);
   const userLimitReached = limits.maxUsers !== null && memberCount >= limits.maxUsers;
 
@@ -118,19 +171,23 @@ export default async function AdminUsersPage({
               <TableHead>{t("admin.users.tableStatus")}</TableHead>
               <TableHead>{t("admin.users.tableGroups")}</TableHead>
               <TableHead>{t("admin.users.tableLastLogin")}</TableHead>
+              <TableHead>{t("admin.users.usage30d")}</TableHead>
+              <TableHead>{t("admin.users.visits30d")}</TableHead>
               <TableHead className="w-12" />
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center text-muted-foreground">
+                <TableCell colSpan={9} className="text-center text-muted-foreground">
                   {t("admin.users.noUsersFound")}
                 </TableCell>
               </TableRow>
             ) : (
               users.map((user) => {
                 const initials = `${user.firstName[0]}${user.lastName[0]}`.toUpperCase();
+                const usage = usageMap.get(user.id);
+                const lastSeenAt = usage?.lastSeenAt;
                 return (
                   <TableRow key={user.id}>
                     <TableCell>
@@ -188,10 +245,25 @@ export default async function AdminUsersPage({
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      {user.lastLoginAt
-                        ? format(new Date(user.lastLoginAt), "d. MMM yyyy, HH:mm", { locale: getDateLocale() })
-                        : t("common.never")}
+                    <TableCell className="text-sm">
+                      <div>
+                        <span className="text-muted-foreground">
+                          {user.lastLoginAt
+                            ? format(new Date(user.lastLoginAt), "d. MMM yyyy, HH:mm", { locale: getDateLocale() })
+                            : t("common.never")}
+                        </span>
+                        {lastSeenAt && (
+                          <p className="text-xs text-muted-foreground/70">
+                            {t("admin.users.lastActivity")}: {format(new Date(lastSeenAt), "d. MMM, HH:mm", { locale: getDateLocale() })}
+                          </p>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {formatDuration(usage?.seconds30d ?? 0)}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {usage?.sessions30d ?? "—"}
                     </TableCell>
                     <TableCell>
                       <UserActions userId={user.id} />

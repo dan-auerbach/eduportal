@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Sidebar, SidebarContent } from "./sidebar";
 import { Header } from "./header";
 import { ImpersonationBanner } from "./impersonation-banner";
+import { UsageTracker } from "./usage-tracker";
 import {
   Sheet,
   SheetContent,
@@ -45,6 +46,9 @@ export function AppShell({
           </div>
         </SheetContent>
       </Sheet>
+
+      {/* Usage tracking (silent — renders nothing) */}
+      <UsageTracker />
 
       {/* Main area */}
       <div className="flex flex-1 flex-col overflow-hidden min-w-0">

@@ -172,3 +172,8 @@ export type AuditLog = Prisma.AuditLogModel
  * 
  */
 export type ChangelogEntry = Prisma.ChangelogEntryModel
+/**
+ * Model UserSession
+ * 
+ */
+export type UserSession = Prisma.UserSessionModel

@@ -9,6 +9,13 @@ const prisma = new PrismaClient({ adapter } as any);
 async function main() {
   console.log("Seeding database...");
 
+  // Guard: skip if modules already exist (prevents duplicates on re-run)
+  const existingModuleCount = await prisma.module.count();
+  if (existingModuleCount > 0) {
+    console.log(`Database already has ${existingModuleCount} modules. Skipping seed to prevent duplicates.`);
+    return;
+  }
+
   // ============================================
   // PASSWORDS
   // ============================================

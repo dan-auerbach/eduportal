@@ -111,6 +111,7 @@ export default async function AdminGroupDetailPage({
           <CardContent>
             <GroupEditForm
               groupId={group.id}
+              groupName={group.name}
               defaultValues={{
                 name: group.name,
                 description: group.description || "",

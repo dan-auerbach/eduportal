@@ -482,6 +482,11 @@ export const en = {
       memberStatus: "Status",
       userAdded: "User added to group",
       userRemoved: "User removed from group",
+      // Delete
+      deleteGroup: "Delete group",
+      deleteGroupConfirm: "Are you sure you want to delete this group? All members will be removed from the group. This action cannot be undone.",
+      groupDeleted: "Group deleted",
+      deleting: "Deleting...",
     },
 
     // ── Admin Modules ────────────────────────────────────────────

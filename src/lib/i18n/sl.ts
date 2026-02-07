@@ -482,6 +482,11 @@ export const sl = {
       memberStatus: "Status",
       userAdded: "Uporabnik dodan v skupino",
       userRemoved: "Uporabnik odstranjen iz skupine",
+      // Delete
+      deleteGroup: "Izbriši skupino",
+      deleteGroupConfirm: "Ali ste prepričani, da želite izbrisati to skupino? Vsi člani bodo odstranjeni iz skupine. Tega dejanja ni mogoče razveljaviti.",
+      groupDeleted: "Skupina izbrisana",
+      deleting: "Brišem...",
     },
 
     // ── Admin Modules ────────────────────────────────────────────

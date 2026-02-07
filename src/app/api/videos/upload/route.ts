@@ -1,12 +1,16 @@
 /**
- * Video upload handler — uses Vercel Blob client-side upload pattern.
+ * Video upload token handler.
  *
- * POST with multipart/form-data (handleUpload callback) — called by @vercel/blob/client
- * This is the token-generation endpoint that validates permissions before
- * allowing the client to upload directly to Vercel Blob (bypasses 4.5MB limit).
+ * POST — generates a client token for direct browser-to-Blob upload.
+ * This avoids the 4.5MB serverless function payload limit entirely.
+ *
+ * Flow:
+ *   1. Client POSTs { sectionId } to get a scoped upload token
+ *   2. Client uses put() from @vercel/blob/client with that token
+ *   3. Client calls saveVideoMetadata server action with the result
  */
 import { NextRequest, NextResponse } from "next/server";
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { generateClientTokenFromReadWriteToken } from "@vercel/blob/client";
 import { getCurrentUser } from "@/lib/auth";
 import { getTenantContext } from "@/lib/tenant";
 import { hasPermission } from "@/lib/permissions";
@@ -17,106 +21,64 @@ const ALLOWED_VIDEO_TYPES = [
   "video/mp4",
   "video/webm",
   "video/ogg",
-  "video/quicktime", // .mov
+  "video/quicktime",
 ];
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as HandleUploadBody;
+    const { sectionId } = await request.json();
 
-    const jsonResponse = await handleUpload({
-      body,
-      request,
-      onBeforeGenerateToken: async (pathname, clientPayload) => {
-        // Authenticate and authorize
-        const currentUser = await getCurrentUser();
-        const ctx = await getTenantContext();
+    if (!sectionId) {
+      return NextResponse.json({ error: "No sectionId provided" }, { status: 400 });
+    }
 
-        const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
-        const canManageOwn = await hasPermission(currentUser, "MANAGE_OWN_MODULES");
-        if (!canManageAll && !canManageOwn) {
-          throw new Error("Forbidden");
-        }
+    // Authenticate
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
 
-        // Validate sectionId from clientPayload
-        const sectionId = clientPayload ? JSON.parse(clientPayload).sectionId : null;
-        if (!sectionId) {
-          throw new Error("No sectionId provided");
-        }
+    // Authorize
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    const canManageOwn = await hasPermission(currentUser, "MANAGE_OWN_MODULES");
+    if (!canManageAll && !canManageOwn) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
-        const section = await prisma.section.findUnique({
-          where: { id: sectionId, tenantId: ctx.tenantId },
-          include: { module: { select: { createdById: true } } },
-        });
-
-        if (!section) {
-          throw new Error("Section not found");
-        }
-
-        if (!canManageAll && section.module.createdById !== currentUser.id) {
-          throw new Error("Forbidden");
-        }
-
-        return {
-          allowedContentTypes: ALLOWED_VIDEO_TYPES,
-          maximumSizeInBytes: MAX_VIDEO_SIZE,
-          tokenPayload: JSON.stringify({
-            sectionId,
-            tenantId: ctx.tenantId,
-            userId: currentUser.id,
-          }),
-        };
-      },
-      onUploadCompleted: async ({ blob, tokenPayload }) => {
-        // Called by Vercel after the upload completes
-        // Save video metadata to the section
-        try {
-          const payload = JSON.parse(tokenPayload || "{}");
-          const { sectionId } = payload;
-
-          if (!sectionId) return;
-
-          // Get existing section to clean up old blob
-          const existing = await prisma.section.findUnique({
-            where: { id: sectionId },
-            select: { videoBlobUrl: true },
-          });
-
-          // Delete old blob if replacing
-          if (existing?.videoBlobUrl) {
-            try {
-              const { del } = await import("@vercel/blob");
-              await del(existing.videoBlobUrl);
-            } catch {
-              // Ignore
-            }
-          }
-
-          // Update section with new video data
-          // Note: blob.size is not available in onUploadCompleted callback,
-          // the client-side saveVideoMetadata call handles full metadata storage.
-          await prisma.section.update({
-            where: { id: sectionId },
-            data: {
-              videoSourceType: "UPLOAD",
-              videoBlobUrl: blob.url,
-              videoBlobPathname: blob.pathname,
-              videoMimeType: blob.contentType,
-              videoFileName: blob.pathname.split("/").pop() || "video",
-            },
-          });
-        } catch (error) {
-          console.error("onUploadCompleted error:", error);
-          // Don't throw - the blob is already uploaded
-        }
-      },
+    // Validate section
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId, tenantId: ctx.tenantId },
+      include: { module: { select: { createdById: true } } },
     });
 
-    return NextResponse.json(jsonResponse);
+    if (!section) {
+      return NextResponse.json({ error: "Section not found" }, { status: 404 });
+    }
+
+    if (!canManageAll && section.module.createdById !== currentUser.id) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    // Generate scoped client token
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!token) {
+      return NextResponse.json({ error: "Blob storage not configured" }, { status: 500 });
+    }
+
+    const pathname = `videos/${ctx.tenantId}/${sectionId}/{filename}`;
+
+    const clientToken = await generateClientTokenFromReadWriteToken({
+      token,
+      pathname,
+      allowedContentTypes: ALLOWED_VIDEO_TYPES,
+      maximumSizeInBytes: MAX_VIDEO_SIZE,
+      validUntil: Date.now() + 30 * 60 * 1000, // 30 minutes
+      addRandomSuffix: true,
+    });
+
+    return NextResponse.json({ clientToken });
   } catch (error) {
-    console.error("Video upload error:", error);
+    console.error("Video upload token error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Video upload failed" },
+      { error: error instanceof Error ? error.message : "Failed to generate upload token" },
       { status: 500 }
     );
   }

@@ -609,23 +609,36 @@ function VideoEditor({
     }
 
     setUploading(true);
-    setUploadProgress(0);
 
     try {
-      // Use @vercel/blob/client for direct upload (bypasses 4.5MB serverless limit)
-      const { upload } = await import("@vercel/blob/client");
+      // Step 1: Get a scoped client token from our API
+      const tokenRes = await fetch("/api/videos/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sectionId }),
+      });
 
-      const blob = await upload(
+      if (!tokenRes.ok) {
+        const errData = await tokenRes.json().catch(() => null);
+        toast.error(errData?.error || t("admin.sectionEditor.videoUploadError"));
+        return;
+      }
+
+      const { clientToken } = await tokenRes.json();
+
+      // Step 2: Upload directly to Vercel Blob from the browser (no size limit)
+      const { put } = await import("@vercel/blob/client");
+
+      const blob = await put(
         `videos/${sectionId}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`,
         file,
         {
           access: "public",
-          handleUploadUrl: "/api/videos/upload",
-          clientPayload: JSON.stringify({ sectionId }),
+          token: clientToken,
         }
       );
 
-      // Save metadata via server action (onUploadCompleted may not fire in dev)
+      // Step 3: Save metadata via server action
       const result = await saveVideoMetadata(sectionId, {
         videoBlobUrl: blob.url,
         videoBlobPathname: blob.pathname,
@@ -647,7 +660,6 @@ function VideoEditor({
       toast.error(t("admin.sectionEditor.videoUploadError"));
     } finally {
       setUploading(false);
-      setUploadProgress(0);
     }
   }, [sectionId]);
 

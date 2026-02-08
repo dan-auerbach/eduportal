@@ -27,7 +27,7 @@ const lastMessageTime = new Map<string, number>();
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function getDisplayName(user: { firstName: string; lastName: string; email: string }): string {
-  const name = `${user.firstName} ${user.lastName}`.trim();
+  const name = `${user.firstName}${user.lastName}`.trim();
   return name || user.email.split("@")[0];
 }
 

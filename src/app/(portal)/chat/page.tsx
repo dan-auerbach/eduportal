@@ -26,6 +26,7 @@ export default async function ChatPage() {
       userId={ctx.user.id}
       userDisplayName={displayName}
       userFirstName={firstName}
+      userLastName={lastName}
       initialTopic={tenant?.chatTopic ?? null}
       labels={{
         title: t("chat.title"),

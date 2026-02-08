@@ -128,13 +128,19 @@ function updateLastRead(tenantId: string, messageId: string) {
 
 // ── Mention detection ────────────────────────────────────────────────────────
 
-function buildMentionPatterns(displayName: string, firstName: string): RegExp[] {
+function buildMentionPatterns(displayName: string, firstName: string, lastName: string): RegExp[] {
   const patterns: RegExp[] = [];
-  // @DisplayName (case insensitive, word boundary)
+  // @DisplayName (case insensitive, word boundary) — e.g. @JožefŠtefan
   if (displayName) {
     patterns.push(new RegExp(`@${escapeRegex(displayName)}\\b`, "i"));
     // Also match displayName without @ as a whole word
     patterns.push(new RegExp(`\\b${escapeRegex(displayName)}\\b`, "i"));
+  }
+  // @FirstName LastName with space — e.g. @Jožef Štefan or Jožef Štefan
+  if (firstName && lastName) {
+    const spaced = `${firstName} ${lastName}`;
+    patterns.push(new RegExp(`@${escapeRegex(spaced)}\\b`, "i"));
+    patterns.push(new RegExp(`\\b${escapeRegex(spaced)}\\b`, "i"));
   }
   // @FirstName if different from displayName
   if (firstName && firstName.toLowerCase() !== displayName.toLowerCase()) {
@@ -164,6 +170,7 @@ type ChatRoomProps = {
   userId: string;
   userDisplayName: string;
   userFirstName: string;
+  userLastName: string;
   initialTopic: string | null;
   labels: {
     title: string;
@@ -195,6 +202,7 @@ export function ChatRoom({
   userId,
   userDisplayName,
   userFirstName,
+  userLastName,
   initialTopic,
   labels,
 }: ChatRoomProps) {
@@ -224,8 +232,8 @@ export function ChatRoom({
 
   // Build mention patterns once
   const mentionPatterns = useMemo(
-    () => buildMentionPatterns(userDisplayName, userFirstName),
-    [userDisplayName, userFirstName],
+    () => buildMentionPatterns(userDisplayName, userFirstName, userLastName),
+    [userDisplayName, userFirstName, userLastName],
   );
 
   // ── Theme toggle ───────────────────────────────────────────────────────────

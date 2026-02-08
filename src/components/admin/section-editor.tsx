@@ -355,6 +355,10 @@ export function SectionEditorSheet({
                 videoBlobUrl={section?.videoBlobUrl ?? null}
                 videoFileName={section?.videoFileName ?? null}
                 videoSize={section?.videoSize ?? null}
+                onVideoUploaded={() => {
+                  setSaveStatus("saved");
+                  router.refresh();
+                }}
               />
 
               {/* Advanced section */}
@@ -474,6 +478,7 @@ function TypeSpecificEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  onVideoUploaded,
 }: {
   type: SectionType;
   content: string;
@@ -484,6 +489,7 @@ function TypeSpecificEditor({
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
+  onVideoUploaded?: () => void;
 }) {
   switch (type) {
     case "TEXT":
@@ -499,6 +505,7 @@ function TypeSpecificEditor({
           videoBlobUrl={videoBlobUrl}
           videoFileName={videoFileName}
           videoSize={videoSize}
+          onVideoUploaded={onVideoUploaded}
         />
       );
     case "ATTACHMENT":
@@ -514,6 +521,7 @@ function TypeSpecificEditor({
           videoBlobUrl={videoBlobUrl}
           videoFileName={videoFileName}
           videoSize={videoSize}
+          onVideoUploaded={onVideoUploaded}
         />
       );
     default:
@@ -565,12 +573,14 @@ function VideoEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  onVideoUploaded,
 }: {
   content: string;
   onChange: (value: string) => void;
   videoSourceType: VideoSourceType;
   onVideoSourceTypeChange: (v: VideoSourceType) => void;
   sectionId: string | null;
+  onVideoUploaded?: () => void;
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
@@ -647,6 +657,7 @@ function VideoEditor({
         setLocalFileName(file.name);
         setLocalFileSize(file.size);
         toast.success(t("admin.sectionEditor.videoUploaded"));
+        onVideoUploaded?.();
       } else {
         toast.error(result.error || t("admin.sectionEditor.videoUploadError"));
       }
@@ -969,6 +980,7 @@ function MixedEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  onVideoUploaded,
 }: {
   content: string;
   onChange: (value: string) => void;
@@ -978,6 +990,7 @@ function MixedEditor({
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
+  onVideoUploaded?: () => void;
 }) {
   const mixed = useMemo(() => parseMixedContent(content), [content]);
 
@@ -1002,6 +1015,7 @@ function MixedEditor({
         videoBlobUrl={videoBlobUrl}
         videoFileName={videoFileName}
         videoSize={videoSize}
+        onVideoUploaded={onVideoUploaded}
       />
       <Separator />
       <AttachmentEditor

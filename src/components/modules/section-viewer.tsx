@@ -81,6 +81,44 @@ function formatFileSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+type ContentFile = {
+  fileName: string;
+  storagePath: string;
+  mimeType: string;
+  fileSize: number;
+};
+
+function parseContentFiles(content: string): ContentFile[] {
+  if (!content) return [];
+  try {
+    const parsed = JSON.parse(content);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+type MixedContent = {
+  html: string;
+  videoUrl: string;
+  files: ContentFile[];
+};
+
+function parseMixedContent(content: string): MixedContent {
+  if (!content) return { html: "", videoUrl: "", files: [] };
+  try {
+    const parsed = JSON.parse(content);
+    return {
+      html: parsed.html || "",
+      videoUrl: parsed.videoUrl || "",
+      files: Array.isArray(parsed.files) ? parsed.files : [],
+    };
+  } catch {
+    // If content is not JSON, treat as plain HTML (legacy)
+    return { html: content, videoUrl: "", files: [] };
+  }
+}
+
 function isSectionUnlocked(
   section: SectionData,
   completedIds: Set<string>
@@ -374,7 +412,7 @@ export function SectionViewer({
 
             <ScrollArea className="flex-1 min-h-0">
               <div className="p-6 space-y-6">
-                {/* Video embed for VIDEO type */}
+                {/* Video embed for VIDEO and MIXED types */}
                 {(activeSection.type === "VIDEO" ||
                   activeSection.type === "MIXED") &&
                   (() => {
@@ -385,6 +423,8 @@ export function SectionViewer({
                           <video
                             src={activeSection.videoBlobUrl}
                             controls
+                            controlsList="nodownload"
+                            onContextMenu={(e) => e.preventDefault()}
                             className="h-full w-full"
                             preload="metadata"
                           >
@@ -394,8 +434,11 @@ export function SectionViewer({
                       );
                     }
 
-                    // YouTube/Vimeo URL
-                    const youtubeId = extractYouTubeId(activeSection.content);
+                    // YouTube/Vimeo URL — for VIDEO type use content directly, for MIXED parse videoUrl
+                    const videoUrl = activeSection.type === "MIXED"
+                      ? parseMixedContent(activeSection.content).videoUrl
+                      : activeSection.content;
+                    const youtubeId = extractYouTubeId(videoUrl);
                     if (!youtubeId) return null;
                     return (
                       <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">
@@ -410,24 +453,68 @@ export function SectionViewer({
                     );
                   })()}
 
-                {/* Text content — sanitized to prevent XSS */}
-                <div
-                  className="prose prose-sm dark:prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeSection.content) }}
-                />
+                {/* Text/HTML content — only for TEXT type or MIXED html part */}
+                {activeSection.type === "TEXT" && activeSection.content && (
+                  <div
+                    className="prose prose-sm dark:prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeSection.content) }}
+                  />
+                )}
 
-                {/* Attachments */}
-                {(activeSection.type === "ATTACHMENT" ||
-                  activeSection.type === "MIXED") &&
-                  activeSection.attachments.length > 0 && (
+                {activeSection.type === "MIXED" && (() => {
+                  const mixed = parseMixedContent(activeSection.content);
+                  return (
+                    <>
+                      {mixed.html && (
+                        <div
+                          className="prose prose-sm dark:prose-invert max-w-none"
+                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(mixed.html) }}
+                        />
+                      )}
+                      {mixed.files.length > 0 && (
+                        <div className="space-y-3">
+                          <Separator />
+                          <h3 className="font-medium text-sm">{t("sectionViewer.attachments")}</h3>
+                          <div className="space-y-2">
+                            {mixed.files.map((file, idx) => (
+                              <a
+                                key={idx}
+                                href={`/api/attachments/download?path=${encodeURIComponent(file.storagePath)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 rounded-lg border p-3 hover:bg-accent transition-colors"
+                              >
+                                <FileDown className="h-5 w-5 text-muted-foreground shrink-0" />
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-sm font-medium truncate">
+                                    {file.fileName}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground">
+                                    {formatFileSize(file.fileSize)} &middot;{" "}
+                                    {file.mimeType}
+                                  </p>
+                                </div>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+
+                {/* Attachments from content JSON (ATTACHMENT type) */}
+                {activeSection.type === "ATTACHMENT" && (() => {
+                  const files = parseContentFiles(activeSection.content);
+                  if (files.length === 0) return null;
+                  return (
                     <div className="space-y-3">
-                      <Separator />
                       <h3 className="font-medium text-sm">{t("sectionViewer.attachments")}</h3>
                       <div className="space-y-2">
-                        {activeSection.attachments.map((attachment) => (
+                        {files.map((file, idx) => (
                           <a
-                            key={attachment.id}
-                            href={`/api/attachments/${attachment.id}`}
+                            key={idx}
+                            href={`/api/attachments/download?path=${encodeURIComponent(file.storagePath)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 rounded-lg border p-3 hover:bg-accent transition-colors"
@@ -435,18 +522,49 @@ export function SectionViewer({
                             <FileDown className="h-5 w-5 text-muted-foreground shrink-0" />
                             <div className="min-w-0 flex-1">
                               <p className="text-sm font-medium truncate">
-                                {attachment.fileName}
+                                {file.fileName}
                               </p>
                               <p className="text-xs text-muted-foreground">
-                                {formatFileSize(attachment.fileSize)} &middot;{" "}
-                                {attachment.mimeType}
+                                {formatFileSize(file.fileSize)} &middot;{" "}
+                                {file.mimeType}
                               </p>
                             </div>
                           </a>
                         ))}
                       </div>
                     </div>
-                  )}
+                  );
+                })()}
+
+                {/* Attachments from Prisma relation (if any — fallback) */}
+                {activeSection.attachments.length > 0 && (
+                  <div className="space-y-3">
+                    {activeSection.type !== "ATTACHMENT" && <Separator />}
+                    <h3 className="font-medium text-sm">{t("sectionViewer.attachments")}</h3>
+                    <div className="space-y-2">
+                      {activeSection.attachments.map((attachment) => (
+                        <a
+                          key={attachment.id}
+                          href={`/api/attachments/${attachment.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 rounded-lg border p-3 hover:bg-accent transition-colors"
+                        >
+                          <FileDown className="h-5 w-5 text-muted-foreground shrink-0" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium truncate">
+                              {attachment.fileName}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {formatFileSize(attachment.fileSize)} &middot;{" "}
+                              {attachment.mimeType}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </ScrollArea>
 

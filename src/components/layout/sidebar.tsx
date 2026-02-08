@@ -12,7 +12,6 @@ import {
   LayoutDashboard,
   BookOpen,
   Award,
-  User,
   Users,
   FolderOpen,
   BarChart3,
@@ -34,7 +33,6 @@ const employeeNav: NavItem[] = [
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
   { href: "/chat", labelKey: "nav.chat", icon: Hash },
   { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio },
-  { href: "/profile", labelKey: "nav.profile", icon: User },
 ];
 
 const adminNav: NavItem[] = [
@@ -236,7 +234,7 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
-              <item.icon className="h-4 w-4 shrink-0" />
+              <item.icon className={cn("h-4 w-4 shrink-0", isMentorLive && isActive && "animate-pulse")} style={isMentorLive && isActive ? { animationDuration: "3s" } : undefined} />
               <div className="flex-1 min-w-0">
                 <span>{t(item.labelKey)}</span>
                 {liveSubLabel && (

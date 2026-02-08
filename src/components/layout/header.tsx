@@ -147,11 +147,6 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick }: HeaderProp
           <Menu className="h-5 w-5" />
           <span className="sr-only">{t("nav.openMenu")}</span>
         </Button>
-        {tenantLogoUrl && (
-          <Link href="/dashboard">
-            <img src={tenantLogoUrl} alt={t("tenant.logoAlt")} className="h-9 w-auto max-w-[160px] rounded object-contain hidden md:block" />
-          </Link>
-        )}
       </div>
       <div className="flex items-center gap-1 md:gap-3">
         {/* Updates (Megaphone) — admin/owner only */}

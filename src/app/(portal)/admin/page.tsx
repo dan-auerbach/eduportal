@@ -110,11 +110,13 @@ export default async function AdminDashboardPage() {
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{publishedModules}</div>
+            <div className="text-2xl font-bold">
+              {publishedModules} / {totalModules}
+            </div>
             <p className="text-xs text-muted-foreground">
               {limits.maxModules !== null
-                ? t("plan.usage", { used: String(totalModules), max: String(limits.maxModules) })
-                : t("admin.dashboard.total", { count: totalModules })}
+                ? t("admin.dashboard.publishedOfLimit", { published: String(publishedModules), total: String(totalModules), max: String(limits.maxModules) })
+                : t("admin.dashboard.publishedOfTotal", { published: String(publishedModules), total: String(totalModules) })}
             </p>
           </CardContent>
         </Card>
@@ -129,7 +131,7 @@ export default async function AdminDashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{completionRate}%</div>
             <p className="text-xs text-muted-foreground">
-              {t("admin.dashboard.sectionsCompleted", { count: totalCompletions })}
+              {t("admin.dashboard.completionDetail", { completed: String(totalCompletions), total: String(totalSections * activeUsers) })}
             </p>
           </CardContent>
         </Card>

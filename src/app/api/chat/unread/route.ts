@@ -20,18 +20,16 @@ export async function GET(req: NextRequest) {
 
   const afterId = req.nextUrl.searchParams.get("after");
 
-  // If no lastRead marker, return 0 (don't scare new users)
-  if (!afterId) {
-    return NextResponse.json({ count: 0 });
-  }
-
   try {
-    const count = await prisma.chatMessage.count({
-      where: {
-        tenantId: ctx.tenantId,
-        id: { gt: afterId },
-      },
-    });
+    const where: Record<string, unknown> = { tenantId: ctx.tenantId };
+
+    // If user has a lastRead marker, count only newer messages.
+    // If no marker (never opened chat), count ALL messages so the badge shows up.
+    if (afterId) {
+      where.id = { gt: afterId };
+    }
+
+    const count = await prisma.chatMessage.count({ where });
 
     return NextResponse.json({ count: Math.min(count, 99) });
   } catch {

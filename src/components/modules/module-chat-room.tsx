@@ -192,6 +192,12 @@ export function ModuleChatRoom({
   const lastIdRef = useRef<string | null>(null);
   const isNearBottomRef = useRef(true);
 
+  // C11: Adaptive polling — 5s base, up to 15s when idle
+  const POLL_BASE = 5000;
+  const POLL_MAX = 15000;
+  const pollIntervalRef = useRef(POLL_BASE);
+  const emptyPollCountRef = useRef(0);
+
   const colors = THEMES[theme];
   const mentorSet = useMemo(() => new Set(mentorIds), [mentorIds]);
 
@@ -255,11 +261,21 @@ export function ModuleChatRoom({
 
         lastIdRef.current = latestId;
 
+        // C11: Reset to fast polling when new messages arrive
+        emptyPollCountRef.current = 0;
+        pollIntervalRef.current = POLL_BASE;
+
         if (isNearBottomRef.current) {
           markAsRead(latestId);
           requestAnimationFrame(() => scrollToBottom(true));
         } else if (lastIdRef.current) {
           setShowNewBadge(true);
+        }
+      } else if (lastIdRef.current) {
+        // C11: No new messages — gradually slow down polling
+        emptyPollCountRef.current++;
+        if (emptyPollCountRef.current >= 3) {
+          pollIntervalRef.current = Math.min(pollIntervalRef.current * 1.5, POLL_MAX);
         }
       }
 
@@ -278,12 +294,24 @@ export function ModuleChatRoom({
     lastIdRef.current = null;
     setShowNewBadge(false);
     setError(null);
+    pollIntervalRef.current = POLL_BASE;
+    emptyPollCountRef.current = 0;
   }, [moduleId]);
 
+  // C11: Adaptive polling with setTimeout instead of setInterval
   useEffect(() => {
-    fetchMessages();
-    const interval = setInterval(fetchMessages, 2500);
-    return () => clearInterval(interval);
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let cancelled = false;
+
+    const poll = async () => {
+      await fetchMessages();
+      if (!cancelled) {
+        timeoutId = setTimeout(poll, pollIntervalRef.current);
+      }
+    };
+
+    poll();
+    return () => { cancelled = true; clearTimeout(timeoutId); };
   }, [fetchMessages]);
 
   // ── Scroll on initial load ────────────────────────────────────────────────
@@ -647,6 +675,7 @@ export function ModuleChatRoom({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={() => { pollIntervalRef.current = POLL_BASE; emptyPollCountRef.current = 0; }}
           placeholder={t("moduleChat.placeholder")}
           maxLength={500}
           disabled={sending}

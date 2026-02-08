@@ -41,6 +41,12 @@ export const SelfAssessmentSchema = z.object({
   note: z.string().max(1000).optional(),
 });
 
+// ---- Module feedback (post-completion rating + suggestion) ----
+export const ModuleFeedbackSchema = z.object({
+  rating: z.number().int().min(1).max(5),
+  suggestion: z.string().min(20, "Predlog mora vsebovati vsaj 20 znakov").max(500),
+});
+
 // ---- User forms ----
 export const LoginSchema = z.object({
   email: z.string().email("Neveljaven email"),

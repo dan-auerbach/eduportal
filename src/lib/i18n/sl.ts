@@ -133,6 +133,7 @@ export const sl = {
     tenants: "Podjetja",
     settings: "Nastavitve",
     lateUsers: "Zamudniki",
+    feedback: "Ocene",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -831,6 +832,18 @@ export const sl = {
       toDate: "Do datuma",
       clearFilters: "Počisti filtre",
     },
+    feedback: {
+      title: "Ocene znanj",
+      subtitle: "Pregled ocen in predlogov za izboljšave",
+      avgRating: "Povprečna ocena",
+      totalRatings: "Število ocen",
+      noRatings: "Še ni ocen",
+      suggestions: "Predlogi za izboljšave",
+      ratedBy: "Ocenil/a",
+      distribution: "Porazdelitev ocen",
+      lowRating: "Nizka ocena",
+      acrossModules: "Iz {count} znanj",
+    },
   },
 
   // ── Quiz Player ─────────────────────────────────────────────────
@@ -894,6 +907,8 @@ export const sl = {
     MODULE_VERSION_BUMPED: "Nova verzija znanja",
     OWNER_IMPERSONATION: "Vstop lastnika v podjetje",
     TENANT_DELETED: "Podjetje izbrisano",
+    ANSWER_CONFIRMED: "Odgovor potrjen",
+    ANSWER_UNCONFIRMED: "Potrditev preklicana",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -991,6 +1006,8 @@ export const sl = {
     slugMismatch: "Vneseni slug se ne ujema",
     exporting: "Izvažam...",
     deleting: "Brišem...",
+    avgRating: "Povprečna ocena znanj",
+    totalRatings: "Skupno ocen",
   },
 
   // ── Plans ──────────────────────────────────────────────────
@@ -1045,6 +1062,50 @@ export const sl = {
     helpShrug: "/shrug — ¯\\_(ツ)_/¯",
     helpAfk: "/afk [razlog] — označi se kot odsoten",
     helpTopic: "/topic <besedilo> — nastavi temo kanala",
+    helpHelp: "/help — prikaži ta seznam",
+    helpClose: "Zapri",
+  },
+
+  // ── Feedback (post-completion rating) ────────────────────────────
+  feedback: {
+    title: "Oceni znanje",
+    subtitle: "Tvoja ocena pomaga izboljšati vsebino",
+    ratingLabel: "Ocena",
+    ratingRequired: "Ocena je obvezna",
+    suggestionLabel: "Predlog za izboljšavo",
+    suggestionPlaceholder: "Kaj bi lahko izboljšali? (min. 20 znakov)",
+    submit: "Oddaj oceno",
+    submitted: "Hvala za oceno!",
+    minChars: "Predlog mora vsebovati vsaj 20 znakov",
+    maxChars: "Predlog ne sme presegati 500 znakov",
+    yourRating: "Tvoja ocena",
+  },
+
+  // ── Module Chat (IRC per module) ───────────────────────────────
+  moduleChat: {
+    tabContent: "Vsebina",
+    tabChat: "Pogovor",
+    placeholder: "Napiši sporočilo...",
+    noMessages: "Še ni sporočil. Začni pogovor!",
+    mentorBadge: "Mentor",
+    confirmAnswer: "Potrdi odgovor",
+    unconfirmAnswer: "Prekliči potrditev",
+    confirmedAnswer: "Potrjen odgovor",
+    confirmedBy: "Potrdil/a {name}",
+    recentActivity: "Nedavna aktivnost v pogovoru",
+    askMentor: "Vprašaj mentorja",
+    send: "Pošlji",
+    joined: "se je pridružil/a #{channel}",
+    channelName: "#{title}",
+    title: "Pogovor o znanju",
+    error: "Napaka pri pošiljanju",
+    newMessages: "Nova sporočila",
+    topicLabel: "Tema:",
+    noTopic: "Ni teme",
+    unknownCommand: "Neznan ukaz: {cmd}",
+    helpTitle: "Ukazi",
+    helpMe: "/me <besedilo> — prikaži dejanje",
+    helpTopic: "/topic <besedilo> — nastavi temo (mentor/admin)",
     helpHelp: "/help — prikaži ta seznam",
     helpClose: "Zapri",
   },

@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Building2, Users, Plus } from "lucide-react";
+import { Building2, Users, Plus, Star } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { format } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -17,7 +17,7 @@ export default async function OwnerDashboardPage() {
     redirect("/dashboard");
   }
 
-  const [tenants, globalUserCount] = await Promise.all([
+  const [tenants, globalUserCount, ratingStats] = await Promise.all([
     prisma.tenant.findMany({
       orderBy: { createdAt: "desc" },
       include: {
@@ -30,7 +30,16 @@ export default async function OwnerDashboardPage() {
       },
     }),
     prisma.user.count({ where: { isActive: true, deletedAt: null } }),
+    prisma.moduleSelfAssessment.aggregate({
+      _avg: { rating: true },
+      _count: true,
+    }),
   ]);
+
+  const globalAvgRating = ratingStats._avg.rating
+    ? Math.round(ratingStats._avg.rating * 10) / 10
+    : 0;
+  const globalRatingCount = ratingStats._count;
 
   return (
     <div className="space-y-6">
@@ -49,7 +58,7 @@ export default async function OwnerDashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
@@ -77,6 +86,35 @@ export default async function OwnerDashboardPage() {
             <p className="text-xs text-muted-foreground">
               {t("admin.dashboard.active", { count: globalUserCount })}
             </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">
+              {t("owner.avgRating")}
+            </CardTitle>
+            <Star className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{globalAvgRating > 0 ? globalAvgRating : "—"}</div>
+            <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`h-3 w-3 ${
+                      star <= Math.round(globalAvgRating)
+                        ? "text-amber-500 fill-amber-500"
+                        : "text-muted-foreground/30"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                ({globalRatingCount})
+              </span>
+            </div>
           </CardContent>
         </Card>
       </div>

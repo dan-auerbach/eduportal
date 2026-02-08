@@ -7,7 +7,7 @@ import { checkModuleAccess } from "@/lib/permissions";
 import { SectionViewer } from "@/components/modules/section-viewer";
 
 type Params = Promise<{ id: string }>;
-type SearchParams = Promise<{ preview?: string }>;
+type SearchParams = Promise<{ preview?: string; tab?: string }>;
 
 export default async function ModuleViewerPage({
   params,
@@ -19,8 +19,9 @@ export default async function ModuleViewerPage({
   const ctx = await getTenantContext();
   const user = ctx.user;
   const { id: moduleId } = await params;
-  const { preview } = await searchParams;
+  const { preview, tab } = await searchParams;
   const isPreview = preview === "true";
+  const initialTab = tab === "chat" ? "chat" : "content";
 
   // Check access
   if (!isPreview) {
@@ -166,6 +167,14 @@ export default async function ModuleViewerPage({
     }
   }
 
+  // Chat props
+  const mentorIds = module.mentors.map((m) => m.user.id);
+  const isMentorForModule = mentorIds.includes(user.id);
+  const role = ctx.effectiveRole;
+  const isAdminRole = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+  const canConfirmAnswers = isMentorForModule || isAdminRole;
+  const userDisplayName = `${user.firstName} ${user.lastName}`.trim() || user.email.split("@")[0];
+
   return (
     <div className="space-y-4">
       <SectionViewer
@@ -185,6 +194,13 @@ export default async function ModuleViewerPage({
           avatar: m.user.avatar,
         }))}
         assignmentGroups={assignmentGroups}
+        chatEnabled={!isPreview}
+        tenantId={ctx.tenantId}
+        userId={user.id}
+        userDisplayName={userDisplayName}
+        mentorIds={mentorIds}
+        canConfirmAnswers={canConfirmAnswers}
+        initialTab={initialTab as "content" | "chat"}
       />
     </div>
   );

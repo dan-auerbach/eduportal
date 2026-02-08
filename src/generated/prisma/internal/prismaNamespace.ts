@@ -3419,7 +3419,10 @@ export const ChatMessageScalarFieldEnum = {
   type: 'type',
   displayName: 'displayName',
   body: 'body',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  moduleId: 'moduleId',
+  isConfirmedAnswer: 'isConfirmedAnswer',
+  confirmedById: 'confirmedById'
 } as const
 
 export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]

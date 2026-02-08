@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import {
   ChevronLeft,
   ChevronRight,
   GraduationCap,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -37,6 +38,7 @@ import { cn } from "@/lib/utils";
 import { completeSection } from "@/actions/progress";
 import { acknowledgeModuleUpdate } from "@/actions/modules";
 import { t } from "@/lib/i18n";
+import { ModuleChatRoom } from "@/components/modules/module-chat-room";
 
 type SectionData = {
   id: string;
@@ -81,6 +83,14 @@ type SectionViewerProps = {
   quizzes?: QuizData[];
   mentors?: MentorData[];
   assignmentGroups?: string[];
+  // Chat props
+  chatEnabled?: boolean;
+  tenantId?: string;
+  userId?: string;
+  userDisplayName?: string;
+  mentorIds?: string[];
+  canConfirmAnswers?: boolean;
+  initialTab?: "content" | "chat";
 };
 
 function extractYouTubeId(content: string): string | null {
@@ -158,6 +168,13 @@ export function SectionViewer({
   quizzes = [],
   mentors = [],
   assignmentGroups = [],
+  chatEnabled = false,
+  tenantId,
+  userId,
+  userDisplayName,
+  mentorIds = [],
+  canConfirmAnswers = false,
+  initialTab = "content",
 }: SectionViewerProps) {
   const router = useRouter();
   const [completedIds, setCompletedIds] = useState<Set<string>>(
@@ -174,6 +191,33 @@ export function SectionViewer({
     initialProgress >= 100 && quizzes.length > 0 && !quizzes.every(q => q.passed)
   );
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"content" | "chat">(initialTab);
+  const [chatUnreadCount, setChatUnreadCount] = useState(0);
+
+  // Poll for unread count when on content tab
+  useEffect(() => {
+    if (!chatEnabled || activeTab === "chat") {
+      setChatUnreadCount(0);
+      return;
+    }
+    const poll = async () => {
+      try {
+        const lastRead = typeof window !== "undefined"
+          ? localStorage.getItem(`ircModuleLastRead:${moduleId}`)
+          : null;
+        const params = new URLSearchParams({ moduleId });
+        if (lastRead) params.set("after", lastRead);
+        const res = await fetch(`/api/chat/module-unread?${params.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          setChatUnreadCount(data.count ?? 0);
+        }
+      } catch { /* ignore */ }
+    };
+    poll();
+    const interval = setInterval(poll, 10000); // Poll every 10s for badge
+    return () => clearInterval(interval);
+  }, [chatEnabled, activeTab, moduleId]);
 
   const completedSet = completedIds;
   const totalSections = sections.length;
@@ -437,6 +481,61 @@ export function SectionViewer({
         <div className="md:hidden">
           <Progress value={currentProgress} className="h-1 rounded-none" />
         </div>
+
+        {/* Content/Chat tab bar */}
+        {chatEnabled && !isPreview && (
+          <div className="flex border-b shrink-0">
+            <button
+              onClick={() => setActiveTab("content")}
+              className={cn(
+                "flex-1 px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px",
+                activeTab === "content"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+              )}
+            >
+              {t("moduleChat.tabContent")}
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("chat");
+                setChatUnreadCount(0);
+              }}
+              className={cn(
+                "flex-1 px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px flex items-center justify-center gap-1.5",
+                activeTab === "chat"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+              )}
+            >
+              <MessageSquare className="h-3.5 w-3.5" />
+              {t("moduleChat.tabChat")}
+              {chatUnreadCount > 0 && activeTab !== "chat" && (
+                <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-primary text-primary-foreground text-[10px] font-bold px-1">
+                  {chatUnreadCount > 99 ? "99+" : chatUnreadCount}
+                </span>
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Chat tab content */}
+        {chatEnabled && !isPreview && activeTab === "chat" && tenantId && userId && userDisplayName && (
+          <div className="flex-1 min-h-0">
+            <ModuleChatRoom
+              moduleId={moduleId}
+              moduleTitle={moduleTitle}
+              tenantId={tenantId}
+              userId={userId}
+              userDisplayName={userDisplayName}
+              mentorIds={mentorIds}
+              canConfirmAnswers={canConfirmAnswers}
+            />
+          </div>
+        )}
+
+        {/* Content tab (or always if chat not enabled) */}
+        {(activeTab === "content" || !chatEnabled || isPreview) && <>
 
         {isPreview && (
           <Alert className="rounded-none border-x-0 border-t-0 bg-yellow-50 dark:bg-yellow-950">
@@ -784,6 +883,8 @@ export function SectionViewer({
             </div>
           </div>
         )}
+
+        </>}
       </div>
     </div>
   );

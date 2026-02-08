@@ -133,6 +133,7 @@ export const en = {
     tenants: "Companies",
     settings: "Settings",
     lateUsers: "Overdue",
+    feedback: "Ratings",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -831,6 +832,18 @@ export const en = {
       toDate: "To date",
       clearFilters: "Clear filters",
     },
+    feedback: {
+      title: "Knowledge Ratings",
+      subtitle: "Overview of ratings and improvement suggestions",
+      avgRating: "Average Rating",
+      totalRatings: "Total Ratings",
+      noRatings: "No ratings yet",
+      suggestions: "Improvement Suggestions",
+      ratedBy: "Rated by",
+      distribution: "Rating Distribution",
+      lowRating: "Low rating",
+      acrossModules: "From {count} knowledge items",
+    },
   },
 
   // ── Quiz Player ─────────────────────────────────────────────────
@@ -894,6 +907,8 @@ export const en = {
     MODULE_VERSION_BUMPED: "New knowledge version",
     OWNER_IMPERSONATION: "Owner entered company",
     TENANT_DELETED: "Company deleted",
+    ANSWER_CONFIRMED: "Answer Confirmed",
+    ANSWER_UNCONFIRMED: "Answer Unconfirmed",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -991,6 +1006,8 @@ export const en = {
     slugMismatch: "Entered slug does not match",
     exporting: "Exporting...",
     deleting: "Deleting...",
+    avgRating: "Average Knowledge Rating",
+    totalRatings: "Total Ratings",
   },
 
   // ── Plans ──────────────────────────────────────────────────
@@ -1045,6 +1062,50 @@ export const en = {
     helpShrug: "/shrug — ¯\\_(ツ)_/¯",
     helpAfk: "/afk [reason] — mark yourself as away",
     helpTopic: "/topic <text> — set the channel topic",
+    helpHelp: "/help — show this list",
+    helpClose: "Close",
+  },
+
+  // ── Feedback (post-completion rating) ────────────────────────────
+  feedback: {
+    title: "Rate Knowledge",
+    subtitle: "Your rating helps improve content",
+    ratingLabel: "Rating",
+    ratingRequired: "Rating is required",
+    suggestionLabel: "Improvement Suggestion",
+    suggestionPlaceholder: "What could be improved? (min. 20 characters)",
+    submit: "Submit Rating",
+    submitted: "Thank you for your rating!",
+    minChars: "Suggestion must contain at least 20 characters",
+    maxChars: "Suggestion must not exceed 500 characters",
+    yourRating: "Your rating",
+  },
+
+  // ── Module Chat (IRC per module) ───────────────────────────────
+  moduleChat: {
+    tabContent: "Content",
+    tabChat: "Discussion",
+    placeholder: "Type a message...",
+    noMessages: "No messages yet. Start the conversation!",
+    mentorBadge: "Mentor",
+    confirmAnswer: "Confirm Answer",
+    unconfirmAnswer: "Unconfirm Answer",
+    confirmedAnswer: "Confirmed Answer",
+    confirmedBy: "Confirmed by {name}",
+    recentActivity: "Recent discussion activity",
+    askMentor: "Ask Mentor",
+    send: "Send",
+    joined: "joined #{channel}",
+    channelName: "#{title}",
+    title: "Knowledge Discussion",
+    error: "Error sending message",
+    newMessages: "New messages",
+    topicLabel: "Topic:",
+    noTopic: "No topic",
+    unknownCommand: "Unknown command: {cmd}",
+    helpTitle: "Commands",
+    helpMe: "/me <text> — display an action",
+    helpTopic: "/topic <text> — set the topic (mentor/admin)",
     helpHelp: "/help — show this list",
     helpClose: "Close",
   },

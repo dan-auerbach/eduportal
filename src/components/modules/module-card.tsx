@@ -13,6 +13,7 @@ import {
   Zap,
   ArrowRight,
   GraduationCap,
+  MessageSquare,
 } from "lucide-react";
 import { format, differenceInDays } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -46,6 +47,7 @@ export type ModuleCardProps = {
   categoryName?: string | null;
   assignmentGroups?: string[];
   mentors?: { id: string; firstName: string; lastName: string; avatar: string | null }[];
+  recentChatActivity?: boolean;
 };
 
 // Deterministic gradient based on module id — 6 curated gradients
@@ -335,20 +337,27 @@ export function ModuleCard({ module }: { module: ModuleCardProps }) {
               )}
             </div>
 
-            {/* Right: CTA */}
-            <span
-              className={cn(
-                "inline-flex items-center gap-1 text-xs font-medium transition-colors",
-                isCompleted
-                  ? "text-muted-foreground group-hover:text-foreground"
-                  : quizRequired
-                    ? "text-amber-600 dark:text-amber-400 group-hover:text-amber-700"
-                    : "text-primary group-hover:text-primary/80"
+            {/* Right: CTA + chat indicator */}
+            <div className="flex items-center gap-2">
+              {module.recentChatActivity && (
+                <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground" title={t("moduleChat.recentActivity")}>
+                  <MessageSquare className="h-3 w-3" />
+                </span>
               )}
-            >
-              {ctaLabel}
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </span>
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1 text-xs font-medium transition-colors",
+                  isCompleted
+                    ? "text-muted-foreground group-hover:text-foreground"
+                    : quizRequired
+                      ? "text-amber-600 dark:text-amber-400 group-hover:text-amber-700"
+                      : "text-primary group-hover:text-primary/80"
+                )}
+              >
+                {ctaLabel}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
           </div>
 
           {/* Deadline (for non-urgent, non-completed) */}

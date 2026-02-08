@@ -253,6 +253,27 @@ export default async function ModulesPage({
     select: { name: true },
   });
 
+  // Get recent chat activity per module (last 24h)
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const chatActivity = await prisma.chatMessage.groupBy({
+    by: ["moduleId"],
+    where: {
+      tenantId: ctx.tenantId,
+      moduleId: { not: null },
+      createdAt: { gte: oneDayAgo },
+      type: "MESSAGE",
+    },
+    _count: { id: true },
+  });
+  const chatActiveModuleIds = new Set(
+    chatActivity.filter((g) => g.moduleId && g._count.id > 0).map((g) => g.moduleId!)
+  );
+
+  // Add recentChatActivity to modules
+  for (const m of modulesWithProgress) {
+    (m as ModuleCardProps & { recentChatActivity?: boolean }).recentChatActivity = chatActiveModuleIds.has(m.id);
+  }
+
   // Sort modules using the sort utility
   const sortedModules = sortModules(modulesWithProgress, sortBy, companyPinSet, userPinSet);
 

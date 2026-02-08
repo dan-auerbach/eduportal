@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { format, formatDistanceToNow } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
 import {
@@ -10,6 +11,7 @@ import {
   Play,
   Award,
   Sparkles,
+  MessageSquare,
 } from "lucide-react";
 import { getTenantContext } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
@@ -292,13 +294,22 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* ─── Greeting ─── */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">
-          {t("dashboard.welcome", { name: user.firstName })}
-        </h1>
-        <p className="text-muted-foreground mt-0.5">
-          {t("dashboard.subtitle")}
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {t("dashboard.welcome", { name: user.firstName })}
+          </h1>
+          <p className="text-muted-foreground mt-0.5">
+            {t("dashboard.subtitle")}
+          </p>
+        </div>
+        <Image
+          src="/logo.png"
+          alt="Mentor"
+          width={140}
+          height={47}
+          className="h-10 w-auto hidden sm:block opacity-80"
+        />
       </div>
 
       {/* ─── Hero CTA ─── */}
@@ -369,20 +380,35 @@ export default async function DashboardPage() {
                     )}
                   </div>
                 </div>
-                <Button
-                  asChild
-                  size="lg"
-                  className="shrink-0 bg-white text-primary hover:bg-white/90 font-semibold shadow-lg shadow-black/10"
-                >
-                  <Link href={`/modules/${heroModule.id}`}>
-                    {heroModule.progress.status === "NOT_STARTED"
-                      ? t("dashboard.startModule")
-                      : heroModule.progress.status === "READY_FOR_QUIZ"
-                        ? t("modules.ctaQuiz")
-                        : t("dashboard.continueModule")}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg shadow-black/10"
+                  >
+                    <Link href={`/modules/${heroModule.id}`}>
+                      {heroModule.progress.status === "NOT_STARTED"
+                        ? t("dashboard.startModule")
+                        : heroModule.progress.status === "READY_FOR_QUIZ"
+                          ? t("modules.ctaQuiz")
+                          : t("dashboard.continueModule")}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  {heroModule.mentors && heroModule.mentors.length > 0 && (
+                    <Button
+                      asChild
+                      size="lg"
+                      variant="outline"
+                      className="border-white/30 text-white hover:bg-white/10 hover:text-white font-medium"
+                    >
+                      <Link href={`/modules/${heroModule.id}?tab=chat`}>
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        {t("moduleChat.askMentor")}
+                      </Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             ) : null}
           </div>

@@ -4,6 +4,7 @@ import { Suspense, useState, useCallback, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -118,11 +119,15 @@ function LoginForm() {
       {/* Left panel — info / branding (hidden on mobile) */}
       <div className="hidden lg:flex lg:w-[45%] xl:w-[40%] flex-col bg-primary p-10 text-primary-foreground">
         {/* Logo — pinned to top */}
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
-            <GraduationCap className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-semibold tracking-tight">{t("nav.appName")}</span>
+        <div className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Mentor"
+            width={180}
+            height={60}
+            className="h-12 w-auto brightness-0 invert drop-shadow-md"
+            priority
+          />
         </div>
 
         {/* Value propositions — vertically centered in remaining space */}
@@ -168,11 +173,15 @@ function LoginForm() {
       <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-muted/30 via-background to-muted/50 px-4 py-8">
         <div className="w-full max-w-[420px]">
           {/* Mobile logo */}
-          <div className="mb-8 text-center lg:hidden">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-              <GraduationCap className="h-7 w-7" />
-            </div>
-            <h1 className="text-xl font-bold">{t("nav.appName")}</h1>
+          <div className="mb-8 flex justify-center lg:hidden">
+            <Image
+              src="/logo.png"
+              alt="Mentor"
+              width={200}
+              height={67}
+              className="h-14 w-auto"
+              priority
+            />
           </div>
 
           {/* Login card */}
@@ -321,9 +330,14 @@ export default function LoginPage() {
       fallback={
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-muted/30 via-background to-muted/50">
           <div className="text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-              <GraduationCap className="h-7 w-7" />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Mentor"
+              width={200}
+              height={67}
+              className="h-14 w-auto mx-auto mb-4"
+              priority
+            />
             <Loader2 className="h-5 w-5 animate-spin mx-auto text-muted-foreground" />
           </div>
         </div>

@@ -32,6 +32,9 @@ export type ChatMessageMinAggregateOutputType = {
   displayName: string | null
   body: string | null
   createdAt: Date | null
+  moduleId: string | null
+  isConfirmedAnswer: boolean | null
+  confirmedById: string | null
 }
 
 export type ChatMessageMaxAggregateOutputType = {
@@ -42,6 +45,9 @@ export type ChatMessageMaxAggregateOutputType = {
   displayName: string | null
   body: string | null
   createdAt: Date | null
+  moduleId: string | null
+  isConfirmedAnswer: boolean | null
+  confirmedById: string | null
 }
 
 export type ChatMessageCountAggregateOutputType = {
@@ -52,6 +58,9 @@ export type ChatMessageCountAggregateOutputType = {
   displayName: number
   body: number
   createdAt: number
+  moduleId: number
+  isConfirmedAnswer: number
+  confirmedById: number
   _all: number
 }
 
@@ -64,6 +73,9 @@ export type ChatMessageMinAggregateInputType = {
   displayName?: true
   body?: true
   createdAt?: true
+  moduleId?: true
+  isConfirmedAnswer?: true
+  confirmedById?: true
 }
 
 export type ChatMessageMaxAggregateInputType = {
@@ -74,6 +86,9 @@ export type ChatMessageMaxAggregateInputType = {
   displayName?: true
   body?: true
   createdAt?: true
+  moduleId?: true
+  isConfirmedAnswer?: true
+  confirmedById?: true
 }
 
 export type ChatMessageCountAggregateInputType = {
@@ -84,6 +99,9 @@ export type ChatMessageCountAggregateInputType = {
   displayName?: true
   body?: true
   createdAt?: true
+  moduleId?: true
+  isConfirmedAnswer?: true
+  confirmedById?: true
   _all?: true
 }
 
@@ -167,6 +185,9 @@ export type ChatMessageGroupByOutputType = {
   displayName: string
   body: string
   createdAt: Date
+  moduleId: string | null
+  isConfirmedAnswer: boolean
+  confirmedById: string | null
   _count: ChatMessageCountAggregateOutputType | null
   _min: ChatMessageMinAggregateOutputType | null
   _max: ChatMessageMaxAggregateOutputType | null
@@ -198,8 +219,13 @@ export type ChatMessageWhereInput = {
   displayName?: Prisma.StringFilter<"ChatMessage"> | string
   body?: Prisma.StringFilter<"ChatMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"ChatMessage"> | Date | string
+  moduleId?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
+  isConfirmedAnswer?: Prisma.BoolFilter<"ChatMessage"> | boolean
+  confirmedById?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  module?: Prisma.XOR<Prisma.ModuleNullableScalarRelationFilter, Prisma.ModuleWhereInput> | null
+  confirmedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ChatMessageOrderByWithRelationInput = {
@@ -210,8 +236,13 @@ export type ChatMessageOrderByWithRelationInput = {
   displayName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  moduleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isConfirmedAnswer?: Prisma.SortOrder
+  confirmedById?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  module?: Prisma.ModuleOrderByWithRelationInput
+  confirmedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ChatMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -225,8 +256,13 @@ export type ChatMessageWhereUniqueInput = Prisma.AtLeast<{
   displayName?: Prisma.StringFilter<"ChatMessage"> | string
   body?: Prisma.StringFilter<"ChatMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"ChatMessage"> | Date | string
+  moduleId?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
+  isConfirmedAnswer?: Prisma.BoolFilter<"ChatMessage"> | boolean
+  confirmedById?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  module?: Prisma.XOR<Prisma.ModuleNullableScalarRelationFilter, Prisma.ModuleWhereInput> | null
+  confirmedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ChatMessageOrderByWithAggregationInput = {
@@ -237,6 +273,9 @@ export type ChatMessageOrderByWithAggregationInput = {
   displayName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  moduleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isConfirmedAnswer?: Prisma.SortOrder
+  confirmedById?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ChatMessageCountOrderByAggregateInput
   _max?: Prisma.ChatMessageMaxOrderByAggregateInput
   _min?: Prisma.ChatMessageMinOrderByAggregateInput
@@ -253,6 +292,9 @@ export type ChatMessageScalarWhereWithAggregatesInput = {
   displayName?: Prisma.StringWithAggregatesFilter<"ChatMessage"> | string
   body?: Prisma.StringWithAggregatesFilter<"ChatMessage"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ChatMessage"> | Date | string
+  moduleId?: Prisma.StringNullableWithAggregatesFilter<"ChatMessage"> | string | null
+  isConfirmedAnswer?: Prisma.BoolWithAggregatesFilter<"ChatMessage"> | boolean
+  confirmedById?: Prisma.StringNullableWithAggregatesFilter<"ChatMessage"> | string | null
 }
 
 export type ChatMessageCreateInput = {
@@ -261,8 +303,11 @@ export type ChatMessageCreateInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  isConfirmedAnswer?: boolean
   tenant: Prisma.TenantCreateNestedOneWithoutChatMessagesInput
   user?: Prisma.UserCreateNestedOneWithoutChatMessagesInput
+  module?: Prisma.ModuleCreateNestedOneWithoutChatMessagesInput
+  confirmedBy?: Prisma.UserCreateNestedOneWithoutConfirmedAnswersInput
 }
 
 export type ChatMessageUncheckedCreateInput = {
@@ -273,6 +318,9 @@ export type ChatMessageUncheckedCreateInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
 }
 
 export type ChatMessageUpdateInput = {
@@ -281,8 +329,11 @@ export type ChatMessageUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tenant?: Prisma.TenantUpdateOneRequiredWithoutChatMessagesNestedInput
   user?: Prisma.UserUpdateOneWithoutChatMessagesNestedInput
+  module?: Prisma.ModuleUpdateOneWithoutChatMessagesNestedInput
+  confirmedBy?: Prisma.UserUpdateOneWithoutConfirmedAnswersNestedInput
 }
 
 export type ChatMessageUncheckedUpdateInput = {
@@ -293,6 +344,9 @@ export type ChatMessageUncheckedUpdateInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ChatMessageCreateManyInput = {
@@ -303,6 +357,9 @@ export type ChatMessageCreateManyInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
 }
 
 export type ChatMessageUpdateManyMutationInput = {
@@ -311,6 +368,7 @@ export type ChatMessageUpdateManyMutationInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChatMessageUncheckedUpdateManyInput = {
@@ -321,6 +379,9 @@ export type ChatMessageUncheckedUpdateManyInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ChatMessageListRelationFilter = {
@@ -341,6 +402,9 @@ export type ChatMessageCountOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  moduleId?: Prisma.SortOrder
+  isConfirmedAnswer?: Prisma.SortOrder
+  confirmedById?: Prisma.SortOrder
 }
 
 export type ChatMessageMaxOrderByAggregateInput = {
@@ -351,6 +415,9 @@ export type ChatMessageMaxOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  moduleId?: Prisma.SortOrder
+  isConfirmedAnswer?: Prisma.SortOrder
+  confirmedById?: Prisma.SortOrder
 }
 
 export type ChatMessageMinOrderByAggregateInput = {
@@ -361,6 +428,9 @@ export type ChatMessageMinOrderByAggregateInput = {
   displayName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  moduleId?: Prisma.SortOrder
+  isConfirmedAnswer?: Prisma.SortOrder
+  confirmedById?: Prisma.SortOrder
 }
 
 export type ChatMessageCreateNestedManyWithoutTenantInput = {
@@ -412,10 +482,24 @@ export type ChatMessageCreateNestedManyWithoutUserInput = {
   connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
 }
 
+export type ChatMessageCreateNestedManyWithoutConfirmedByInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput> | Prisma.ChatMessageCreateWithoutConfirmedByInput[] | Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput | Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput[]
+  createMany?: Prisma.ChatMessageCreateManyConfirmedByInputEnvelope
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+}
+
 export type ChatMessageUncheckedCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutUserInput, Prisma.ChatMessageUncheckedCreateWithoutUserInput> | Prisma.ChatMessageCreateWithoutUserInput[] | Prisma.ChatMessageUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutUserInput | Prisma.ChatMessageCreateOrConnectWithoutUserInput[]
   createMany?: Prisma.ChatMessageCreateManyUserInputEnvelope
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+}
+
+export type ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput> | Prisma.ChatMessageCreateWithoutConfirmedByInput[] | Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput | Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput[]
+  createMany?: Prisma.ChatMessageCreateManyConfirmedByInputEnvelope
   connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
 }
 
@@ -433,6 +517,20 @@ export type ChatMessageUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
 }
 
+export type ChatMessageUpdateManyWithoutConfirmedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput> | Prisma.ChatMessageCreateWithoutConfirmedByInput[] | Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput | Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput[]
+  upsert?: Prisma.ChatMessageUpsertWithWhereUniqueWithoutConfirmedByInput | Prisma.ChatMessageUpsertWithWhereUniqueWithoutConfirmedByInput[]
+  createMany?: Prisma.ChatMessageCreateManyConfirmedByInputEnvelope
+  set?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  disconnect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  delete?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  update?: Prisma.ChatMessageUpdateWithWhereUniqueWithoutConfirmedByInput | Prisma.ChatMessageUpdateWithWhereUniqueWithoutConfirmedByInput[]
+  updateMany?: Prisma.ChatMessageUpdateManyWithWhereWithoutConfirmedByInput | Prisma.ChatMessageUpdateManyWithWhereWithoutConfirmedByInput[]
+  deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
+}
+
 export type ChatMessageUncheckedUpdateManyWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutUserInput, Prisma.ChatMessageUncheckedCreateWithoutUserInput> | Prisma.ChatMessageCreateWithoutUserInput[] | Prisma.ChatMessageUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutUserInput | Prisma.ChatMessageCreateOrConnectWithoutUserInput[]
@@ -447,6 +545,62 @@ export type ChatMessageUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
 }
 
+export type ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput> | Prisma.ChatMessageCreateWithoutConfirmedByInput[] | Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput | Prisma.ChatMessageCreateOrConnectWithoutConfirmedByInput[]
+  upsert?: Prisma.ChatMessageUpsertWithWhereUniqueWithoutConfirmedByInput | Prisma.ChatMessageUpsertWithWhereUniqueWithoutConfirmedByInput[]
+  createMany?: Prisma.ChatMessageCreateManyConfirmedByInputEnvelope
+  set?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  disconnect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  delete?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  update?: Prisma.ChatMessageUpdateWithWhereUniqueWithoutConfirmedByInput | Prisma.ChatMessageUpdateWithWhereUniqueWithoutConfirmedByInput[]
+  updateMany?: Prisma.ChatMessageUpdateManyWithWhereWithoutConfirmedByInput | Prisma.ChatMessageUpdateManyWithWhereWithoutConfirmedByInput[]
+  deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
+}
+
+export type ChatMessageCreateNestedManyWithoutModuleInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput> | Prisma.ChatMessageCreateWithoutModuleInput[] | Prisma.ChatMessageUncheckedCreateWithoutModuleInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutModuleInput | Prisma.ChatMessageCreateOrConnectWithoutModuleInput[]
+  createMany?: Prisma.ChatMessageCreateManyModuleInputEnvelope
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+}
+
+export type ChatMessageUncheckedCreateNestedManyWithoutModuleInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput> | Prisma.ChatMessageCreateWithoutModuleInput[] | Prisma.ChatMessageUncheckedCreateWithoutModuleInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutModuleInput | Prisma.ChatMessageCreateOrConnectWithoutModuleInput[]
+  createMany?: Prisma.ChatMessageCreateManyModuleInputEnvelope
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+}
+
+export type ChatMessageUpdateManyWithoutModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput> | Prisma.ChatMessageCreateWithoutModuleInput[] | Prisma.ChatMessageUncheckedCreateWithoutModuleInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutModuleInput | Prisma.ChatMessageCreateOrConnectWithoutModuleInput[]
+  upsert?: Prisma.ChatMessageUpsertWithWhereUniqueWithoutModuleInput | Prisma.ChatMessageUpsertWithWhereUniqueWithoutModuleInput[]
+  createMany?: Prisma.ChatMessageCreateManyModuleInputEnvelope
+  set?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  disconnect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  delete?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  update?: Prisma.ChatMessageUpdateWithWhereUniqueWithoutModuleInput | Prisma.ChatMessageUpdateWithWhereUniqueWithoutModuleInput[]
+  updateMany?: Prisma.ChatMessageUpdateManyWithWhereWithoutModuleInput | Prisma.ChatMessageUpdateManyWithWhereWithoutModuleInput[]
+  deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
+}
+
+export type ChatMessageUncheckedUpdateManyWithoutModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput> | Prisma.ChatMessageCreateWithoutModuleInput[] | Prisma.ChatMessageUncheckedCreateWithoutModuleInput[]
+  connectOrCreate?: Prisma.ChatMessageCreateOrConnectWithoutModuleInput | Prisma.ChatMessageCreateOrConnectWithoutModuleInput[]
+  upsert?: Prisma.ChatMessageUpsertWithWhereUniqueWithoutModuleInput | Prisma.ChatMessageUpsertWithWhereUniqueWithoutModuleInput[]
+  createMany?: Prisma.ChatMessageCreateManyModuleInputEnvelope
+  set?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  disconnect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  delete?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  connect?: Prisma.ChatMessageWhereUniqueInput | Prisma.ChatMessageWhereUniqueInput[]
+  update?: Prisma.ChatMessageUpdateWithWhereUniqueWithoutModuleInput | Prisma.ChatMessageUpdateWithWhereUniqueWithoutModuleInput[]
+  updateMany?: Prisma.ChatMessageUpdateManyWithWhereWithoutModuleInput | Prisma.ChatMessageUpdateManyWithWhereWithoutModuleInput[]
+  deleteMany?: Prisma.ChatMessageScalarWhereInput | Prisma.ChatMessageScalarWhereInput[]
+}
+
 export type EnumChatMessageTypeFieldUpdateOperationsInput = {
   set?: $Enums.ChatMessageType
 }
@@ -457,7 +611,10 @@ export type ChatMessageCreateWithoutTenantInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  isConfirmedAnswer?: boolean
   user?: Prisma.UserCreateNestedOneWithoutChatMessagesInput
+  module?: Prisma.ModuleCreateNestedOneWithoutChatMessagesInput
+  confirmedBy?: Prisma.UserCreateNestedOneWithoutConfirmedAnswersInput
 }
 
 export type ChatMessageUncheckedCreateWithoutTenantInput = {
@@ -467,6 +624,9 @@ export type ChatMessageUncheckedCreateWithoutTenantInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
 }
 
 export type ChatMessageCreateOrConnectWithoutTenantInput = {
@@ -506,6 +666,9 @@ export type ChatMessageScalarWhereInput = {
   displayName?: Prisma.StringFilter<"ChatMessage"> | string
   body?: Prisma.StringFilter<"ChatMessage"> | string
   createdAt?: Prisma.DateTimeFilter<"ChatMessage"> | Date | string
+  moduleId?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
+  isConfirmedAnswer?: Prisma.BoolFilter<"ChatMessage"> | boolean
+  confirmedById?: Prisma.StringNullableFilter<"ChatMessage"> | string | null
 }
 
 export type ChatMessageCreateWithoutUserInput = {
@@ -514,7 +677,10 @@ export type ChatMessageCreateWithoutUserInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  isConfirmedAnswer?: boolean
   tenant: Prisma.TenantCreateNestedOneWithoutChatMessagesInput
+  module?: Prisma.ModuleCreateNestedOneWithoutChatMessagesInput
+  confirmedBy?: Prisma.UserCreateNestedOneWithoutConfirmedAnswersInput
 }
 
 export type ChatMessageUncheckedCreateWithoutUserInput = {
@@ -524,6 +690,9 @@ export type ChatMessageUncheckedCreateWithoutUserInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
 }
 
 export type ChatMessageCreateOrConnectWithoutUserInput = {
@@ -533,6 +702,40 @@ export type ChatMessageCreateOrConnectWithoutUserInput = {
 
 export type ChatMessageCreateManyUserInputEnvelope = {
   data: Prisma.ChatMessageCreateManyUserInput | Prisma.ChatMessageCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ChatMessageCreateWithoutConfirmedByInput = {
+  id?: string
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  isConfirmedAnswer?: boolean
+  tenant: Prisma.TenantCreateNestedOneWithoutChatMessagesInput
+  user?: Prisma.UserCreateNestedOneWithoutChatMessagesInput
+  module?: Prisma.ModuleCreateNestedOneWithoutChatMessagesInput
+}
+
+export type ChatMessageUncheckedCreateWithoutConfirmedByInput = {
+  id?: string
+  tenantId: string
+  userId?: string | null
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+}
+
+export type ChatMessageCreateOrConnectWithoutConfirmedByInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput>
+}
+
+export type ChatMessageCreateManyConfirmedByInputEnvelope = {
+  data: Prisma.ChatMessageCreateManyConfirmedByInput | Prisma.ChatMessageCreateManyConfirmedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -552,6 +755,72 @@ export type ChatMessageUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.ChatMessageUpdateManyMutationInput, Prisma.ChatMessageUncheckedUpdateManyWithoutUserInput>
 }
 
+export type ChatMessageUpsertWithWhereUniqueWithoutConfirmedByInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ChatMessageUpdateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedUpdateWithoutConfirmedByInput>
+  create: Prisma.XOR<Prisma.ChatMessageCreateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedCreateWithoutConfirmedByInput>
+}
+
+export type ChatMessageUpdateWithWhereUniqueWithoutConfirmedByInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ChatMessageUpdateWithoutConfirmedByInput, Prisma.ChatMessageUncheckedUpdateWithoutConfirmedByInput>
+}
+
+export type ChatMessageUpdateManyWithWhereWithoutConfirmedByInput = {
+  where: Prisma.ChatMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.ChatMessageUpdateManyMutationInput, Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByInput>
+}
+
+export type ChatMessageCreateWithoutModuleInput = {
+  id?: string
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  isConfirmedAnswer?: boolean
+  tenant: Prisma.TenantCreateNestedOneWithoutChatMessagesInput
+  user?: Prisma.UserCreateNestedOneWithoutChatMessagesInput
+  confirmedBy?: Prisma.UserCreateNestedOneWithoutConfirmedAnswersInput
+}
+
+export type ChatMessageUncheckedCreateWithoutModuleInput = {
+  id?: string
+  tenantId: string
+  userId?: string | null
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
+}
+
+export type ChatMessageCreateOrConnectWithoutModuleInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput>
+}
+
+export type ChatMessageCreateManyModuleInputEnvelope = {
+  data: Prisma.ChatMessageCreateManyModuleInput | Prisma.ChatMessageCreateManyModuleInput[]
+  skipDuplicates?: boolean
+}
+
+export type ChatMessageUpsertWithWhereUniqueWithoutModuleInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ChatMessageUpdateWithoutModuleInput, Prisma.ChatMessageUncheckedUpdateWithoutModuleInput>
+  create: Prisma.XOR<Prisma.ChatMessageCreateWithoutModuleInput, Prisma.ChatMessageUncheckedCreateWithoutModuleInput>
+}
+
+export type ChatMessageUpdateWithWhereUniqueWithoutModuleInput = {
+  where: Prisma.ChatMessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ChatMessageUpdateWithoutModuleInput, Prisma.ChatMessageUncheckedUpdateWithoutModuleInput>
+}
+
+export type ChatMessageUpdateManyWithWhereWithoutModuleInput = {
+  where: Prisma.ChatMessageScalarWhereInput
+  data: Prisma.XOR<Prisma.ChatMessageUpdateManyMutationInput, Prisma.ChatMessageUncheckedUpdateManyWithoutModuleInput>
+}
+
 export type ChatMessageCreateManyTenantInput = {
   id?: string
   userId?: string | null
@@ -559,6 +828,9 @@ export type ChatMessageCreateManyTenantInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
 }
 
 export type ChatMessageUpdateWithoutTenantInput = {
@@ -567,7 +839,10 @@ export type ChatMessageUpdateWithoutTenantInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneWithoutChatMessagesNestedInput
+  module?: Prisma.ModuleUpdateOneWithoutChatMessagesNestedInput
+  confirmedBy?: Prisma.UserUpdateOneWithoutConfirmedAnswersNestedInput
 }
 
 export type ChatMessageUncheckedUpdateWithoutTenantInput = {
@@ -577,6 +852,9 @@ export type ChatMessageUncheckedUpdateWithoutTenantInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ChatMessageUncheckedUpdateManyWithoutTenantInput = {
@@ -586,6 +864,9 @@ export type ChatMessageUncheckedUpdateManyWithoutTenantInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ChatMessageCreateManyUserInput = {
@@ -595,6 +876,21 @@ export type ChatMessageCreateManyUserInput = {
   displayName: string
   body: string
   createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
+}
+
+export type ChatMessageCreateManyConfirmedByInput = {
+  id?: string
+  tenantId: string
+  userId?: string | null
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  moduleId?: string | null
+  isConfirmedAnswer?: boolean
 }
 
 export type ChatMessageUpdateWithoutUserInput = {
@@ -603,7 +899,10 @@ export type ChatMessageUpdateWithoutUserInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tenant?: Prisma.TenantUpdateOneRequiredWithoutChatMessagesNestedInput
+  module?: Prisma.ModuleUpdateOneWithoutChatMessagesNestedInput
+  confirmedBy?: Prisma.UserUpdateOneWithoutConfirmedAnswersNestedInput
 }
 
 export type ChatMessageUncheckedUpdateWithoutUserInput = {
@@ -613,6 +912,9 @@ export type ChatMessageUncheckedUpdateWithoutUserInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ChatMessageUncheckedUpdateManyWithoutUserInput = {
@@ -622,6 +924,93 @@ export type ChatMessageUncheckedUpdateManyWithoutUserInput = {
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ChatMessageUpdateWithoutConfirmedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChatMessagesNestedInput
+  user?: Prisma.UserUpdateOneWithoutChatMessagesNestedInput
+  module?: Prisma.ModuleUpdateOneWithoutChatMessagesNestedInput
+}
+
+export type ChatMessageUncheckedUpdateWithoutConfirmedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type ChatMessageUncheckedUpdateManyWithoutConfirmedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moduleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type ChatMessageCreateManyModuleInput = {
+  id?: string
+  tenantId: string
+  userId?: string | null
+  type?: $Enums.ChatMessageType
+  displayName: string
+  body: string
+  createdAt?: Date | string
+  isConfirmedAnswer?: boolean
+  confirmedById?: string | null
+}
+
+export type ChatMessageUpdateWithoutModuleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChatMessagesNestedInput
+  user?: Prisma.UserUpdateOneWithoutChatMessagesNestedInput
+  confirmedBy?: Prisma.UserUpdateOneWithoutConfirmedAnswersNestedInput
+}
+
+export type ChatMessageUncheckedUpdateWithoutModuleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ChatMessageUncheckedUpdateManyWithoutModuleInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumChatMessageTypeFieldUpdateOperationsInput | $Enums.ChatMessageType
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isConfirmedAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  confirmedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -634,8 +1023,13 @@ export type ChatMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   displayName?: boolean
   body?: boolean
   createdAt?: boolean
+  moduleId?: boolean
+  isConfirmedAnswer?: boolean
+  confirmedById?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }, ExtArgs["result"]["chatMessage"]>
 
 export type ChatMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -646,8 +1040,13 @@ export type ChatMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   displayName?: boolean
   body?: boolean
   createdAt?: boolean
+  moduleId?: boolean
+  isConfirmedAnswer?: boolean
+  confirmedById?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }, ExtArgs["result"]["chatMessage"]>
 
 export type ChatMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -658,8 +1057,13 @@ export type ChatMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   displayName?: boolean
   body?: boolean
   createdAt?: boolean
+  moduleId?: boolean
+  isConfirmedAnswer?: boolean
+  confirmedById?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }, ExtArgs["result"]["chatMessage"]>
 
 export type ChatMessageSelectScalar = {
@@ -670,20 +1074,29 @@ export type ChatMessageSelectScalar = {
   displayName?: boolean
   body?: boolean
   createdAt?: boolean
+  moduleId?: boolean
+  isConfirmedAnswer?: boolean
+  confirmedById?: boolean
 }
 
-export type ChatMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "type" | "displayName" | "body" | "createdAt", ExtArgs["result"]["chatMessage"]>
+export type ChatMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "type" | "displayName" | "body" | "createdAt" | "moduleId" | "isConfirmedAnswer" | "confirmedById", ExtArgs["result"]["chatMessage"]>
 export type ChatMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }
 export type ChatMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }
 export type ChatMessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.ChatMessage$userArgs<ExtArgs>
+  module?: boolean | Prisma.ChatMessage$moduleArgs<ExtArgs>
+  confirmedBy?: boolean | Prisma.ChatMessage$confirmedByArgs<ExtArgs>
 }
 
 export type $ChatMessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -691,6 +1104,8 @@ export type $ChatMessagePayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs> | null
+    module: Prisma.$ModulePayload<ExtArgs> | null
+    confirmedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -700,6 +1115,9 @@ export type $ChatMessagePayload<ExtArgs extends runtime.Types.Extensions.Interna
     displayName: string
     body: string
     createdAt: Date
+    moduleId: string | null
+    isConfirmedAnswer: boolean
+    confirmedById: string | null
   }, ExtArgs["result"]["chatMessage"]>
   composites: {}
 }
@@ -1096,6 +1514,8 @@ export interface Prisma__ChatMessageClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.ChatMessage$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChatMessage$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  module<T extends Prisma.ChatMessage$moduleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChatMessage$moduleArgs<ExtArgs>>): Prisma.Prisma__ModuleClient<runtime.Types.Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  confirmedBy<T extends Prisma.ChatMessage$confirmedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChatMessage$confirmedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1132,6 +1552,9 @@ export interface ChatMessageFieldRefs {
   readonly displayName: Prisma.FieldRef<"ChatMessage", 'String'>
   readonly body: Prisma.FieldRef<"ChatMessage", 'String'>
   readonly createdAt: Prisma.FieldRef<"ChatMessage", 'DateTime'>
+  readonly moduleId: Prisma.FieldRef<"ChatMessage", 'String'>
+  readonly isConfirmedAnswer: Prisma.FieldRef<"ChatMessage", 'Boolean'>
+  readonly confirmedById: Prisma.FieldRef<"ChatMessage", 'String'>
 }
     
 
@@ -1531,6 +1954,44 @@ export type ChatMessageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
  * ChatMessage.user
  */
 export type ChatMessage$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ChatMessage.module
+ */
+export type ChatMessage$moduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Module
+   */
+  select?: Prisma.ModuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Module
+   */
+  omit?: Prisma.ModuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModuleInclude<ExtArgs> | null
+  where?: Prisma.ModuleWhereInput
+}
+
+/**
+ * ChatMessage.confirmedBy
+ */
+export type ChatMessage$confirmedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   Building2,
   Hash,
+  Star,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -40,6 +41,7 @@ const adminNav: NavItem[] = [
   { href: "/admin/groups", labelKey: "nav.groups", icon: FolderOpen },
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
+  { href: "/admin/feedback", labelKey: "nav.feedback", icon: Star },
   { href: "/admin/audit-log", labelKey: "nav.auditLog", icon: FileText, ownerOnly: true },
   { href: "/admin/settings", labelKey: "nav.settings", icon: Settings },
 ];

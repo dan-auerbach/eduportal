@@ -129,6 +129,7 @@ model User {
   changelogEntries   ChangelogEntry[]    @relation("ChangelogAuthor")
   sessions           UserSession[]
   chatMessages       ChatMessage[]
+  confirmedAnswers   ChatMessage[]    @relation("ConfirmedAnswers")
   mentorModules      ModuleMentor[]   @relation("MentorModules")
 
   @@index([role, isActive])
@@ -252,6 +253,7 @@ model Module {
   userPins        UserPinnedModule[]
   companyPins     CompanyPinnedModule[]
   mentors         ModuleMentor[]
+  chatMessages    ChatMessage[]
 
   @@index([tenantId, status])
   @@index([createdById])
@@ -843,6 +845,8 @@ enum AuditAction {
   MEMBERSHIP_CHANGED
   OWNER_IMPERSONATION
   TENANT_DELETED
+  ANSWER_CONFIRMED
+  ANSWER_UNCONFIRMED
 }
 
 // ============================================
@@ -850,19 +854,25 @@ enum AuditAction {
 // ============================================
 
 model ChatMessage {
-  id          String          @id @default(cuid())
-  tenantId    String
-  userId      String?
-  type        ChatMessageType @default(MESSAGE)
-  displayName String
-  body        String          @db.Text
-  createdAt   DateTime        @default(now())
+  id                String          @id @default(cuid())
+  tenantId          String
+  userId            String?
+  type              ChatMessageType @default(MESSAGE)
+  displayName       String
+  body              String          @db.Text
+  createdAt         DateTime        @default(now())
+  moduleId          String?
+  isConfirmedAnswer Boolean         @default(false)
+  confirmedById     String?
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  tenant      Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user        User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  module      Module? @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  confirmedBy User?   @relation("ConfirmedAnswers", fields: [confirmedById], references: [id], onDelete: SetNull)
 
   @@index([tenantId, createdAt])
   @@index([tenantId, id])
+  @@index([tenantId, moduleId, id])
 }
 
 enum ChatMessageType {

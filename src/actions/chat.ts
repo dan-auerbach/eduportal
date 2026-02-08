@@ -2,6 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
+import { checkModuleAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 import type { ActionResult } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -13,6 +15,10 @@ export type ChatMessageDTO = {
   body: string;
   createdAt: string; // ISO string for serialisation
   userId: string | null;
+  moduleId: string | null;
+  isConfirmedAnswer: boolean;
+  confirmedByName: string | null;
+  isMentor: boolean;
 };
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -47,13 +53,39 @@ const MSG_SELECT = {
   body: true,
   createdAt: true,
   userId: true,
+  moduleId: true,
+  isConfirmedAnswer: true,
+  confirmedBy: {
+    select: { firstName: true, lastName: true },
+  },
 } as const;
 
-function toDTO(m: { id: string; type: string; displayName: string; body: string; createdAt: Date; userId: string | null }): ChatMessageDTO {
+type RawMessage = {
+  id: string;
+  type: string;
+  displayName: string;
+  body: string;
+  createdAt: Date;
+  userId: string | null;
+  moduleId: string | null;
+  isConfirmedAnswer: boolean;
+  confirmedBy: { firstName: string; lastName: string } | null;
+};
+
+function toDTO(m: RawMessage, mentorIds: Set<string> = new Set()): ChatMessageDTO {
   return {
-    ...m,
+    id: m.id,
     type: m.type as ChatMessageDTO["type"],
+    displayName: m.displayName,
+    body: m.body,
     createdAt: m.createdAt.toISOString(),
+    userId: m.userId,
+    moduleId: m.moduleId,
+    isConfirmedAnswer: m.isConfirmedAnswer,
+    confirmedByName: m.confirmedBy
+      ? `${m.confirmedBy.firstName} ${m.confirmedBy.lastName}`.trim()
+      : null,
+    isMentor: m.userId ? mentorIds.has(m.userId) : false,
   };
 }
 
@@ -62,19 +94,42 @@ function toDTO(m: { id: string; type: string; displayName: string; body: string;
 /**
  * Fetch the latest chat messages for the current tenant.
  * Supports cursor-based polling via `afterId`.
+ * Pass `moduleId` to get module-specific chat; omit for global chat.
  */
 export async function getChatMessages(
   afterId?: string,
   limit: number = MAX_FETCH_LIMIT,
+  moduleId?: string | null,
 ): Promise<ActionResult<{ messages: ChatMessageDTO[]; tenantSlug: string }>> {
   try {
     const ctx = await getTenantContext();
     const take = Math.min(limit, MAX_FETCH_LIMIT);
 
-    const where: Record<string, unknown> = { tenantId: ctx.tenantId };
+    // If moduleId is provided, verify access
+    if (moduleId) {
+      const hasAccess = await checkModuleAccess(ctx.user.id, moduleId, ctx.tenantId);
+      if (!hasAccess) {
+        return { success: false, error: "Nimate dostopa do tega znanja" };
+      }
+    }
+
+    const where: Record<string, unknown> = {
+      tenantId: ctx.tenantId,
+      moduleId: moduleId ?? null, // null = global chat, string = module chat
+    };
 
     if (afterId) {
       where.id = { gt: afterId };
+    }
+
+    // Fetch mentor IDs for this module (if module chat)
+    let mentorIds = new Set<string>();
+    if (moduleId) {
+      const mentors = await prisma.moduleMentor.findMany({
+        where: { moduleId },
+        select: { userId: true },
+      });
+      mentorIds = new Set(mentors.map((m) => m.userId));
     }
 
     const messages = await prisma.chatMessage.findMany({
@@ -90,7 +145,7 @@ export async function getChatMessages(
     return {
       success: true,
       data: {
-        messages: sorted.map(toDTO),
+        messages: sorted.map((m) => toDTO(m as RawMessage, mentorIds)),
         tenantSlug: ctx.tenantSlug,
       },
     };
@@ -103,18 +158,23 @@ export async function getChatMessages(
 }
 
 /**
- * Send a chat message. Handles /commands server-side:
- * - /me <text>   → ACTION message
- * - /shrug       → MESSAGE with ¯\_(ツ)_/¯
- * - /afk [reason]→ ACTION message "je AFK (reason)"
- * - /topic <text>→ sets topic + ACTION message
- * - /help        → should be handled client-side (never reaches here)
- *
- * Returns { _command: "UNKNOWN", cmd } for unknown /commands so client can show local error.
+ * Send a chat message. Handles /commands server-side.
+ * Pass `moduleId` to send to a module channel; omit for global chat.
  */
-export async function sendChatMessage(body: string): Promise<ActionResult<ChatMessageDTO>> {
+export async function sendChatMessage(
+  body: string,
+  moduleId?: string | null,
+): Promise<ActionResult<ChatMessageDTO>> {
   try {
     const ctx = await getTenantContext();
+
+    // If module chat, verify access
+    if (moduleId) {
+      const hasAccess = await checkModuleAccess(ctx.user.id, moduleId, ctx.tenantId);
+      if (!hasAccess) {
+        return { success: false, error: "Nimate dostopa do tega znanja" };
+      }
+    }
 
     // Rate limit check
     const rateKey = `${ctx.user.id}:${ctx.tenantId}`;
@@ -153,11 +213,12 @@ export async function sendChatMessage(body: string): Promise<ActionResult<ChatMe
               type: "ACTION",
               displayName,
               body: arg,
+              moduleId: moduleId ?? null,
             },
             select: MSG_SELECT,
           });
           lastMessageTime.set(rateKey, now);
-          return { success: true, data: toDTO(message) };
+          return { success: true, data: toDTO(message as RawMessage) };
         }
 
         case "/shrug": {
@@ -169,11 +230,12 @@ export async function sendChatMessage(body: string): Promise<ActionResult<ChatMe
               type: "MESSAGE",
               displayName,
               body: shrugText,
+              moduleId: moduleId ?? null,
             },
             select: MSG_SELECT,
           });
           lastMessageTime.set(rateKey, now);
-          return { success: true, data: toDTO(message) };
+          return { success: true, data: toDTO(message as RawMessage) };
         }
 
         case "/afk": {
@@ -185,14 +247,19 @@ export async function sendChatMessage(body: string): Promise<ActionResult<ChatMe
               type: "ACTION",
               displayName,
               body: afkBody,
+              moduleId: moduleId ?? null,
             },
             select: MSG_SELECT,
           });
           lastMessageTime.set(rateKey, now);
-          return { success: true, data: toDTO(message) };
+          return { success: true, data: toDTO(message as RawMessage) };
         }
 
         case "/topic": {
+          if (moduleId) {
+            // Module chat topic — not implemented (module title IS the topic)
+            return { success: false, error: "Ukaz /topic ni na voljo v pogovoru o znanju." };
+          }
           return setChatTopic(arg);
         }
 
@@ -211,13 +278,14 @@ export async function sendChatMessage(body: string): Promise<ActionResult<ChatMe
         type: "MESSAGE",
         displayName,
         body: sanitized,
+        moduleId: moduleId ?? null,
       },
       select: MSG_SELECT,
     });
 
     lastMessageTime.set(rateKey, now);
 
-    return { success: true, data: toDTO(message) };
+    return { success: true, data: toDTO(message as RawMessage) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -263,7 +331,7 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
       select: MSG_SELECT,
     });
 
-    return { success: true, data: toDTO(message) };
+    return { success: true, data: toDTO(message as RawMessage) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -276,7 +344,7 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
  * Log a JOIN message when user enters the chat.
  * Should be called once per session (client tracks via sessionStorage).
  */
-export async function joinChat(): Promise<ActionResult<ChatMessageDTO>> {
+export async function joinChat(moduleId?: string | null): Promise<ActionResult<ChatMessageDTO>> {
   try {
     const ctx = await getTenantContext();
     const displayName = getDisplayName(ctx.user);
@@ -288,15 +356,136 @@ export async function joinChat(): Promise<ActionResult<ChatMessageDTO>> {
         type: "JOIN",
         displayName,
         body: "",
+        moduleId: moduleId ?? null,
       },
       select: MSG_SELECT,
     });
 
-    return { success: true, data: toDTO(message) };
+    return { success: true, data: toDTO(message as RawMessage) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Failed to join chat" };
+  }
+}
+
+/**
+ * Confirm a message as an answer (mentor/admin only).
+ */
+export async function confirmAnswer(messageId: string): Promise<ActionResult<void>> {
+  try {
+    const ctx = await getTenantContext();
+
+    // Load the message
+    const msg = await prisma.chatMessage.findUnique({
+      where: { id: messageId },
+      select: { id: true, tenantId: true, moduleId: true, type: true },
+    });
+
+    if (!msg || msg.tenantId !== ctx.tenantId || !msg.moduleId) {
+      return { success: false, error: "Sporočilo ne obstaja" };
+    }
+
+    // Only MESSAGE type can be confirmed
+    if (msg.type !== "MESSAGE") {
+      return { success: false, error: "Samo sporočila lahko potrdite kot odgovor" };
+    }
+
+    // Check if user is mentor for this module OR admin/super_admin
+    const role = ctx.effectiveRole;
+    const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+
+    if (!isAdmin) {
+      const isMentor = await prisma.moduleMentor.findUnique({
+        where: {
+          moduleId_userId: { moduleId: msg.moduleId, userId: ctx.user.id },
+        },
+      });
+      if (!isMentor) {
+        return { success: false, error: "Samo mentorji in administratorji lahko potrdijo odgovore" };
+      }
+    }
+
+    await prisma.chatMessage.update({
+      where: { id: messageId },
+      data: {
+        isConfirmedAnswer: true,
+        confirmedById: ctx.user.id,
+      },
+    });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      action: "ANSWER_CONFIRMED",
+      entityType: "ChatMessage",
+      entityId: messageId,
+      tenantId: ctx.tenantId,
+      metadata: { moduleId: msg.moduleId },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri potrjevanju odgovora" };
+  }
+}
+
+/**
+ * Unconfirm a previously confirmed answer (mentor/admin only).
+ */
+export async function unconfirmAnswer(messageId: string): Promise<ActionResult<void>> {
+  try {
+    const ctx = await getTenantContext();
+
+    const msg = await prisma.chatMessage.findUnique({
+      where: { id: messageId },
+      select: { id: true, tenantId: true, moduleId: true, isConfirmedAnswer: true },
+    });
+
+    if (!msg || msg.tenantId !== ctx.tenantId || !msg.moduleId || !msg.isConfirmedAnswer) {
+      return { success: false, error: "Sporočilo ne obstaja ali ni potrjeno" };
+    }
+
+    // Check permission
+    const role = ctx.effectiveRole;
+    const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+
+    if (!isAdmin) {
+      const isMentor = await prisma.moduleMentor.findUnique({
+        where: {
+          moduleId_userId: { moduleId: msg.moduleId, userId: ctx.user.id },
+        },
+      });
+      if (!isMentor) {
+        return { success: false, error: "Samo mentorji in administratorji lahko prekličejo potrditev" };
+      }
+    }
+
+    await prisma.chatMessage.update({
+      where: { id: messageId },
+      data: {
+        isConfirmedAnswer: false,
+        confirmedById: null,
+      },
+    });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      action: "ANSWER_UNCONFIRMED",
+      entityType: "ChatMessage",
+      entityId: messageId,
+      tenantId: ctx.tenantId,
+      metadata: { moduleId: msg.moduleId },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri preklicu potrditve" };
   }
 }

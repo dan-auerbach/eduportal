@@ -4,8 +4,8 @@ import { getCurrentUser, type SessionUser } from "./auth";
 import type { TenantRole, TenantTheme, TenantPlan } from "@/generated/prisma/client";
 import type { Locale } from "@/lib/i18n";
 
-const TENANT_COOKIE = "eduportal-tenant";
-const OWNER_IMPERSONATION_COOKIE = "eduportal-owner-tenant";
+const TENANT_COOKIE = "mentor-tenant";
+const OWNER_IMPERSONATION_COOKIE = "mentor-owner-tenant";
 
 export type TenantContext = {
   tenantId: string;

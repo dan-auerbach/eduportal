@@ -14,8 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EduPortal",
-  description: "Education portal for employees",
+  title: "Mentor",
+  description: "Izobraževalni portal za zaposlene",
 };
 
 export default function RootLayout({

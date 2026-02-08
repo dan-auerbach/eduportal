@@ -52,13 +52,13 @@ async function main() {
   // OWNER USER (global)
   // ============================================
   const owner = await prisma.user.upsert({
-    where: { email: "owner@eduportal.si" },
+    where: { email: "owner@mentor.si" },
     update: {},
     create: {
-      email: "owner@eduportal.si",
+      email: "owner@mentor.si",
       passwordHash: ownerPassword,
       firstName: "Owner",
-      lastName: "EduPortal",
+      lastName: "Mentor",
       role: "OWNER",
     },
   });
@@ -68,23 +68,23 @@ async function main() {
   // ALFA USERS
   // ============================================
   const admin = await prisma.user.upsert({
-    where: { email: "admin@eduportal.si" },
+    where: { email: "admin@mentor.si" },
     update: {},
     create: {
-      email: "admin@eduportal.si",
+      email: "admin@mentor.si",
       passwordHash: adminPassword,
       firstName: "Admin",
-      lastName: "EduPortal",
+      lastName: "Mentor",
       role: "SUPER_ADMIN",
     },
   });
   console.log("Created SUPER_ADMIN:", admin.email);
 
   const moderator = await prisma.user.upsert({
-    where: { email: "moderator@eduportal.si" },
+    where: { email: "moderator@mentor.si" },
     update: {},
     create: {
-      email: "moderator@eduportal.si",
+      email: "moderator@mentor.si",
       passwordHash: adminPassword,
       firstName: "Marko",
       lastName: "Novak",
@@ -94,9 +94,9 @@ async function main() {
   console.log("Created ADMIN:", moderator.email);
 
   const alfaEmployeeData = [
-    { email: "janez@eduportal.si", firstName: "Janez", lastName: "Horvat" },
-    { email: "mojca@eduportal.si", firstName: "Mojca", lastName: "Kovač" },
-    { email: "petra@eduportal.si", firstName: "Petra", lastName: "Zupan" },
+    { email: "janez@mentor.si", firstName: "Janez", lastName: "Horvat" },
+    { email: "mojca@mentor.si", firstName: "Mojca", lastName: "Kovač" },
+    { email: "petra@mentor.si", firstName: "Petra", lastName: "Zupan" },
   ];
 
   const alfaEmployees = [];
@@ -118,10 +118,10 @@ async function main() {
   // BETA USERS
   // ============================================
   const betaAdmin = await prisma.user.upsert({
-    where: { email: "beta-admin@eduportal.si" },
+    where: { email: "beta-admin@mentor.si" },
     update: {},
     create: {
-      email: "beta-admin@eduportal.si",
+      email: "beta-admin@mentor.si",
       passwordHash: adminPassword,
       firstName: "Beta",
       lastName: "Admin",
@@ -131,8 +131,8 @@ async function main() {
   console.log("Created Beta ADMIN:", betaAdmin.email);
 
   const betaEmployeeData = [
-    { email: "ana@eduportal.si", firstName: "Ana", lastName: "Kos" },
-    { email: "luka@eduportal.si", firstName: "Luka", lastName: "Vidmar" },
+    { email: "ana@mentor.si", firstName: "Ana", lastName: "Kos" },
+    { email: "luka@mentor.si", firstName: "Luka", lastName: "Vidmar" },
   ];
 
   const betaEmployees = [];
@@ -936,15 +936,15 @@ async function main() {
   // ============================================
   console.log("\nSeed completed successfully!");
   console.log("\nLogin credentials:");
-  console.log("  OWNER:            owner@eduportal.si / owner123");
-  console.log("  Alfa SUPER_ADMIN: admin@eduportal.si / admin123");
-  console.log("  Alfa ADMIN:       moderator@eduportal.si / admin123");
-  console.log("  Alfa EMPLOYEE:    janez@eduportal.si / geslo123");
-  console.log("  Alfa EMPLOYEE:    mojca@eduportal.si / geslo123");
-  console.log("  Alfa EMPLOYEE:    petra@eduportal.si / geslo123");
-  console.log("  Beta SUPER_ADMIN: beta-admin@eduportal.si / admin123");
-  console.log("  Beta EMPLOYEE:    ana@eduportal.si / geslo123");
-  console.log("  Beta EMPLOYEE:    luka@eduportal.si / geslo123");
+  console.log("  OWNER:            owner@mentor.si / owner123");
+  console.log("  Alfa SUPER_ADMIN: admin@mentor.si / admin123");
+  console.log("  Alfa ADMIN:       moderator@mentor.si / admin123");
+  console.log("  Alfa EMPLOYEE:    janez@mentor.si / geslo123");
+  console.log("  Alfa EMPLOYEE:    mojca@mentor.si / geslo123");
+  console.log("  Alfa EMPLOYEE:    petra@mentor.si / geslo123");
+  console.log("  Beta SUPER_ADMIN: beta-admin@mentor.si / admin123");
+  console.log("  Beta EMPLOYEE:    ana@mentor.si / geslo123");
+  console.log("  Beta EMPLOYEE:    luka@mentor.si / geslo123");
 }
 
 main()

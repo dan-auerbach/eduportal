@@ -1,5 +1,5 @@
 /**
- * Slovenian language dictionary for EduPortal
+ * Slovenian language dictionary for Mentor
  * Central source of truth for all UI strings
  */
 export const sl = {
@@ -111,7 +111,7 @@ export const sl = {
 
   // ── Navigation (sidebar + header) ────────────────────────────────
   nav: {
-    appName: "EduPortal",
+    appName: "Mentor",
     portal: "Portal",
     admin: "Admin",
     dashboard: "Nadzorna plošča",
@@ -279,7 +279,7 @@ export const sl = {
     difficulty: "Težavnost",
     issuedOnLabel: "Izdano dne",
     codeLabel: "Koda potrdila",
-    verifiedBy: "Preverjeno s strani EduPortal",
+    verifiedBy: "Preverjeno s strani Mentor",
     invalid: "Neveljavno potrdilo",
     invalidDesc: "Potrdilo s to kodo ni bilo najdeno. Preverite kodo in poskusite znova.",
     codeProvided: "Vnesena koda",

@@ -42,7 +42,7 @@ function LoginForm() {
   setLocale(locale);
 
   useEffect(() => {
-    const saved = localStorage.getItem("eduportal-locale");
+    const saved = localStorage.getItem("mentor-locale");
     const resolved: Locale =
       saved && SUPPORTED_LOCALES.includes(saved as Locale)
         ? (saved as Locale)
@@ -54,7 +54,7 @@ function LoginForm() {
   function switchLocale(newLocale: Locale) {
     setLocale(newLocale);
     setLocaleState(newLocale);
-    localStorage.setItem("eduportal-locale", newLocale);
+    localStorage.setItem("mentor-locale", newLocale);
   }
 
   const [email, setEmail] = useState("");

@@ -1,5 +1,5 @@
 /**
- * English language dictionary for EduPortal
+ * English language dictionary for Mentor
  * Central source of truth for all UI strings (EN)
  */
 export const en = {
@@ -111,7 +111,7 @@ export const en = {
 
   // ── Navigation (sidebar + header) ────────────────────────────────
   nav: {
-    appName: "EduPortal",
+    appName: "Mentor",
     portal: "Portal",
     admin: "Admin",
     dashboard: "Dashboard",
@@ -279,7 +279,7 @@ export const en = {
     difficulty: "Difficulty",
     issuedOnLabel: "Issued on",
     codeLabel: "Certificate code",
-    verifiedBy: "Verified by EduPortal",
+    verifiedBy: "Verified by Mentor",
     invalid: "Invalid Certificate",
     invalidDesc: "No certificate was found with the provided code. Please check the code and try again.",
     codeProvided: "Code provided",

@@ -39,8 +39,10 @@ function getDisplayName(user: { firstName: string; lastName: string; email: stri
 }
 
 function sanitizeBody(raw: string): string {
-  // Trim, strip control chars except space, replace newlines with space
+  // C10: NFC normalize + strip dangerous Unicode + control chars
   return raw
+    .normalize("NFC")
+    .replace(/[\u200B-\u200F\u2028-\u202F\u2060-\u206F\uFEFF]/g, "") // strip ZWJ, RTL override, BOM, etc.
     .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "") // strip control chars
     .replace(/[\r\n]+/g, " ") // newlines → space
     .trim();

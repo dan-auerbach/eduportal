@@ -102,8 +102,9 @@ export async function hasPermission(
 export async function checkModuleAccess(
   userId: string,
   moduleId: string,
-  tenantId?: string
+  tenantId: string,
 ): Promise<boolean> {
+  // C9: tenantId is now required to prevent cross-tenant access
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: { groups: true, memberships: true },
@@ -114,19 +115,15 @@ export async function checkModuleAccess(
   if (user.role === "OWNER") return true;
 
   // Check tenant membership role
-  if (tenantId) {
-    const membership = user.memberships.find((m) => m.tenantId === tenantId);
-    if (membership && hasMinRole(membership.role, "ADMIN")) return true;
-  } else {
-    if (user.role === "SUPER_ADMIN" || user.role === "ADMIN") return true;
-  }
+  const membership = user.memberships.find((m) => m.tenantId === tenantId);
+  if (membership && hasMinRole(membership.role, "ADMIN")) return true;
 
-  // Check if user is in a group assigned to this module
+  // Check if user is in a group assigned to this module (scoped to tenant)
   const moduleGroup = await prisma.moduleGroup.findFirst({
     where: {
       moduleId,
+      tenantId,
       groupId: { in: user.groups.map((g) => g.groupId) },
-      ...(tenantId ? { tenantId } : {}),
     },
   });
 

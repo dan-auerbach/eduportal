@@ -31,7 +31,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     return new Response("Not found", { status: 404 });
   }
 
-  const hasAccess = await checkModuleAccess(ctx.user.id, attachment.section.moduleId);
+  const hasAccess = await checkModuleAccess(ctx.user.id, attachment.section.moduleId, ctx.tenantId);
   if (!hasAccess) {
     return new Response("Forbidden", { status: 403 });
   }

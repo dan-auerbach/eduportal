@@ -4,6 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { checkModuleAccess } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
+import {
+  rateLimitChatMessage,
+  rateLimitChatTopic,
+  rateLimitConfirmAnswer,
+  rateLimitChatJoin,
+} from "@/lib/rate-limit";
 import type { ActionResult } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -26,10 +32,6 @@ export type ChatMessageDTO = {
 const MAX_BODY_LENGTH = 500;
 const MAX_FETCH_LIMIT = 200;
 const MAX_TOPIC_LENGTH = 200;
-const RATE_LIMIT_MS = 1000; // 1 message per second
-
-// Simple in-memory rate limiter (per user+tenant)
-const lastMessageTime = new Map<string, number>();
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -178,11 +180,9 @@ export async function sendChatMessage(
       }
     }
 
-    // Rate limit check
-    const rateKey = `${ctx.user.id}:${ctx.tenantId}`;
-    const now = Date.now();
-    const lastTime = lastMessageTime.get(rateKey) ?? 0;
-    if (now - lastTime < RATE_LIMIT_MS) {
+    // C7/C8: Centralized rate limit
+    const rl = await rateLimitChatMessage(ctx.user.id);
+    if (!rl.success) {
       return { success: false, error: "Prepočasno. Počakajte sekundo." };
     }
 
@@ -219,7 +219,6 @@ export async function sendChatMessage(
             },
             select: MSG_SELECT,
           });
-          lastMessageTime.set(rateKey, now);
           return { success: true, data: toDTO(message as RawMessage) };
         }
 
@@ -236,7 +235,6 @@ export async function sendChatMessage(
             },
             select: MSG_SELECT,
           });
-          lastMessageTime.set(rateKey, now);
           return { success: true, data: toDTO(message as RawMessage) };
         }
 
@@ -253,7 +251,6 @@ export async function sendChatMessage(
             },
             select: MSG_SELECT,
           });
-          lastMessageTime.set(rateKey, now);
           return { success: true, data: toDTO(message as RawMessage) };
         }
 
@@ -285,8 +282,6 @@ export async function sendChatMessage(
       select: MSG_SELECT,
     });
 
-    lastMessageTime.set(rateKey, now);
-
     return { success: true, data: toDTO(message as RawMessage) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
@@ -309,6 +304,12 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
     const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
     if (!isAdmin) {
       return { success: false, error: "Samo administratorji lahko nastavljajo temo kanala." };
+    }
+
+    // C7/C8: Rate limit topic changes
+    const rl = await rateLimitChatTopic(ctx.user.id);
+    if (!rl.success) {
+      return { success: false, error: "Preveč sprememb teme. Počakajte minuto." };
     }
 
     const sanitized = sanitizeBody(topic);
@@ -357,15 +358,13 @@ export async function joinChat(moduleId?: string | null): Promise<ActionResult<C
   try {
     const ctx = await getTenantContext();
 
-    // C2: Rate limit joins — max 1 per channel per 5 minutes
-    const joinKey = `join:${ctx.user.id}:${moduleId ?? "global"}`;
-    const now = Date.now();
-    const lastJoin = lastMessageTime.get(joinKey) ?? 0;
-    if (now - lastJoin < 300_000) {
+    // C2+C7/C8: Rate limit joins — max 1 per channel per 5 minutes
+    const channelKey = moduleId ?? "global";
+    const joinRl = await rateLimitChatJoin(ctx.user.id, channelKey);
+    if (!joinRl.success) {
       // Silently succeed — don't create duplicate JOIN messages
       return { success: true, data: { id: "", type: "JOIN", displayName: "", body: "", createdAt: new Date().toISOString(), userId: null, moduleId: null, isConfirmedAnswer: false, confirmedByName: null, isMentor: false } };
     }
-    lastMessageTime.set(joinKey, now);
 
     const displayName = getDisplayName(ctx.user);
 
@@ -396,6 +395,12 @@ export async function joinChat(moduleId?: string | null): Promise<ActionResult<C
 export async function confirmAnswer(messageId: string): Promise<ActionResult<void>> {
   try {
     const ctx = await getTenantContext();
+
+    // C7/C8: Rate limit confirm actions
+    const rl = await rateLimitConfirmAnswer(ctx.user.id);
+    if (!rl.success) {
+      return { success: false, error: "Preveč potrjevanj. Počakajte minuto." };
+    }
 
     // Load the message
     const msg = await prisma.chatMessage.findUnique({
@@ -459,6 +464,12 @@ export async function confirmAnswer(messageId: string): Promise<ActionResult<voi
 export async function unconfirmAnswer(messageId: string): Promise<ActionResult<void>> {
   try {
     const ctx = await getTenantContext();
+
+    // C7/C8: Rate limit unconfirm actions (shared with confirm)
+    const rl = await rateLimitConfirmAnswer(ctx.user.id);
+    if (!rl.success) {
+      return { success: false, error: "Preveč sprememb. Počakajte minuto." };
+    }
 
     const msg = await prisma.chatMessage.findUnique({
       where: { id: messageId },

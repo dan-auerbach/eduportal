@@ -28,6 +28,8 @@
     "@tiptap/starter-kit": "^3.19.0",
     "@types/dompurify": "^3.0.5",
     "@types/sanitize-html": "^2.16.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.2",
     "@vercel/blob": "^2.2.0",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",

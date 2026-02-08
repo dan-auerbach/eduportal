@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { checkModuleAccess } from "@/lib/permissions";
+import { rateLimitChatPoll } from "@/lib/rate-limit";
 
 const MAX_FETCH = 200;
 
@@ -19,6 +20,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: e.message }, { status: 403 });
     }
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // C7/C8: Rate limit polling requests
+  const pollRl = await rateLimitChatPoll(ctx.user.id);
+  if (!pollRl.success) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const afterId = req.nextUrl.searchParams.get("after") ?? undefined;

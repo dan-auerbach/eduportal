@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { format, formatDistanceToNow } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
 import {
@@ -21,7 +20,6 @@ import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
-import { cn } from "@/lib/utils";
 
 
 type MentorInfo = { id: string; firstName: string; lastName: string; avatar: string | null };
@@ -294,22 +292,13 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* ─── Greeting ─── */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            {t("dashboard.welcome", { name: user.firstName })}
-          </h1>
-          <p className="text-muted-foreground mt-0.5">
-            {t("dashboard.subtitle")}
-          </p>
-        </div>
-        <Image
-          src="/logo.png"
-          alt="Mentor"
-          width={140}
-          height={47}
-          className="h-10 w-auto hidden sm:block opacity-80"
-        />
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">
+          {t("dashboard.welcome", { name: user.firstName })}
+        </h1>
+        <p className="text-muted-foreground mt-0.5">
+          {t("dashboard.subtitle")}
+        </p>
       </div>
 
       {/* ─── Hero CTA ─── */}
@@ -399,8 +388,7 @@ export default async function DashboardPage() {
                     <Button
                       asChild
                       size="lg"
-                      variant="outline"
-                      className="border-white/30 text-white hover:bg-white/10 hover:text-white font-medium"
+                      className="border border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white font-medium"
                     >
                       <Link href={`/modules/${heroModule.id}?tab=chat`}>
                         <MessageSquare className="mr-2 h-4 w-4" />

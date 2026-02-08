@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
@@ -220,6 +221,17 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
           );
         })}
       </nav>
+
+      {/* Logo at bottom */}
+      <div className="border-t px-4 py-4 flex justify-center">
+        <Image
+          src="/logo.png"
+          alt="Mentor"
+          width={160}
+          height={53}
+          className="h-10 w-auto opacity-70"
+        />
+      </div>
     </>
   );
 }

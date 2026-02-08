@@ -118,18 +118,6 @@ function LoginForm() {
     <div className="flex min-h-screen">
       {/* Left panel — info / branding (hidden on mobile) */}
       <div className="hidden lg:flex lg:w-[45%] xl:w-[40%] flex-col bg-primary p-10 text-primary-foreground">
-        {/* Logo — pinned to top */}
-        <div className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="Mentor"
-            width={180}
-            height={60}
-            className="h-12 w-auto brightness-0 invert drop-shadow-md"
-            priority
-          />
-        </div>
-
         {/* Value propositions — vertically centered in remaining space */}
         <div className="flex flex-1 items-center">
           <div className="space-y-8">
@@ -172,14 +160,14 @@ function LoginForm() {
       {/* Right panel — login form */}
       <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-muted/30 via-background to-muted/50 px-4 py-8">
         <div className="w-full max-w-[420px]">
-          {/* Mobile logo */}
-          <div className="mb-8 flex justify-center lg:hidden">
+          {/* Logo above login form */}
+          <div className="mb-8 flex justify-center">
             <Image
               src="/logo.png"
               alt="Mentor"
-              width={200}
-              height={67}
-              className="h-14 w-auto"
+              width={220}
+              height={73}
+              className="h-16 w-auto"
               priority
             />
           </div>

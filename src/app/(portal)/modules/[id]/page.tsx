@@ -53,6 +53,13 @@ export default async function ModuleViewerPage({
           },
         },
       },
+      mentors: {
+        include: {
+          user: {
+            select: { id: true, firstName: true, lastName: true, avatar: true },
+          },
+        },
+      },
     },
   });
 
@@ -150,6 +157,12 @@ export default async function ModuleViewerPage({
         needsReview={needsReview}
         changeSummary={changeSummaryText}
         quizzes={quizData}
+        mentors={module.mentors.map((m) => ({
+          id: m.user.id,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          avatar: m.user.avatar,
+        }))}
       />
     </div>
   );

@@ -14,6 +14,7 @@ import {
   deleteQuiz,
   saveQuizQuestion,
   deleteQuizQuestion,
+  updateModuleMentors,
 } from "@/actions/modules";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,6 +44,7 @@ import {
   Trash2,
   ClipboardList,
   Settings2,
+  GraduationCap,
 } from "lucide-react";
 import { SectionList } from "./section-list";
 import { SectionEditorSheet } from "./section-editor";
@@ -118,6 +120,8 @@ interface ModuleEditorProps {
   allGroups: { id: string; name: string; color: string | null }[];
   allCategories: { id: string; name: string }[];
   quizzes?: QuizData[];
+  mentors?: { userId: string; firstName: string; lastName: string; email: string }[];
+  allMentorCandidates?: { id: string; firstName: string; lastName: string; email: string }[];
 }
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -131,6 +135,8 @@ export function ModuleEditor({
   allGroups,
   allCategories,
   quizzes = [],
+  mentors = [],
+  allMentorCandidates = [],
 }: ModuleEditorProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
@@ -160,6 +166,12 @@ export function ModuleEditor({
   // Quiz state
   const [addingQuiz, setAddingQuiz] = useState(false);
   const [newQuizTitle, setNewQuizTitle] = useState("");
+
+  // Mentor state
+  const [mentorIds, setMentorIds] = useState<Set<string>>(
+    new Set(mentors.map((m) => m.userId))
+  );
+  const [mentorLoading, setMentorLoading] = useState(false);
 
   // Section editor state
   const [selectedSection, setSelectedSection] = useState<SectionData | null>(null);
@@ -323,6 +335,26 @@ export function ModuleEditor({
 
   function handleRemoveTag(tag: string) {
     setCurrentTags(currentTags.filter((tagName) => tagName !== tag));
+  }
+
+  async function handleToggleMentor(userId: string) {
+    setMentorLoading(true);
+    const newMentorIds = new Set(mentorIds);
+    if (newMentorIds.has(userId)) {
+      newMentorIds.delete(userId);
+    } else {
+      newMentorIds.add(userId);
+    }
+
+    const result = await updateModuleMentors(moduleId, Array.from(newMentorIds));
+    if (result.success) {
+      setMentorIds(newMentorIds);
+      toast.success(t("admin.editor.mentorUpdated"));
+      router.refresh();
+    } else {
+      toast.error(result.error || t("admin.editor.mentorUpdateFailed"));
+    }
+    setMentorLoading(false);
   }
 
   const allSectionRefs = sections.map((s) => ({
@@ -586,6 +618,57 @@ export function ModuleEditor({
               {t("admin.quizEditor.addQuiz")}
             </Button>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Mentors — Checkbox list */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4" />
+            {t("admin.editor.mentors")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {allMentorCandidates.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              {t("admin.editor.noMentorCandidates")}
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {allMentorCandidates.map((candidate) => {
+                const isMentor = mentorIds.has(candidate.id);
+
+                return (
+                  <div
+                    key={candidate.id}
+                    className="flex items-center justify-between rounded-md border p-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Checkbox
+                        id={`mentor-${candidate.id}`}
+                        checked={isMentor}
+                        disabled={mentorLoading}
+                        onCheckedChange={() => handleToggleMentor(candidate.id)}
+                      />
+                      <Label
+                        htmlFor={`mentor-${candidate.id}`}
+                        className="cursor-pointer font-medium"
+                      >
+                        {candidate.firstName} {candidate.lastName}
+                      </Label>
+                      <span className="text-xs text-muted-foreground">
+                        {candidate.email}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          <p className="text-xs text-muted-foreground">
+            {t("admin.editor.mentorsDescription")}
+          </p>
         </CardContent>
       </Card>
 

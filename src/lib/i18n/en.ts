@@ -361,6 +361,8 @@ export const en = {
     finishModule: "Finish knowledge",
     moduleCompleted: "Knowledge completed",
     videoNotSupported: "Your browser does not support video playback.",
+    mentor: "Mentor",
+    mentors: "Mentors",
   },
 
   // ── Module Completion ─────────────────────────────────────────────
@@ -563,6 +565,12 @@ export const en = {
       tags: "Tags",
       addTag: "Add tag...",
       tagHint: "Tags are saved when saving knowledge details. Press Enter to add.",
+      // Mentors
+      mentors: "Mentors",
+      mentorsDescription: "Select mentors for this knowledge",
+      noMentorCandidates: "No users available",
+      mentorUpdated: "Mentors updated",
+      mentorUpdateFailed: "Failed to update mentors",
       // Category
       category: "Category",
       selectCategory: "Select category...",

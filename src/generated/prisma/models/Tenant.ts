@@ -252,6 +252,7 @@ export type TenantWhereInput = {
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
+  moduleMentors?: Prisma.ModuleMentorListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -295,6 +296,7 @@ export type TenantOrderByWithRelationInput = {
   changelogEntries?: Prisma.ChangelogEntryOrderByRelationAggregateInput
   sessions?: Prisma.UserSessionOrderByRelationAggregateInput
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  moduleMentors?: Prisma.ModuleMentorOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -341,6 +343,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
+  moduleMentors?: Prisma.ModuleMentorListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -416,6 +419,7 @@ export type TenantCreateInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -459,6 +463,7 @@ export type TenantUncheckedCreateInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -502,6 +507,7 @@ export type TenantUpdateInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -545,6 +551,7 @@ export type TenantUncheckedUpdateInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -995,6 +1002,20 @@ export type TenantUpdateOneRequiredWithoutModuleTagsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutModuleTagsInput, Prisma.TenantUpdateWithoutModuleTagsInput>, Prisma.TenantUncheckedUpdateWithoutModuleTagsInput>
 }
 
+export type TenantCreateNestedOneWithoutModuleMentorsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutModuleMentorsInput, Prisma.TenantUncheckedCreateWithoutModuleMentorsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutModuleMentorsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutModuleMentorsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutModuleMentorsInput, Prisma.TenantUncheckedCreateWithoutModuleMentorsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutModuleMentorsInput
+  upsert?: Prisma.TenantUpsertWithoutModuleMentorsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutModuleMentorsInput, Prisma.TenantUpdateWithoutModuleMentorsInput>, Prisma.TenantUncheckedUpdateWithoutModuleMentorsInput>
+}
+
 export type TenantCreateNestedOneWithoutChangeLogsInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutChangeLogsInput, Prisma.TenantUncheckedCreateWithoutChangeLogsInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutChangeLogsInput
@@ -1123,6 +1144,7 @@ export type TenantCreateWithoutMembershipsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -1165,6 +1187,7 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -1223,6 +1246,7 @@ export type TenantUpdateWithoutMembershipsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -1265,6 +1289,7 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserPermissionsInput = {
@@ -1307,6 +1332,7 @@ export type TenantCreateWithoutUserPermissionsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserPermissionsInput = {
@@ -1349,6 +1375,7 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserPermissionsInput = {
@@ -1407,6 +1434,7 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
@@ -1449,6 +1477,7 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutGroupsInput = {
@@ -1491,6 +1520,7 @@ export type TenantCreateWithoutGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutGroupsInput = {
@@ -1533,6 +1563,7 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutGroupsInput = {
@@ -1591,6 +1622,7 @@ export type TenantUpdateWithoutGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutGroupsInput = {
@@ -1633,6 +1665,7 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserGroupsInput = {
@@ -1675,6 +1708,7 @@ export type TenantCreateWithoutUserGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserGroupsInput = {
@@ -1717,6 +1751,7 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserGroupsInput = {
@@ -1775,6 +1810,7 @@ export type TenantUpdateWithoutUserGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserGroupsInput = {
@@ -1817,6 +1853,7 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulesInput = {
@@ -1859,6 +1896,7 @@ export type TenantCreateWithoutModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulesInput = {
@@ -1901,6 +1939,7 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulesInput = {
@@ -1959,6 +1998,7 @@ export type TenantUpdateWithoutModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulesInput = {
@@ -2001,6 +2041,7 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleGroupsInput = {
@@ -2043,6 +2084,7 @@ export type TenantCreateWithoutModuleGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleGroupsInput = {
@@ -2085,6 +2127,7 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleGroupsInput = {
@@ -2143,6 +2186,7 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
@@ -2185,6 +2229,7 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulePrerequisitesInput = {
@@ -2227,6 +2272,7 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
@@ -2269,6 +2315,7 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulePrerequisitesInput = {
@@ -2327,6 +2374,7 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
@@ -2369,6 +2417,7 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionsInput = {
@@ -2411,6 +2460,7 @@ export type TenantCreateWithoutSectionsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionsInput = {
@@ -2453,6 +2503,7 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionsInput = {
@@ -2511,6 +2562,7 @@ export type TenantUpdateWithoutSectionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionsInput = {
@@ -2553,6 +2605,7 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionCompletionsInput = {
@@ -2595,6 +2648,7 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
@@ -2637,6 +2691,7 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionCompletionsInput = {
@@ -2695,6 +2750,7 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -2737,6 +2793,7 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleAccessesInput = {
@@ -2779,6 +2836,7 @@ export type TenantCreateWithoutModuleAccessesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleAccessesInput = {
@@ -2821,6 +2879,7 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleAccessesInput = {
@@ -2879,6 +2938,7 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
@@ -2921,6 +2981,7 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAttachmentsInput = {
@@ -2963,6 +3024,7 @@ export type TenantCreateWithoutAttachmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAttachmentsInput = {
@@ -3005,6 +3067,7 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAttachmentsInput = {
@@ -3063,6 +3126,7 @@ export type TenantUpdateWithoutAttachmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAttachmentsInput = {
@@ -3105,6 +3169,7 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizzesInput = {
@@ -3147,6 +3212,7 @@ export type TenantCreateWithoutQuizzesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizzesInput = {
@@ -3189,6 +3255,7 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizzesInput = {
@@ -3247,6 +3314,7 @@ export type TenantUpdateWithoutQuizzesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizzesInput = {
@@ -3289,6 +3357,7 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizQuestionsInput = {
@@ -3331,6 +3400,7 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
@@ -3373,6 +3443,7 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizQuestionsInput = {
@@ -3431,6 +3502,7 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
@@ -3473,6 +3545,7 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizAttemptsInput = {
@@ -3515,6 +3588,7 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -3557,6 +3631,7 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -3615,6 +3690,7 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -3657,6 +3733,7 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSelfAssessmentsInput = {
@@ -3699,6 +3776,7 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -3741,6 +3819,7 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -3799,6 +3878,7 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -3841,6 +3921,7 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProgressOverridesInput = {
@@ -3883,6 +3964,7 @@ export type TenantCreateWithoutProgressOverridesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProgressOverridesInput = {
@@ -3925,6 +4007,7 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProgressOverridesInput = {
@@ -3983,6 +4066,7 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
@@ -4025,6 +4109,7 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCertificatesInput = {
@@ -4067,6 +4152,7 @@ export type TenantCreateWithoutCertificatesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCertificatesInput = {
@@ -4109,6 +4195,7 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCertificatesInput = {
@@ -4167,6 +4254,7 @@ export type TenantUpdateWithoutCertificatesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCertificatesInput = {
@@ -4209,6 +4297,7 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCommentsInput = {
@@ -4251,6 +4340,7 @@ export type TenantCreateWithoutCommentsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCommentsInput = {
@@ -4293,6 +4383,7 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCommentsInput = {
@@ -4351,6 +4442,7 @@ export type TenantUpdateWithoutCommentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCommentsInput = {
@@ -4393,6 +4485,7 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationsInput = {
@@ -4435,6 +4528,7 @@ export type TenantCreateWithoutNotificationsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationsInput = {
@@ -4477,6 +4571,7 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationsInput = {
@@ -4535,6 +4630,7 @@ export type TenantUpdateWithoutNotificationsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationsInput = {
@@ -4577,6 +4673,7 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationDedupsInput = {
@@ -4619,6 +4716,7 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
@@ -4661,6 +4759,7 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationDedupsInput = {
@@ -4719,6 +4818,7 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
@@ -4761,6 +4861,7 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -4803,6 +4904,7 @@ export type TenantCreateWithoutCategoriesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -4845,6 +4947,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -4903,6 +5006,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -4945,6 +5049,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompanyPinnedModulesInput = {
@@ -4987,6 +5092,7 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
@@ -5029,6 +5135,7 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompanyPinnedModulesInput = {
@@ -5087,6 +5194,7 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
@@ -5129,6 +5237,7 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -5171,6 +5280,7 @@ export type TenantCreateWithoutTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -5213,6 +5323,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -5271,6 +5382,7 @@ export type TenantUpdateWithoutTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -5313,6 +5425,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleTagsInput = {
@@ -5355,6 +5468,7 @@ export type TenantCreateWithoutModuleTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleTagsInput = {
@@ -5397,6 +5511,7 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleTagsInput = {
@@ -5455,6 +5570,7 @@ export type TenantUpdateWithoutModuleTagsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleTagsInput = {
@@ -5480,6 +5596,195 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
   moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
   modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutModuleMentorsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutModuleMentorsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutModuleMentorsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutModuleMentorsInput, Prisma.TenantUncheckedCreateWithoutModuleMentorsInput>
+}
+
+export type TenantUpsertWithoutModuleMentorsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutModuleMentorsInput, Prisma.TenantUncheckedUpdateWithoutModuleMentorsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutModuleMentorsInput, Prisma.TenantUncheckedCreateWithoutModuleMentorsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutModuleMentorsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutModuleMentorsInput, Prisma.TenantUncheckedUpdateWithoutModuleMentorsInput>
+}
+
+export type TenantUpdateWithoutModuleMentorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
   notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5539,6 +5844,7 @@ export type TenantCreateWithoutChangeLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangeLogsInput = {
@@ -5581,6 +5887,7 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangeLogsInput = {
@@ -5639,6 +5946,7 @@ export type TenantUpdateWithoutChangeLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangeLogsInput = {
@@ -5681,6 +5989,7 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleReviewsInput = {
@@ -5723,6 +6032,7 @@ export type TenantCreateWithoutModuleReviewsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleReviewsInput = {
@@ -5765,6 +6075,7 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleReviewsInput = {
@@ -5823,6 +6134,7 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
@@ -5865,6 +6177,7 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -5907,6 +6220,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -5949,6 +6263,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -6007,6 +6322,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -6049,6 +6365,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChangelogEntriesInput = {
@@ -6091,6 +6408,7 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
@@ -6133,6 +6451,7 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangelogEntriesInput = {
@@ -6191,6 +6510,7 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -6233,6 +6553,7 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChatMessagesInput = {
@@ -6275,6 +6596,7 @@ export type TenantCreateWithoutChatMessagesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChatMessagesInput = {
@@ -6317,6 +6639,7 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChatMessagesInput = {
@@ -6375,6 +6698,7 @@ export type TenantUpdateWithoutChatMessagesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChatMessagesInput = {
@@ -6417,6 +6741,7 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSessionsInput = {
@@ -6459,6 +6784,7 @@ export type TenantCreateWithoutSessionsInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -6501,6 +6827,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -6559,6 +6886,7 @@ export type TenantUpdateWithoutSessionsInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -6601,6 +6929,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -6639,6 +6968,7 @@ export type TenantCountOutputType = {
   changelogEntries: number
   sessions: number
   chatMessages: number
+  moduleMentors: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6672,6 +7002,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   changelogEntries?: boolean | TenantCountOutputTypeCountChangelogEntriesArgs
   sessions?: boolean | TenantCountOutputTypeCountSessionsArgs
   chatMessages?: boolean | TenantCountOutputTypeCountChatMessagesArgs
+  moduleMentors?: boolean | TenantCountOutputTypeCountModuleMentorsArgs
 }
 
 /**
@@ -6894,6 +7225,13 @@ export type TenantCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.T
   where?: Prisma.ChatMessageWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountModuleMentorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ModuleMentorWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -6936,6 +7274,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   changelogEntries?: boolean | Prisma.Tenant$changelogEntriesArgs<ExtArgs>
   sessions?: boolean | Prisma.Tenant$sessionsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Tenant$chatMessagesArgs<ExtArgs>
+  moduleMentors?: boolean | Prisma.Tenant$moduleMentorsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -7010,6 +7349,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   changelogEntries?: boolean | Prisma.Tenant$changelogEntriesArgs<ExtArgs>
   sessions?: boolean | Prisma.Tenant$sessionsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Tenant$chatMessagesArgs<ExtArgs>
+  moduleMentors?: boolean | Prisma.Tenant$moduleMentorsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7048,6 +7388,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     changelogEntries: Prisma.$ChangelogEntryPayload<ExtArgs>[]
     sessions: Prisma.$UserSessionPayload<ExtArgs>[]
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    moduleMentors: Prisma.$ModuleMentorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7484,6 +7825,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   changelogEntries<T extends Prisma.Tenant$changelogEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$changelogEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChangelogEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.Tenant$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.Tenant$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moduleMentors<T extends Prisma.Tenant$moduleMentorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$moduleMentorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleMentorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8628,6 +8970,30 @@ export type Tenant$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * Tenant.moduleMentors
+ */
+export type Tenant$moduleMentorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ModuleMentor
+   */
+  select?: Prisma.ModuleMentorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ModuleMentor
+   */
+  omit?: Prisma.ModuleMentorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModuleMentorInclude<ExtArgs> | null
+  where?: Prisma.ModuleMentorWhereInput
+  orderBy?: Prisma.ModuleMentorOrderByWithRelationInput | Prisma.ModuleMentorOrderByWithRelationInput[]
+  cursor?: Prisma.ModuleMentorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ModuleMentorScalarFieldEnum | Prisma.ModuleMentorScalarFieldEnum[]
 }
 
 /**

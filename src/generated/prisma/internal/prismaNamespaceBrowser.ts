@@ -78,6 +78,7 @@ export const ModelName = {
   CompanyPinnedModule: 'CompanyPinnedModule',
   Tag: 'Tag',
   ModuleTag: 'ModuleTag',
+  ModuleMentor: 'ModuleMentor',
   ModuleChangeLog: 'ModuleChangeLog',
   UserModuleReview: 'UserModuleReview',
   AuditLog: 'AuditLog',
@@ -457,6 +458,16 @@ export const ModuleTagScalarFieldEnum = {
 } as const
 
 export type ModuleTagScalarFieldEnum = (typeof ModuleTagScalarFieldEnum)[keyof typeof ModuleTagScalarFieldEnum]
+
+
+export const ModuleMentorScalarFieldEnum = {
+  moduleId: 'moduleId',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type ModuleMentorScalarFieldEnum = (typeof ModuleMentorScalarFieldEnum)[keyof typeof ModuleMentorScalarFieldEnum]
 
 
 export const ModuleChangeLogScalarFieldEnum = {

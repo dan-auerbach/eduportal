@@ -175,6 +175,11 @@ export type Tag = Prisma.TagModel
  */
 export type ModuleTag = Prisma.ModuleTagModel
 /**
+ * Model ModuleMentor
+ * 
+ */
+export type ModuleMentor = Prisma.ModuleMentorModel
+/**
  * Model ModuleChangeLog
  * 
  */

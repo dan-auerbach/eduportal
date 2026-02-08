@@ -65,6 +65,13 @@ export default async function AdminModuleEditPage({
           },
         },
       },
+      mentors: {
+        include: {
+          user: {
+            select: { id: true, firstName: true, lastName: true, email: true },
+          },
+        },
+      },
     },
   });
 
@@ -85,6 +92,25 @@ export default async function AdminModuleEditPage({
     select: { id: true, name: true },
     orderBy: { sortOrder: "asc" },
   });
+
+  // Get all mentor candidates (active users with membership in this tenant)
+  const mentorCandidatesRaw = await prisma.membership.findMany({
+    where: { tenantId: ctx.tenantId },
+    include: {
+      user: {
+        select: { id: true, firstName: true, lastName: true, email: true, isActive: true },
+      },
+    },
+  });
+  const allMentorCandidates = mentorCandidatesRaw
+    .filter((m) => m.user.isActive)
+    .map((m) => ({
+      id: m.user.id,
+      firstName: m.user.firstName,
+      lastName: m.user.lastName,
+      email: m.user.email,
+    }))
+    .sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`));
 
   return (
     <div className="space-y-6">
@@ -148,6 +174,13 @@ export default async function AdminModuleEditPage({
             sortOrder: qn.sortOrder,
           })),
         }))}
+        mentors={module.mentors.map((m) => ({
+          userId: m.userId,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          email: m.user.email,
+        }))}
+        allMentorCandidates={allMentorCandidates}
       />
     </div>
   );

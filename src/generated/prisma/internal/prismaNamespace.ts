@@ -411,6 +411,7 @@ export const ModelName = {
   CompanyPinnedModule: 'CompanyPinnedModule',
   Tag: 'Tag',
   ModuleTag: 'ModuleTag',
+  ModuleMentor: 'ModuleMentor',
   ModuleChangeLog: 'ModuleChangeLog',
   UserModuleReview: 'UserModuleReview',
   AuditLog: 'AuditLog',
@@ -432,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "userSession"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "userSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2434,6 +2435,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ModuleMentor: {
+      payload: Prisma.$ModuleMentorPayload<ExtArgs>
+      fields: Prisma.ModuleMentorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ModuleMentorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ModuleMentorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        findFirst: {
+          args: Prisma.ModuleMentorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ModuleMentorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        findMany: {
+          args: Prisma.ModuleMentorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>[]
+        }
+        create: {
+          args: Prisma.ModuleMentorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        createMany: {
+          args: Prisma.ModuleMentorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ModuleMentorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>[]
+        }
+        delete: {
+          args: Prisma.ModuleMentorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        update: {
+          args: Prisma.ModuleMentorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        deleteMany: {
+          args: Prisma.ModuleMentorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ModuleMentorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ModuleMentorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>[]
+        }
+        upsert: {
+          args: Prisma.ModuleMentorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ModuleMentorPayload>
+        }
+        aggregate: {
+          args: Prisma.ModuleMentorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateModuleMentor>
+        }
+        groupBy: {
+          args: Prisma.ModuleMentorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ModuleMentorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ModuleMentorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ModuleMentorCountAggregateOutputType> | number
+        }
+      }
+    }
     ModuleChangeLog: {
       payload: Prisma.$ModuleChangeLogPayload<ExtArgs>
       fields: Prisma.ModuleChangeLogFieldRefs
@@ -3274,6 +3349,16 @@ export const ModuleTagScalarFieldEnum = {
 export type ModuleTagScalarFieldEnum = (typeof ModuleTagScalarFieldEnum)[keyof typeof ModuleTagScalarFieldEnum]
 
 
+export const ModuleMentorScalarFieldEnum = {
+  moduleId: 'moduleId',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type ModuleMentorScalarFieldEnum = (typeof ModuleMentorScalarFieldEnum)[keyof typeof ModuleMentorScalarFieldEnum]
+
+
 export const ModuleChangeLogScalarFieldEnum = {
   id: 'id',
   moduleId: 'moduleId',
@@ -3801,6 +3886,7 @@ export type GlobalOmitConfig = {
   companyPinnedModule?: Prisma.CompanyPinnedModuleOmit
   tag?: Prisma.TagOmit
   moduleTag?: Prisma.ModuleTagOmit
+  moduleMentor?: Prisma.ModuleMentorOmit
   moduleChangeLog?: Prisma.ModuleChangeLogOmit
   userModuleReview?: Prisma.UserModuleReviewOmit
   auditLog?: Prisma.AuditLogOmit

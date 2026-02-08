@@ -361,6 +361,8 @@ export const sl = {
     finishModule: "Zaključi znanje",
     moduleCompleted: "Znanje zaključeno",
     videoNotSupported: "Vaš brskalnik ne podpira predvajanja videa.",
+    mentor: "Mentor",
+    mentors: "Mentorji",
   },
 
   // ── Module Completion ─────────────────────────────────────────────
@@ -563,6 +565,12 @@ export const sl = {
       tags: "Oznake",
       addTag: "Dodaj oznako...",
       tagHint: "Oznake se shranijo ob shranjevanju podrobnosti znanja. Pritisnite Enter za dodajanje.",
+      // Mentors
+      mentors: "Mentorji",
+      mentorsDescription: "Izberite mentorje za to znanje",
+      noMentorCandidates: "Ni uporabnikov za izbiro",
+      mentorUpdated: "Mentorji posodobljeni",
+      mentorUpdateFailed: "Napaka pri posodabljanju mentorjev",
       // Category
       category: "Področje",
       selectCategory: "Izberite področje...",

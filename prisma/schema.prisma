@@ -53,6 +53,7 @@ model Tenant {
   sessions             UserSession[]
   chatMessages         ChatMessage[]
   chatTopic            String?
+  moduleMentors        ModuleMentor[]
 }
 
 enum TenantTheme {
@@ -128,6 +129,7 @@ model User {
   changelogEntries   ChangelogEntry[]    @relation("ChangelogAuthor")
   sessions           UserSession[]
   chatMessages       ChatMessage[]
+  mentorModules      ModuleMentor[]   @relation("MentorModules")
 
   @@index([role, isActive])
 }
@@ -249,6 +251,7 @@ model Module {
   reviews         UserModuleReview[]
   userPins        UserPinnedModule[]
   companyPins     CompanyPinnedModule[]
+  mentors         ModuleMentor[]
 
   @@index([tenantId, status])
   @@index([createdById])
@@ -706,6 +709,25 @@ model ModuleTag {
 
   @@id([moduleId, tagId])
   @@index([tenantId])
+}
+
+// ============================================
+// MENTORJI NA MODULIH
+// ============================================
+
+model ModuleMentor {
+  moduleId   String
+  userId     String
+  tenantId   String
+  assignedAt DateTime @default(now())
+
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  user   User   @relation("MentorModules", fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([moduleId, userId])
+  @@index([tenantId])
+  @@index([userId])
 }
 
 // ============================================

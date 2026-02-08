@@ -19,6 +19,7 @@ import {
   List,
   ChevronLeft,
   ChevronRight,
+  GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -61,6 +62,13 @@ type QuizData = {
   passed: boolean;
 };
 
+type MentorData = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string | null;
+};
+
 type SectionViewerProps = {
   moduleId: string;
   moduleTitle: string;
@@ -71,6 +79,7 @@ type SectionViewerProps = {
   needsReview?: boolean;
   changeSummary?: string;
   quizzes?: QuizData[];
+  mentors?: MentorData[];
 };
 
 function extractYouTubeId(content: string): string | null {
@@ -146,6 +155,7 @@ export function SectionViewer({
   needsReview = false,
   changeSummary,
   quizzes = [],
+  mentors = [],
 }: SectionViewerProps) {
   const router = useRouter();
   const [completedIds, setCompletedIds] = useState<Set<string>>(
@@ -234,6 +244,15 @@ export function SectionViewer({
       <>
         <div className="p-4 border-b">
           <h2 className="font-semibold text-sm truncate">{moduleTitle}</h2>
+          {mentors.length > 0 && (
+            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">
+                {mentors.length === 1 ? t("sectionViewer.mentor") : t("sectionViewer.mentors")}:{" "}
+                {mentors.map((m) => `${m.firstName} ${m.lastName}`).join(", ")}
+              </span>
+            </div>
+          )}
           <div className="mt-2 space-y-1.5">
             <div className="flex justify-between text-xs text-muted-foreground">
               <span>{t("sectionViewer.sectionsCount", { completed: String(completedCount), total: String(totalSections) })}</span>

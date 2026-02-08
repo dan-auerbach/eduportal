@@ -1349,3 +1349,83 @@ export async function saveVideoMetadata(
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri shranjevanju video podatkov" };
   }
 }
+
+// ---------------------------------------------------------------------------
+// updateModuleMentors - set mentors for a module (replace all)
+// ---------------------------------------------------------------------------
+export async function updateModuleMentors(
+  moduleId: string,
+  mentorUserIds: string[]
+): Promise<ActionResult<void>> {
+  try {
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
+
+    const existing = await prisma.module.findUnique({
+      where: { id: moduleId, tenantId: ctx.tenantId },
+    });
+    if (!existing) {
+      return { success: false, error: "Modul ne obstaja" };
+    }
+
+    // Check permissions
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    if (!canManageAll) {
+      if (existing.createdById !== currentUser.id) {
+        throw new ForbiddenError("Nimate pravic za urejanje tega modula");
+      }
+      await requirePermission(currentUser, "MANAGE_OWN_MODULES");
+    }
+
+    // Validate that all mentor user IDs are active users with membership in this tenant
+    if (mentorUserIds.length > 0) {
+      const validMemberships = await prisma.membership.findMany({
+        where: {
+          tenantId: ctx.tenantId,
+          userId: { in: mentorUserIds },
+          user: { isActive: true },
+        },
+        select: { userId: true },
+      });
+      const validUserIds = new Set(validMemberships.map((m) => m.userId));
+      const invalidIds = mentorUserIds.filter((id) => !validUserIds.has(id));
+      if (invalidIds.length > 0) {
+        return { success: false, error: "Nekateri uporabniki ne obstajajo ali niso aktivni" };
+      }
+    }
+
+    // Transaction: delete all existing + create new
+    await prisma.$transaction([
+      prisma.moduleMentor.deleteMany({
+        where: { moduleId, tenantId: ctx.tenantId },
+      }),
+      ...(mentorUserIds.length > 0
+        ? [
+            prisma.moduleMentor.createMany({
+              data: mentorUserIds.map((userId) => ({
+                moduleId,
+                userId,
+                tenantId: ctx.tenantId,
+              })),
+            }),
+          ]
+        : []),
+    ]);
+
+    await logAudit({
+      actorId: currentUser.id,
+      action: "MODULE_UPDATED",
+      entityType: "Module",
+      entityId: moduleId,
+      tenantId: ctx.tenantId,
+      metadata: { mentors: mentorUserIds },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof ForbiddenError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri posodabljanju mentorjev" };
+  }
+}

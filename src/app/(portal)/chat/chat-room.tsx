@@ -464,7 +464,7 @@ export function ChatRoom({
 
   return (
     <div
-      className="flex flex-col h-[calc(100vh-3.5rem)] -m-4 md:-m-6 rounded-none"
+      className="flex flex-col h-[calc(100dvh-3.5rem)] -m-4 md:-m-6 overflow-hidden rounded-none"
       style={{ background: colors.bg }}
     >
       {/* Header */}
@@ -651,7 +651,7 @@ export function ChatRoom({
           maxLength={500}
           disabled={sending}
           autoFocus
-          className="flex-1 rounded-md px-3 py-2 font-mono text-sm focus:outline-none focus:ring-1 disabled:opacity-50 placeholder:opacity-50"
+          className="flex-1 min-w-0 rounded-md px-3 py-2 font-mono text-sm focus:outline-none focus:ring-1 disabled:opacity-50 placeholder:opacity-50"
           style={{
             background: colors.inputBg,
             border: `1px solid ${colors.inputBorder}`,
@@ -661,7 +661,7 @@ export function ChatRoom({
         <button
           onClick={handleSend}
           disabled={sending || !input.trim()}
-          className="flex items-center justify-center w-9 h-9 rounded-md disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="flex shrink-0 items-center justify-center w-9 h-9 rounded-md disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           style={{ background: colors.sendBg, color: colors.sendText }}
           title={labels.send}
         >

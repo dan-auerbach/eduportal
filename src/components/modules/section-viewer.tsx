@@ -80,6 +80,7 @@ type SectionViewerProps = {
   changeSummary?: string;
   quizzes?: QuizData[];
   mentors?: MentorData[];
+  assignmentGroups?: string[];
 };
 
 function extractYouTubeId(content: string): string | null {
@@ -156,6 +157,7 @@ export function SectionViewer({
   changeSummary,
   quizzes = [],
   mentors = [],
+  assignmentGroups = [],
 }: SectionViewerProps) {
   const router = useRouter();
   const [completedIds, setCompletedIds] = useState<Set<string>>(
@@ -252,6 +254,11 @@ export function SectionViewer({
                 {mentors.map((m) => `${m.firstName} ${m.lastName}`).join(", ")}
               </span>
             </div>
+          )}
+          {assignmentGroups.length > 0 && (
+            <p className="mt-1 text-xs text-muted-foreground truncate">
+              {t("modules.assignedBecause", { groups: assignmentGroups.join(", ") })}
+            </p>
           )}
           <div className="mt-2 space-y-1.5">
             <div className="flex justify-between text-xs text-muted-foreground">

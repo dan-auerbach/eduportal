@@ -145,6 +145,27 @@ export default async function ModuleViewerPage({
     passed: q.attempts.length > 0,
   }));
 
+  // Compute assignment groups for this user + module
+  let assignmentGroups: string[] = [];
+  const isSuperAdmin = ctx.effectiveRole === "SUPER_ADMIN" || ctx.effectiveRole === "OWNER";
+  if (!isSuperAdmin && !isPreview) {
+    const userGroupRows = await prisma.userGroup.findMany({
+      where: { userId: user.id },
+      select: { groupId: true },
+    });
+    const userGroupIds = userGroupRows.map((ug) => ug.groupId);
+    if (userGroupIds.length > 0) {
+      const matchingModuleGroups = await prisma.moduleGroup.findMany({
+        where: {
+          moduleId,
+          groupId: { in: userGroupIds },
+        },
+        include: { group: { select: { name: true } } },
+      });
+      assignmentGroups = matchingModuleGroups.map((mg) => mg.group.name);
+    }
+  }
+
   return (
     <div className="space-y-4">
       <SectionViewer
@@ -163,6 +184,7 @@ export default async function ModuleViewerPage({
           lastName: m.user.lastName,
           avatar: m.user.avatar,
         }))}
+        assignmentGroups={assignmentGroups}
       />
     </div>
   );

@@ -22,6 +22,8 @@ import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-ca
 import { cn } from "@/lib/utils";
 
 
+type MentorInfo = { id: string; firstName: string; lastName: string; avatar: string | null };
+
 type ModuleWithProgress = {
   id: string;
   title: string;
@@ -36,6 +38,8 @@ type ModuleWithProgress = {
   categoryName?: string | null;
   isUserPinned?: boolean;
   isCompanyPinned?: boolean;
+  assignmentGroups?: string[];
+  mentors?: MentorInfo[];
 };
 
 export default async function DashboardPage() {
@@ -72,6 +76,11 @@ export default async function DashboardPage() {
       include: {
         tags: { include: { tag: true } },
         category: { select: { name: true } },
+        mentors: {
+          include: {
+            user: { select: { id: true, firstName: true, lastName: true, avatar: true } },
+          },
+        },
       },
     });
 
@@ -98,6 +107,12 @@ export default async function DashboardPage() {
         categoryName: module.category?.name ?? null,
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
+        mentors: module.mentors.map((m) => ({
+          id: m.user.id,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          avatar: m.user.avatar,
+        })),
       };
     });
   } else {
@@ -115,10 +130,16 @@ export default async function DashboardPage() {
         module: { status: "PUBLISHED", tenantId: ctx.tenantId },
       },
       include: {
+        group: { select: { name: true } },
         module: {
           include: {
             tags: { include: { tag: true } },
             category: { select: { name: true } },
+            mentors: {
+              include: {
+                user: { select: { id: true, firstName: true, lastName: true, avatar: true } },
+              },
+            },
           },
         },
       },
@@ -130,6 +151,7 @@ export default async function DashboardPage() {
         module: (typeof moduleGroups)[0]["module"];
         deadline: Date | null;
         isMandatory: boolean;
+        groupNames: string[];
       }
     >();
     for (const mg of moduleGroups) {
@@ -147,6 +169,7 @@ export default async function DashboardPage() {
           module: mg.module,
           deadline: computedDeadline,
           isMandatory: mg.isMandatory || mg.module.isMandatory,
+          groupNames: [mg.group.name],
         });
       } else {
         if (computedDeadline && (!existing.deadline || computedDeadline < existing.deadline)) {
@@ -154,6 +177,9 @@ export default async function DashboardPage() {
         }
         if (mg.isMandatory) {
           existing.isMandatory = true;
+        }
+        if (!existing.groupNames.includes(mg.group.name)) {
+          existing.groupNames.push(mg.group.name);
         }
       }
     }
@@ -166,7 +192,7 @@ export default async function DashboardPage() {
       ctx.tenantId,
     );
 
-    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory }) => {
+    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory, groupNames }) => {
       const progress = progressMap.get(module.id)!;
       return {
         id: module.id,
@@ -182,6 +208,13 @@ export default async function DashboardPage() {
         categoryName: module.category?.name ?? null,
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
+        assignmentGroups: groupNames,
+        mentors: module.mentors.map((m) => ({
+          id: m.user.id,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          avatar: m.user.avatar,
+        })),
       };
     });
   }
@@ -252,6 +285,8 @@ export default async function DashboardPage() {
     isUserPinned: m.isUserPinned,
     isCompanyPinned: m.isCompanyPinned,
     categoryName: m.categoryName,
+    assignmentGroups: m.assignmentGroups,
+    mentors: m.mentors,
   }));
 
   return (
@@ -302,6 +337,21 @@ export default async function DashboardPage() {
                         : t("dashboard.continueLearning")}
                     </p>
                     <p className="text-lg font-semibold truncate mt-0.5">{heroModule.title}</p>
+                    {heroModule.assignmentGroups && heroModule.assignmentGroups.length > 0 && (
+                      <p className="text-xs opacity-60 truncate mt-0.5">
+                        {t("modules.assignedBecause", {
+                          groups: heroModule.assignmentGroups.length <= 2
+                            ? heroModule.assignmentGroups.join(", ")
+                            : `${heroModule.assignmentGroups.slice(0, 2).join(", ")} ${t("modules.andMore", { count: String(heroModule.assignmentGroups.length - 2) })}`
+                        })}
+                      </p>
+                    )}
+                    {heroModule.mentors && heroModule.mentors.length > 0 && (
+                      <p className="text-xs opacity-60 truncate mt-0.5">
+                        {heroModule.mentors.length === 1 ? t("sectionViewer.mentor") : t("sectionViewer.mentors")}:{" "}
+                        {heroModule.mentors.map((m) => `${m.firstName} ${m.lastName}`).join(", ")}
+                      </p>
+                    )}
                     {heroModule.progress.status !== "NOT_STARTED" && (
                       <div className="flex items-center gap-3 mt-2">
                         <div className="flex-1 max-w-[180px]">

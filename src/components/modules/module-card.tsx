@@ -12,6 +12,7 @@ import {
   BarChart3,
   Zap,
   ArrowRight,
+  GraduationCap,
 } from "lucide-react";
 import { format, differenceInDays } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -43,6 +44,8 @@ export type ModuleCardProps = {
   isUserPinned?: boolean;
   isCompanyPinned?: boolean;
   categoryName?: string | null;
+  assignmentGroups?: string[];
+  mentors?: { id: string; firstName: string; lastName: string; avatar: string | null }[];
 };
 
 // Deterministic gradient based on module id — 6 curated gradients
@@ -275,6 +278,30 @@ export function ModuleCard({ module }: { module: ModuleCardProps }) {
                   {tag}
                 </span>
               ))}
+            </div>
+          )}
+
+          {/* Assignment reason */}
+          {module.assignmentGroups && module.assignmentGroups.length > 0 && (
+            <p className="text-[11px] text-muted-foreground/70 truncate pt-0.5" title={module.assignmentGroups.join(", ")}>
+              {t("modules.assignedBecause", {
+                groups: module.assignmentGroups.length <= 2
+                  ? module.assignmentGroups.join(", ")
+                  : `${module.assignmentGroups.slice(0, 2).join(", ")} ${t("modules.andMore", { count: String(module.assignmentGroups.length - 2) })}`
+              })}
+            </p>
+          )}
+
+          {/* Mentors */}
+          {module.mentors && module.mentors.length > 0 && (
+            <div className="flex items-center gap-1 text-[11px] text-muted-foreground/70 pt-0.5" title={module.mentors.map((m) => `${m.firstName} ${m.lastName}`).join(", ")}>
+              <GraduationCap className="h-3 w-3 shrink-0" />
+              <span className="truncate">
+                {module.mentors.length === 1 ? t("sectionViewer.mentor") : t("sectionViewer.mentors")}:{" "}
+                {module.mentors.length <= 2
+                  ? module.mentors.map((m) => `${m.firstName} ${m.lastName}`).join(", ")
+                  : `${module.mentors.slice(0, 2).map((m) => `${m.firstName} ${m.lastName}`).join(", ")} ${t("modules.andMore", { count: String(module.mentors.length - 2) })}`}
+              </span>
             </div>
           )}
 

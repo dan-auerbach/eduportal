@@ -235,6 +235,9 @@ export const en = {
     sortProgress: "Progress",
     sortTitle: "Title",
     sortCategory: "Category",
+    // Assignment reason & mentors on cards
+    assignedBecause: "Assigned: {groups}",
+    andMore: "+{count}",
   },
 
   // ── Updates / Changelog ──────────────────────────────────────────

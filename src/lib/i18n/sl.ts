@@ -235,6 +235,9 @@ export const sl = {
     sortProgress: "Napredek",
     sortTitle: "Naziv",
     sortCategory: "Področje",
+    // Assignment reason & mentors on cards
+    assignedBecause: "Dodeljeno: {groups}",
+    andMore: "+{count}",
   },
 
   // ── Updates / Changelog ──────────────────────────────────────────

@@ -89,6 +89,11 @@ export default async function ModulesPage({
       include: {
         tags: { include: { tag: true } },
         category: { select: { id: true, name: true } },
+        mentors: {
+          include: {
+            user: { select: { id: true, firstName: true, lastName: true, avatar: true } },
+          },
+        },
       },
     });
 
@@ -121,6 +126,12 @@ export default async function ModulesPage({
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
         categoryName: module.category?.name ?? null,
+        mentors: module.mentors.map((m) => ({
+          id: m.user.id,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          avatar: m.user.avatar,
+        })),
       };
     });
   } else {
@@ -139,10 +150,16 @@ export default async function ModulesPage({
         module: moduleFilterWhere,
       },
       include: {
+        group: { select: { name: true } },
         module: {
           include: {
             tags: { include: { tag: true } },
             category: { select: { id: true, name: true } },
+            mentors: {
+              include: {
+                user: { select: { id: true, firstName: true, lastName: true, avatar: true } },
+              },
+            },
           },
         },
       },
@@ -155,6 +172,7 @@ export default async function ModulesPage({
         module: (typeof moduleGroups)[0]["module"];
         deadline: Date | null;
         isMandatory: boolean;
+        groupNames: string[];
       }
     >();
     for (const mg of moduleGroups) {
@@ -172,6 +190,7 @@ export default async function ModulesPage({
           module: mg.module,
           deadline: computedDeadline,
           isMandatory: mg.isMandatory || mg.module.isMandatory,
+          groupNames: [mg.group.name],
         });
       } else {
         if (computedDeadline && (!existing.deadline || computedDeadline < existing.deadline)) {
@@ -179,6 +198,9 @@ export default async function ModulesPage({
         }
         if (mg.isMandatory) {
           existing.isMandatory = true;
+        }
+        if (!existing.groupNames.includes(mg.group.name)) {
+          existing.groupNames.push(mg.group.name);
         }
       }
     }
@@ -191,7 +213,7 @@ export default async function ModulesPage({
       ctx.tenantId,
     );
 
-    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory }) => {
+    modulesWithProgress = uniqueModuleEntries.map(({ module, deadline, isMandatory, groupNames }) => {
       const progress = progressMap.get(module.id)!;
       return {
         id: module.id,
@@ -213,6 +235,13 @@ export default async function ModulesPage({
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
         categoryName: module.category?.name ?? null,
+        assignmentGroups: groupNames,
+        mentors: module.mentors.map((m) => ({
+          id: m.user.id,
+          firstName: m.user.firstName,
+          lastName: m.user.lastName,
+          avatar: m.user.avatar,
+        })),
       };
     });
   }

@@ -10,6 +10,7 @@ export default async function ChatPage() {
     <ChatRoom
       tenantSlug={ctx.tenantSlug}
       tenantName={ctx.tenantName}
+      tenantId={ctx.tenantId}
       userId={ctx.user.id}
       labels={{
         title: t("chat.title"),

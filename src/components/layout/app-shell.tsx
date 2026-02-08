@@ -12,6 +12,7 @@ import {
 
 type AppShellProps = {
   children: React.ReactNode;
+  tenantId?: string;
   tenantName?: string;
   tenantLogoUrl?: string | null;
   tenantTheme?: string;
@@ -21,6 +22,7 @@ type AppShellProps = {
 
 export function AppShell({
   children,
+  tenantId,
   tenantName,
   tenantLogoUrl,
   tenantTheme,
@@ -32,13 +34,14 @@ export function AppShell({
   return (
     <div className="flex h-dvh">
       {/* Desktop sidebar */}
-      <Sidebar tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} />
+      <Sidebar tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} />
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="w-64 p-0 [&>button]:hidden">
           <div className="flex h-full flex-col">
             <SidebarContent
+              tenantId={tenantId}
               tenantName={tenantName}
               tenantLogoUrl={tenantLogoUrl}
               onNavigate={() => setMobileOpen(false)}

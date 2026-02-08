@@ -31,6 +31,7 @@ export default async function PortalLayout({ children }: { children: React.React
     <div className={themeClass}>
       <LocaleProvider locale={tenantContext.tenantLocale}>
         <AppShell
+          tenantId={tenantContext.tenantId}
           tenantName={tenantContext.tenantName}
           tenantLogoUrl={tenantContext.tenantLogoUrl}
           tenantTheme={tenantContext.tenantTheme}

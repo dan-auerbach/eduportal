@@ -59,9 +59,11 @@ export default async function AdminDashboardPage() {
     }),
   ]);
 
+  // Completion rate = total completions / (sections × users who have access)
+  // This gives the average % of sections completed across all users
   const completionRate =
-    totalSections > 0
-      ? Math.round((totalCompletions / totalSections) * 100)
+    totalSections > 0 && activeUsers > 0
+      ? Math.round((totalCompletions / (totalSections * activeUsers)) * 100)
       : 0;
 
   const limits = getPlanLimits(ctx.tenantPlan);

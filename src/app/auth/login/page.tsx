@@ -35,7 +35,7 @@ function LoginForm() {
   // client to avoid hydration mismatch (the module-level activeLocale may differ
   // between server and client if a prior request set it to "sl").
   // We sync the real locale from localStorage after mount.
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const [locale, setLocaleState] = useState<Locale>("sl");
 
   // Sync the module-level activeLocale to the React state so that all
   // t() calls in this render produce the same output on server & client.
@@ -46,7 +46,7 @@ function LoginForm() {
     const resolved: Locale =
       saved && SUPPORTED_LOCALES.includes(saved as Locale)
         ? (saved as Locale)
-        : "en";
+        : "sl";
     setLocale(resolved);
     setLocaleState(resolved);
   }, []);

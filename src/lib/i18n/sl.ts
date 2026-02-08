@@ -607,6 +607,9 @@ export const sl = {
       toolbarBulletList: "Neurejen seznam",
       toolbarOrderedList: "Urejen seznam",
       toolbarLink: "Povezava",
+      toolbarImage: "Vstavi sliko",
+      invalidImageType: "Neveljavna oblika slike. Dovoljeno: JPG, PNG, GIF, WebP, SVG",
+      imageTooLarge: "Slika je prevelika. Največ 5 MB.",
       linkPrompt: "URL:",
     },
 

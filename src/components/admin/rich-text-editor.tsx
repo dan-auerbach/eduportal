@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Bold,
@@ -16,8 +16,11 @@ import {
   Link as LinkIcon,
   Eye,
   Pencil,
+  ImagePlus,
+  Loader2,
 } from "lucide-react";
 import { t } from "@/lib/i18n";
+import { toast } from "sonner";
 
 interface RichTextEditorProps {
   content: string;
@@ -31,6 +34,8 @@ export function RichTextEditor({
   placeholder,
 }: RichTextEditorProps) {
   const [mode, setMode] = useState<"edit" | "preview">("edit");
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -42,7 +47,9 @@ export function RichTextEditor({
         openOnClick: false,
         HTMLAttributes: { class: "text-primary underline" },
       }),
-      Image,
+      Image.configure({
+        HTMLAttributes: { class: "max-w-full h-auto rounded-md" },
+      }),
     ],
     content,
     editable: mode === "edit",
@@ -71,6 +78,60 @@ export function RichTextEditor({
       editor.chain().focus().setLink({ href: url }).run();
     }
   }, [editor]);
+
+  const handleImageClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  const handleImageUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file || !editor) return;
+
+      // Validate type
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error(t("admin.editor.invalidImageType"));
+        return;
+      }
+
+      // Validate size (5 MB max)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(t("admin.editor.imageTooLarge"));
+        return;
+      }
+
+      setUploading(true);
+
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch("/api/section-image-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => null);
+          toast.error(errData?.error || t("common.uploadFailed"));
+          return;
+        }
+
+        const data = await res.json();
+
+        // Insert image at current cursor position
+        editor.chain().focus().setImage({ src: data.url, alt: file.name }).run();
+      } catch {
+        toast.error(t("common.uploadFailed"));
+      } finally {
+        setUploading(false);
+        // Reset file input
+        if (fileInputRef.current) fileInputRef.current.value = "";
+      }
+    },
+    [editor]
+  );
 
   if (!editor) return null;
 
@@ -135,6 +196,18 @@ export function RichTextEditor({
             >
               <LinkIcon className="h-4 w-4" />
             </ToolbarButton>
+            <ToolbarButton
+              onClick={handleImageClick}
+              active={false}
+              title={t("admin.editor.toolbarImage")}
+              disabled={uploading}
+            >
+              {uploading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <ImagePlus className="h-4 w-4" />
+              )}
+            </ToolbarButton>
           </div>
         ) : (
           <div />
@@ -164,6 +237,14 @@ export function RichTextEditor({
         editor={editor}
         className="prose prose-sm max-w-none min-h-[200px] max-h-[400px] overflow-y-auto p-3 focus-within:outline-none [&_.tiptap]:outline-none [&_.tiptap]:min-h-[180px]"
       />
+      {/* Hidden file input for image upload */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,.jpg,.jpeg,.png,.gif,.webp,.svg"
+        className="hidden"
+        onChange={handleImageUpload}
+      />
     </div>
   );
 }
@@ -173,21 +254,27 @@ function ToolbarButton({
   active,
   title,
   children,
+  disabled,
 }: {
   onClick: () => void;
   active: boolean;
   title: string;
   children: React.ReactNode;
+  disabled?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      onMouseDown={(e) => e.preventDefault()}
       title={title}
+      disabled={disabled}
       className={`rounded p-1.5 transition-colors ${
-        active
-          ? "bg-accent text-accent-foreground"
-          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        disabled
+          ? "text-muted-foreground/50 cursor-not-allowed"
+          : active
+            ? "bg-accent text-accent-foreground"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
       }`}
     >
       {children}

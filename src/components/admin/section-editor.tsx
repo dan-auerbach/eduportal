@@ -150,9 +150,15 @@ export function SectionEditorSheet({
     );
   }, [localTitle, localContent, localType, localUnlockAfter, localVideoSourceType]);
 
-  const handleSave = useCallback(async () => {
+  const handleSave = useCallback(async (manual = false) => {
     if (!sectionIdRef.current) return;
-    if (!isDirty()) return;
+    if (!isDirty()) {
+      // If manual save clicked but nothing dirty, still show feedback
+      if (manual) {
+        toast.success(t("admin.sectionEditor.sectionSaved"));
+      }
+      return;
+    }
 
     setSaveStatus("saving");
 
@@ -176,6 +182,9 @@ export function SectionEditorSheet({
         unlockAfter: localUnlockAfter,
         videoSourceType: localVideoSourceType,
       };
+      if (manual) {
+        toast.success(t("admin.sectionEditor.sectionSaved"));
+      }
       router.refresh();
     } else {
       setSaveStatus("unsaved");
@@ -287,7 +296,7 @@ export function SectionEditorSheet({
               {getSectionTypeLabel(localType)}
             </Badge>
             <SaveStatusIndicator status={saveStatus} />
-            <Button size="sm" onClick={handleSave} disabled={saveStatus === "saving"}>
+            <Button size="sm" onClick={() => handleSave(true)} disabled={saveStatus === "saving"}>
               <Save className="mr-1 h-4 w-4" />
               {t("admin.sectionEditor.saveSection")}
             </Button>

@@ -607,6 +607,9 @@ export const en = {
       toolbarBulletList: "Bullet list",
       toolbarOrderedList: "Ordered list",
       toolbarLink: "Link",
+      toolbarImage: "Insert image",
+      invalidImageType: "Invalid image type. Allowed: JPG, PNG, GIF, WebP, SVG",
+      imageTooLarge: "Image is too large. Maximum 5 MB.",
       linkPrompt: "URL:",
     },
 

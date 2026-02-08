@@ -12,23 +12,30 @@ import { DeleteLiveEventButton } from "@/components/live-events/live-event-actio
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function formatEventDate(isoString: string): string {
+function formatEventDateTime(isoString: string, locale: string): string {
+  const loc = locale === "sl" ? "sl-SI" : "en-GB";
   const d = new Date(isoString);
-  return d.toLocaleDateString(undefined, {
+  const datePart = d.toLocaleDateString(loc, {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" });
+  return `${datePart} ob ${timePart}`;
 }
 
-function formatEventTime(isoString: string): string {
+function formatEventDateShort(isoString: string, locale: string): string {
+  const loc = locale === "sl" ? "sl-SI" : "en-GB";
   const d = new Date(isoString);
-  return d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-}
-
-function isFuture(isoString: string): boolean {
-  return new Date(isoString) >= new Date();
+  const datePart = d.toLocaleDateString(loc, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" });
+  return `${datePart}, ${timePart}`;
 }
 
 // ── Sub-components ───────────────────────────────────────────────────────────
@@ -37,10 +44,12 @@ function EventHighlight({
   event,
   isAdmin,
   modules,
+  locale,
 }: {
   event: LiveEventDTO;
   isAdmin: boolean;
   modules: { id: string; title: string }[];
+  locale: string;
 }) {
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10">
@@ -64,7 +73,7 @@ function EventHighlight({
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="h-4 w-4 text-muted-foreground" />
           <span className="font-medium">
-            {formatEventDate(event.startsAt)} {t("common.at") || "ob"} {formatEventTime(event.startsAt)}
+            {formatEventDateTime(event.startsAt, locale)}
           </span>
         </div>
 
@@ -110,18 +119,20 @@ function EventListItem({
   showJoin,
   isAdmin,
   modules,
+  locale,
 }: {
   event: LiveEventDTO;
   showJoin: boolean;
   isAdmin: boolean;
   modules: { id: string; title: string }[];
+  locale: string;
 }) {
   return (
     <div className="flex items-start justify-between gap-4 rounded-lg border bg-card p-4">
       <div className="min-w-0 flex-1 space-y-1">
         <h3 className="font-medium truncate">{event.title}</h3>
         <p className="text-sm text-muted-foreground">
-          {formatEventDate(event.startsAt)}, {formatEventTime(event.startsAt)}
+          {formatEventDateShort(event.startsAt, locale)}
         </p>
         {event.relatedModule && (
           <Link
@@ -178,6 +189,7 @@ export default async function MentorLivePage() {
     }
   }
 
+  const locale = ctx.tenantLocale;
   const hasNoEvents = !nextEvent && upcoming.length === 0 && past.length === 0;
 
   return (
@@ -209,7 +221,7 @@ export default async function MentorLivePage() {
 
       {/* Highlight: next event */}
       {nextEvent && (
-        <EventHighlight event={nextEvent} isAdmin={isAdmin} modules={modules} />
+        <EventHighlight event={nextEvent} isAdmin={isAdmin} modules={modules} locale={locale} />
       )}
 
       {/* Upcoming events */}
@@ -224,6 +236,7 @@ export default async function MentorLivePage() {
                 showJoin={true}
                 isAdmin={isAdmin}
                 modules={modules}
+                locale={locale}
               />
             ))}
           </div>
@@ -242,6 +255,7 @@ export default async function MentorLivePage() {
                 showJoin={false}
                 isAdmin={isAdmin}
                 modules={modules}
+                locale={locale}
               />
             ))}
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useMemo } from "react";
+import { useState, useTransition } from "react";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -16,6 +16,9 @@ import {
   RefreshCw,
   ClipboardList,
   CircleHelp,
+  List,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -23,6 +26,12 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { completeSection } from "@/actions/progress";
 import { acknowledgeModuleUpdate } from "@/actions/modules";
@@ -152,6 +161,7 @@ export function SectionViewer({
     // Show quiz prompt on load if all sections done + quiz not passed
     initialProgress >= 100 && quizzes.length > 0 && !quizzes.every(q => q.passed)
   );
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const completedSet = completedIds;
   const totalSections = sections.length;
@@ -167,6 +177,7 @@ export function SectionViewer({
   function handleSectionClick(section: SectionData) {
     if (!isSectionUnlocked(section, completedSet)) return;
     setActiveSectionId(section.id);
+    setMobileNavOpen(false); // Close mobile nav on selection
   }
 
   const isLastSection = activeSectionIndex === sections.length - 1;
@@ -217,10 +228,10 @@ export function SectionViewer({
     return <Circle className="h-4 w-4 text-muted-foreground shrink-0" />;
   }
 
-  return (
-    <div className="flex h-[calc(100vh-8.5rem)] gap-0 rounded-lg border bg-background overflow-hidden">
-      {/* Sidebar - Chapter list */}
-      <div className="w-72 shrink-0 border-r flex flex-col">
+  // Shared sidebar content (used by both desktop sidebar and mobile sheet)
+  function renderSidebarContent() {
+    return (
+      <>
         <div className="p-4 border-b">
           <h2 className="font-semibold text-sm truncate">{moduleTitle}</h2>
           <div className="mt-2 space-y-1.5">
@@ -283,6 +294,7 @@ export function SectionViewer({
                       }
                       onClick={(e) => {
                         if (!quizUnlocked) e.preventDefault();
+                        else setMobileNavOpen(false);
                       }}
                       className={cn(
                         "w-full flex items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors",
@@ -324,10 +336,82 @@ export function SectionViewer({
             )}
           </div>
         </ScrollArea>
+      </>
+    );
+  }
+
+  return (
+    <div className="flex flex-col md:flex-row h-[calc(100vh-8.5rem)] md:h-[calc(100vh-8.5rem)] gap-0 rounded-lg border bg-background overflow-hidden">
+      {/* ── Desktop sidebar (hidden on mobile) ──────────────────────── */}
+      <div className="hidden md:flex w-72 shrink-0 border-r flex-col">
+        {renderSidebarContent()}
       </div>
 
-      {/* Main content area */}
+      {/* ── Mobile section nav sheet ────────────────────────────────── */}
+      <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+        <SheetContent side="left" className="w-[85vw] max-w-xs p-0 flex flex-col" showCloseButton={false}>
+          <SheetHeader className="p-0">
+            <SheetTitle className="sr-only">{moduleTitle}</SheetTitle>
+          </SheetHeader>
+          {renderSidebarContent()}
+        </SheetContent>
+      </Sheet>
+
+      {/* ── Main content area ───────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 min-h-0">
+        {/* Mobile section header bar (visible only on mobile) */}
+        <div className="flex md:hidden items-center gap-2 px-3 py-2.5 border-b bg-muted/30">
+          <button
+            onClick={() => setMobileNavOpen(true)}
+            className="shrink-0 flex items-center justify-center w-8 h-8 rounded-md hover:bg-accent transition-colors"
+            aria-label={t("sectionViewer.progress")}
+          >
+            <List className="h-4 w-4" />
+          </button>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-muted-foreground truncate">
+              {completedCount}/{totalSections} &middot; {currentProgress}%
+            </p>
+            <p className="text-sm font-medium truncate">
+              {activeSection
+                ? `${activeSectionIndex + 1}. ${activeSection.title}`
+                : moduleTitle}
+            </p>
+          </div>
+          {/* Quick prev/next on mobile header */}
+          <div className="flex items-center shrink-0">
+            <button
+              disabled={activeSectionIndex === 0}
+              onClick={() => {
+                const prev = sections[activeSectionIndex - 1];
+                if (prev && isSectionUnlocked(prev, completedSet)) {
+                  setActiveSectionId(prev.id);
+                }
+              }}
+              className="p-1.5 rounded-md disabled:opacity-30 hover:bg-accent transition-colors"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              disabled={isLastSection}
+              onClick={() => {
+                const next = sections[activeSectionIndex + 1];
+                if (next && isSectionUnlocked(next, completedSet)) {
+                  setActiveSectionId(next.id);
+                }
+              }}
+              className="p-1.5 rounded-md disabled:opacity-30 hover:bg-accent transition-colors"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile progress bar */}
+        <div className="md:hidden">
+          <Progress value={currentProgress} className="h-1 rounded-none" />
+        </div>
+
         {isPreview && (
           <Alert className="rounded-none border-x-0 border-t-0 bg-yellow-50 dark:bg-yellow-950">
             <Eye className="h-4 w-4" />
@@ -371,12 +455,12 @@ export function SectionViewer({
         {showQuizPrompt && quizzes.length > 0 && (
           <Alert className="rounded-none border-x-0 border-t-0 bg-amber-50 dark:bg-amber-950">
             <ClipboardList className="h-4 w-4" />
-            <AlertDescription className="flex items-center justify-between">
-              <div>
+            <AlertDescription className="flex items-center justify-between gap-2">
+              <div className="min-w-0">
                 <p className="text-sm font-medium">
                   {t("sectionViewer.quizPrompt")}
                 </p>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">
                   {t("modules.quizRequiredShort")}
                 </p>
               </div>
@@ -391,7 +475,8 @@ export function SectionViewer({
 
         {activeSection ? (
           <>
-            <div className="p-6 border-b">
+            {/* Section header — hidden on mobile (shown in mobile header bar instead) */}
+            <div className="hidden md:block p-6 border-b">
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="text-xs">
                   {t(`sectionType.${activeSection.type}`)}
@@ -410,8 +495,23 @@ export function SectionViewer({
               </h1>
             </div>
 
+            {/* Compact mobile section header (badges + type) */}
+            <div className="md:hidden px-4 py-2 border-b flex items-center gap-2">
+              <Badge variant="outline" className="text-xs">
+                {t(`sectionType.${activeSection.type}`)}
+              </Badge>
+              {completedSet.has(activeSection.id) && (
+                <Badge
+                  variant="outline"
+                  className="text-xs border-green-500 text-green-600 dark:text-green-400"
+                >
+                  {t("sectionViewer.completed")}
+                </Badge>
+              )}
+            </div>
+
             <ScrollArea className="flex-1 min-h-0">
-              <div className="p-6 space-y-6">
+              <div className="p-4 md:p-6 space-y-6">
                 {/* Video embed for VIDEO and MIXED types */}
                 {(activeSection.type === "VIDEO" ||
                   activeSection.type === "MIXED") &&
@@ -569,7 +669,7 @@ export function SectionViewer({
             </ScrollArea>
 
             {/* Bottom action bar */}
-            <div className="border-t p-4 flex items-center justify-between">
+            <div className="border-t p-3 md:p-4 flex items-center justify-between gap-2">
               <Button
                 variant="outline"
                 size="sm"
@@ -581,7 +681,9 @@ export function SectionViewer({
                   }
                 }}
               >
-                {t("common.previous")}
+                <ChevronLeft className="h-4 w-4 md:hidden" />
+                <span className="hidden md:inline">{t("common.previous")}</span>
+                <span className="md:hidden">{t("common.previous")}</span>
               </Button>
 
               <div className="flex items-center gap-2">
@@ -606,9 +708,14 @@ export function SectionViewer({
                           ) : (
                             <CheckCircle2 className="h-4 w-4 mr-1" />
                           )}
-                          {wouldFinish
-                            ? t("sectionViewer.finishModule")
-                            : t("sectionViewer.markCompleted")}
+                          <span className="hidden sm:inline">
+                            {wouldFinish
+                              ? t("sectionViewer.finishModule")
+                              : t("sectionViewer.markCompleted")}
+                          </span>
+                          <span className="sm:hidden">
+                            {wouldFinish ? "✓" : "✓"}
+                          </span>
                         </Button>
                       )}
 
@@ -616,7 +723,7 @@ export function SectionViewer({
                       {!isPreview && allComplete && (
                         <span className="flex items-center gap-1.5 text-sm text-green-600 dark:text-green-400 font-medium">
                           <CheckCircle2 className="h-4 w-4" />
-                          {t("sectionViewer.moduleCompleted")}
+                          <span className="hidden sm:inline">{t("sectionViewer.moduleCompleted")}</span>
                         </span>
                       )}
 
@@ -632,7 +739,9 @@ export function SectionViewer({
                             }
                           }}
                         >
-                          {t("common.next")}
+                          <span className="hidden md:inline">{t("common.next")}</span>
+                          <span className="md:hidden">{t("common.next")}</span>
+                          <ChevronRight className="h-4 w-4 md:hidden" />
                         </Button>
                       )}
                     </>

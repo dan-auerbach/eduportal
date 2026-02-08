@@ -167,3 +167,12 @@ export const AuditAction = {
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
+
+
+export const ChatMessageType = {
+  MESSAGE: 'MESSAGE',
+  JOIN: 'JOIN',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType]

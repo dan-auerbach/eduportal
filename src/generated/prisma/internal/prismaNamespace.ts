@@ -415,6 +415,7 @@ export const ModelName = {
   UserModuleReview: 'UserModuleReview',
   AuditLog: 'AuditLog',
   ChangelogEntry: 'ChangelogEntry',
+  ChatMessage: 'ChatMessage',
   UserSession: 'UserSession'
 } as const
 
@@ -431,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "userSession"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "userSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2729,6 +2730,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ChatMessage: {
+      payload: Prisma.$ChatMessagePayload<ExtArgs>
+      fields: Prisma.ChatMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChatMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChatMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.ChatMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChatMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        findMany: {
+          args: Prisma.ChatMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>[]
+        }
+        create: {
+          args: Prisma.ChatMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        createMany: {
+          args: Prisma.ChatMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChatMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.ChatMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        update: {
+          args: Prisma.ChatMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.ChatMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChatMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChatMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.ChatMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.ChatMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChatMessage>
+        }
+        groupBy: {
+          args: Prisma.ChatMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChatMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     UserSession: {
       payload: Prisma.$UserSessionPayload<ExtArgs>
       fields: Prisma.UserSessionFieldRefs
@@ -3251,6 +3326,19 @@ export const ChangelogEntryScalarFieldEnum = {
 export type ChangelogEntryScalarFieldEnum = (typeof ChangelogEntryScalarFieldEnum)[keyof typeof ChangelogEntryScalarFieldEnum]
 
 
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  type: 'type',
+  displayName: 'displayName',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
+
+
 export const UserSessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3576,6 +3664,20 @@ export type EnumAuditActionFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
 export type ListEnumAuditActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuditAction[]'>
     
 
+
+/**
+ * Reference to a field of type 'ChatMessageType'
+ */
+export type EnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChatMessageType'>
+    
+
+
+/**
+ * Reference to a field of type 'ChatMessageType[]'
+ */
+export type ListEnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChatMessageType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3702,6 +3804,7 @@ export type GlobalOmitConfig = {
   userModuleReview?: Prisma.UserModuleReviewOmit
   auditLog?: Prisma.AuditLogOmit
   changelogEntry?: Prisma.ChangelogEntryOmit
+  chatMessage?: Prisma.ChatMessageOmit
   userSession?: Prisma.UserSessionOmit
 }
 

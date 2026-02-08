@@ -256,6 +256,7 @@ export type UserWhereInput = {
   pinnedModules?: Prisma.UserPinnedModuleListRelationFilter
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -289,6 +290,7 @@ export type UserOrderByWithRelationInput = {
   pinnedModules?: Prisma.UserPinnedModuleOrderByRelationAggregateInput
   changelogEntries?: Prisma.ChangelogEntryOrderByRelationAggregateInput
   sessions?: Prisma.UserSessionOrderByRelationAggregateInput
+  chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -325,6 +327,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   pinnedModules?: Prisma.UserPinnedModuleListRelationFilter
   changelogEntries?: Prisma.ChangelogEntryListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -394,6 +397,7 @@ export type UserCreateInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -427,6 +431,7 @@ export type UserUncheckedCreateInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -460,6 +465,7 @@ export type UserUpdateInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -493,6 +499,7 @@ export type UserUncheckedUpdateInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -845,6 +852,22 @@ export type UserUpdateOneWithoutChangelogEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChangelogEntriesInput, Prisma.UserUpdateWithoutChangelogEntriesInput>, Prisma.UserUncheckedUpdateWithoutChangelogEntriesInput>
 }
 
+export type UserCreateNestedOneWithoutChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  upsert?: Prisma.UserUpsertWithoutChatMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.UserUpdateWithoutChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -889,6 +912,7 @@ export type UserCreateWithoutMembershipsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -921,6 +945,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -969,6 +994,7 @@ export type UserUpdateWithoutMembershipsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1001,6 +1027,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1033,6 +1060,7 @@ export type UserCreateWithoutPermissionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1065,6 +1093,7 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1113,6 +1142,7 @@ export type UserUpdateWithoutPermissionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1145,6 +1175,7 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1177,6 +1208,7 @@ export type UserCreateWithoutGroupsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1209,6 +1241,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1257,6 +1290,7 @@ export type UserUpdateWithoutGroupsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1289,6 +1323,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -1321,6 +1356,7 @@ export type UserCreateWithoutCreatedModulesInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -1353,6 +1389,7 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -1401,6 +1438,7 @@ export type UserUpdateWithoutCreatedModulesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -1433,6 +1471,7 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -1465,6 +1504,7 @@ export type UserCreateWithoutSectionCompletionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -1497,6 +1537,7 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -1545,6 +1586,7 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -1577,6 +1619,7 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -1609,6 +1652,7 @@ export type UserCreateWithoutModuleAccessesInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -1641,6 +1685,7 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -1689,6 +1734,7 @@ export type UserUpdateWithoutModuleAccessesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -1721,6 +1767,7 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -1753,6 +1800,7 @@ export type UserCreateWithoutQuizAttemptsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -1785,6 +1833,7 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -1833,6 +1882,7 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -1865,6 +1915,7 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -1897,6 +1948,7 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -1929,6 +1981,7 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -1977,6 +2030,7 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2009,6 +2063,7 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -2041,6 +2096,7 @@ export type UserCreateWithoutProgressOverridesInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -2073,6 +2129,7 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -2121,6 +2178,7 @@ export type UserUpdateWithoutProgressOverridesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -2153,6 +2211,7 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2185,6 +2244,7 @@ export type UserCreateWithoutCertificatesInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2217,6 +2277,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2265,6 +2326,7 @@ export type UserUpdateWithoutCertificatesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2297,6 +2359,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -2329,6 +2392,7 @@ export type UserCreateWithoutCommentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2361,6 +2425,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -2409,6 +2474,7 @@ export type UserUpdateWithoutCommentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -2441,6 +2507,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -2473,6 +2540,7 @@ export type UserCreateWithoutNotificationsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -2505,6 +2573,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -2553,6 +2622,7 @@ export type UserUpdateWithoutNotificationsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2585,6 +2655,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -2617,6 +2688,7 @@ export type UserCreateWithoutPinnedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -2649,6 +2721,7 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -2697,6 +2770,7 @@ export type UserUpdateWithoutPinnedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -2729,6 +2803,7 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -2761,6 +2836,7 @@ export type UserCreateWithoutChangeLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -2793,6 +2869,7 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -2841,6 +2918,7 @@ export type UserUpdateWithoutChangeLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -2873,6 +2951,7 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -2905,6 +2984,7 @@ export type UserCreateWithoutModuleReviewsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -2937,6 +3017,7 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -2985,6 +3066,7 @@ export type UserUpdateWithoutModuleReviewsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -3017,6 +3099,7 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -3049,6 +3132,7 @@ export type UserCreateWithoutAuditLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -3081,6 +3165,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3129,6 +3214,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -3161,6 +3247,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -3193,6 +3280,7 @@ export type UserCreateWithoutChangelogEntriesInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -3225,6 +3313,7 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -3273,6 +3362,7 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -3304,6 +3394,155 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutChatMessagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutChatMessagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutChatMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+}
+
+export type UserUpsertWithoutChatMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
+export type UserUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3337,6 +3576,7 @@ export type UserCreateWithoutSessionsInput = {
   moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -3369,6 +3609,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -3417,6 +3658,7 @@ export type UserUpdateWithoutSessionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -3449,6 +3691,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
   pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -3475,6 +3718,7 @@ export type UserCountOutputType = {
   pinnedModules: number
   changelogEntries: number
   sessions: number
+  chatMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3496,6 +3740,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   pinnedModules?: boolean | UserCountOutputTypeCountPinnedModulesArgs
   changelogEntries?: boolean | UserCountOutputTypeCountChangelogEntriesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
 }
 
 /**
@@ -3634,6 +3879,13 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.UserSessionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3666,6 +3918,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   pinnedModules?: boolean | Prisma.User$pinnedModulesArgs<ExtArgs>
   changelogEntries?: boolean | Prisma.User$changelogEntriesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3734,6 +3987,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pinnedModules?: boolean | Prisma.User$pinnedModulesArgs<ExtArgs>
   changelogEntries?: boolean | Prisma.User$changelogEntriesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3760,6 +4014,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     pinnedModules: Prisma.$UserPinnedModulePayload<ExtArgs>[]
     changelogEntries: Prisma.$ChangelogEntryPayload<ExtArgs>[]
     sessions: Prisma.$UserSessionPayload<ExtArgs>[]
+    chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4186,6 +4441,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   pinnedModules<T extends Prisma.User$pinnedModulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pinnedModulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPinnedModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   changelogEntries<T extends Prisma.User$changelogEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$changelogEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChangelogEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatMessages<T extends Prisma.User$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5044,6 +5300,30 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.UserSessionScalarFieldEnum | Prisma.UserSessionScalarFieldEnum[]
+}
+
+/**
+ * User.chatMessages
+ */
+export type User$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
 }
 
 /**

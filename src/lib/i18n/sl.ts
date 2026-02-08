@@ -128,6 +128,7 @@ export const sl = {
     progress: "Napredek",
     auditLog: "Revizijska sled",
     updates: "Posodobitve",
+    chat: "Pogovor",
     owner: "Owner",
     tenants: "Podjetja",
     settings: "Nastavitve",
@@ -1003,6 +1004,20 @@ export const sl = {
     modules: "Dosežena omejitev znanj za vaš paket.",
     usersReached: "Dosežena omejitev uporabnikov",
     modulesReached: "Dosežena omejitev znanj",
+  },
+
+  // ── Chat (IRC) ──────────────────────────────────────────────────────
+  chat: {
+    title: "Skupinski pogovor",
+    send: "Pošlji",
+    placeholder: "Napiši sporočilo...",
+    joined: "se je pridružil/a",
+    noMessages: "Še ni sporočil. Začnite pogovor!",
+    tooFast: "Prepočasno. Počakajte sekundo.",
+    tooLong: "Sporočilo je predolgo (max 500 znakov).",
+    empty: "Sporočilo ne sme biti prazno.",
+    error: "Napaka pri pošiljanju sporočila.",
+    newMessages: "Nova sporočila",
   },
 
   // ── Locale ────────────────────────────────────────────────────────

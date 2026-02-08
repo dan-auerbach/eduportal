@@ -173,6 +173,11 @@ export type AuditLog = Prisma.AuditLogModel
  */
 export type ChangelogEntry = Prisma.ChangelogEntryModel
 /**
+ * Model ChatMessage
+ * 
+ */
+export type ChatMessage = Prisma.ChatMessageModel
+/**
  * Model UserSession
  * 
  */

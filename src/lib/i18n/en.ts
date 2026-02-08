@@ -128,6 +128,7 @@ export const en = {
     progress: "Progress",
     auditLog: "Audit log",
     updates: "Updates",
+    chat: "Chat",
     owner: "Owner",
     tenants: "Companies",
     settings: "Settings",
@@ -1003,6 +1004,20 @@ export const en = {
     modules: "Knowledge limit reached for your plan.",
     usersReached: "User limit reached",
     modulesReached: "Knowledge limit reached",
+  },
+
+  // ── Chat (IRC) ──────────────────────────────────────────────────────
+  chat: {
+    title: "Group chat",
+    send: "Send",
+    placeholder: "Type a message...",
+    joined: "has joined",
+    noMessages: "No messages yet. Start the conversation!",
+    tooFast: "Too fast. Wait a second.",
+    tooLong: "Message is too long (max 500 characters).",
+    empty: "Message cannot be empty.",
+    error: "Failed to send message.",
+    newMessages: "New messages",
   },
 
   // ── Locale ────────────────────────────────────────────────────────

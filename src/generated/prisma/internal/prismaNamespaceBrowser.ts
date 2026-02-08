@@ -82,6 +82,7 @@ export const ModelName = {
   UserModuleReview: 'UserModuleReview',
   AuditLog: 'AuditLog',
   ChangelogEntry: 'ChangelogEntry',
+  ChatMessage: 'ChatMessage',
   UserSession: 'UserSession'
 } as const
 
@@ -508,6 +509,19 @@ export const ChangelogEntryScalarFieldEnum = {
 } as const
 
 export type ChangelogEntryScalarFieldEnum = (typeof ChangelogEntryScalarFieldEnum)[keyof typeof ChangelogEntryScalarFieldEnum]
+
+
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  type: 'type',
+  displayName: 'displayName',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
 export const UserSessionScalarFieldEnum = {

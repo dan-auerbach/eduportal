@@ -51,6 +51,7 @@ model Tenant {
   companyPinnedModules CompanyPinnedModule[]
   changelogEntries     ChangelogEntry[]
   sessions             UserSession[]
+  chatMessages         ChatMessage[]
 }
 
 enum TenantTheme {
@@ -125,6 +126,7 @@ model User {
   pinnedModules      UserPinnedModule[]
   changelogEntries   ChangelogEntry[]    @relation("ChangelogAuthor")
   sessions           UserSession[]
+  chatMessages       ChatMessage[]
 
   @@index([role, isActive])
 }
@@ -818,6 +820,32 @@ enum AuditAction {
   MEMBERSHIP_CHANGED
   OWNER_IMPERSONATION
   TENANT_DELETED
+}
+
+// ============================================
+// IRC CHAT (PER-TENANT GROUP CHAT)
+// ============================================
+
+model ChatMessage {
+  id          String          @id @default(cuid())
+  tenantId    String
+  userId      String?
+  type        ChatMessageType @default(MESSAGE)
+  displayName String
+  body        String          @db.Text
+  createdAt   DateTime        @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, id])
+}
+
+enum ChatMessageType {
+  MESSAGE
+  JOIN
+  SYSTEM
 }
 
 // ============================================

@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   Building2,
   Megaphone,
+  Hash,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -30,6 +31,7 @@ const employeeNav: NavItem[] = [
   { href: "/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
   { href: "/notifications", labelKey: "nav.notifications", icon: Bell },
+  { href: "/chat", labelKey: "nav.chat", icon: Hash },
   { href: "/updates", labelKey: "nav.updates", icon: Megaphone },
   { href: "/profile", labelKey: "nav.profile", icon: User },
 ];

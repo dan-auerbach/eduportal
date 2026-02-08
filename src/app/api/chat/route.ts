@@ -7,6 +7,7 @@ const MAX_FETCH = 200;
 /**
  * GET /api/chat?after=<lastMessageId>
  * Lightweight polling endpoint for new chat messages.
+ * Also returns the current channel topic.
  */
 export async function GET(req: NextRequest) {
   let ctx;
@@ -26,19 +27,25 @@ export async function GET(req: NextRequest) {
     where.id = { gt: afterId };
   }
 
-  const messages = await prisma.chatMessage.findMany({
-    where,
-    orderBy: afterId ? { id: "asc" } : { createdAt: "desc" },
-    take: MAX_FETCH,
-    select: {
-      id: true,
-      type: true,
-      displayName: true,
-      body: true,
-      createdAt: true,
-      userId: true,
-    },
-  });
+  const [messages, tenant] = await Promise.all([
+    prisma.chatMessage.findMany({
+      where,
+      orderBy: afterId ? { id: "asc" } : { createdAt: "desc" },
+      take: MAX_FETCH,
+      select: {
+        id: true,
+        type: true,
+        displayName: true,
+        body: true,
+        createdAt: true,
+        userId: true,
+      },
+    }),
+    prisma.tenant.findUnique({
+      where: { id: ctx.tenantId },
+      select: { chatTopic: true },
+    }),
+  ]);
 
   // Initial load: reverse so oldest first
   const sorted = afterId ? messages : messages.reverse();
@@ -49,5 +56,6 @@ export async function GET(req: NextRequest) {
       createdAt: m.createdAt.toISOString(),
     })),
     tenantSlug: ctx.tenantSlug,
+    topic: tenant?.chatTopic ?? null,
   });
 }

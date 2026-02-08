@@ -172,7 +172,8 @@ export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
 export const ChatMessageType = {
   MESSAGE: 'MESSAGE',
   JOIN: 'JOIN',
-  SYSTEM: 'SYSTEM'
+  SYSTEM: 'SYSTEM',
+  ACTION: 'ACTION'
 } as const
 
 export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType]

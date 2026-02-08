@@ -1010,7 +1010,7 @@ export const sl = {
   chat: {
     title: "Skupinski pogovor",
     send: "Pošlji",
-    placeholder: "Napiši sporočilo...",
+    placeholder: "Napiši sporočilo... (/help za ukaze)",
     joined: "se je pridružil/a",
     noMessages: "Še ni sporočil. Začnite pogovor!",
     tooFast: "Prepočasno. Počakajte sekundo.",
@@ -1018,6 +1018,21 @@ export const sl = {
     empty: "Sporočilo ne sme biti prazno.",
     error: "Napaka pri pošiljanju sporočila.",
     newMessages: "Nova sporočila",
+    // /commands
+    afk: "je AFK",
+    afkWithReason: "je AFK ({reason})",
+    topicSet: "je nastavil/a temo: {topic}",
+    topicCleared: "je odstranil/a temo kanala",
+    topicLabel: "Tema:",
+    noTopic: "Ni teme",
+    unknownCommand: "Neznan ukaz: {cmd} (vpiši /help)",
+    helpTitle: "Ukazi",
+    helpMe: "/me <besedilo> — prikaži dejanje (npr. /me plešče)",
+    helpShrug: "/shrug — ¯\\_(ツ)_/¯",
+    helpAfk: "/afk [razlog] — označi se kot odsoten",
+    helpTopic: "/topic <besedilo> — nastavi temo kanala",
+    helpHelp: "/help — prikaži ta seznam",
+    helpClose: "Zapri",
   },
 
   // ── Locale ────────────────────────────────────────────────────────

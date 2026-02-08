@@ -34,6 +34,7 @@ export type TenantMinAggregateOutputType = {
   locale: string | null
   createdAt: Date | null
   archivedAt: Date | null
+  chatTopic: string | null
 }
 
 export type TenantMaxAggregateOutputType = {
@@ -46,6 +47,7 @@ export type TenantMaxAggregateOutputType = {
   locale: string | null
   createdAt: Date | null
   archivedAt: Date | null
+  chatTopic: string | null
 }
 
 export type TenantCountAggregateOutputType = {
@@ -58,6 +60,7 @@ export type TenantCountAggregateOutputType = {
   locale: number
   createdAt: number
   archivedAt: number
+  chatTopic: number
   _all: number
 }
 
@@ -72,6 +75,7 @@ export type TenantMinAggregateInputType = {
   locale?: true
   createdAt?: true
   archivedAt?: true
+  chatTopic?: true
 }
 
 export type TenantMaxAggregateInputType = {
@@ -84,6 +88,7 @@ export type TenantMaxAggregateInputType = {
   locale?: true
   createdAt?: true
   archivedAt?: true
+  chatTopic?: true
 }
 
 export type TenantCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type TenantCountAggregateInputType = {
   locale?: true
   createdAt?: true
   archivedAt?: true
+  chatTopic?: true
   _all?: true
 }
 
@@ -181,6 +187,7 @@ export type TenantGroupByOutputType = {
   locale: string
   createdAt: Date
   archivedAt: Date | null
+  chatTopic: string | null
   _count: TenantCountAggregateOutputType | null
   _min: TenantMinAggregateOutputType | null
   _max: TenantMaxAggregateOutputType | null
@@ -214,6 +221,7 @@ export type TenantWhereInput = {
   locale?: Prisma.StringFilter<"Tenant"> | string
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Tenant"> | Date | string | null
+  chatTopic?: Prisma.StringNullableFilter<"Tenant"> | string | null
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -256,6 +264,7 @@ export type TenantOrderByWithRelationInput = {
   locale?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  chatTopic?: Prisma.SortOrderInput | Prisma.SortOrder
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   modules?: Prisma.ModuleOrderByRelationAggregateInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
@@ -301,6 +310,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   locale?: Prisma.StringFilter<"Tenant"> | string
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Tenant"> | Date | string | null
+  chatTopic?: Prisma.StringNullableFilter<"Tenant"> | string | null
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -343,6 +353,7 @@ export type TenantOrderByWithAggregationInput = {
   locale?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  chatTopic?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TenantCountOrderByAggregateInput
   _max?: Prisma.TenantMaxOrderByAggregateInput
   _min?: Prisma.TenantMinOrderByAggregateInput
@@ -361,6 +372,7 @@ export type TenantScalarWhereWithAggregatesInput = {
   locale?: Prisma.StringWithAggregatesFilter<"Tenant"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Tenant"> | Date | string | null
+  chatTopic?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
 }
 
 export type TenantCreateInput = {
@@ -373,6 +385,7 @@ export type TenantCreateInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -415,6 +428,7 @@ export type TenantUncheckedCreateInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -457,6 +471,7 @@ export type TenantUpdateInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -499,6 +514,7 @@ export type TenantUncheckedUpdateInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -541,6 +557,7 @@ export type TenantCreateManyInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
 }
 
 export type TenantUpdateManyMutationInput = {
@@ -553,6 +570,7 @@ export type TenantUpdateManyMutationInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TenantUncheckedUpdateManyInput = {
@@ -565,6 +583,7 @@ export type TenantUncheckedUpdateManyInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TenantCountOrderByAggregateInput = {
@@ -577,6 +596,7 @@ export type TenantCountOrderByAggregateInput = {
   locale?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
+  chatTopic?: Prisma.SortOrder
 }
 
 export type TenantMaxOrderByAggregateInput = {
@@ -589,6 +609,7 @@ export type TenantMaxOrderByAggregateInput = {
   locale?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
+  chatTopic?: Prisma.SortOrder
 }
 
 export type TenantMinOrderByAggregateInput = {
@@ -601,6 +622,7 @@ export type TenantMinOrderByAggregateInput = {
   locale?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
+  chatTopic?: Prisma.SortOrder
 }
 
 export type TenantScalarRelationFilter = {
@@ -1071,6 +1093,7 @@ export type TenantCreateWithoutMembershipsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1112,6 +1135,7 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1169,6 +1193,7 @@ export type TenantUpdateWithoutMembershipsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1210,6 +1235,7 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1251,6 +1277,7 @@ export type TenantCreateWithoutUserPermissionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -1292,6 +1319,7 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -1349,6 +1377,7 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -1390,6 +1419,7 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -1431,6 +1461,7 @@ export type TenantCreateWithoutGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1472,6 +1503,7 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1529,6 +1561,7 @@ export type TenantUpdateWithoutGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1570,6 +1603,7 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1611,6 +1645,7 @@ export type TenantCreateWithoutUserGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -1652,6 +1687,7 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -1709,6 +1745,7 @@ export type TenantUpdateWithoutUserGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -1750,6 +1787,7 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -1791,6 +1829,7 @@ export type TenantCreateWithoutModulesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1832,6 +1871,7 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1889,6 +1929,7 @@ export type TenantUpdateWithoutModulesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1930,6 +1971,7 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1971,6 +2013,7 @@ export type TenantCreateWithoutModuleGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2012,6 +2055,7 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2069,6 +2113,7 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2110,6 +2155,7 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2151,6 +2197,7 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2192,6 +2239,7 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2249,6 +2297,7 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2290,6 +2339,7 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2331,6 +2381,7 @@ export type TenantCreateWithoutSectionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2372,6 +2423,7 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2429,6 +2481,7 @@ export type TenantUpdateWithoutSectionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2470,6 +2523,7 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2511,6 +2565,7 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2552,6 +2607,7 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2609,6 +2665,7 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2650,6 +2707,7 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2691,6 +2749,7 @@ export type TenantCreateWithoutModuleAccessesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2732,6 +2791,7 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2789,6 +2849,7 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2830,6 +2891,7 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2871,6 +2933,7 @@ export type TenantCreateWithoutAttachmentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2912,6 +2975,7 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2969,6 +3033,7 @@ export type TenantUpdateWithoutAttachmentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3010,6 +3075,7 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3051,6 +3117,7 @@ export type TenantCreateWithoutQuizzesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3092,6 +3159,7 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3149,6 +3217,7 @@ export type TenantUpdateWithoutQuizzesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3190,6 +3259,7 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3231,6 +3301,7 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3272,6 +3343,7 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3329,6 +3401,7 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3370,6 +3443,7 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3411,6 +3485,7 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3452,6 +3527,7 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3509,6 +3585,7 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3550,6 +3627,7 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3591,6 +3669,7 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3632,6 +3711,7 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3689,6 +3769,7 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3730,6 +3811,7 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3771,6 +3853,7 @@ export type TenantCreateWithoutProgressOverridesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3812,6 +3895,7 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3869,6 +3953,7 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3910,6 +3995,7 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3951,6 +4037,7 @@ export type TenantCreateWithoutCertificatesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3992,6 +4079,7 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4049,6 +4137,7 @@ export type TenantUpdateWithoutCertificatesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4090,6 +4179,7 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4131,6 +4221,7 @@ export type TenantCreateWithoutCommentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4172,6 +4263,7 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4229,6 +4321,7 @@ export type TenantUpdateWithoutCommentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4270,6 +4363,7 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4311,6 +4405,7 @@ export type TenantCreateWithoutNotificationsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4352,6 +4447,7 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4409,6 +4505,7 @@ export type TenantUpdateWithoutNotificationsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4450,6 +4547,7 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4491,6 +4589,7 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4532,6 +4631,7 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4589,6 +4689,7 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4630,6 +4731,7 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4671,6 +4773,7 @@ export type TenantCreateWithoutCategoriesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4712,6 +4815,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4769,6 +4873,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4810,6 +4915,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4851,6 +4957,7 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4892,6 +4999,7 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4949,6 +5057,7 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4990,6 +5099,7 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5031,6 +5141,7 @@ export type TenantCreateWithoutTagsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5072,6 +5183,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5129,6 +5241,7 @@ export type TenantUpdateWithoutTagsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5170,6 +5283,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5211,6 +5325,7 @@ export type TenantCreateWithoutModuleTagsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5252,6 +5367,7 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5309,6 +5425,7 @@ export type TenantUpdateWithoutModuleTagsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5350,6 +5467,7 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5391,6 +5509,7 @@ export type TenantCreateWithoutChangeLogsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5432,6 +5551,7 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5489,6 +5609,7 @@ export type TenantUpdateWithoutChangeLogsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5530,6 +5651,7 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5571,6 +5693,7 @@ export type TenantCreateWithoutModuleReviewsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5612,6 +5735,7 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5669,6 +5793,7 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5710,6 +5835,7 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5751,6 +5877,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5792,6 +5919,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5849,6 +5977,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5890,6 +6019,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5931,6 +6061,7 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5972,6 +6103,7 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6029,6 +6161,7 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6070,6 +6203,7 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6111,6 +6245,7 @@ export type TenantCreateWithoutChatMessagesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6152,6 +6287,7 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6209,6 +6345,7 @@ export type TenantUpdateWithoutChatMessagesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6250,6 +6387,7 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6291,6 +6429,7 @@ export type TenantCreateWithoutSessionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6332,6 +6471,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   locale?: string
   createdAt?: Date | string
   archivedAt?: Date | string | null
+  chatTopic?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6389,6 +6529,7 @@ export type TenantUpdateWithoutSessionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6430,6 +6571,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   locale?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6763,6 +6905,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   locale?: boolean
   createdAt?: boolean
   archivedAt?: boolean
+  chatTopic?: boolean
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   groups?: boolean | Prisma.Tenant$groupsArgs<ExtArgs>
@@ -6806,6 +6949,7 @@ export type TenantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   locale?: boolean
   createdAt?: boolean
   archivedAt?: boolean
+  chatTopic?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -6818,6 +6962,7 @@ export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   locale?: boolean
   createdAt?: boolean
   archivedAt?: boolean
+  chatTopic?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectScalar = {
@@ -6830,9 +6975,10 @@ export type TenantSelectScalar = {
   locale?: boolean
   createdAt?: boolean
   archivedAt?: boolean
+  chatTopic?: boolean
 }
 
-export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt", ExtArgs["result"]["tenant"]>
+export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt" | "chatTopic", ExtArgs["result"]["tenant"]>
 export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
@@ -6913,6 +7059,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     locale: string
     createdAt: Date
     archivedAt: Date | null
+    chatTopic: string | null
   }, ExtArgs["result"]["tenant"]>
   composites: {}
 }
@@ -7375,6 +7522,7 @@ export interface TenantFieldRefs {
   readonly locale: Prisma.FieldRef<"Tenant", 'String'>
   readonly createdAt: Prisma.FieldRef<"Tenant", 'DateTime'>
   readonly archivedAt: Prisma.FieldRef<"Tenant", 'DateTime'>
+  readonly chatTopic: Prisma.FieldRef<"Tenant", 'String'>
 }
     
 

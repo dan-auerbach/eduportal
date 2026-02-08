@@ -52,6 +52,7 @@ model Tenant {
   changelogEntries     ChangelogEntry[]
   sessions             UserSession[]
   chatMessages         ChatMessage[]
+  chatTopic            String?
 }
 
 enum TenantTheme {
@@ -846,6 +847,7 @@ enum ChatMessageType {
   MESSAGE
   JOIN
   SYSTEM
+  ACTION
 }
 
 // ============================================

@@ -2926,7 +2926,8 @@ export const TenantScalarFieldEnum = {
   plan: 'plan',
   locale: 'locale',
   createdAt: 'createdAt',
-  archivedAt: 'archivedAt'
+  archivedAt: 'archivedAt',
+  chatTopic: 'chatTopic'
 } as const
 
 export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]

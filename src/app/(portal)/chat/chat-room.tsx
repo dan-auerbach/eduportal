@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { sendChatMessage, joinChat } from "@/actions/chat";
 import type { ChatMessageDTO } from "@/actions/chat";
-import { Send, Moon, Sun } from "lucide-react";
+import { Send, Moon, Sun, HelpCircle, X } from "lucide-react";
 
 // ── Theme definitions ────────────────────────────────────────────────────────
 
@@ -24,6 +24,7 @@ const THEMES = {
     timestamp: "#808080",
     join: "#009900",
     system: "#cc7700",
+    action: "#990099",
     channel: "#0000cc",
     emptyText: "#999999",
     badgeBg: "#0066cc",
@@ -32,6 +33,15 @@ const THEMES = {
     sendText: "#ffffff",
     sendHover: "#0055aa",
     focusRing: "#0066cc",
+    topicBg: "#f8f8e0",
+    topicText: "#666600",
+    topicBorder: "#e0e0a0",
+    mentionBg: "#fff3cd",
+    mentionText: "#856404",
+    helpBg: "#f5f5f5",
+    helpBorder: "#d4d4d4",
+    helpText: "#333333",
+    helpCmd: "#0066cc",
   },
   dark: {
     bg: "#0b0f14",
@@ -47,6 +57,7 @@ const THEMES = {
     timestamp: "#5c6370",
     join: "#56b6c2",
     system: "#e5c07b",
+    action: "#c678dd",
     channel: "#61afef",
     emptyText: "#5c6370",
     badgeBg: "#61afef",
@@ -55,6 +66,15 @@ const THEMES = {
     sendText: "#0b0f14",
     sendHover: "#4d9de0",
     focusRing: "#61afef",
+    topicBg: "#1a1d23",
+    topicText: "#e5c07b",
+    topicBorder: "#30363d",
+    mentionBg: "#3d2e00",
+    mentionText: "#e5c07b",
+    helpBg: "#161b22",
+    helpBorder: "#30363d",
+    helpText: "#d1d5db",
+    helpCmd: "#61afef",
   },
 } as const;
 
@@ -106,6 +126,35 @@ function updateLastRead(tenantId: string, messageId: string) {
   }
 }
 
+// ── Mention detection ────────────────────────────────────────────────────────
+
+function buildMentionPatterns(displayName: string, firstName: string): RegExp[] {
+  const patterns: RegExp[] = [];
+  // @DisplayName (case insensitive, word boundary)
+  if (displayName) {
+    patterns.push(new RegExp(`@${escapeRegex(displayName)}\\b`, "i"));
+    // Also match displayName without @ as a whole word
+    patterns.push(new RegExp(`\\b${escapeRegex(displayName)}\\b`, "i"));
+  }
+  // @FirstName if different from displayName
+  if (firstName && firstName.toLowerCase() !== displayName.toLowerCase()) {
+    patterns.push(new RegExp(`@${escapeRegex(firstName)}\\b`, "i"));
+  }
+  return patterns;
+}
+
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function containsMention(text: string, patterns: RegExp[]): boolean {
+  return patterns.some((p) => p.test(text));
+}
+
+// ── URL detection ────────────────────────────────────────────────────────────
+
+const URL_REGEX = /https?:\/\/[^\s<>"')\]]+/gi;
+
 // ── Props ────────────────────────────────────────────────────────────────────
 
 type ChatRoomProps = {
@@ -113,6 +162,9 @@ type ChatRoomProps = {
   tenantName: string;
   tenantId: string;
   userId: string;
+  userDisplayName: string;
+  userFirstName: string;
+  initialTopic: string | null;
   labels: {
     title: string;
     send: string;
@@ -121,18 +173,39 @@ type ChatRoomProps = {
     noMessages: string;
     error: string;
     newMessages: string;
+    topicLabel: string;
+    noTopic: string;
+    unknownCommand: string;
+    helpTitle: string;
+    helpMe: string;
+    helpShrug: string;
+    helpAfk: string;
+    helpTopic: string;
+    helpHelp: string;
+    helpClose: string;
   };
 };
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: ChatRoomProps) {
+export function ChatRoom({
+  tenantSlug,
+  tenantName,
+  tenantId,
+  userId,
+  userDisplayName,
+  userFirstName,
+  initialTopic,
+  labels,
+}: ChatRoomProps) {
   const [messages, setMessages] = useState<ChatMessageDTO[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showNewBadge, setShowNewBadge] = useState(false);
   const [initialLoaded, setInitialLoaded] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [topic, setTopic] = useState<string | null>(initialTopic);
   const [theme, setTheme] = useState<IrcTheme>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem(THEME_KEY);
@@ -148,6 +221,12 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
   const isNearBottomRef = useRef(true);
 
   const colors = THEMES[theme];
+
+  // Build mention patterns once
+  const mentionPatterns = useMemo(
+    () => buildMentionPatterns(userDisplayName, userFirstName),
+    [userDisplayName, userFirstName],
+  );
 
   // ── Theme toggle ───────────────────────────────────────────────────────────
 
@@ -192,6 +271,11 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
 
       const data = await res.json();
       const newMsgs: ChatMessageDTO[] = data.messages ?? [];
+
+      // Update topic from polling response
+      if (data.topic !== undefined) {
+        setTopic(data.topic);
+      }
 
       if (newMsgs.length > 0) {
         const latestId = newMsgs[newMsgs.length - 1].id;
@@ -257,6 +341,13 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
     const trimmed = input.trim();
     if (!trimmed || sending) return;
 
+    // Client-side /help — don't send to server
+    if (trimmed.toLowerCase() === "/help") {
+      setShowHelp(true);
+      setInput("");
+      return;
+    }
+
     setSending(true);
     setError(null);
 
@@ -272,7 +363,13 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
       requestAnimationFrame(() => scrollToBottom(true));
       inputRef.current?.focus();
     } else {
-      setError(result.error);
+      // Handle unknown command error
+      if (result.error.startsWith("_UNKNOWN_CMD_:")) {
+        const cmd = result.error.replace("_UNKNOWN_CMD_:", "");
+        setError(labels.unknownCommand.replace("{cmd}", cmd));
+      } else {
+        setError(result.error);
+      }
     }
 
     setSending(false);
@@ -302,6 +399,59 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
       .replace(/"/g, "&quot;");
   };
 
+  // ── Render message body with mentions + links (safe, no dangerouslySetInnerHTML) ──
+
+  const renderBody = useCallback((text: string, isMention: boolean) => {
+    const escaped = escapeHtml(text);
+    // Split on URLs and render links
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+    const urlMatches = [...escaped.matchAll(URL_REGEX)];
+
+    if (urlMatches.length === 0) {
+      parts.push(escaped);
+    } else {
+      for (const match of urlMatches) {
+        const matchStart = match.index!;
+        if (matchStart > lastIndex) {
+          parts.push(escaped.slice(lastIndex, matchStart));
+        }
+        const url = match[0];
+        // Unescape &amp; back to & for href
+        const href = url.replace(/&amp;/g, "&");
+        parts.push(
+          <a
+            key={matchStart}
+            href={href}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline hover:opacity-80"
+            style={{ color: colors.channel }}
+          >
+            {url}
+          </a>,
+        );
+        lastIndex = matchStart + url.length;
+      }
+      if (lastIndex < escaped.length) {
+        parts.push(escaped.slice(lastIndex));
+      }
+    }
+
+    if (isMention) {
+      return (
+        <span
+          className="px-1 rounded"
+          style={{ background: colors.mentionBg, color: colors.mentionText }}
+        >
+          {parts}
+        </span>
+      );
+    }
+
+    return <>{parts}</>;
+  }, [colors]);
+
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
@@ -322,6 +472,14 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
         </span>
         <div className="flex-1" />
         <button
+          onClick={() => setShowHelp((v) => !v)}
+          className="p-1.5 rounded-md transition-colors hover:opacity-80"
+          style={{ color: colors.timestamp }}
+          title={labels.helpTitle}
+        >
+          <HelpCircle className="h-4 w-4" />
+        </button>
+        <button
           onClick={toggleTheme}
           className="p-1.5 rounded-md transition-colors hover:opacity-80"
           style={{ color: colors.timestamp }}
@@ -330,6 +488,51 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
           {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
         </button>
       </div>
+
+      {/* Topic bar */}
+      {topic && (
+        <div
+          className="px-4 py-1.5 font-mono text-xs border-b truncate"
+          style={{
+            background: colors.topicBg,
+            color: colors.topicText,
+            borderColor: colors.topicBorder,
+          }}
+        >
+          <span className="font-semibold">{labels.topicLabel} </span>
+          {topic}
+        </div>
+      )}
+
+      {/* Help overlay */}
+      {showHelp && (
+        <div
+          className="mx-4 mt-2 mb-1 rounded-md border p-3 font-mono text-xs"
+          style={{
+            background: colors.helpBg,
+            borderColor: colors.helpBorder,
+            color: colors.helpText,
+          }}
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-bold">{labels.helpTitle}</span>
+            <button
+              onClick={() => setShowHelp(false)}
+              className="hover:opacity-80"
+              style={{ color: colors.timestamp }}
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </div>
+          <div className="space-y-1">
+            <div><span style={{ color: colors.helpCmd }}>/me</span> {labels.helpMe.replace("/me <besedilo> — ", "").replace("/me <text> — ", "")}</div>
+            <div><span style={{ color: colors.helpCmd }}>/shrug</span> {labels.helpShrug.replace("/shrug — ", "")}</div>
+            <div><span style={{ color: colors.helpCmd }}>/afk</span> {labels.helpAfk.replace("/afk [razlog] — ", "").replace("/afk [reason] — ", "")}</div>
+            <div><span style={{ color: colors.helpCmd }}>/topic</span> {labels.helpTopic.replace("/topic <besedilo> — ", "").replace("/topic <text> — ", "")}</div>
+            <div><span style={{ color: colors.helpCmd }}>/help</span> {labels.helpHelp.replace("/help — ", "")}</div>
+          </div>
+        </div>
+      )}
 
       {/* Messages area */}
       <div
@@ -365,9 +568,21 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
             );
           }
 
+          if (msg.type === "ACTION") {
+            return (
+              <div key={msg.id} style={{ color: colors.action }}>
+                <span style={{ color: colors.timestamp }} className="mr-2">[{formatTime(msg.createdAt)}]</span>
+                <span>* </span>
+                <span className="font-semibold">{escapeHtml(msg.displayName)}</span>
+                <span> {escapeHtml(msg.body)}</span>
+              </div>
+            );
+          }
+
           // MESSAGE
           const nickColor = hashColor(msg.displayName, theme);
           const isMe = msg.userId === userId;
+          const isMention = !isMe && containsMention(msg.body, mentionPatterns);
           return (
             <div key={msg.id}>
               <span style={{ color: colors.timestamp }} className="mr-2">[{formatTime(msg.createdAt)}]</span>
@@ -378,7 +593,7 @@ export function ChatRoom({ tenantSlug, tenantName, tenantId, userId, labels }: C
                 className="ml-1"
                 style={{ color: isMe ? colors.textMe : colors.text }}
               >
-                {escapeHtml(msg.body)}
+                {renderBody(msg.body, isMention)}
               </span>
             </div>
           );

@@ -1010,7 +1010,7 @@ export const en = {
   chat: {
     title: "Group chat",
     send: "Send",
-    placeholder: "Type a message...",
+    placeholder: "Type a message... (/help for commands)",
     joined: "has joined",
     noMessages: "No messages yet. Start the conversation!",
     tooFast: "Too fast. Wait a second.",
@@ -1018,6 +1018,21 @@ export const en = {
     empty: "Message cannot be empty.",
     error: "Failed to send message.",
     newMessages: "New messages",
+    // /commands
+    afk: "is AFK",
+    afkWithReason: "is AFK ({reason})",
+    topicSet: "set the topic: {topic}",
+    topicCleared: "cleared the channel topic",
+    topicLabel: "Topic:",
+    noTopic: "No topic",
+    unknownCommand: "Unknown command: {cmd} (type /help)",
+    helpTitle: "Commands",
+    helpMe: "/me <text> — display an action (e.g. /me dances)",
+    helpShrug: "/shrug — ¯\\_(ツ)_/¯",
+    helpAfk: "/afk [reason] — mark yourself as away",
+    helpTopic: "/topic <text> — set the channel topic",
+    helpHelp: "/help — show this list",
+    helpClose: "Close",
   },
 
   // ── Locale ────────────────────────────────────────────────────────

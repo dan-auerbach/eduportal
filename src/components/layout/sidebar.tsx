@@ -138,11 +138,13 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
         className="flex h-14 items-center gap-2 border-b px-4 hover:bg-muted/50 transition-colors"
       >
         {tenantLogoUrl ? (
-          <img src={tenantLogoUrl} alt={tenantName || "Logo"} width={24} height={24} className="h-6 w-6 rounded object-contain" />
+          <img src={tenantLogoUrl} alt={tenantName || "Logo"} className="h-9 w-auto max-w-[180px] rounded object-contain" />
         ) : (
-          <GraduationCap className="h-6 w-6 text-primary" />
+          <>
+            <GraduationCap className="h-6 w-6 text-primary" />
+            <span className="text-lg font-semibold truncate">{tenantName || t("nav.appName")}</span>
+          </>
         )}
-        <span className="text-lg font-semibold truncate">{tenantName || t("nav.appName")}</span>
       </Link>
 
       {/* Section toggle */}

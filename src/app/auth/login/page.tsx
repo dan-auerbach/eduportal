@@ -4,13 +4,11 @@ import { Suspense, useState, useCallback, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
-  GraduationCap,
   Loader2,
   Eye,
   EyeOff,
@@ -162,13 +160,11 @@ function LoginForm() {
         <div className="w-full max-w-[420px]">
           {/* Logo above login form */}
           <div className="mb-8 flex justify-center">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/logo.png"
               alt="Mentor"
-              width={220}
-              height={73}
               className="h-16 w-auto"
-              priority
             />
           </div>
 
@@ -318,13 +314,11 @@ export default function LoginPage() {
       fallback={
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-muted/30 via-background to-muted/50">
           <div className="text-center">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/logo.png"
               alt="Mentor"
-              width={200}
-              height={67}
               className="h-14 w-auto mx-auto mb-4"
-              priority
             />
             <Loader2 className="h-5 w-5 animate-spin mx-auto text-muted-foreground" />
           </div>

@@ -149,7 +149,7 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick }: HeaderProp
         </Button>
         {tenantLogoUrl && (
           <Link href="/dashboard">
-            <img src={tenantLogoUrl} alt={t("tenant.logoAlt")} width={28} height={28} className="h-7 w-7 rounded object-contain hidden md:block" />
+            <img src={tenantLogoUrl} alt={t("tenant.logoAlt")} className="h-9 w-auto max-w-[160px] rounded object-contain hidden md:block" />
           </Link>
         )}
       </div>

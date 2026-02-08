@@ -18,6 +18,7 @@ type AppShellProps = {
   tenantTheme?: string;
   effectiveRole?: string;
   isOwnerImpersonating?: boolean;
+  nextLiveEvent?: { title: string; startsAt: string } | null;
 };
 
 export function AppShell({
@@ -28,13 +29,14 @@ export function AppShell({
   tenantTheme,
   effectiveRole,
   isOwnerImpersonating,
+  nextLiveEvent,
 }: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div className="flex h-dvh">
       {/* Desktop sidebar */}
-      <Sidebar tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} />
+      <Sidebar tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} nextLiveEvent={nextLiveEvent} />
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -44,6 +46,7 @@ export function AppShell({
               tenantId={tenantId}
               tenantName={tenantName}
               tenantLogoUrl={tenantLogoUrl}
+              nextLiveEvent={nextLiveEvent}
               onNavigate={() => setMobileOpen(false)}
             />
           </div>

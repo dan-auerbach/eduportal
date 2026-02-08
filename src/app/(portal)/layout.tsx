@@ -3,6 +3,7 @@ import { LocaleProvider } from "@/components/locale-provider";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { setLocale } from "@/lib/i18n";
 import { redirect } from "next/navigation";
+import { getNextLiveEvent } from "@/actions/live-events";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   let tenantContext;
@@ -27,6 +28,9 @@ export default async function PortalLayout({ children }: { children: React.React
     ? `theme-${tenantContext.tenantTheme.toLowerCase()}`
     : "";
 
+  // Fetch next live event for sidebar sub-label
+  const nextLiveEvent = await getNextLiveEvent(tenantContext.tenantId);
+
   return (
     <div className={themeClass}>
       <LocaleProvider locale={tenantContext.tenantLocale}>
@@ -37,6 +41,7 @@ export default async function PortalLayout({ children }: { children: React.React
           tenantTheme={tenantContext.tenantTheme}
           effectiveRole={tenantContext.effectiveRole}
           isOwnerImpersonating={tenantContext.isOwnerImpersonating}
+          nextLiveEvent={nextLiveEvent}
         >
           {children}
         </AppShell>

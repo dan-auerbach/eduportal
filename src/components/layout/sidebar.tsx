@@ -22,6 +22,7 @@ import {
   Building2,
   Hash,
   Star,
+  Radio,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -32,6 +33,7 @@ const employeeNav: NavItem[] = [
   { href: "/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
   { href: "/chat", labelKey: "nav.chat", icon: Hash },
+  { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio },
   { href: "/profile", labelKey: "nav.profile", icon: User },
 ];
 
@@ -103,12 +105,13 @@ type SidebarProps = {
   tenantName?: string;
   tenantLogoUrl?: string | null;
   onNavigate?: () => void;
+  nextLiveEvent?: { title: string; startsAt: string } | null;
 };
 
 /**
  * SidebarContent — shared nav content used in both desktop sidebar and mobile drawer.
  */
-export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate }: SidebarProps) {
+export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate, nextLiveEvent }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
@@ -199,6 +202,27 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
 
           const isChatItem = item.href === "/chat";
           const showBadge = isChatItem && chatUnread > 0;
+          const isMentorLive = item.href === "/mentor-v-zivo";
+
+          // Build sub-label for #mentor v živo
+          let liveSubLabel: string | null = null;
+          if (isMentorLive) {
+            if (nextLiveEvent) {
+              const d = new Date(nextLiveEvent.startsAt);
+              const now = new Date();
+              const isToday = d.toDateString() === now.toDateString();
+              const dayStr = isToday
+                ? t("mentorLive.today")
+                : d.toLocaleDateString(undefined, { weekday: "short" });
+              const timeStr = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+              const title = nextLiveEvent.title.length > 20
+                ? nextLiveEvent.title.slice(0, 20) + "…"
+                : nextLiveEvent.title;
+              liveSubLabel = `${dayStr} ${timeStr} — ${title}`;
+            } else {
+              liveSubLabel = t("nav.mentorLiveNoEvents");
+            }
+          }
 
           return (
             <Link
@@ -212,8 +236,15 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
-              <item.icon className="h-4 w-4" />
-              <span className="flex-1">{t(item.labelKey)}</span>
+              <item.icon className="h-4 w-4 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <span>{t(item.labelKey)}</span>
+                {liveSubLabel && (
+                  <span className="block text-[10px] leading-tight text-muted-foreground truncate mt-0.5">
+                    {liveSubLabel}
+                  </span>
+                )}
+              </div>
               {showBadge && (
                 <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
                   {chatUnread > 99 ? "99+" : chatUnread}
@@ -241,10 +272,10 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
 /**
  * Desktop sidebar — hidden on mobile, shown on md+
  */
-export function Sidebar({ tenantId, tenantName, tenantLogoUrl }: SidebarProps) {
+export function Sidebar({ tenantId, tenantName, tenantLogoUrl, nextLiveEvent }: SidebarProps) {
   return (
     <aside className="hidden md:flex h-full w-64 flex-col border-r bg-card">
-      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} />
+      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} nextLiveEvent={nextLiveEvent} />
     </aside>
   );
 }

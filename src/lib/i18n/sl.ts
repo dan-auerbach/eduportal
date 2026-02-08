@@ -134,6 +134,8 @@ export const sl = {
     settings: "Nastavitve",
     lateUsers: "Zamudniki",
     feedback: "Ocene",
+    mentorLive: "#mentor v živo",
+    mentorLiveNoEvents: "Ni razpisanih terminov",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1116,5 +1118,34 @@ export const sl = {
     en: "English",
     sl: "Slovenščina",
     changed: "Jezik spremenjen",
+  },
+
+  // ── Mentor v živo ──────────────────────────────────────────────────
+  mentorLive: {
+    title: "#mentor v živo",
+    nextEvent: "Aktualni termin",
+    upcoming: "Naslednji termini",
+    past: "Pretekli termini",
+    noEvents: "Ni razpisanih terminov",
+    noEventsDesc: "Trenutno ni razpisanih terminov v živo.",
+    noEventsAdmin: "Dodajte prvi termin",
+    join: "Pridruži se",
+    relatedModule: "Povezano znanje",
+    instructions: "Navodila",
+    addEvent: "Dodaj termin",
+    editEvent: "Uredi termin",
+    deleteEvent: "Izbriši termin",
+    deleteConfirm: "Ali res želite izbrisati ta termin?",
+    eventCreated: "Termin ustvarjen",
+    eventUpdated: "Termin posodobljen",
+    eventDeleted: "Termin izbrisan",
+    titleField: "Naslov",
+    dateField: "Datum in ura",
+    meetUrlField: "Povezava do srečanja",
+    meetUrlPlaceholder: "https://meet.google.com/...",
+    instructionsField: "Navodila (neobvezno)",
+    relatedModuleField: "Povezano znanje (neobvezno)",
+    noModule: "Brez povezave",
+    today: "Danes",
   },
 } as const;

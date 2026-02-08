@@ -181,6 +181,30 @@ export const UpdateMembershipSchema = z.object({
   role: z.enum(["SUPER_ADMIN", "ADMIN", "HR", "EMPLOYEE", "VIEWER"]),
 });
 
+// ---- Live event forms ----
+export const CreateLiveEventSchema = z.object({
+  title: z.string().min(1, "Naslov je obvezen").max(200, "Naslov je predolg (max 200 znakov)"),
+  startsAt: z.string().min(1, "Datum in ura sta obvezna"),
+  meetUrl: z
+    .string()
+    .url("Neveljaven URL")
+    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni"),
+  instructions: z.string().max(2000, "Navodila so predolga (max 2000 znakov)").optional(),
+  relatedModuleId: z.string().cuid().nullable().optional(),
+});
+
+export const UpdateLiveEventSchema = z.object({
+  title: z.string().min(1).max(200).optional(),
+  startsAt: z.string().min(1).optional(),
+  meetUrl: z
+    .string()
+    .url()
+    .refine((val) => /^https?:\/\//.test(val), "Samo http/https")
+    .optional(),
+  instructions: z.string().max(2000).nullable().optional(),
+  relatedModuleId: z.string().cuid().nullable().optional(),
+});
+
 // ---- Upload MIME whitelist ----
 export const MIME_WHITELIST: Record<string, string[]> = {
   "application/pdf": [".pdf"],

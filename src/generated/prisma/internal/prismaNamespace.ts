@@ -417,6 +417,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
+  MentorLiveEvent: 'MentorLiveEvent',
   UserSession: 'UserSession'
 } as const
 
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "userSession"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2879,6 +2880,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MentorLiveEvent: {
+      payload: Prisma.$MentorLiveEventPayload<ExtArgs>
+      fields: Prisma.MentorLiveEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MentorLiveEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MentorLiveEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        findFirst: {
+          args: Prisma.MentorLiveEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MentorLiveEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        findMany: {
+          args: Prisma.MentorLiveEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>[]
+        }
+        create: {
+          args: Prisma.MentorLiveEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        createMany: {
+          args: Prisma.MentorLiveEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MentorLiveEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>[]
+        }
+        delete: {
+          args: Prisma.MentorLiveEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        update: {
+          args: Prisma.MentorLiveEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.MentorLiveEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MentorLiveEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MentorLiveEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.MentorLiveEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorLiveEventPayload>
+        }
+        aggregate: {
+          args: Prisma.MentorLiveEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMentorLiveEvent>
+        }
+        groupBy: {
+          args: Prisma.MentorLiveEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MentorLiveEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MentorLiveEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MentorLiveEventCountAggregateOutputType> | number
+        }
+      }
+    }
     UserSession: {
       payload: Prisma.$UserSessionPayload<ExtArgs>
       fields: Prisma.UserSessionFieldRefs
@@ -3428,6 +3503,22 @@ export const ChatMessageScalarFieldEnum = {
 export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
+export const MentorLiveEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  startsAt: 'startsAt',
+  meetUrl: 'meetUrl',
+  instructions: 'instructions',
+  relatedModuleId: 'relatedModuleId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MentorLiveEventScalarFieldEnum = (typeof MentorLiveEventScalarFieldEnum)[keyof typeof MentorLiveEventScalarFieldEnum]
+
+
 export const UserSessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3895,6 +3986,7 @@ export type GlobalOmitConfig = {
   auditLog?: Prisma.AuditLogOmit
   changelogEntry?: Prisma.ChangelogEntryOmit
   chatMessage?: Prisma.ChatMessageOmit
+  mentorLiveEvent?: Prisma.MentorLiveEventOmit
   userSession?: Prisma.UserSessionOmit
 }
 

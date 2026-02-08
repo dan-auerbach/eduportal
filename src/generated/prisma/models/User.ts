@@ -259,6 +259,7 @@ export type UserWhereInput = {
   chatMessages?: Prisma.ChatMessageListRelationFilter
   confirmedAnswers?: Prisma.ChatMessageListRelationFilter
   mentorModules?: Prisma.ModuleMentorListRelationFilter
+  createdLiveEvents?: Prisma.MentorLiveEventListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -295,6 +296,7 @@ export type UserOrderByWithRelationInput = {
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
   confirmedAnswers?: Prisma.ChatMessageOrderByRelationAggregateInput
   mentorModules?: Prisma.ModuleMentorOrderByRelationAggregateInput
+  createdLiveEvents?: Prisma.MentorLiveEventOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -334,6 +336,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   chatMessages?: Prisma.ChatMessageListRelationFilter
   confirmedAnswers?: Prisma.ChatMessageListRelationFilter
   mentorModules?: Prisma.ModuleMentorListRelationFilter
+  createdLiveEvents?: Prisma.MentorLiveEventListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -406,6 +409,7 @@ export type UserCreateInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -442,6 +446,7 @@ export type UserUncheckedCreateInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -478,6 +483,7 @@ export type UserUpdateInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -514,6 +520,7 @@ export type UserUncheckedUpdateInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -912,6 +919,22 @@ export type UserUpdateOneWithoutConfirmedAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConfirmedAnswersInput, Prisma.UserUpdateWithoutConfirmedAnswersInput>, Prisma.UserUncheckedUpdateWithoutConfirmedAnswersInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedLiveEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedCreateWithoutCreatedLiveEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLiveEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedLiveEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedCreateWithoutCreatedLiveEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLiveEventsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedLiveEventsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLiveEventsInput, Prisma.UserUpdateWithoutCreatedLiveEventsInput>, Prisma.UserUncheckedUpdateWithoutCreatedLiveEventsInput>
+}
+
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -959,6 +982,7 @@ export type UserCreateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -994,6 +1018,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1045,6 +1070,7 @@ export type UserUpdateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1080,6 +1106,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1115,6 +1142,7 @@ export type UserCreateWithoutPermissionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1150,6 +1178,7 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1201,6 +1230,7 @@ export type UserUpdateWithoutPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1236,6 +1266,7 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1271,6 +1302,7 @@ export type UserCreateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1306,6 +1338,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1357,6 +1390,7 @@ export type UserUpdateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1392,6 +1426,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -1427,6 +1462,7 @@ export type UserCreateWithoutCreatedModulesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -1462,6 +1498,7 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -1513,6 +1550,7 @@ export type UserUpdateWithoutCreatedModulesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -1548,6 +1586,7 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -1583,6 +1622,7 @@ export type UserCreateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -1618,6 +1658,7 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -1669,6 +1710,7 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -1704,6 +1746,7 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -1739,6 +1782,7 @@ export type UserCreateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -1774,6 +1818,7 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -1825,6 +1870,7 @@ export type UserUpdateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -1860,6 +1906,7 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -1895,6 +1942,7 @@ export type UserCreateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -1930,6 +1978,7 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -1981,6 +2030,7 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -2016,6 +2066,7 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -2051,6 +2102,7 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -2086,6 +2138,7 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -2137,6 +2190,7 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2172,6 +2226,7 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -2207,6 +2262,7 @@ export type UserCreateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -2242,6 +2298,7 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -2293,6 +2350,7 @@ export type UserUpdateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -2328,6 +2386,7 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2363,6 +2422,7 @@ export type UserCreateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2398,6 +2458,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2449,6 +2510,7 @@ export type UserUpdateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2484,6 +2546,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -2519,6 +2582,7 @@ export type UserCreateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2554,6 +2618,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -2605,6 +2670,7 @@ export type UserUpdateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -2640,6 +2706,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -2675,6 +2742,7 @@ export type UserCreateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -2710,6 +2778,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -2761,6 +2830,7 @@ export type UserUpdateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2796,6 +2866,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -2831,6 +2902,7 @@ export type UserCreateWithoutPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -2866,6 +2938,7 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -2917,6 +2990,7 @@ export type UserUpdateWithoutPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -2952,6 +3026,7 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutMentorModulesInput = {
@@ -2987,6 +3062,7 @@ export type UserCreateWithoutMentorModulesInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutMentorModulesInput = {
@@ -3022,6 +3098,7 @@ export type UserUncheckedCreateWithoutMentorModulesInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutMentorModulesInput = {
@@ -3073,6 +3150,7 @@ export type UserUpdateWithoutMentorModulesInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMentorModulesInput = {
@@ -3108,6 +3186,7 @@ export type UserUncheckedUpdateWithoutMentorModulesInput = {
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -3143,6 +3222,7 @@ export type UserCreateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -3178,6 +3258,7 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -3229,6 +3310,7 @@ export type UserUpdateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -3264,6 +3346,7 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -3299,6 +3382,7 @@ export type UserCreateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -3334,6 +3418,7 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -3385,6 +3470,7 @@ export type UserUpdateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -3420,6 +3506,7 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -3455,6 +3542,7 @@ export type UserCreateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -3490,6 +3578,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3541,6 +3630,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -3576,6 +3666,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -3611,6 +3702,7 @@ export type UserCreateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -3646,6 +3738,7 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -3697,6 +3790,7 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -3732,6 +3826,7 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutChatMessagesInput = {
@@ -3767,6 +3862,7 @@ export type UserCreateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutChatMessagesInput = {
@@ -3802,6 +3898,7 @@ export type UserUncheckedCreateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutChatMessagesInput = {
@@ -3842,6 +3939,7 @@ export type UserCreateWithoutConfirmedAnswersInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
@@ -3877,6 +3975,7 @@ export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutConfirmedAnswersInput = {
@@ -3928,6 +4027,7 @@ export type UserUpdateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatMessagesInput = {
@@ -3963,6 +4063,7 @@ export type UserUncheckedUpdateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutConfirmedAnswersInput = {
@@ -4009,6 +4110,7 @@ export type UserUpdateWithoutConfirmedAnswersInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
@@ -4043,6 +4145,167 @@ export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
   changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedLiveEventsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCreatedLiveEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedCreateWithoutCreatedLiveEventsInput>
+}
+
+export type UserUpsertWithoutCreatedLiveEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedUpdateWithoutCreatedLiveEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedCreateWithoutCreatedLiveEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedLiveEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLiveEventsInput, Prisma.UserUncheckedUpdateWithoutCreatedLiveEventsInput>
+}
+
+export type UserUpdateWithoutCreatedLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4079,6 +4342,7 @@ export type UserCreateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -4114,6 +4378,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
   mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -4165,6 +4430,7 @@ export type UserUpdateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -4200,6 +4466,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
   mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -4229,6 +4496,7 @@ export type UserCountOutputType = {
   chatMessages: number
   confirmedAnswers: number
   mentorModules: number
+  createdLiveEvents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4253,6 +4521,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
   confirmedAnswers?: boolean | UserCountOutputTypeCountConfirmedAnswersArgs
   mentorModules?: boolean | UserCountOutputTypeCountMentorModulesArgs
+  createdLiveEvents?: boolean | UserCountOutputTypeCountCreatedLiveEventsArgs
 }
 
 /**
@@ -4412,6 +4681,13 @@ export type UserCountOutputTypeCountMentorModulesArgs<ExtArgs extends runtime.Ty
   where?: Prisma.ModuleMentorWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedLiveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MentorLiveEventWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4447,6 +4723,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   confirmedAnswers?: boolean | Prisma.User$confirmedAnswersArgs<ExtArgs>
   mentorModules?: boolean | Prisma.User$mentorModulesArgs<ExtArgs>
+  createdLiveEvents?: boolean | Prisma.User$createdLiveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4518,6 +4795,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   confirmedAnswers?: boolean | Prisma.User$confirmedAnswersArgs<ExtArgs>
   mentorModules?: boolean | Prisma.User$mentorModulesArgs<ExtArgs>
+  createdLiveEvents?: boolean | Prisma.User$createdLiveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -4547,6 +4825,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
     confirmedAnswers: Prisma.$ChatMessagePayload<ExtArgs>[]
     mentorModules: Prisma.$ModuleMentorPayload<ExtArgs>[]
+    createdLiveEvents: Prisma.$MentorLiveEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4976,6 +5255,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   chatMessages<T extends Prisma.User$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   confirmedAnswers<T extends Prisma.User$confirmedAnswersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$confirmedAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mentorModules<T extends Prisma.User$mentorModulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mentorModulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleMentorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdLiveEvents<T extends Prisma.User$createdLiveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdLiveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorLiveEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5906,6 +6186,30 @@ export type User$mentorModulesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.ModuleMentorScalarFieldEnum | Prisma.ModuleMentorScalarFieldEnum[]
+}
+
+/**
+ * User.createdLiveEvents
+ */
+export type User$createdLiveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorLiveEvent
+   */
+  select?: Prisma.MentorLiveEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MentorLiveEvent
+   */
+  omit?: Prisma.MentorLiveEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MentorLiveEventInclude<ExtArgs> | null
+  where?: Prisma.MentorLiveEventWhereInput
+  orderBy?: Prisma.MentorLiveEventOrderByWithRelationInput | Prisma.MentorLiveEventOrderByWithRelationInput[]
+  cursor?: Prisma.MentorLiveEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MentorLiveEventScalarFieldEnum | Prisma.MentorLiveEventScalarFieldEnum[]
 }
 
 /**

@@ -54,6 +54,7 @@ model Tenant {
   chatMessages         ChatMessage[]
   chatTopic            String?
   moduleMentors        ModuleMentor[]
+  liveEvents           MentorLiveEvent[]
 }
 
 enum TenantTheme {
@@ -131,6 +132,7 @@ model User {
   chatMessages       ChatMessage[]
   confirmedAnswers   ChatMessage[]    @relation("ConfirmedAnswers")
   mentorModules      ModuleMentor[]   @relation("MentorModules")
+  createdLiveEvents  MentorLiveEvent[] @relation("LiveEventCreator")
 
   @@index([role, isActive])
 }
@@ -254,6 +256,7 @@ model Module {
   companyPins     CompanyPinnedModule[]
   mentors         ModuleMentor[]
   chatMessages    ChatMessage[]
+  liveEvents      MentorLiveEvent[]
 
   @@index([tenantId, status])
   @@index([createdById])
@@ -847,6 +850,9 @@ enum AuditAction {
   TENANT_DELETED
   ANSWER_CONFIRMED
   ANSWER_UNCONFIRMED
+  LIVE_EVENT_CREATED
+  LIVE_EVENT_UPDATED
+  LIVE_EVENT_DELETED
 }
 
 // ============================================
@@ -880,6 +886,29 @@ enum ChatMessageType {
   JOIN
   SYSTEM
   ACTION
+}
+
+// ============================================
+// MENTOR LIVE EVENTS
+// ============================================
+
+model MentorLiveEvent {
+  id              String   @id @default(cuid())
+  tenantId        String
+  title           String
+  startsAt        DateTime
+  meetUrl         String
+  instructions    String?  @db.Text
+  relatedModuleId String?
+  createdById     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tenant        Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy     User?   @relation("LiveEventCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  relatedModule Module? @relation(fields: [relatedModuleId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, startsAt])
 }
 
 // ============================================

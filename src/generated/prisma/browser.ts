@@ -183,6 +183,11 @@ export type ChangelogEntry = Prisma.ChangelogEntryModel
  */
 export type ChatMessage = Prisma.ChatMessageModel
 /**
+ * Model MentorLiveEvent
+ * 
+ */
+export type MentorLiveEvent = Prisma.MentorLiveEventModel
+/**
  * Model UserSession
  * 
  */

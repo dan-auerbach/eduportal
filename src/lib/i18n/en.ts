@@ -134,6 +134,8 @@ export const en = {
     settings: "Settings",
     lateUsers: "Overdue",
     feedback: "Ratings",
+    mentorLive: "#mentor live",
+    mentorLiveNoEvents: "No scheduled events",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1116,5 +1118,34 @@ export const en = {
     en: "English",
     sl: "Slovenščina",
     changed: "Language changed",
+  },
+
+  // ── Mentor Live ────────────────────────────────────────────────────
+  mentorLive: {
+    title: "#mentor live",
+    nextEvent: "Next event",
+    upcoming: "Upcoming events",
+    past: "Past events",
+    noEvents: "No scheduled events",
+    noEventsDesc: "There are no live events scheduled at the moment.",
+    noEventsAdmin: "Add the first event",
+    join: "Join",
+    relatedModule: "Related knowledge",
+    instructions: "Instructions",
+    addEvent: "Add event",
+    editEvent: "Edit event",
+    deleteEvent: "Delete event",
+    deleteConfirm: "Are you sure you want to delete this event?",
+    eventCreated: "Event created",
+    eventUpdated: "Event updated",
+    eventDeleted: "Event deleted",
+    titleField: "Title",
+    dateField: "Date and time",
+    meetUrlField: "Meeting link",
+    meetUrlPlaceholder: "https://meet.google.com/...",
+    instructionsField: "Instructions (optional)",
+    relatedModuleField: "Related knowledge (optional)",
+    noModule: "None",
+    today: "Today",
   },
 } as const;

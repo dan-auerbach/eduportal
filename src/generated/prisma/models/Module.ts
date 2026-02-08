@@ -332,6 +332,7 @@ export type ModuleWhereInput = {
   companyPins?: Prisma.CompanyPinnedModuleListRelationFilter
   mentors?: Prisma.ModuleMentorListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
+  liveEvents?: Prisma.MentorLiveEventListRelationFilter
 }
 
 export type ModuleOrderByWithRelationInput = {
@@ -371,6 +372,7 @@ export type ModuleOrderByWithRelationInput = {
   companyPins?: Prisma.CompanyPinnedModuleOrderByRelationAggregateInput
   mentors?: Prisma.ModuleMentorOrderByRelationAggregateInput
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  liveEvents?: Prisma.MentorLiveEventOrderByRelationAggregateInput
 }
 
 export type ModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -413,6 +415,7 @@ export type ModuleWhereUniqueInput = Prisma.AtLeast<{
   companyPins?: Prisma.CompanyPinnedModuleListRelationFilter
   mentors?: Prisma.ModuleMentorListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
+  liveEvents?: Prisma.MentorLiveEventListRelationFilter
 }, "id">
 
 export type ModuleOrderByWithAggregationInput = {
@@ -495,6 +498,7 @@ export type ModuleCreateInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateInput = {
@@ -531,6 +535,7 @@ export type ModuleUncheckedCreateInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUpdateInput = {
@@ -567,6 +572,7 @@ export type ModuleUpdateInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateInput = {
@@ -603,6 +609,7 @@ export type ModuleUncheckedUpdateInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateManyInput = {
@@ -1138,6 +1145,22 @@ export type ModuleUpdateOneWithoutChatMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.ModuleUpdateWithoutChatMessagesInput>, Prisma.ModuleUncheckedUpdateWithoutChatMessagesInput>
 }
 
+export type ModuleCreateNestedOneWithoutLiveEventsInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutLiveEventsInput, Prisma.ModuleUncheckedCreateWithoutLiveEventsInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutLiveEventsInput
+  connect?: Prisma.ModuleWhereUniqueInput
+}
+
+export type ModuleUpdateOneWithoutLiveEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutLiveEventsInput, Prisma.ModuleUncheckedCreateWithoutLiveEventsInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutLiveEventsInput
+  upsert?: Prisma.ModuleUpsertWithoutLiveEventsInput
+  disconnect?: Prisma.ModuleWhereInput | boolean
+  delete?: Prisma.ModuleWhereInput | boolean
+  connect?: Prisma.ModuleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutLiveEventsInput, Prisma.ModuleUpdateWithoutLiveEventsInput>, Prisma.ModuleUncheckedUpdateWithoutLiveEventsInput>
+}
+
 export type ModuleCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -1171,6 +1194,7 @@ export type ModuleCreateWithoutTenantInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutTenantInput = {
@@ -1206,6 +1230,7 @@ export type ModuleUncheckedCreateWithoutTenantInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutTenantInput = {
@@ -1289,6 +1314,7 @@ export type ModuleCreateWithoutCreatedByInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCreatedByInput = {
@@ -1324,6 +1350,7 @@ export type ModuleUncheckedCreateWithoutCreatedByInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCreatedByInput = {
@@ -1385,6 +1412,7 @@ export type ModuleCreateWithoutGroupsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutGroupsInput = {
@@ -1420,6 +1448,7 @@ export type ModuleUncheckedCreateWithoutGroupsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutGroupsInput = {
@@ -1471,6 +1500,7 @@ export type ModuleUpdateWithoutGroupsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutGroupsInput = {
@@ -1506,6 +1536,7 @@ export type ModuleUncheckedUpdateWithoutGroupsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutPrerequisitesInput = {
@@ -1541,6 +1572,7 @@ export type ModuleCreateWithoutPrerequisitesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutPrerequisitesInput = {
@@ -1576,6 +1608,7 @@ export type ModuleUncheckedCreateWithoutPrerequisitesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutPrerequisitesInput = {
@@ -1616,6 +1649,7 @@ export type ModuleCreateWithoutDependentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutDependentsInput = {
@@ -1651,6 +1685,7 @@ export type ModuleUncheckedCreateWithoutDependentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutDependentsInput = {
@@ -1702,6 +1737,7 @@ export type ModuleUpdateWithoutPrerequisitesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutPrerequisitesInput = {
@@ -1737,6 +1773,7 @@ export type ModuleUncheckedUpdateWithoutPrerequisitesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUpsertWithoutDependentsInput = {
@@ -1783,6 +1820,7 @@ export type ModuleUpdateWithoutDependentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutDependentsInput = {
@@ -1818,6 +1856,7 @@ export type ModuleUncheckedUpdateWithoutDependentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutSectionsInput = {
@@ -1853,6 +1892,7 @@ export type ModuleCreateWithoutSectionsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutSectionsInput = {
@@ -1888,6 +1928,7 @@ export type ModuleUncheckedCreateWithoutSectionsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutSectionsInput = {
@@ -1939,6 +1980,7 @@ export type ModuleUpdateWithoutSectionsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutSectionsInput = {
@@ -1974,6 +2016,7 @@ export type ModuleUncheckedUpdateWithoutSectionsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutLastAccessesInput = {
@@ -2009,6 +2052,7 @@ export type ModuleCreateWithoutLastAccessesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutLastAccessesInput = {
@@ -2044,6 +2088,7 @@ export type ModuleUncheckedCreateWithoutLastAccessesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutLastAccessesInput = {
@@ -2095,6 +2140,7 @@ export type ModuleUpdateWithoutLastAccessesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutLastAccessesInput = {
@@ -2130,6 +2176,7 @@ export type ModuleUncheckedUpdateWithoutLastAccessesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutQuizzesInput = {
@@ -2165,6 +2212,7 @@ export type ModuleCreateWithoutQuizzesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutQuizzesInput = {
@@ -2200,6 +2248,7 @@ export type ModuleUncheckedCreateWithoutQuizzesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutQuizzesInput = {
@@ -2251,6 +2300,7 @@ export type ModuleUpdateWithoutQuizzesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutQuizzesInput = {
@@ -2286,6 +2336,7 @@ export type ModuleUncheckedUpdateWithoutQuizzesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutSelfAssessmentsInput = {
@@ -2321,6 +2372,7 @@ export type ModuleCreateWithoutSelfAssessmentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -2356,6 +2408,7 @@ export type ModuleUncheckedCreateWithoutSelfAssessmentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -2407,6 +2460,7 @@ export type ModuleUpdateWithoutSelfAssessmentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2442,6 +2496,7 @@ export type ModuleUncheckedUpdateWithoutSelfAssessmentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutOverridesInput = {
@@ -2477,6 +2532,7 @@ export type ModuleCreateWithoutOverridesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutOverridesInput = {
@@ -2512,6 +2568,7 @@ export type ModuleUncheckedCreateWithoutOverridesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutOverridesInput = {
@@ -2563,6 +2620,7 @@ export type ModuleUpdateWithoutOverridesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutOverridesInput = {
@@ -2598,6 +2656,7 @@ export type ModuleUncheckedUpdateWithoutOverridesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCertificatesInput = {
@@ -2633,6 +2692,7 @@ export type ModuleCreateWithoutCertificatesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCertificatesInput = {
@@ -2668,6 +2728,7 @@ export type ModuleUncheckedCreateWithoutCertificatesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCertificatesInput = {
@@ -2719,6 +2780,7 @@ export type ModuleUpdateWithoutCertificatesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCertificatesInput = {
@@ -2754,6 +2816,7 @@ export type ModuleUncheckedUpdateWithoutCertificatesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCommentsInput = {
@@ -2789,6 +2852,7 @@ export type ModuleCreateWithoutCommentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCommentsInput = {
@@ -2824,6 +2888,7 @@ export type ModuleUncheckedCreateWithoutCommentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCommentsInput = {
@@ -2875,6 +2940,7 @@ export type ModuleUpdateWithoutCommentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCommentsInput = {
@@ -2910,6 +2976,7 @@ export type ModuleUncheckedUpdateWithoutCommentsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCategoryInput = {
@@ -2945,6 +3012,7 @@ export type ModuleCreateWithoutCategoryInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCategoryInput = {
@@ -2980,6 +3048,7 @@ export type ModuleUncheckedCreateWithoutCategoryInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCategoryInput = {
@@ -3041,6 +3110,7 @@ export type ModuleCreateWithoutUserPinsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutUserPinsInput = {
@@ -3076,6 +3146,7 @@ export type ModuleUncheckedCreateWithoutUserPinsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutUserPinsInput = {
@@ -3127,6 +3198,7 @@ export type ModuleUpdateWithoutUserPinsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutUserPinsInput = {
@@ -3162,6 +3234,7 @@ export type ModuleUncheckedUpdateWithoutUserPinsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCompanyPinsInput = {
@@ -3197,6 +3270,7 @@ export type ModuleCreateWithoutCompanyPinsInput = {
   userPins?: Prisma.UserPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCompanyPinsInput = {
@@ -3232,6 +3306,7 @@ export type ModuleUncheckedCreateWithoutCompanyPinsInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCompanyPinsInput = {
@@ -3283,6 +3358,7 @@ export type ModuleUpdateWithoutCompanyPinsInput = {
   userPins?: Prisma.UserPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCompanyPinsInput = {
@@ -3318,6 +3394,7 @@ export type ModuleUncheckedUpdateWithoutCompanyPinsInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutTagsInput = {
@@ -3353,6 +3430,7 @@ export type ModuleCreateWithoutTagsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutTagsInput = {
@@ -3388,6 +3466,7 @@ export type ModuleUncheckedCreateWithoutTagsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutTagsInput = {
@@ -3439,6 +3518,7 @@ export type ModuleUpdateWithoutTagsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutTagsInput = {
@@ -3474,6 +3554,7 @@ export type ModuleUncheckedUpdateWithoutTagsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutMentorsInput = {
@@ -3509,6 +3590,7 @@ export type ModuleCreateWithoutMentorsInput = {
   userPins?: Prisma.UserPinnedModuleCreateNestedManyWithoutModuleInput
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutMentorsInput = {
@@ -3544,6 +3626,7 @@ export type ModuleUncheckedCreateWithoutMentorsInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutMentorsInput = {
@@ -3595,6 +3678,7 @@ export type ModuleUpdateWithoutMentorsInput = {
   userPins?: Prisma.UserPinnedModuleUpdateManyWithoutModuleNestedInput
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutMentorsInput = {
@@ -3630,6 +3714,7 @@ export type ModuleUncheckedUpdateWithoutMentorsInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutChangeLogsInput = {
@@ -3665,6 +3750,7 @@ export type ModuleCreateWithoutChangeLogsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutChangeLogsInput = {
@@ -3700,6 +3786,7 @@ export type ModuleUncheckedCreateWithoutChangeLogsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutChangeLogsInput = {
@@ -3751,6 +3838,7 @@ export type ModuleUpdateWithoutChangeLogsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutChangeLogsInput = {
@@ -3786,6 +3874,7 @@ export type ModuleUncheckedUpdateWithoutChangeLogsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutReviewsInput = {
@@ -3821,6 +3910,7 @@ export type ModuleCreateWithoutReviewsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutReviewsInput = {
@@ -3856,6 +3946,7 @@ export type ModuleUncheckedCreateWithoutReviewsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutReviewsInput = {
@@ -3907,6 +3998,7 @@ export type ModuleUpdateWithoutReviewsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutReviewsInput = {
@@ -3942,6 +4034,7 @@ export type ModuleUncheckedUpdateWithoutReviewsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateWithoutChatMessagesInput = {
@@ -3977,6 +4070,7 @@ export type ModuleCreateWithoutChatMessagesInput = {
   userPins?: Prisma.UserPinnedModuleCreateNestedManyWithoutModuleInput
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutChatMessagesInput = {
@@ -4012,6 +4106,7 @@ export type ModuleUncheckedCreateWithoutChatMessagesInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutChatMessagesInput = {
@@ -4063,6 +4158,7 @@ export type ModuleUpdateWithoutChatMessagesInput = {
   userPins?: Prisma.UserPinnedModuleUpdateManyWithoutModuleNestedInput
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutChatMessagesInput = {
@@ -4098,6 +4194,167 @@ export type ModuleUncheckedUpdateWithoutChatMessagesInput = {
   userPins?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+}
+
+export type ModuleCreateWithoutLiveEventsInput = {
+  id?: string
+  title: string
+  description: string
+  coverImage?: string | null
+  status?: $Enums.ModuleStatus
+  sortOrder?: number
+  estimatedTime?: number | null
+  difficulty?: $Enums.Difficulty
+  isMandatory?: boolean
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  publishedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
+  category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
+  groups?: Prisma.ModuleGroupCreateNestedManyWithoutModuleInput
+  sections?: Prisma.SectionCreateNestedManyWithoutModuleInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutModuleInput
+  comments?: Prisma.CommentCreateNestedManyWithoutModuleInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutModuleInput
+  tags?: Prisma.ModuleTagCreateNestedManyWithoutModuleInput
+  prerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutDependentModuleInput
+  dependents?: Prisma.ModulePrerequisiteCreateNestedManyWithoutPrerequisiteModuleInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutModuleInput
+  lastAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutModuleInput
+  overrides?: Prisma.ProgressOverrideCreateNestedManyWithoutModuleInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutModuleInput
+  reviews?: Prisma.UserModuleReviewCreateNestedManyWithoutModuleInput
+  userPins?: Prisma.UserPinnedModuleCreateNestedManyWithoutModuleInput
+  companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
+  mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+}
+
+export type ModuleUncheckedCreateWithoutLiveEventsInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description: string
+  coverImage?: string | null
+  status?: $Enums.ModuleStatus
+  sortOrder?: number
+  estimatedTime?: number | null
+  difficulty?: $Enums.Difficulty
+  isMandatory?: boolean
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  publishedAt?: Date | string | null
+  createdById: string
+  categoryId?: string | null
+  groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutModuleInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutModuleInput
+  tags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutModuleInput
+  prerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutDependentModuleInput
+  dependents?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutPrerequisiteModuleInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutModuleInput
+  lastAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutModuleInput
+  overrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutModuleInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutModuleInput
+  reviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutModuleInput
+  userPins?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
+  companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
+  mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+}
+
+export type ModuleCreateOrConnectWithoutLiveEventsInput = {
+  where: Prisma.ModuleWhereUniqueInput
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutLiveEventsInput, Prisma.ModuleUncheckedCreateWithoutLiveEventsInput>
+}
+
+export type ModuleUpsertWithoutLiveEventsInput = {
+  update: Prisma.XOR<Prisma.ModuleUpdateWithoutLiveEventsInput, Prisma.ModuleUncheckedUpdateWithoutLiveEventsInput>
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutLiveEventsInput, Prisma.ModuleUncheckedCreateWithoutLiveEventsInput>
+  where?: Prisma.ModuleWhereInput
+}
+
+export type ModuleUpdateToOneWithWhereWithoutLiveEventsInput = {
+  where?: Prisma.ModuleWhereInput
+  data: Prisma.XOR<Prisma.ModuleUpdateWithoutLiveEventsInput, Prisma.ModuleUncheckedUpdateWithoutLiveEventsInput>
+}
+
+export type ModuleUpdateWithoutLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumModuleStatusFieldUpdateOperationsInput | $Enums.ModuleStatus
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
+  category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
+  groups?: Prisma.ModuleGroupUpdateManyWithoutModuleNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutModuleNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutModuleNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutModuleNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutModuleNestedInput
+  tags?: Prisma.ModuleTagUpdateManyWithoutModuleNestedInput
+  prerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutDependentModuleNestedInput
+  dependents?: Prisma.ModulePrerequisiteUpdateManyWithoutPrerequisiteModuleNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutModuleNestedInput
+  lastAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutModuleNestedInput
+  overrides?: Prisma.ProgressOverrideUpdateManyWithoutModuleNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutModuleNestedInput
+  reviews?: Prisma.UserModuleReviewUpdateManyWithoutModuleNestedInput
+  userPins?: Prisma.UserPinnedModuleUpdateManyWithoutModuleNestedInput
+  companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
+  mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+}
+
+export type ModuleUncheckedUpdateWithoutLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumModuleStatusFieldUpdateOperationsInput | $Enums.ModuleStatus
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutModuleNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutModuleNestedInput
+  tags?: Prisma.ModuleTagUncheckedUpdateManyWithoutModuleNestedInput
+  prerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutDependentModuleNestedInput
+  dependents?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutPrerequisiteModuleNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutModuleNestedInput
+  lastAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutModuleNestedInput
+  overrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutModuleNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutModuleNestedInput
+  reviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutModuleNestedInput
+  userPins?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
+  companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
+  mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
 }
 
 export type ModuleCreateManyTenantInput = {
@@ -4151,6 +4408,7 @@ export type ModuleUpdateWithoutTenantInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutTenantInput = {
@@ -4186,6 +4444,7 @@ export type ModuleUncheckedUpdateWithoutTenantInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutTenantInput = {
@@ -4257,6 +4516,7 @@ export type ModuleUpdateWithoutCreatedByInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCreatedByInput = {
@@ -4292,6 +4552,7 @@ export type ModuleUncheckedUpdateWithoutCreatedByInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutCreatedByInput = {
@@ -4363,6 +4624,7 @@ export type ModuleUpdateWithoutCategoryInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCategoryInput = {
@@ -4398,6 +4660,7 @@ export type ModuleUncheckedUpdateWithoutCategoryInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutCategoryInput = {
@@ -4441,6 +4704,7 @@ export type ModuleCountOutputType = {
   companyPins: number
   mentors: number
   chatMessages: number
+  liveEvents: number
 }
 
 export type ModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4461,6 +4725,7 @@ export type ModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   companyPins?: boolean | ModuleCountOutputTypeCountCompanyPinsArgs
   mentors?: boolean | ModuleCountOutputTypeCountMentorsArgs
   chatMessages?: boolean | ModuleCountOutputTypeCountChatMessagesArgs
+  liveEvents?: boolean | ModuleCountOutputTypeCountLiveEventsArgs
 }
 
 /**
@@ -4592,6 +4857,13 @@ export type ModuleCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.T
   where?: Prisma.ChatMessageWhereInput
 }
 
+/**
+ * ModuleCountOutputType without action
+ */
+export type ModuleCountOutputTypeCountLiveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MentorLiveEventWhereInput
+}
+
 
 export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4630,6 +4902,7 @@ export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   companyPins?: boolean | Prisma.Module$companyPinsArgs<ExtArgs>
   mentors?: boolean | Prisma.Module$mentorsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Module$chatMessagesArgs<ExtArgs>
+  liveEvents?: boolean | Prisma.Module$liveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["module"]>
 
@@ -4718,6 +4991,7 @@ export type ModuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   companyPins?: boolean | Prisma.Module$companyPinsArgs<ExtArgs>
   mentors?: boolean | Prisma.Module$mentorsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Module$chatMessagesArgs<ExtArgs>
+  liveEvents?: boolean | Prisma.Module$liveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ModuleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4754,6 +5028,7 @@ export type $ModulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     companyPins: Prisma.$CompanyPinnedModulePayload<ExtArgs>[]
     mentors: Prisma.$ModuleMentorPayload<ExtArgs>[]
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    liveEvents: Prisma.$MentorLiveEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5186,6 +5461,7 @@ export interface Prisma__ModuleClient<T, Null = never, ExtArgs extends runtime.T
   companyPins<T extends Prisma.Module$companyPinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$companyPinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPinnedModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mentors<T extends Prisma.Module$mentorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$mentorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleMentorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.Module$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveEvents<T extends Prisma.Module$liveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$liveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorLiveEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6051,6 +6327,30 @@ export type Module$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * Module.liveEvents
+ */
+export type Module$liveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorLiveEvent
+   */
+  select?: Prisma.MentorLiveEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MentorLiveEvent
+   */
+  omit?: Prisma.MentorLiveEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MentorLiveEventInclude<ExtArgs> | null
+  where?: Prisma.MentorLiveEventWhereInput
+  orderBy?: Prisma.MentorLiveEventOrderByWithRelationInput | Prisma.MentorLiveEventOrderByWithRelationInput[]
+  cursor?: Prisma.MentorLiveEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MentorLiveEventScalarFieldEnum | Prisma.MentorLiveEventScalarFieldEnum[]
 }
 
 /**

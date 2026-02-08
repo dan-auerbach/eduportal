@@ -398,18 +398,23 @@ export function ModuleChatRoom({
         if (matchStart > lastIndex) parts.push(escaped.slice(lastIndex, matchStart));
         const url = match[0];
         const href = url.replace(/&amp;/g, "&");
-        parts.push(
-          <a
-            key={matchStart}
-            href={href}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="underline hover:opacity-80"
-            style={{ color: colors.channel }}
-          >
-            {url}
-          </a>,
-        );
+        // C6: Only render http(s) URLs as clickable links
+        if (/^https?:\/\//i.test(href)) {
+          parts.push(
+            <a
+              key={matchStart}
+              href={href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="underline hover:opacity-80"
+              style={{ color: colors.channel }}
+            >
+              {url}
+            </a>,
+          );
+        } else {
+          parts.push(url);
+        }
         lastIndex = matchStart + url.length;
       }
       if (lastIndex < escaped.length) parts.push(escaped.slice(lastIndex));

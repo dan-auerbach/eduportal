@@ -18,6 +18,10 @@ export default async function ChatPage() {
   const lastName = ctx.user.lastName;
   const displayName = `${firstName}${lastName}`.trim() || ctx.user.email.split("@")[0];
 
+  // C1: Only ADMIN+ can set topic
+  const role = ctx.effectiveRole;
+  const canSetTopic = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+
   return (
     <ChatRoom
       tenantSlug={ctx.tenantSlug}
@@ -28,6 +32,7 @@ export default async function ChatPage() {
       userFirstName={firstName}
       userLastName={lastName}
       initialTopic={tenant?.chatTopic ?? null}
+      canSetTopic={canSetTopic}
       labels={{
         title: t("chat.title"),
         send: t("chat.send"),

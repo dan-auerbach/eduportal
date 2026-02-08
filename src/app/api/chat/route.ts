@@ -101,6 +101,7 @@ export async function GET(req: NextRequest) {
     })),
     tenantSlug: ctx.tenantSlug,
     topic: tenant?.chatTopic ?? null,
-    mentorIds,
+    // C5: mentorIds removed from response to prevent user ID enumeration.
+    // isMentor boolean is already included per-message above.
   });
 }

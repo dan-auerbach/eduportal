@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
+import { checkModuleAccess } from "@/lib/permissions";
 
 /**
  * GET /api/chat/module-unread?moduleId=<id>&after=<lastReadMessageId>
@@ -25,6 +26,12 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    // C3: Verify user has access to this module
+    const hasAccess = await checkModuleAccess(ctx.user.id, moduleId, ctx.tenantId);
+    if (!hasAccess) {
+      return NextResponse.json({ count: 0 });
+    }
+
     const where: Record<string, unknown> = {
       tenantId: ctx.tenantId,
       moduleId,

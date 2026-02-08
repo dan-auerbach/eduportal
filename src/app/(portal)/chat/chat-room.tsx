@@ -172,6 +172,7 @@ type ChatRoomProps = {
   userFirstName: string;
   userLastName: string;
   initialTopic: string | null;
+  canSetTopic: boolean;
   labels: {
     title: string;
     send: string;
@@ -204,6 +205,7 @@ export function ChatRoom({
   userFirstName,
   userLastName,
   initialTopic,
+  canSetTopic,
   labels,
 }: ChatRoomProps) {
   const [messages, setMessages] = useState<ChatMessageDTO[]>([]);
@@ -427,18 +429,23 @@ export function ChatRoom({
         const url = match[0];
         // Unescape &amp; back to & for href
         const href = url.replace(/&amp;/g, "&");
-        parts.push(
-          <a
-            key={matchStart}
-            href={href}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="underline hover:opacity-80"
-            style={{ color: colors.channel }}
-          >
-            {url}
-          </a>,
-        );
+        // C6: Only render http(s) URLs as clickable links
+        if (/^https?:\/\//i.test(href)) {
+          parts.push(
+            <a
+              key={matchStart}
+              href={href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="underline hover:opacity-80"
+              style={{ color: colors.channel }}
+            >
+              {url}
+            </a>,
+          );
+        } else {
+          parts.push(url);
+        }
         lastIndex = matchStart + url.length;
       }
       if (lastIndex < escaped.length) {
@@ -536,7 +543,9 @@ export function ChatRoom({
             <div><span style={{ color: colors.helpCmd }}>/me</span> {labels.helpMe.replace("/me <besedilo> — ", "").replace("/me <text> — ", "")}</div>
             <div><span style={{ color: colors.helpCmd }}>/shrug</span> {labels.helpShrug.replace("/shrug — ", "")}</div>
             <div><span style={{ color: colors.helpCmd }}>/afk</span> {labels.helpAfk.replace("/afk [razlog] — ", "").replace("/afk [reason] — ", "")}</div>
-            <div><span style={{ color: colors.helpCmd }}>/topic</span> {labels.helpTopic.replace("/topic <besedilo> — ", "").replace("/topic <text> — ", "")}</div>
+            {canSetTopic && (
+              <div><span style={{ color: colors.helpCmd }}>/topic</span> {labels.helpTopic.replace("/topic <besedilo> — ", "").replace("/topic <text> — ", "")}</div>
+            )}
             <div><span style={{ color: colors.helpCmd }}>/help</span> {labels.helpHelp.replace("/help — ", "")}</div>
           </div>
         </div>

@@ -302,6 +302,13 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
   try {
     const ctx = await getTenantContext();
 
+    // C1: Only ADMIN+ can set topic
+    const role = ctx.effectiveRole;
+    const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+    if (!isAdmin) {
+      return { success: false, error: "Samo administratorji lahko nastavljajo temo kanala." };
+    }
+
     const sanitized = sanitizeBody(topic);
     if (sanitized.length > MAX_TOPIC_LENGTH) {
       return { success: false, error: `Tema je predolga (max ${MAX_TOPIC_LENGTH} znakov).` };
@@ -347,6 +354,17 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
 export async function joinChat(moduleId?: string | null): Promise<ActionResult<ChatMessageDTO>> {
   try {
     const ctx = await getTenantContext();
+
+    // C2: Rate limit joins — max 1 per channel per 5 minutes
+    const joinKey = `join:${ctx.user.id}:${moduleId ?? "global"}`;
+    const now = Date.now();
+    const lastJoin = lastMessageTime.get(joinKey) ?? 0;
+    if (now - lastJoin < 300_000) {
+      // Silently succeed — don't create duplicate JOIN messages
+      return { success: true, data: { id: "", type: "JOIN", displayName: "", body: "", createdAt: new Date().toISOString(), userId: null, moduleId: null, isConfirmedAnswer: false, confirmedByName: null, isMentor: false } };
+    }
+    lastMessageTime.set(joinKey, now);
+
     const displayName = getDisplayName(ctx.user);
 
     const message = await prisma.chatMessage.create({

@@ -11,7 +11,6 @@ import {
   LayoutDashboard,
   BookOpen,
   Award,
-  Bell,
   User,
   Users,
   FolderOpen,
@@ -20,7 +19,6 @@ import {
   FileText,
   AlertTriangle,
   Building2,
-  Megaphone,
   Hash,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -31,9 +29,7 @@ const employeeNav: NavItem[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: LayoutDashboard },
   { href: "/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
-  { href: "/notifications", labelKey: "nav.notifications", icon: Bell },
   { href: "/chat", labelKey: "nav.chat", icon: Hash },
-  { href: "/updates", labelKey: "nav.updates", icon: Megaphone },
   { href: "/profile", labelKey: "nav.profile", icon: User },
 ];
 
@@ -45,7 +41,6 @@ const adminNav: NavItem[] = [
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
   { href: "/admin/audit-log", labelKey: "nav.auditLog", icon: FileText, ownerOnly: true },
-  { href: "/updates", labelKey: "nav.updates", icon: Megaphone },
   { href: "/admin/settings", labelKey: "nav.settings", icon: Settings },
 ];
 
@@ -133,15 +128,19 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
 
   return (
     <>
-      {/* Logo + tenant */}
-      <div className="flex h-14 items-center gap-2 border-b px-4">
+      {/* Logo + tenant — click navigates to dashboard */}
+      <Link
+        href="/dashboard"
+        onClick={onNavigate}
+        className="flex h-14 items-center gap-2 border-b px-4 hover:bg-muted/50 transition-colors"
+      >
         {tenantLogoUrl ? (
           <img src={tenantLogoUrl} alt={tenantName || "Logo"} width={24} height={24} className="h-6 w-6 rounded object-contain" />
         ) : (
           <GraduationCap className="h-6 w-6 text-primary" />
         )}
         <span className="text-lg font-semibold truncate">{tenantName || t("nav.appName")}</span>
-      </div>
+      </Link>
 
       {/* Section toggle */}
       {(isAdmin || isOwner) && (

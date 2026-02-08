@@ -58,6 +58,7 @@ export function AppShell({
         {isOwnerImpersonating && <ImpersonationBanner tenantName={tenantName || ""} />}
         <Header
           tenantLogoUrl={tenantLogoUrl}
+          effectiveRole={effectiveRole}
           onMenuClick={() => setMobileOpen(true)}
         />
         <main className="flex-1 min-h-0 overflow-y-auto bg-muted/40 p-4 md:p-6">

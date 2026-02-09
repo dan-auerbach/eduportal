@@ -85,6 +85,7 @@ export default async function RadarPage({
               post={post}
               showStatus={tab === "my"}
               isAdmin={isAdmin}
+              useCreatedAt={tab === "my" || tab === "pending"}
             />
           ))}
         </div>

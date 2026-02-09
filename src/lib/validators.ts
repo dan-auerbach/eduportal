@@ -205,6 +205,33 @@ export const UpdateLiveEventSchema = z.object({
   relatedModuleId: z.string().cuid().nullable().optional(),
 });
 
+// ---- Radar post forms ----
+export const CreateRadarPostSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Naslov je obvezen")
+    .max(120, "Naslov je predolg (max 120 znakov)"),
+  description: z
+    .string()
+    .min(1, "Opis je obvezen")
+    .max(600, "Opis je predolg (max 600 znakov)"),
+  url: z
+    .string()
+    .url("Neveljaven URL")
+    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni"),
+  tag: z
+    .enum(["AI", "TECH", "PRODUCTIVITY", "MEDIA", "SECURITY"])
+    .nullable()
+    .optional(),
+});
+
+export const RejectRadarPostSchema = z.object({
+  reason: z
+    .string()
+    .min(1, "Razlog je obvezen")
+    .max(200, "Razlog je predolg (max 200 znakov)"),
+});
+
 // ---- Upload MIME whitelist ----
 export const MIME_WHITELIST: Record<string, string[]> = {
   "application/pdf": [".pdf"],

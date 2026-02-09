@@ -214,3 +214,8 @@ export type MentorLiveEvent = Prisma.MentorLiveEventModel
  * 
  */
 export type UserSession = Prisma.UserSessionModel
+/**
+ * Model MentorRadarPost
+ * 
+ */
+export type MentorRadarPost = Prisma.MentorRadarPostModel

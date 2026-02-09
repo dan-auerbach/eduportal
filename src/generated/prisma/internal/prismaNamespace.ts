@@ -418,7 +418,8 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
-  UserSession: 'UserSession'
+  UserSession: 'UserSession',
+  MentorRadarPost: 'MentorRadarPost'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3028,6 +3029,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MentorRadarPost: {
+      payload: Prisma.$MentorRadarPostPayload<ExtArgs>
+      fields: Prisma.MentorRadarPostFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MentorRadarPostFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MentorRadarPostFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        findFirst: {
+          args: Prisma.MentorRadarPostFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MentorRadarPostFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        findMany: {
+          args: Prisma.MentorRadarPostFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>[]
+        }
+        create: {
+          args: Prisma.MentorRadarPostCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        createMany: {
+          args: Prisma.MentorRadarPostCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MentorRadarPostCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>[]
+        }
+        delete: {
+          args: Prisma.MentorRadarPostDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        update: {
+          args: Prisma.MentorRadarPostUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        deleteMany: {
+          args: Prisma.MentorRadarPostDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MentorRadarPostUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MentorRadarPostUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>[]
+        }
+        upsert: {
+          args: Prisma.MentorRadarPostUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MentorRadarPostPayload>
+        }
+        aggregate: {
+          args: Prisma.MentorRadarPostAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMentorRadarPost>
+        }
+        groupBy: {
+          args: Prisma.MentorRadarPostGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MentorRadarPostGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MentorRadarPostCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MentorRadarPostCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3532,6 +3607,27 @@ export const UserSessionScalarFieldEnum = {
 export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
 
 
+export const MentorRadarPostScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  url: 'url',
+  sourceDomain: 'sourceDomain',
+  status: 'status',
+  rejectReason: 'rejectReason',
+  pinned: 'pinned',
+  tag: 'tag',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt'
+} as const
+
+export type MentorRadarPostScalarFieldEnum = (typeof MentorRadarPostScalarFieldEnum)[keyof typeof MentorRadarPostScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3858,6 +3954,34 @@ export type EnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChatMessageType[]'>
     
 
+
+/**
+ * Reference to a field of type 'RadarPostStatus'
+ */
+export type EnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'RadarPostStatus[]'
+ */
+export type ListEnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RadarPostTag'
+ */
+export type EnumRadarPostTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostTag'>
+    
+
+
+/**
+ * Reference to a field of type 'RadarPostTag[]'
+ */
+export type ListEnumRadarPostTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostTag[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3988,6 +4112,7 @@ export type GlobalOmitConfig = {
   chatMessage?: Prisma.ChatMessageOmit
   mentorLiveEvent?: Prisma.MentorLiveEventOmit
   userSession?: Prisma.UserSessionOmit
+  mentorRadarPost?: Prisma.MentorRadarPostOmit
 }
 
 /* Types for Logging */

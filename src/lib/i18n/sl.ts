@@ -136,6 +136,7 @@ export const sl = {
     feedback: "Ocene",
     mentorLive: "#mentor v živo",
     mentorLiveNoEvents: "Ni razpisanih terminov",
+    radar: "Mentor Radar",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -312,6 +313,8 @@ export const sl = {
     typeProgressOverride: "Prepis napredka",
     typeModuleUpdated: "Posodobitev znanja",
     typeSystem: "Sistem",
+    typeRadarApproved: "Radar objava potrjena",
+    typeRadarRejected: "Radar objava zavrnjena",
     deadlineApproaching: "Rok se bliža: {title}",
     deadlineMessage: "Do roka je še {time}",
     moduleUpdatedTitle: "Znanje posodobljeno: {title}",
@@ -914,6 +917,12 @@ export const sl = {
     TENANT_DELETED: "Podjetje izbrisano",
     ANSWER_CONFIRMED: "Odgovor potrjen",
     ANSWER_UNCONFIRMED: "Potrditev preklicana",
+    RADAR_POST_CREATED: "Radar objava ustvarjena",
+    RADAR_POST_APPROVED: "Radar objava potrjena",
+    RADAR_POST_REJECTED: "Radar objava zavrnjena",
+    RADAR_POST_ARCHIVED: "Radar objava arhivirana",
+    RADAR_POST_PINNED: "Radar objava pripeta",
+    RADAR_POST_UNPINNED: "Radar objava odpeta",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -1150,5 +1159,79 @@ export const sl = {
     relatedModuleField: "Povezano znanje (neobvezno)",
     noModule: "Brez povezave",
     today: "Danes",
+  },
+
+  // ── Mentor Radar ──────────────────────────────────────────────────
+  radar: {
+    title: "Mentor Radar",
+    subtitle: "Zanimive vsebine, orodja in viri, ki jih deli skupnost.",
+    tabApproved: "Potrjeno",
+    tabMyPosts: "Moje objave",
+    tabPending: "Čaka na potrditev",
+    addPost: "+ Dodaj #radar",
+    // Form
+    titleField: "Naslov",
+    titlePlaceholder: "Kratek naslov vsebine...",
+    descriptionField: "Opis",
+    descriptionPlaceholder: "Zakaj je ta vsebina zanimiva? (do 600 znakov)",
+    urlField: "Povezava",
+    urlPlaceholder: "https://...",
+    tagField: "Oznaka (neobvezno)",
+    noTag: "Brez oznake",
+    // Tags
+    tagAI: "AI",
+    tagTECH: "Tehnologija",
+    tagPRODUCTIVITY: "Produktivnost",
+    tagMEDIA: "Mediji",
+    tagSECURITY: "Varnost",
+    // Status
+    statusPending: "V čakanju",
+    statusApproved: "Potrjeno",
+    statusRejected: "Zavrnjeno",
+    statusArchived: "Arhivirano",
+    // Actions
+    approve: "Potrdi",
+    reject: "Zavrni",
+    archive: "Arhiviraj",
+    pin: "Pripni",
+    unpin: "Odpni",
+    openLink: "Odpri povezavo",
+    backToList: "Nazaj na seznam",
+    // Reject dialog
+    rejectTitle: "Zavrni objavo",
+    rejectReasonField: "Razlog za zavrnitev",
+    rejectReasonPlaceholder: "Pojasnite, zakaj objava ni primerna...",
+    // Messages
+    postCreated: "Objava oddana v pregled",
+    postApproved: "Objava potrjena",
+    postRejected: "Objava zavrnjena",
+    postArchived: "Objava arhivirana",
+    postPinned: "Objava pripeta",
+    postUnpinned: "Objava odpeta",
+    maxPinnedReached: "Že imate 3 pripete objave. Najprej odpnite eno.",
+    rateLimitReached: "Danes ste že oddali 5 objav. Poskusite jutri.",
+    duplicateWarning: "Ta URL je bil že objavljen v zadnjih 30 dneh: \"{title}\". Vseeno nadaljujete?",
+    // Badges
+    pinnedBadge: "Pripeto",
+    staleBadge: "Staro",
+    radarTag: "#radar",
+    // Detail
+    submittedBy: "Oddal/a {name}",
+    approvedByLabel: "Potrdil/a {name}",
+    rejectedReason: "Razlog: {reason}",
+    // Empty states
+    noApprovedPosts: "Še ni potrjenih objav.",
+    noApprovedPostsDesc: "Bodite prvi, ki deli zanimivo vsebino!",
+    noMyPosts: "Še niste oddali nobene objave.",
+    noPendingPosts: "Ni objav v čakanju.",
+    // Dashboard widget
+    widgetTitle: "Mentor Radar",
+    widgetEmpty: "Ni novih vsebin.",
+    viewAll: "Prikaži vse",
+    // Notifications
+    notifApprovedTitle: "Vaša #radar objava je bila potrjena: {title}",
+    notifApprovedMessage: "Vaša objava je sedaj vidna vsem.",
+    notifRejectedTitle: "Vaša #radar objava je bila zavrnjena: {title}",
+    notifRejectedMessage: "Razlog: {reason}",
   },
 } as const;

@@ -151,3 +151,8 @@ export async function rateLimitChatPoll(userId: string): Promise<RateLimitResult
 export async function rateLimitLogin(email: string): Promise<RateLimitResult> {
   return rateLimit(`login:${email.toLowerCase()}`, 5, 15 * 60_000);
 }
+
+/** Radar post creation: 5 per day per user */
+export async function rateLimitRadarPost(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`radar:post:${userId}`, 5, 24 * 60 * 60_000);
+}

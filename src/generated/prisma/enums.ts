@@ -129,7 +129,9 @@ export const NotificationType = {
   CERTIFICATE_ISSUED: 'CERTIFICATE_ISSUED',
   PROGRESS_OVERRIDE: 'PROGRESS_OVERRIDE',
   MODULE_UPDATED: 'MODULE_UPDATED',
-  SYSTEM: 'SYSTEM'
+  SYSTEM: 'SYSTEM',
+  RADAR_APPROVED: 'RADAR_APPROVED',
+  RADAR_REJECTED: 'RADAR_REJECTED'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -168,7 +170,13 @@ export const AuditAction = {
   ANSWER_UNCONFIRMED: 'ANSWER_UNCONFIRMED',
   LIVE_EVENT_CREATED: 'LIVE_EVENT_CREATED',
   LIVE_EVENT_UPDATED: 'LIVE_EVENT_UPDATED',
-  LIVE_EVENT_DELETED: 'LIVE_EVENT_DELETED'
+  LIVE_EVENT_DELETED: 'LIVE_EVENT_DELETED',
+  RADAR_POST_CREATED: 'RADAR_POST_CREATED',
+  RADAR_POST_APPROVED: 'RADAR_POST_APPROVED',
+  RADAR_POST_REJECTED: 'RADAR_POST_REJECTED',
+  RADAR_POST_ARCHIVED: 'RADAR_POST_ARCHIVED',
+  RADAR_POST_PINNED: 'RADAR_POST_PINNED',
+  RADAR_POST_UNPINNED: 'RADAR_POST_UNPINNED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -182,3 +190,24 @@ export const ChatMessageType = {
 } as const
 
 export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType]
+
+
+export const RadarPostStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type RadarPostStatus = (typeof RadarPostStatus)[keyof typeof RadarPostStatus]
+
+
+export const RadarPostTag = {
+  AI: 'AI',
+  TECH: 'TECH',
+  PRODUCTIVITY: 'PRODUCTIVITY',
+  MEDIA: 'MEDIA',
+  SECURITY: 'SECURITY'
+} as const
+
+export type RadarPostTag = (typeof RadarPostTag)[keyof typeof RadarPostTag]

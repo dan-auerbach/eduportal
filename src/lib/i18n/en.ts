@@ -136,6 +136,7 @@ export const en = {
     feedback: "Ratings",
     mentorLive: "#mentor live",
     mentorLiveNoEvents: "No scheduled events",
+    radar: "Mentor Radar",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -312,6 +313,8 @@ export const en = {
     typeProgressOverride: "Progress override",
     typeModuleUpdated: "Knowledge updated",
     typeSystem: "System",
+    typeRadarApproved: "Radar post approved",
+    typeRadarRejected: "Radar post rejected",
     deadlineApproaching: "Deadline approaching: {title}",
     deadlineMessage: "Due in {time}",
     moduleUpdatedTitle: "Knowledge updated: {title}",
@@ -914,6 +917,12 @@ export const en = {
     TENANT_DELETED: "Company deleted",
     ANSWER_CONFIRMED: "Answer Confirmed",
     ANSWER_UNCONFIRMED: "Answer Unconfirmed",
+    RADAR_POST_CREATED: "Radar post created",
+    RADAR_POST_APPROVED: "Radar post approved",
+    RADAR_POST_REJECTED: "Radar post rejected",
+    RADAR_POST_ARCHIVED: "Radar post archived",
+    RADAR_POST_PINNED: "Radar post pinned",
+    RADAR_POST_UNPINNED: "Radar post unpinned",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -1150,5 +1159,79 @@ export const en = {
     relatedModuleField: "Related knowledge (optional)",
     noModule: "None",
     today: "Today",
+  },
+
+  // ── Mentor Radar ──────────────────────────────────────────────────
+  radar: {
+    title: "Mentor Radar",
+    subtitle: "Interesting content, tools and resources shared by the community.",
+    tabApproved: "Approved",
+    tabMyPosts: "My posts",
+    tabPending: "Awaiting approval",
+    addPost: "+ Add #radar",
+    // Form
+    titleField: "Title",
+    titlePlaceholder: "Short title for the content...",
+    descriptionField: "Description",
+    descriptionPlaceholder: "Why is this content interesting? (up to 600 characters)",
+    urlField: "Link",
+    urlPlaceholder: "https://...",
+    tagField: "Tag (optional)",
+    noTag: "No tag",
+    // Tags
+    tagAI: "AI",
+    tagTECH: "Technology",
+    tagPRODUCTIVITY: "Productivity",
+    tagMEDIA: "Media",
+    tagSECURITY: "Security",
+    // Status
+    statusPending: "Pending",
+    statusApproved: "Approved",
+    statusRejected: "Rejected",
+    statusArchived: "Archived",
+    // Actions
+    approve: "Approve",
+    reject: "Reject",
+    archive: "Archive",
+    pin: "Pin",
+    unpin: "Unpin",
+    openLink: "Open link",
+    backToList: "Back to list",
+    // Reject dialog
+    rejectTitle: "Reject post",
+    rejectReasonField: "Reason for rejection",
+    rejectReasonPlaceholder: "Explain why this post is not suitable...",
+    // Messages
+    postCreated: "Post submitted for review",
+    postApproved: "Post approved",
+    postRejected: "Post rejected",
+    postArchived: "Post archived",
+    postPinned: "Post pinned",
+    postUnpinned: "Post unpinned",
+    maxPinnedReached: "You already have 3 pinned posts. Unpin one first.",
+    rateLimitReached: "You have already submitted 5 posts today. Try again tomorrow.",
+    duplicateWarning: "This URL was already published in the last 30 days: \"{title}\". Do you want to continue?",
+    // Badges
+    pinnedBadge: "Pinned",
+    staleBadge: "Old",
+    radarTag: "#radar",
+    // Detail
+    submittedBy: "Submitted by {name}",
+    approvedByLabel: "Approved by {name}",
+    rejectedReason: "Reason: {reason}",
+    // Empty states
+    noApprovedPosts: "No approved posts yet.",
+    noApprovedPostsDesc: "Be the first to share interesting content!",
+    noMyPosts: "You haven't submitted any posts yet.",
+    noPendingPosts: "No posts awaiting approval.",
+    // Dashboard widget
+    widgetTitle: "Mentor Radar",
+    widgetEmpty: "No new content.",
+    viewAll: "View all",
+    // Notifications
+    notifApprovedTitle: "Your #radar post was approved: {title}",
+    notifApprovedMessage: "Your post is now visible to everyone.",
+    notifRejectedTitle: "Your #radar post was rejected: {title}",
+    notifRejectedMessage: "Reason: {reason}",
   },
 } as const;

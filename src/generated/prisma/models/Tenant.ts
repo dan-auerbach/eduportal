@@ -254,6 +254,7 @@ export type TenantWhereInput = {
   chatMessages?: Prisma.ChatMessageListRelationFilter
   moduleMentors?: Prisma.ModuleMentorListRelationFilter
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
+  radarPosts?: Prisma.MentorRadarPostListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -299,6 +300,7 @@ export type TenantOrderByWithRelationInput = {
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
   moduleMentors?: Prisma.ModuleMentorOrderByRelationAggregateInput
   liveEvents?: Prisma.MentorLiveEventOrderByRelationAggregateInput
+  radarPosts?: Prisma.MentorRadarPostOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -347,6 +349,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   chatMessages?: Prisma.ChatMessageListRelationFilter
   moduleMentors?: Prisma.ModuleMentorListRelationFilter
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
+  radarPosts?: Prisma.MentorRadarPostListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -424,6 +427,7 @@ export type TenantCreateInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -469,6 +473,7 @@ export type TenantUncheckedCreateInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -514,6 +519,7 @@ export type TenantUpdateInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -559,6 +565,7 @@ export type TenantUncheckedUpdateInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -1125,6 +1132,20 @@ export type TenantUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutSessionsInput, Prisma.TenantUpdateWithoutSessionsInput>, Prisma.TenantUncheckedUpdateWithoutSessionsInput>
 }
 
+export type TenantCreateNestedOneWithoutRadarPostsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRadarPostsInput, Prisma.TenantUncheckedCreateWithoutRadarPostsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRadarPostsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutRadarPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRadarPostsInput, Prisma.TenantUncheckedCreateWithoutRadarPostsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRadarPostsInput
+  upsert?: Prisma.TenantUpsertWithoutRadarPostsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutRadarPostsInput, Prisma.TenantUpdateWithoutRadarPostsInput>, Prisma.TenantUncheckedUpdateWithoutRadarPostsInput>
+}
+
 export type TenantCreateWithoutMembershipsInput = {
   id?: string
   name: string
@@ -1167,6 +1188,7 @@ export type TenantCreateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -1211,6 +1233,7 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -1271,6 +1294,7 @@ export type TenantUpdateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -1315,6 +1339,7 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserPermissionsInput = {
@@ -1359,6 +1384,7 @@ export type TenantCreateWithoutUserPermissionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserPermissionsInput = {
@@ -1403,6 +1429,7 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserPermissionsInput = {
@@ -1463,6 +1490,7 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
@@ -1507,6 +1535,7 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutGroupsInput = {
@@ -1551,6 +1580,7 @@ export type TenantCreateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutGroupsInput = {
@@ -1595,6 +1625,7 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutGroupsInput = {
@@ -1655,6 +1686,7 @@ export type TenantUpdateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutGroupsInput = {
@@ -1699,6 +1731,7 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserGroupsInput = {
@@ -1743,6 +1776,7 @@ export type TenantCreateWithoutUserGroupsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserGroupsInput = {
@@ -1787,6 +1821,7 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserGroupsInput = {
@@ -1847,6 +1882,7 @@ export type TenantUpdateWithoutUserGroupsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserGroupsInput = {
@@ -1891,6 +1927,7 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulesInput = {
@@ -1935,6 +1972,7 @@ export type TenantCreateWithoutModulesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulesInput = {
@@ -1979,6 +2017,7 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulesInput = {
@@ -2039,6 +2078,7 @@ export type TenantUpdateWithoutModulesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulesInput = {
@@ -2083,6 +2123,7 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleGroupsInput = {
@@ -2127,6 +2168,7 @@ export type TenantCreateWithoutModuleGroupsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleGroupsInput = {
@@ -2171,6 +2213,7 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleGroupsInput = {
@@ -2231,6 +2274,7 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
@@ -2275,6 +2319,7 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulePrerequisitesInput = {
@@ -2319,6 +2364,7 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
@@ -2363,6 +2409,7 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulePrerequisitesInput = {
@@ -2423,6 +2470,7 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
@@ -2467,6 +2515,7 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionsInput = {
@@ -2511,6 +2560,7 @@ export type TenantCreateWithoutSectionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionsInput = {
@@ -2555,6 +2605,7 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionsInput = {
@@ -2615,6 +2666,7 @@ export type TenantUpdateWithoutSectionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionsInput = {
@@ -2659,6 +2711,7 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionCompletionsInput = {
@@ -2703,6 +2756,7 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
@@ -2747,6 +2801,7 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionCompletionsInput = {
@@ -2807,6 +2862,7 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -2851,6 +2907,7 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleAccessesInput = {
@@ -2895,6 +2952,7 @@ export type TenantCreateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleAccessesInput = {
@@ -2939,6 +2997,7 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleAccessesInput = {
@@ -2999,6 +3058,7 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
@@ -3043,6 +3103,7 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAttachmentsInput = {
@@ -3087,6 +3148,7 @@ export type TenantCreateWithoutAttachmentsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAttachmentsInput = {
@@ -3131,6 +3193,7 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAttachmentsInput = {
@@ -3191,6 +3254,7 @@ export type TenantUpdateWithoutAttachmentsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAttachmentsInput = {
@@ -3235,6 +3299,7 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizzesInput = {
@@ -3279,6 +3344,7 @@ export type TenantCreateWithoutQuizzesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizzesInput = {
@@ -3323,6 +3389,7 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizzesInput = {
@@ -3383,6 +3450,7 @@ export type TenantUpdateWithoutQuizzesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizzesInput = {
@@ -3427,6 +3495,7 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizQuestionsInput = {
@@ -3471,6 +3540,7 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
@@ -3515,6 +3585,7 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizQuestionsInput = {
@@ -3575,6 +3646,7 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
@@ -3619,6 +3691,7 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizAttemptsInput = {
@@ -3663,6 +3736,7 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -3707,6 +3781,7 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -3767,6 +3842,7 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -3811,6 +3887,7 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSelfAssessmentsInput = {
@@ -3855,6 +3932,7 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -3899,6 +3977,7 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -3959,6 +4038,7 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -4003,6 +4083,7 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProgressOverridesInput = {
@@ -4047,6 +4128,7 @@ export type TenantCreateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProgressOverridesInput = {
@@ -4091,6 +4173,7 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProgressOverridesInput = {
@@ -4151,6 +4234,7 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
@@ -4195,6 +4279,7 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCertificatesInput = {
@@ -4239,6 +4324,7 @@ export type TenantCreateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCertificatesInput = {
@@ -4283,6 +4369,7 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCertificatesInput = {
@@ -4343,6 +4430,7 @@ export type TenantUpdateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCertificatesInput = {
@@ -4387,6 +4475,7 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCommentsInput = {
@@ -4431,6 +4520,7 @@ export type TenantCreateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCommentsInput = {
@@ -4475,6 +4565,7 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCommentsInput = {
@@ -4535,6 +4626,7 @@ export type TenantUpdateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCommentsInput = {
@@ -4579,6 +4671,7 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationsInput = {
@@ -4623,6 +4716,7 @@ export type TenantCreateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationsInput = {
@@ -4667,6 +4761,7 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationsInput = {
@@ -4727,6 +4822,7 @@ export type TenantUpdateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationsInput = {
@@ -4771,6 +4867,7 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationDedupsInput = {
@@ -4815,6 +4912,7 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
@@ -4859,6 +4957,7 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationDedupsInput = {
@@ -4919,6 +5018,7 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
@@ -4963,6 +5063,7 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -5007,6 +5108,7 @@ export type TenantCreateWithoutCategoriesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -5051,6 +5153,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -5111,6 +5214,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -5155,6 +5259,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompanyPinnedModulesInput = {
@@ -5199,6 +5304,7 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
@@ -5243,6 +5349,7 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompanyPinnedModulesInput = {
@@ -5303,6 +5410,7 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
@@ -5347,6 +5455,7 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -5391,6 +5500,7 @@ export type TenantCreateWithoutTagsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -5435,6 +5545,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -5495,6 +5606,7 @@ export type TenantUpdateWithoutTagsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -5539,6 +5651,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleTagsInput = {
@@ -5583,6 +5696,7 @@ export type TenantCreateWithoutModuleTagsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleTagsInput = {
@@ -5627,6 +5741,7 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleTagsInput = {
@@ -5687,6 +5802,7 @@ export type TenantUpdateWithoutModuleTagsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleTagsInput = {
@@ -5731,6 +5847,7 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleMentorsInput = {
@@ -5775,6 +5892,7 @@ export type TenantCreateWithoutModuleMentorsInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleMentorsInput = {
@@ -5819,6 +5937,7 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleMentorsInput = {
@@ -5879,6 +5998,7 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
@@ -5923,6 +6043,7 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChangeLogsInput = {
@@ -5967,6 +6088,7 @@ export type TenantCreateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangeLogsInput = {
@@ -6011,6 +6133,7 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangeLogsInput = {
@@ -6071,6 +6194,7 @@ export type TenantUpdateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangeLogsInput = {
@@ -6115,6 +6239,7 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleReviewsInput = {
@@ -6159,6 +6284,7 @@ export type TenantCreateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleReviewsInput = {
@@ -6203,6 +6329,7 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleReviewsInput = {
@@ -6263,6 +6390,7 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
@@ -6307,6 +6435,7 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -6351,6 +6480,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -6395,6 +6525,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -6455,6 +6586,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -6499,6 +6631,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChangelogEntriesInput = {
@@ -6543,6 +6676,7 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
@@ -6587,6 +6721,7 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangelogEntriesInput = {
@@ -6647,6 +6782,7 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -6691,6 +6827,7 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChatMessagesInput = {
@@ -6735,6 +6872,7 @@ export type TenantCreateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChatMessagesInput = {
@@ -6779,6 +6917,7 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChatMessagesInput = {
@@ -6839,6 +6978,7 @@ export type TenantUpdateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChatMessagesInput = {
@@ -6883,6 +7023,7 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLiveEventsInput = {
@@ -6927,6 +7068,7 @@ export type TenantCreateWithoutLiveEventsInput = {
   sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLiveEventsInput = {
@@ -6971,6 +7113,7 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLiveEventsInput = {
@@ -7031,6 +7174,7 @@ export type TenantUpdateWithoutLiveEventsInput = {
   sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLiveEventsInput = {
@@ -7075,6 +7219,7 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSessionsInput = {
@@ -7119,6 +7264,7 @@ export type TenantCreateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -7163,6 +7309,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -7223,6 +7370,7 @@ export type TenantUpdateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -7267,6 +7415,203 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutRadarPostsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutRadarPostsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutRadarPostsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRadarPostsInput, Prisma.TenantUncheckedCreateWithoutRadarPostsInput>
+}
+
+export type TenantUpsertWithoutRadarPostsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutRadarPostsInput, Prisma.TenantUncheckedUpdateWithoutRadarPostsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRadarPostsInput, Prisma.TenantUncheckedCreateWithoutRadarPostsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutRadarPostsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutRadarPostsInput, Prisma.TenantUncheckedUpdateWithoutRadarPostsInput>
+}
+
+export type TenantUpdateWithoutRadarPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutRadarPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -7307,6 +7652,7 @@ export type TenantCountOutputType = {
   chatMessages: number
   moduleMentors: number
   liveEvents: number
+  radarPosts: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7342,6 +7688,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   chatMessages?: boolean | TenantCountOutputTypeCountChatMessagesArgs
   moduleMentors?: boolean | TenantCountOutputTypeCountModuleMentorsArgs
   liveEvents?: boolean | TenantCountOutputTypeCountLiveEventsArgs
+  radarPosts?: boolean | TenantCountOutputTypeCountRadarPostsArgs
 }
 
 /**
@@ -7578,6 +7925,13 @@ export type TenantCountOutputTypeCountLiveEventsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.MentorLiveEventWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountRadarPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MentorRadarPostWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7622,6 +7976,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   chatMessages?: boolean | Prisma.Tenant$chatMessagesArgs<ExtArgs>
   moduleMentors?: boolean | Prisma.Tenant$moduleMentorsArgs<ExtArgs>
   liveEvents?: boolean | Prisma.Tenant$liveEventsArgs<ExtArgs>
+  radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -7698,6 +8053,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   chatMessages?: boolean | Prisma.Tenant$chatMessagesArgs<ExtArgs>
   moduleMentors?: boolean | Prisma.Tenant$moduleMentorsArgs<ExtArgs>
   liveEvents?: boolean | Prisma.Tenant$liveEventsArgs<ExtArgs>
+  radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7738,6 +8094,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
     moduleMentors: Prisma.$ModuleMentorPayload<ExtArgs>[]
     liveEvents: Prisma.$MentorLiveEventPayload<ExtArgs>[]
+    radarPosts: Prisma.$MentorRadarPostPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -8176,6 +8533,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   chatMessages<T extends Prisma.Tenant$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moduleMentors<T extends Prisma.Tenant$moduleMentorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$moduleMentorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleMentorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   liveEvents<T extends Prisma.Tenant$liveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$liveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorLiveEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  radarPosts<T extends Prisma.Tenant$radarPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$radarPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorRadarPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9368,6 +9726,30 @@ export type Tenant$liveEventsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.MentorLiveEventScalarFieldEnum | Prisma.MentorLiveEventScalarFieldEnum[]
+}
+
+/**
+ * Tenant.radarPosts
+ */
+export type Tenant$radarPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorRadarPost
+   */
+  select?: Prisma.MentorRadarPostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MentorRadarPost
+   */
+  omit?: Prisma.MentorRadarPostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MentorRadarPostInclude<ExtArgs> | null
+  where?: Prisma.MentorRadarPostWhereInput
+  orderBy?: Prisma.MentorRadarPostOrderByWithRelationInput | Prisma.MentorRadarPostOrderByWithRelationInput[]
+  cursor?: Prisma.MentorRadarPostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MentorRadarPostScalarFieldEnum | Prisma.MentorRadarPostScalarFieldEnum[]
 }
 
 /**

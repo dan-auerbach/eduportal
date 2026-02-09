@@ -11,6 +11,7 @@ import {
   Award,
   Sparkles,
   MessageSquare,
+  Radar,
 } from "lucide-react";
 import { getTenantContext } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
@@ -20,6 +21,7 @@ import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
+import { getLatestApprovedRadarPosts } from "@/actions/radar";
 
 
 type MentorInfo = { id: string; firstName: string; lastName: string; avatar: string | null };
@@ -66,6 +68,10 @@ export default async function DashboardPage() {
   const userPinSet = new Set(userPins.map((p) => p.moduleId));
   const companyPinSet = new Set(companyPins.map((p) => p.moduleId));
   const reviewMap = new Map(userReviews.map((r) => [r.moduleId, r.lastSeenVersion]));
+
+  // Fetch latest radar posts for widget
+  const radarResult = await getLatestApprovedRadarPosts(5);
+  const latestRadarPosts = radarResult.success ? radarResult.data : [];
 
   // Build module list depending on role
   let modulesWithProgress: ModuleWithProgress[];
@@ -471,6 +477,49 @@ export default async function DashboardPage() {
                   <div className="flex items-center gap-3 shrink-0 ml-3">
                     <span className="text-xs font-medium text-muted-foreground">{m.progress.percentage}%</span>
                     <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Mentor Radar widget ─── */}
+      {latestRadarPosts.length > 0 && (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold flex items-center gap-2">
+              <Radar className="h-4 w-4 text-primary" />
+              {t("radar.widgetTitle")}
+            </h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="text-xs text-muted-foreground hover:text-foreground"
+            >
+              <Link href="/radar">
+                {t("radar.viewAll")}
+                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              </Link>
+            </Button>
+          </div>
+          <div className="space-y-2">
+            {latestRadarPosts.map((post) => (
+              <Link
+                key={post.id}
+                href={`/radar/${post.id}`}
+                className="block group"
+              >
+                <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card px-4 py-3 transition-all hover:shadow-sm hover:border-primary/20">
+                  <div className="space-y-0.5 min-w-0 flex-1">
+                    <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">
+                      {post.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {post.sourceDomain}
+                    </p>
                   </div>
                 </div>
               </Link>

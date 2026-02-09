@@ -55,6 +55,7 @@ model Tenant {
   chatTopic            String?
   moduleMentors        ModuleMentor[]
   liveEvents           MentorLiveEvent[]
+  radarPosts           MentorRadarPost[]
 }
 
 enum TenantTheme {
@@ -133,6 +134,8 @@ model User {
   confirmedAnswers   ChatMessage[]    @relation("ConfirmedAnswers")
   mentorModules      ModuleMentor[]   @relation("MentorModules")
   createdLiveEvents  MentorLiveEvent[] @relation("LiveEventCreator")
+  radarPosts         MentorRadarPost[] @relation("RadarPostAuthor")
+  approvedRadarPosts MentorRadarPost[] @relation("RadarPostApprover")
 
   @@index([role, isActive])
 }
@@ -621,6 +624,8 @@ enum NotificationType {
   PROGRESS_OVERRIDE
   MODULE_UPDATED
   SYSTEM
+  RADAR_APPROVED
+  RADAR_REJECTED
 }
 
 model NotificationDedup {
@@ -853,6 +858,12 @@ enum AuditAction {
   LIVE_EVENT_CREATED
   LIVE_EVENT_UPDATED
   LIVE_EVENT_DELETED
+  RADAR_POST_CREATED
+  RADAR_POST_APPROVED
+  RADAR_POST_REJECTED
+  RADAR_POST_ARCHIVED
+  RADAR_POST_PINNED
+  RADAR_POST_UNPINNED
 }
 
 // ============================================
@@ -930,4 +941,49 @@ model UserSession {
   @@index([userId, tenantId, isActive])
   @@index([userId, tenantId, startedAt])
   @@index([tenantId])
+}
+
+// ============================================
+// MENTOR RADAR (CONTENT SHARING / CURATION)
+// ============================================
+
+enum RadarPostStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+enum RadarPostTag {
+  AI
+  TECH
+  PRODUCTIVITY
+  MEDIA
+  SECURITY
+}
+
+model MentorRadarPost {
+  id           String          @id @default(cuid())
+  tenantId     String
+  title        String          @db.VarChar(120)
+  description  String          @db.VarChar(600)
+  url          String          @db.Text
+  sourceDomain String
+  status       RadarPostStatus @default(PENDING)
+  rejectReason String?         @db.VarChar(200)
+  pinned       Boolean         @default(false)
+  tag          RadarPostTag?
+  createdById  String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  approvedById String?
+  approvedAt   DateTime?
+
+  tenant     Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy  User   @relation("RadarPostAuthor", fields: [createdById], references: [id], onDelete: Cascade)
+  approvedBy User?  @relation("RadarPostApprover", fields: [approvedById], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, status, approvedAt])
+  @@index([tenantId, createdById, createdAt])
+  @@index([tenantId, pinned, approvedAt])
 }

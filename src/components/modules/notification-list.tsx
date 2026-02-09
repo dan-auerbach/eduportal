@@ -17,6 +17,7 @@ import {
   Loader2,
   TrendingUp,
   RefreshCw,
+  Radar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +40,9 @@ type NotificationData = {
     | "CERTIFICATE_ISSUED"
     | "PROGRESS_OVERRIDE"
     | "MODULE_UPDATED"
-    | "SYSTEM";
+    | "SYSTEM"
+    | "RADAR_APPROVED"
+    | "RADAR_REJECTED";
   title: string;
   message: string;
   link: string | null;
@@ -56,6 +59,8 @@ const typeIcons: Record<NotificationData["type"], React.ReactNode> = {
   PROGRESS_OVERRIDE: <AlertTriangle className="h-4 w-4 text-red-500" />,
   MODULE_UPDATED: <RefreshCw className="h-4 w-4 text-blue-500" />,
   SYSTEM: <Settings className="h-4 w-4 text-gray-500" />,
+  RADAR_APPROVED: <Radar className="h-4 w-4 text-green-500" />,
+  RADAR_REJECTED: <Radar className="h-4 w-4 text-red-500" />,
 };
 
 function getTypeLabel(type: NotificationData["type"]): string {
@@ -68,6 +73,8 @@ function getTypeLabel(type: NotificationData["type"]): string {
     PROGRESS_OVERRIDE: t("notifications.typeProgressOverride"),
     MODULE_UPDATED: t("notifications.typeModuleUpdated"),
     SYSTEM: t("notifications.typeSystem"),
+    RADAR_APPROVED: t("notifications.typeRadarApproved"),
+    RADAR_REJECTED: t("notifications.typeRadarRejected"),
   };
   return map[type];
 }

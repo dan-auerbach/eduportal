@@ -85,7 +85,8 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
-  UserSession: 'UserSession'
+  UserSession: 'UserSession',
+  MentorRadarPost: 'MentorRadarPost'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -567,6 +568,27 @@ export const UserSessionScalarFieldEnum = {
 } as const
 
 export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
+
+
+export const MentorRadarPostScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  url: 'url',
+  sourceDomain: 'sourceDomain',
+  status: 'status',
+  rejectReason: 'rejectReason',
+  pinned: 'pinned',
+  tag: 'tag',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt'
+} as const
+
+export type MentorRadarPostScalarFieldEnum = (typeof MentorRadarPostScalarFieldEnum)[keyof typeof MentorRadarPostScalarFieldEnum]
 
 
 export const SortOrder = {

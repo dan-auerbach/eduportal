@@ -22,6 +22,7 @@ import {
   Hash,
   Star,
   Radio,
+  Radar,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -33,6 +34,7 @@ const employeeNav: NavItem[] = [
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
   { href: "/chat", labelKey: "nav.chat", icon: Hash },
   { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio },
+  { href: "/radar", labelKey: "nav.radar", icon: Radar },
 ];
 
 const adminNav: NavItem[] = [

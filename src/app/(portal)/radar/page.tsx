@@ -6,8 +6,8 @@ import {
   getMyRadarPosts,
   getPendingRadarPosts,
 } from "@/actions/radar";
-import { CreateRadarPostDialog } from "@/components/radar/radar-post-form";
-import { RadarPostCard } from "@/components/radar/radar-post-card";
+import { RadarComposer } from "@/components/radar/radar-composer";
+import { RadarFeedItem } from "@/components/radar/radar-feed-item";
 import { RadarTabs } from "@/components/radar/radar-tabs";
 import { MarkRadarSeen } from "@/components/radar/mark-radar-seen";
 
@@ -51,32 +51,36 @@ export default async function RadarPage({
     tab === "approved" ? t("radar.noApprovedPostsDesc") : undefined;
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-2xl">
       {/* Mark radar as seen for unread counter */}
       <MarkRadarSeen />
 
-      {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <Radar className="h-6 w-6 text-primary" />
-            {t("radar.title")}
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {t("radar.subtitle")}
-          </p>
-        </div>
-        <CreateRadarPostDialog isAdmin={isAdmin} />
+      {/* Compact header */}
+      <div className="flex items-center gap-2 mb-4">
+        <Radar className="h-5 w-5 text-primary shrink-0" />
+        <h1 className="text-lg font-bold">{t("radar.title")}</h1>
+        <span className="text-xs text-muted-foreground/60 hidden sm:inline">
+          {t("radar.subtitle")}
+        </span>
       </div>
 
-      {/* Tabs */}
-      <RadarTabs isAdmin={isAdmin} />
+      {/* Inline composer — always visible on approved tab */}
+      {tab === "approved" && (
+        <div className="mb-4">
+          <RadarComposer isAdmin={isAdmin} />
+        </div>
+      )}
 
-      {/* Posts list — single column, no grid */}
+      {/* Tabs */}
+      <div className="mb-2">
+        <RadarTabs isAdmin={isAdmin} />
+      </div>
+
+      {/* Feed */}
       {posts.length > 0 ? (
-        <div className="space-y-3 max-w-2xl">
+        <div className="divide-y divide-border/40">
           {posts.map((post) => (
-            <RadarPostCard
+            <RadarFeedItem
               key={post.id}
               post={post}
               showStatus={tab === "my"}
@@ -85,13 +89,13 @@ export default async function RadarPage({
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Radar className="h-12 w-12 text-muted-foreground/30 mb-4" />
-          <p className="text-sm font-medium text-muted-foreground">
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <Radar className="h-10 w-10 text-muted-foreground/20 mb-3" />
+          <p className="text-sm text-muted-foreground">
             {emptyMessage}
           </p>
           {emptyDesc && (
-            <p className="text-xs text-muted-foreground/70 mt-1">
+            <p className="text-xs text-muted-foreground/50 mt-1">
               {emptyDesc}
             </p>
           )}

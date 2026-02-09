@@ -136,7 +136,7 @@ export const en = {
     feedback: "Ratings",
     mentorLive: "#mentor live",
     mentorLiveNoEvents: "No scheduled events",
-    radar: "Mentor Radar",
+    radar: "Radar",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1168,12 +1168,13 @@ export const en = {
     tabApproved: "Approved",
     tabMyPosts: "My posts",
     tabPending: "Awaiting approval",
-    addPost: "Add to Radar",
-    // Form
-    descriptionField: "Description",
-    descriptionPlaceholder: "Why is this content interesting? (up to 600 characters)",
-    urlField: "Link",
-    urlPlaceholder: "https://...",
+    addPost: "Add",
+    // Inline composer
+    composerUrlPlaceholder: "Paste a link …",
+    composerDescPlaceholder: "Why is it interesting? (optional, up to 600 chars)",
+    composerSubmitting: "Adding …",
+    composerPendingToast: "Thanks. An admin needs to approve your post.",
+    composerApprovedToast: "Post added.",
     // Status
     statusPending: "Pending",
     statusApproved: "Approved",
@@ -1188,8 +1189,8 @@ export const en = {
     save: "Save",
     unsave: "Unsave",
     openLink: "Open link",
-    showMore: "More",
-    showLess: "Less",
+    showMore: "more",
+    showLess: "less",
     // Reject dialog
     rejectTitle: "Reject post",
     rejectReasonField: "Reason for rejection",
@@ -1207,9 +1208,10 @@ export const en = {
     maxPinnedReached: "You already have 3 pinned posts. Unpin one first.",
     rateLimitReached: "You have already submitted 5 posts today. Try again tomorrow.",
     duplicateWarning: "This URL was already published in the last 30 days. Do you want to continue?",
-    // Badges
+    // Badges / indicators
     pinnedBadge: "Pinned",
     staleBadge: "Old",
+    newBadge: "new",
     radarTag: "#radar",
     // Metadata
     rejectedReason: "Reason: {reason}",

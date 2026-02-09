@@ -1168,12 +1168,13 @@ export const sl = {
     tabApproved: "Potrjeno",
     tabMyPosts: "Moje objave",
     tabPending: "Čaka na potrditev",
-    addPost: "Dodaj v Radar",
-    // Form
-    descriptionField: "Opis",
-    descriptionPlaceholder: "Zakaj je ta vsebina zanimiva? (do 600 znakov)",
-    urlField: "Povezava",
-    urlPlaceholder: "https://...",
+    addPost: "Dodaj",
+    // Inline composer
+    composerUrlPlaceholder: "Prilepi povezavo …",
+    composerDescPlaceholder: "Zakaj je zanimivo? (neobvezno, do 600 znakov)",
+    composerSubmitting: "Dodajanje …",
+    composerPendingToast: "Hvala. Objavo mora potrditi admin.",
+    composerApprovedToast: "Objava dodana.",
     // Status
     statusPending: "V čakanju",
     statusApproved: "Potrjeno",
@@ -1188,8 +1189,8 @@ export const sl = {
     save: "Shrani",
     unsave: "Odstrani",
     openLink: "Odpri povezavo",
-    showMore: "Več",
-    showLess: "Manj",
+    showMore: "več",
+    showLess: "manj",
     // Reject dialog
     rejectTitle: "Zavrni objavo",
     rejectReasonField: "Razlog za zavrnitev",
@@ -1207,9 +1208,10 @@ export const sl = {
     maxPinnedReached: "Že imate 3 pripete objave. Najprej odpnite eno.",
     rateLimitReached: "Danes ste že oddali 5 objav. Poskusite jutri.",
     duplicateWarning: "Ta URL je bil že objavljen v zadnjih 30 dneh. Vseeno nadaljujete?",
-    // Badges
+    // Badges / indicators
     pinnedBadge: "Pripeto",
     staleBadge: "Staro",
+    newBadge: "novo",
     radarTag: "#radar",
     // Metadata
     rejectedReason: "Razlog: {reason}",

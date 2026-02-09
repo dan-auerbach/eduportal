@@ -60,7 +60,7 @@ interface SectionData {
   type: SectionType;
   sortOrder: number;
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;

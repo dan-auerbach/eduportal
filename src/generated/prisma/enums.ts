@@ -86,7 +86,8 @@ export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
 export const VideoSourceType = {
   YOUTUBE_VIMEO_URL: 'YOUTUBE_VIMEO_URL',
-  UPLOAD: 'UPLOAD'
+  UPLOAD: 'UPLOAD',
+  TARGETVIDEO: 'TARGETVIDEO'
 } as const
 
 export type VideoSourceType = (typeof VideoSourceType)[keyof typeof VideoSourceType]

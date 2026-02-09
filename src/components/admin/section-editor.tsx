@@ -78,7 +78,7 @@ interface SectionData {
   type: SectionType;
   sortOrder: number;
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
@@ -707,6 +707,9 @@ function VideoEditor({
             <SelectItem value="UPLOAD">
               {t("admin.sectionEditor.videoSourceUpload")}
             </SelectItem>
+            <SelectItem value="TARGETVIDEO">
+              {t("admin.sectionEditor.videoSourceTargetVideo")}
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -823,6 +826,56 @@ function VideoEditor({
             }}
           />
         </>
+      )}
+
+      {/* TargetVideo mode */}
+      {videoSourceType === "TARGETVIDEO" && (
+        <TargetVideoInput content={content} onChange={onChange} />
+      )}
+    </div>
+  );
+}
+
+// ─── TargetVideo ID Input ─────────────────────────────────────────────
+
+/** Validates a TargetVideo ID: digits only, at least 4 chars */
+function isValidTargetVideoId(id: string): boolean {
+  return /^\d{4,}$/.test(id.trim());
+}
+
+function TargetVideoInput({
+  content,
+  onChange,
+}: {
+  content: string;
+  onChange: (value: string) => void;
+}) {
+  const trimmed = content.trim();
+  const showError = trimmed.length > 0 && !isValidTargetVideoId(trimmed);
+
+  return (
+    <div className="space-y-2">
+      <Label>{t("admin.sectionEditor.targetVideoIdLabel")}</Label>
+      <Input
+        value={content}
+        onChange={(e) => {
+          // Strip non-digit characters on input
+          const cleaned = e.target.value.replace(/[^\d]/g, "");
+          onChange(cleaned);
+        }}
+        placeholder={t("admin.sectionEditor.targetVideoIdPlaceholder")}
+        inputMode="numeric"
+        pattern="[0-9]*"
+      />
+      {showError && (
+        <p className="text-sm text-destructive">
+          {t("admin.sectionEditor.targetVideoIdInvalid")}
+        </p>
+      )}
+      {isValidTargetVideoId(trimmed) && (
+        <p className="text-sm text-muted-foreground">
+          Video ID: {trimmed}
+        </p>
       )}
     </div>
   );

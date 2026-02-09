@@ -39,6 +39,7 @@ import { completeSection } from "@/actions/progress";
 import { acknowledgeModuleUpdate } from "@/actions/modules";
 import { t } from "@/lib/i18n";
 import { ModuleChatRoom } from "@/components/modules/module-chat-room";
+import { TargetVideoPlayer } from "@/components/modules/target-video-player";
 
 type SectionData = {
   id: string;
@@ -47,7 +48,7 @@ type SectionData = {
   sortOrder: number;
   type: "TEXT" | "VIDEO" | "ATTACHMENT" | "MIXED";
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoMimeType: string | null;
   attachments: {
@@ -641,6 +642,20 @@ export function SectionViewer({
                 {(activeSection.type === "VIDEO" ||
                   activeSection.type === "MIXED") &&
                   (() => {
+                    // TargetVideo player
+                    if (activeSection.videoSourceType === "TARGETVIDEO" && activeSection.content) {
+                      const tvId = activeSection.content.trim();
+                      if (/^\d{4,}$/.test(tvId)) {
+                        return (
+                          <TargetVideoPlayer
+                            videoId={tvId}
+                            sectionId={activeSection.id}
+                          />
+                        );
+                      }
+                      return null;
+                    }
+
                     // Uploaded video
                     if (activeSection.videoSourceType === "UPLOAD" && activeSection.videoBlobUrl) {
                       return (

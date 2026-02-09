@@ -346,6 +346,7 @@ model Section {
 enum VideoSourceType {
   YOUTUBE_VIMEO_URL
   UPLOAD
+  TARGETVIDEO
 }
 
 enum SectionType {

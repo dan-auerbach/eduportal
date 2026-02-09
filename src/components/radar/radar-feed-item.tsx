@@ -4,10 +4,10 @@ import { useState } from "react";
 import {
   ExternalLink,
   Pin,
-  Bookmark,
   Archive,
   Check,
   PinOff,
+  Link as LinkIcon,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -44,6 +44,18 @@ function relativeTime(isoString: string): string {
     addSuffix: true,
     locale: getDateLocale(),
   });
+}
+
+/** Only open http/https URLs */
+function safeOpen(url: string) {
+  try {
+    const u = new URL(url);
+    if (u.protocol === "http:" || u.protocol === "https:") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  } catch {
+    // invalid URL — do nothing
+  }
 }
 
 // ── Tiny icon button (accessible) ───────────────────────────────────────────
@@ -118,29 +130,51 @@ export function RadarFeedItem({
   );
   const saveToggle = useRadarAction(
     () => toggleRadarSave(post.id),
-    "",
+    post.saved ? t("radar.postUnpinned") : t("radar.postPinnedPersonal"),
   );
 
+  /** Click on container opens the link (except when clicking actions/controls) */
+  function handleItemClick(e: React.MouseEvent<HTMLDivElement>) {
+    // Don't open if user is selecting text
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) return;
+    safeOpen(post.url);
+  }
+
   return (
-    <div className="group/item relative py-2.5 px-1 hover:bg-muted/20 focus-within:bg-muted/20 transition-colors">
+    <div
+      className="group/item relative py-2.5 px-2 hover:bg-muted/30 focus-within:bg-muted/20 transition-colors cursor-pointer rounded-sm"
+      onClick={handleItemClick}
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && !e.ctrlKey && !e.metaKey) {
+          safeOpen(post.url);
+        }
+      }}
+    >
       {/* Layout: content left + actions right */}
       <div className="flex gap-2 min-w-0">
         {/* ── Left: content column ── */}
         <div className="flex-1 min-w-0">
-          {/* Row A: Description (main hook) — with inline indicators */}
+          {/* Row A: Description (main hook / headline) — with inline indicators */}
           {post.description ? (
             <div>
               <p
-                className={`text-[13px] leading-snug text-foreground/90 font-medium whitespace-pre-line ${
+                className={`text-[13.5px] leading-relaxed text-foreground font-medium whitespace-pre-line ${
                   !expanded ? "line-clamp-3 sm:line-clamp-2" : ""
                 }`}
               >
-                {/* Pinned indicator inline */}
-                {post.pinned && (
+                {/* Personal pin indicator */}
+                {post.saved && (
+                  <Pin className="inline h-3 w-3 text-primary -rotate-45 mr-1 -mt-0.5" />
+                )}
+                {/* Global pinned indicator */}
+                {post.pinned && !post.saved && (
                   <Pin className="inline h-3 w-3 text-amber-500 -rotate-45 mr-1 -mt-0.5" />
                 )}
                 {/* NEW dot inline */}
-                {fresh && !post.pinned && (
+                {fresh && !post.pinned && !post.saved && (
                   <span
                     className="inline-block h-1.5 w-1.5 rounded-full bg-primary mr-1.5 -mt-0.5 align-middle"
                     title={t("radar.newBadge")}
@@ -151,7 +185,10 @@ export function RadarFeedItem({
               {post.description.length > 80 && (
                 <button
                   type="button"
-                  onClick={() => setExpanded(!expanded)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setExpanded(!expanded);
+                  }}
                   className="text-primary/60 hover:text-primary text-[11px] hover:underline focus-visible:underline focus-visible:outline-none"
                 >
                   {expanded ? t("radar.showLess") : t("radar.showMore")}
@@ -159,41 +196,42 @@ export function RadarFeedItem({
               )}
             </div>
           ) : (
-            /* No description — show URL as primary with indicators */
+            /* No description — show domain as primary with indicators */
             <div className="flex items-center gap-1.5 min-w-0">
-              {post.pinned && (
+              {post.saved && (
+                <Pin className="h-3 w-3 text-primary shrink-0 -rotate-45" />
+              )}
+              {post.pinned && !post.saved && (
                 <Pin className="h-3 w-3 text-amber-500 shrink-0 -rotate-45" />
               )}
-              {fresh && !post.pinned && (
+              {fresh && !post.pinned && !post.saved && (
                 <span
                   className="h-1.5 w-1.5 rounded-full bg-primary shrink-0"
                   title={t("radar.newBadge")}
                 />
               )}
-              <a
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={post.url}
-                className="text-[13px] font-medium text-foreground/90 hover:text-primary transition-colors truncate"
-              >
+              <span className="text-[13.5px] font-medium text-foreground hover:text-primary transition-colors truncate">
                 {post.sourceDomain}
-              </a>
+              </span>
             </div>
           )}
 
-          {/* Row B: Full URL (secondary, code-like, single-line ellipsis) */}
-          {post.description && (
+          {/* Row B: Full URL with link icon prefix (code-like, single-line ellipsis) */}
+          <div
+            className="mt-0.5 flex items-center gap-1 min-w-0 max-w-full sm:max-w-[680px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <LinkIcon className="h-3 w-3 text-muted-foreground/40 shrink-0" />
             <a
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
               title={post.url}
-              className="mt-0.5 block truncate text-[11px] font-mono text-muted-foreground/50 hover:text-primary/70 transition-colors max-w-full sm:max-w-[680px]"
+              className="truncate text-[11px] font-mono text-muted-foreground/50 hover:text-primary/70 transition-colors"
             >
               {post.url}
             </a>
-          )}
+          </div>
 
           {/* Row C: Meta — author · relative time + optional status badge */}
           <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-muted-foreground/50 min-w-0">
@@ -222,33 +260,31 @@ export function RadarFeedItem({
 
         {/* ── Right: action icons column ── */}
         <div className="flex flex-col items-center gap-0.5 pt-0.5 shrink-0">
-          {/* External link — always visible */}
+          {/* External link — subtle, hover emphasizes */}
           <IconBtn
-            onClick={() =>
-              window.open(post.url, "_blank", "noopener,noreferrer")
-            }
+            onClick={() => safeOpen(post.url)}
             title={t("radar.openLink")}
-            className="!text-muted-foreground/40 hover:!text-primary"
+            className="!text-muted-foreground/30 group-hover/item:!text-muted-foreground/50 hover:!text-primary"
           >
             <ExternalLink className="h-3.5 w-3.5" />
           </IconBtn>
 
           {/* Secondary actions — hover on desktop, always on mobile */}
           <div className="flex flex-col items-center gap-0.5 md:opacity-0 md:group-hover/item:opacity-100 md:group-focus-within/item:opacity-100 transition-opacity">
-            {/* Bookmark (all users, approved) */}
+            {/* Personal pin (all users, approved posts) */}
             {post.status === "APPROVED" && (
               <IconBtn
                 onClick={saveToggle.execute}
                 disabled={saveToggle.pending}
-                title={post.saved ? t("radar.unsave") : t("radar.save")}
+                title={post.saved ? t("radar.unpinPersonal") : t("radar.pinPersonal")}
               >
-                <Bookmark
-                  className={`h-3.5 w-3.5 ${post.saved ? "fill-primary text-primary" : ""}`}
+                <Pin
+                  className={`h-3.5 w-3.5 ${post.saved ? "fill-primary text-primary -rotate-45" : ""}`}
                 />
               </IconBtn>
             )}
 
-            {/* Admin: pin/unpin (approved) */}
+            {/* Admin: global pin/unpin (approved) */}
             {isAdmin && post.status === "APPROVED" && (
               <IconBtn
                 onClick={pinToggle.execute}
@@ -258,7 +294,7 @@ export function RadarFeedItem({
                 {post.pinned ? (
                   <PinOff className="h-3.5 w-3.5" />
                 ) : (
-                  <Pin className="h-3.5 w-3.5" />
+                  <Pin className="h-3.5 w-3.5 text-amber-500/70" />
                 )}
               </IconBtn>
             )}

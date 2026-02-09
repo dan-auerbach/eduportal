@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { X, Bookmark } from "lucide-react";
+import { X, Pin } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -102,7 +102,7 @@ export function RejectRadarDialog({
   );
 }
 
-// ── Save / Unsave (personal bookmark) — kept for backward compat ─────────────
+// ── Personal Pin (Pripni) — kept for backward compat ─────────────────────────
 
 export function SaveRadarToggle({
   postId,
@@ -119,7 +119,7 @@ export function SaveRadarToggle({
       const result = await toggleRadarSave(postId);
       if (result.success) {
         toast.success(
-          result.data.saved ? t("radar.postSaved") : t("radar.postUnsaved"),
+          result.data.saved ? t("radar.postPinnedPersonal") : t("radar.postUnpinned"),
         );
         router.refresh();
       } else {
@@ -135,10 +135,10 @@ export function SaveRadarToggle({
       onClick={handleToggle}
       disabled={isPending}
       className="h-7 w-7"
-      title={saved ? t("radar.unsave") : t("radar.save")}
+      title={saved ? t("radar.unpinPersonal") : t("radar.pinPersonal")}
     >
-      <Bookmark
-        className={`h-3.5 w-3.5 ${saved ? "fill-primary text-primary" : ""}`}
+      <Pin
+        className={`h-3.5 w-3.5 ${saved ? "fill-primary text-primary -rotate-45" : ""}`}
       />
     </Button>
   );

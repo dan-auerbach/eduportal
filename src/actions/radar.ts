@@ -93,13 +93,51 @@ function isAdmin(role: string): boolean {
   return role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
 }
 
-/** Load saved post IDs for the current user */
-async function getUserSavedPostIds(userId: string): Promise<Set<string>> {
+/** Load saved post IDs for the current user, with timestamps for sort */
+async function getUserSaves(
+  userId: string,
+): Promise<{ ids: Set<string>; pinnedAt: Map<string, Date> }> {
   const saves = await prisma.radarSave.findMany({
     where: { userId },
-    select: { postId: true },
+    select: { postId: true, createdAt: true },
   });
-  return new Set(saves.map((s) => s.postId));
+  return {
+    ids: new Set(saves.map((s) => s.postId)),
+    pinnedAt: new Map(saves.map((s) => [s.postId, s.createdAt])),
+  };
+}
+
+/**
+ * Sort posts: personal-pinned first (by pinnedAt desc),
+ * then global-pinned, then rest by approvedAt desc.
+ */
+function sortWithPersonalPins(
+  posts: RadarPostDTO[],
+  pinnedAt: Map<string, Date>,
+): RadarPostDTO[] {
+  return posts.sort((a, b) => {
+    const aPinned = pinnedAt.has(a.id);
+    const bPinned = pinnedAt.has(b.id);
+
+    // Personal pins first
+    if (aPinned && !bPinned) return -1;
+    if (!aPinned && bPinned) return 1;
+    if (aPinned && bPinned) {
+      // Both personal-pinned: most recently pinned first
+      const aTime = pinnedAt.get(a.id)!.getTime();
+      const bTime = pinnedAt.get(b.id)!.getTime();
+      return bTime - aTime;
+    }
+
+    // Then global pinned
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+
+    // Then by approvedAt desc (or createdAt as fallback)
+    const aDate = new Date(a.approvedAt || a.createdAt).getTime();
+    const bDate = new Date(b.approvedAt || b.createdAt).getTime();
+    return bDate - aDate;
+  });
 }
 
 // ── Queries ──────────────────────────────────────────────────────────────────
@@ -112,17 +150,19 @@ export async function getApprovedRadarPosts(): Promise<ActionResult<RadarPostDTO
   try {
     const ctx = await getTenantContext();
 
-    const [posts, savedIds] = await Promise.all([
+    const [posts, saves] = await Promise.all([
       prisma.mentorRadarPost.findMany({
         where: { tenantId: ctx.tenantId, status: "APPROVED" },
         orderBy: [{ pinned: "desc" }, { approvedAt: "desc" }],
         take: 50,
         select: POST_SELECT,
       }),
-      getUserSavedPostIds(ctx.user.id),
+      getUserSaves(ctx.user.id),
     ]);
 
-    return { success: true, data: posts.map((p) => toDTO(p, savedIds)) };
+    const dtos = posts.map((p) => toDTO(p, saves.ids));
+    // Re-sort: personal-pinned first, then global pinned, then rest
+    return { success: true, data: sortWithPersonalPins(dtos, saves.pinnedAt) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -138,17 +178,18 @@ export async function getMyRadarPosts(): Promise<ActionResult<RadarPostDTO[]>> {
   try {
     const ctx = await getTenantContext();
 
-    const [posts, savedIds] = await Promise.all([
+    const [posts, saves] = await Promise.all([
       prisma.mentorRadarPost.findMany({
         where: { tenantId: ctx.tenantId, createdById: ctx.user.id },
         orderBy: { createdAt: "desc" },
         take: 50,
         select: POST_SELECT,
       }),
-      getUserSavedPostIds(ctx.user.id),
+      getUserSaves(ctx.user.id),
     ]);
 
-    return { success: true, data: posts.map((p) => toDTO(p, savedIds)) };
+    const dtos = posts.map((p) => toDTO(p, saves.ids));
+    return { success: true, data: sortWithPersonalPins(dtos, saves.pinnedAt) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };

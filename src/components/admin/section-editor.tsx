@@ -105,7 +105,7 @@ export function SectionEditorSheet({
   const [localContent, setLocalContent] = useState("");
   const [localType, setLocalType] = useState<SectionType>("TEXT");
   const [localUnlockAfter, setLocalUnlockAfter] = useState("none");
-  const [localVideoSourceType, setLocalVideoSourceType] = useState<VideoSourceType>("YOUTUBE_VIMEO_URL");
+  const [localVideoSourceType, setLocalVideoSourceType] = useState<VideoSourceType>("TARGETVIDEO");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("saved");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -115,7 +115,7 @@ export function SectionEditorSheet({
     content: "",
     type: "TEXT" as SectionType,
     unlockAfter: "none",
-    videoSourceType: "YOUTUBE_VIMEO_URL" as VideoSourceType,
+    videoSourceType: "TARGETVIDEO" as VideoSourceType,
   });
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionIdRef = useRef<string | null>(null);
@@ -127,14 +127,14 @@ export function SectionEditorSheet({
       setLocalContent(section.content);
       setLocalType(section.type);
       setLocalUnlockAfter(section.unlockAfterSectionId || "none");
-      setLocalVideoSourceType(section.videoSourceType || "YOUTUBE_VIMEO_URL");
+      setLocalVideoSourceType(section.videoSourceType || "TARGETVIDEO");
       setSaveStatus("saved");
       savedValuesRef.current = {
         title: section.title,
         content: section.content,
         type: section.type,
         unlockAfter: section.unlockAfterSectionId || "none",
-        videoSourceType: section.videoSourceType || "YOUTUBE_VIMEO_URL",
+        videoSourceType: section.videoSourceType || "TARGETVIDEO",
       };
       sectionIdRef.current = section.id;
     }
@@ -621,7 +621,7 @@ function VideoEditor({
       return;
     }
 
-    if (file.size > 500 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       toast.error(t("admin.sectionEditor.videoTooLarge"));
       return;
     }
@@ -695,7 +695,14 @@ function VideoEditor({
         <Label>{t("admin.sectionEditor.videoSource")}</Label>
         <Select
           value={videoSourceType}
-          onValueChange={(v) => onVideoSourceTypeChange(v as VideoSourceType)}
+          onValueChange={(v) => {
+            const newSource = v as VideoSourceType;
+            // Clear content when switching source to avoid stale HTML/URL/ID leaking
+            if (newSource !== videoSourceType) {
+              onChange("");
+            }
+            onVideoSourceTypeChange(newSource);
+          }}
         >
           <SelectTrigger className="w-[280px]">
             <SelectValue />
@@ -850,16 +857,24 @@ function TargetVideoInput({
   content: string;
   onChange: (value: string) => void;
 }) {
-  const trimmed = content.trim();
-  const showError = trimmed.length > 0 && !isValidTargetVideoId(trimmed);
+  // Strip any non-digit chars (handles stale HTML like "<p></p>" from type switch)
+  const digitsOnly = content.replace(/[^\d]/g, "");
+
+  // Auto-clean content if it had non-digit chars (e.g. leftover HTML)
+  useEffect(() => {
+    if (content !== digitsOnly) {
+      onChange(digitsOnly);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- only on mount
+
+  const showError = digitsOnly.length > 0 && !isValidTargetVideoId(digitsOnly);
 
   return (
     <div className="space-y-2">
       <Label>{t("admin.sectionEditor.targetVideoIdLabel")}</Label>
       <Input
-        value={content}
+        value={digitsOnly}
         onChange={(e) => {
-          // Strip non-digit characters on input
           const cleaned = e.target.value.replace(/[^\d]/g, "");
           onChange(cleaned);
         }}
@@ -872,9 +887,9 @@ function TargetVideoInput({
           {t("admin.sectionEditor.targetVideoIdInvalid")}
         </p>
       )}
-      {isValidTargetVideoId(trimmed) && (
+      {isValidTargetVideoId(digitsOnly) && (
         <p className="text-sm text-muted-foreground">
-          Video ID: {trimmed}
+          Video ID: {digitsOnly}
         </p>
       )}
     </div>

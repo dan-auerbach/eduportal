@@ -16,7 +16,7 @@ import { getTenantContext } from "@/lib/tenant";
 import { hasPermission } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
 
-const MAX_VIDEO_SIZE = 500 * 1024 * 1024; // 500 MB
+const MAX_VIDEO_SIZE = 10 * 1024 * 1024; // 10 MB (temporarily limited)
 const ALLOWED_VIDEO_TYPES = [
   "video/mp4",
   "video/webm",

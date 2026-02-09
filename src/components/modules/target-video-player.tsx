@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import { t } from "@/lib/i18n";
 
 // ── Constants (hardcoded, never from user input) ────────────────────────────
@@ -50,9 +50,12 @@ function loadTargetVideoScript(): Promise<void> {
     script.async = true;
 
     script.onload = () => {
-      _loadState = "loaded";
-      notifyListeners();
-      resolve();
+      // Small delay to ensure $bp is fully initialized after script eval
+      setTimeout(() => {
+        _loadState = "loaded";
+        notifyListeners();
+        resolve();
+      }, 100);
     };
 
     script.onerror = () => {
@@ -61,7 +64,8 @@ function loadTargetVideoScript(): Promise<void> {
       reject(new Error("TargetVideo script failed to load"));
     };
 
-    document.head.appendChild(script);
+    // Append to body (matching TargetVideo reference embed pattern)
+    document.body.appendChild(script);
   });
 
   return _loadPromise;
@@ -127,13 +131,15 @@ export function TargetVideoPlayer({
     const bp = (window as unknown as Record<string, unknown>).$bp;
     if (typeof bp !== "function") return;
 
-    // Initialize the player
+    // Initialize the player (width/height required per TargetVideo embed spec)
     try {
       (bp as (containerId: string, opts: Record<string, string>) => void)(
         containerId,
         {
           video: safeVideoId,
           id: TARGETVIDEO_PLAYER_ID,
+          width: "640",
+          height: "360",
         }
       );
       initializedRef.current = true;
@@ -164,12 +170,22 @@ export function TargetVideoPlayer({
     );
   }
 
+  // Loading state
+  if (scriptState === "loading" || scriptState === "idle") {
+    return (
+      <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">
       <div
         ref={containerRef}
         id={containerId}
         className="w-full h-full"
+        style={{ width: "100%", height: "100%" }}
       />
     </div>
   );

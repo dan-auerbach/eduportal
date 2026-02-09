@@ -98,6 +98,46 @@ function useChatUnreadCount(tenantId: string | undefined, isOnChatPage: boolean)
   return count;
 }
 
+// ── Radar unread badge hook ──────────────────────────────────────────────────
+
+const RADAR_POLL_INTERVAL = 30_000; // 30 seconds
+
+function useRadarUnreadCount(tenantId: string | undefined, isOnRadarPage: boolean) {
+  const [count, setCount] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (!tenantId) return;
+
+    // When user is on radar page, always show 0 (MarkRadarSeen handles it)
+    if (isOnRadarPage) {
+      setCount(0);
+      return;
+    }
+
+    const fetchUnread = async () => {
+      try {
+        const res = await fetch("/api/radar/unread");
+        if (res.ok) {
+          const data = await res.json();
+          setCount(data.count ?? 0);
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    fetchUnread();
+    intervalRef.current = setInterval(fetchUnread, RADAR_POLL_INTERVAL);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [tenantId, isOnRadarPage]);
+
+  return count;
+}
+
 // ── Sidebar ──────────────────────────────────────────────────────────────────
 
 type SidebarProps = {
@@ -121,6 +161,7 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
   const isInAdminSection = pathname.startsWith("/admin");
   const isInOwnerSection = pathname.startsWith("/owner");
   const isOnChatPage = pathname === "/chat" || pathname.startsWith("/chat/");
+  const isOnRadarPage = pathname === "/radar" || pathname.startsWith("/radar");
 
   const rawNavItems = isInOwnerSection && isOwner
     ? ownerNav
@@ -131,6 +172,7 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
   const navItems = rawNavItems.filter((item) => !item.ownerOnly || isOwner);
 
   const chatUnread = useChatUnreadCount(tenantId, isOnChatPage);
+  const radarUnread = useRadarUnreadCount(tenantId, isOnRadarPage);
 
   return (
     <>
@@ -201,7 +243,9 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
                   : pathname.startsWith(item.href);
 
           const isChatItem = item.href === "/chat";
-          const showBadge = isChatItem && chatUnread > 0;
+          const isRadarItem = item.href === "/radar";
+          const badgeCount = isChatItem ? chatUnread : isRadarItem ? radarUnread : 0;
+          const showBadge = badgeCount > 0;
           const isMentorLive = item.href === "/mentor-v-zivo";
 
           // Build sub-label for #mentor v živo
@@ -247,7 +291,7 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
               </div>
               {showBadge && (
                 <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
-                  {chatUnread > 99 ? "99+" : chatUnread}
+                  {badgeCount > 99 ? "99+" : badgeCount}
                 </span>
               )}
             </Link>

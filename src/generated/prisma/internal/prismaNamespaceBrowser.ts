@@ -86,7 +86,9 @@ export const ModelName = {
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
   UserSession: 'UserSession',
-  MentorRadarPost: 'MentorRadarPost'
+  MentorRadarPost: 'MentorRadarPost',
+  RadarSeen: 'RadarSeen',
+  RadarSave: 'RadarSave'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -573,14 +575,12 @@ export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[key
 export const MentorRadarPostScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  title: 'title',
   description: 'description',
   url: 'url',
   sourceDomain: 'sourceDomain',
   status: 'status',
   rejectReason: 'rejectReason',
   pinned: 'pinned',
-  tag: 'tag',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -589,6 +589,26 @@ export const MentorRadarPostScalarFieldEnum = {
 } as const
 
 export type MentorRadarPostScalarFieldEnum = (typeof MentorRadarPostScalarFieldEnum)[keyof typeof MentorRadarPostScalarFieldEnum]
+
+
+export const RadarSeenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type RadarSeenScalarFieldEnum = (typeof RadarSeenScalarFieldEnum)[keyof typeof RadarSeenScalarFieldEnum]
+
+
+export const RadarSaveScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+} as const
+
+export type RadarSaveScalarFieldEnum = (typeof RadarSaveScalarFieldEnum)[keyof typeof RadarSaveScalarFieldEnum]
 
 
 export const SortOrder = {

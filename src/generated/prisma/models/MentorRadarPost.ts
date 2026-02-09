@@ -27,14 +27,12 @@ export type AggregateMentorRadarPost = {
 export type MentorRadarPostMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  title: string | null
   description: string | null
   url: string | null
   sourceDomain: string | null
   status: $Enums.RadarPostStatus | null
   rejectReason: string | null
   pinned: boolean | null
-  tag: $Enums.RadarPostTag | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -45,14 +43,12 @@ export type MentorRadarPostMinAggregateOutputType = {
 export type MentorRadarPostMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  title: string | null
   description: string | null
   url: string | null
   sourceDomain: string | null
   status: $Enums.RadarPostStatus | null
   rejectReason: string | null
   pinned: boolean | null
-  tag: $Enums.RadarPostTag | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -63,14 +59,12 @@ export type MentorRadarPostMaxAggregateOutputType = {
 export type MentorRadarPostCountAggregateOutputType = {
   id: number
   tenantId: number
-  title: number
   description: number
   url: number
   sourceDomain: number
   status: number
   rejectReason: number
   pinned: number
-  tag: number
   createdById: number
   createdAt: number
   updatedAt: number
@@ -83,14 +77,12 @@ export type MentorRadarPostCountAggregateOutputType = {
 export type MentorRadarPostMinAggregateInputType = {
   id?: true
   tenantId?: true
-  title?: true
   description?: true
   url?: true
   sourceDomain?: true
   status?: true
   rejectReason?: true
   pinned?: true
-  tag?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -101,14 +93,12 @@ export type MentorRadarPostMinAggregateInputType = {
 export type MentorRadarPostMaxAggregateInputType = {
   id?: true
   tenantId?: true
-  title?: true
   description?: true
   url?: true
   sourceDomain?: true
   status?: true
   rejectReason?: true
   pinned?: true
-  tag?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -119,14 +109,12 @@ export type MentorRadarPostMaxAggregateInputType = {
 export type MentorRadarPostCountAggregateInputType = {
   id?: true
   tenantId?: true
-  title?: true
   description?: true
   url?: true
   sourceDomain?: true
   status?: true
   rejectReason?: true
   pinned?: true
-  tag?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -210,14 +198,12 @@ export type MentorRadarPostGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type MentorRadarPostGroupByOutputType = {
   id: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status: $Enums.RadarPostStatus
   rejectReason: string | null
   pinned: boolean
-  tag: $Enums.RadarPostTag | null
   createdById: string
   createdAt: Date
   updatedAt: Date
@@ -249,14 +235,12 @@ export type MentorRadarPostWhereInput = {
   NOT?: Prisma.MentorRadarPostWhereInput | Prisma.MentorRadarPostWhereInput[]
   id?: Prisma.StringFilter<"MentorRadarPost"> | string
   tenantId?: Prisma.StringFilter<"MentorRadarPost"> | string
-  title?: Prisma.StringFilter<"MentorRadarPost"> | string
   description?: Prisma.StringFilter<"MentorRadarPost"> | string
   url?: Prisma.StringFilter<"MentorRadarPost"> | string
   sourceDomain?: Prisma.StringFilter<"MentorRadarPost"> | string
   status?: Prisma.EnumRadarPostStatusFilter<"MentorRadarPost"> | $Enums.RadarPostStatus
   rejectReason?: Prisma.StringNullableFilter<"MentorRadarPost"> | string | null
   pinned?: Prisma.BoolFilter<"MentorRadarPost"> | boolean
-  tag?: Prisma.EnumRadarPostTagNullableFilter<"MentorRadarPost"> | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFilter<"MentorRadarPost"> | string
   createdAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
@@ -265,19 +249,18 @@ export type MentorRadarPostWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  saves?: Prisma.RadarSaveListRelationFilter
 }
 
 export type MentorRadarPostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   url?: Prisma.SortOrder
   sourceDomain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
   pinned?: Prisma.SortOrder
-  tag?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -286,6 +269,7 @@ export type MentorRadarPostOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   approvedBy?: Prisma.UserOrderByWithRelationInput
+  saves?: Prisma.RadarSaveOrderByRelationAggregateInput
 }
 
 export type MentorRadarPostWhereUniqueInput = Prisma.AtLeast<{
@@ -294,14 +278,12 @@ export type MentorRadarPostWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MentorRadarPostWhereInput[]
   NOT?: Prisma.MentorRadarPostWhereInput | Prisma.MentorRadarPostWhereInput[]
   tenantId?: Prisma.StringFilter<"MentorRadarPost"> | string
-  title?: Prisma.StringFilter<"MentorRadarPost"> | string
   description?: Prisma.StringFilter<"MentorRadarPost"> | string
   url?: Prisma.StringFilter<"MentorRadarPost"> | string
   sourceDomain?: Prisma.StringFilter<"MentorRadarPost"> | string
   status?: Prisma.EnumRadarPostStatusFilter<"MentorRadarPost"> | $Enums.RadarPostStatus
   rejectReason?: Prisma.StringNullableFilter<"MentorRadarPost"> | string | null
   pinned?: Prisma.BoolFilter<"MentorRadarPost"> | boolean
-  tag?: Prisma.EnumRadarPostTagNullableFilter<"MentorRadarPost"> | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFilter<"MentorRadarPost"> | string
   createdAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
@@ -310,19 +292,18 @@ export type MentorRadarPostWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  saves?: Prisma.RadarSaveListRelationFilter
 }, "id">
 
 export type MentorRadarPostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   url?: Prisma.SortOrder
   sourceDomain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
   pinned?: Prisma.SortOrder
-  tag?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -339,14 +320,12 @@ export type MentorRadarPostScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MentorRadarPostScalarWhereWithAggregatesInput | Prisma.MentorRadarPostScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
-  title?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   description?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   url?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   sourceDomain?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   status?: Prisma.EnumRadarPostStatusWithAggregatesFilter<"MentorRadarPost"> | $Enums.RadarPostStatus
   rejectReason?: Prisma.StringNullableWithAggregatesFilter<"MentorRadarPost"> | string | null
   pinned?: Prisma.BoolWithAggregatesFilter<"MentorRadarPost"> | boolean
-  tag?: Prisma.EnumRadarPostTagNullableWithAggregatesFilter<"MentorRadarPost"> | $Enums.RadarPostTag | null
   createdById?: Prisma.StringWithAggregatesFilter<"MentorRadarPost"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MentorRadarPost"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MentorRadarPost"> | Date | string
@@ -356,87 +335,81 @@ export type MentorRadarPostScalarWhereWithAggregatesInput = {
 
 export type MentorRadarPostCreateInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutRadarPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutRadarPostsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedRadarPostsInput
+  saves?: Prisma.RadarSaveCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostUncheckedCreateInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedById?: string | null
   approvedAt?: Date | string | null
+  saves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRadarPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutRadarPostsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedRadarPostsNestedInput
+  saves?: Prisma.RadarSaveUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saves?: Prisma.RadarSaveUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostCreateManyInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -446,14 +419,12 @@ export type MentorRadarPostCreateManyInput = {
 
 export type MentorRadarPostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -462,14 +433,12 @@ export type MentorRadarPostUpdateManyMutationInput = {
 export type MentorRadarPostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -490,14 +459,12 @@ export type MentorRadarPostOrderByRelationAggregateInput = {
 export type MentorRadarPostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   url?: Prisma.SortOrder
   sourceDomain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
   pinned?: Prisma.SortOrder
-  tag?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -508,14 +475,12 @@ export type MentorRadarPostCountOrderByAggregateInput = {
 export type MentorRadarPostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   url?: Prisma.SortOrder
   sourceDomain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
   pinned?: Prisma.SortOrder
-  tag?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -526,19 +491,22 @@ export type MentorRadarPostMaxOrderByAggregateInput = {
 export type MentorRadarPostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   url?: Prisma.SortOrder
   sourceDomain?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
   pinned?: Prisma.SortOrder
-  tag?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+}
+
+export type MentorRadarPostScalarRelationFilter = {
+  is?: Prisma.MentorRadarPostWhereInput
+  isNot?: Prisma.MentorRadarPostWhereInput
 }
 
 export type MentorRadarPostCreateNestedManyWithoutTenantInput = {
@@ -671,42 +639,50 @@ export type EnumRadarPostStatusFieldUpdateOperationsInput = {
   set?: $Enums.RadarPostStatus
 }
 
-export type NullableEnumRadarPostTagFieldUpdateOperationsInput = {
-  set?: $Enums.RadarPostTag | null
+export type MentorRadarPostCreateNestedOneWithoutSavesInput = {
+  create?: Prisma.XOR<Prisma.MentorRadarPostCreateWithoutSavesInput, Prisma.MentorRadarPostUncheckedCreateWithoutSavesInput>
+  connectOrCreate?: Prisma.MentorRadarPostCreateOrConnectWithoutSavesInput
+  connect?: Prisma.MentorRadarPostWhereUniqueInput
+}
+
+export type MentorRadarPostUpdateOneRequiredWithoutSavesNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorRadarPostCreateWithoutSavesInput, Prisma.MentorRadarPostUncheckedCreateWithoutSavesInput>
+  connectOrCreate?: Prisma.MentorRadarPostCreateOrConnectWithoutSavesInput
+  upsert?: Prisma.MentorRadarPostUpsertWithoutSavesInput
+  connect?: Prisma.MentorRadarPostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MentorRadarPostUpdateToOneWithWhereWithoutSavesInput, Prisma.MentorRadarPostUpdateWithoutSavesInput>, Prisma.MentorRadarPostUncheckedUpdateWithoutSavesInput>
 }
 
 export type MentorRadarPostCreateWithoutTenantInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutRadarPostsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedRadarPostsInput
+  saves?: Prisma.RadarSaveCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostUncheckedCreateWithoutTenantInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedById?: string | null
   approvedAt?: Date | string | null
+  saves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostCreateOrConnectWithoutTenantInput = {
@@ -741,14 +717,12 @@ export type MentorRadarPostScalarWhereInput = {
   NOT?: Prisma.MentorRadarPostScalarWhereInput | Prisma.MentorRadarPostScalarWhereInput[]
   id?: Prisma.StringFilter<"MentorRadarPost"> | string
   tenantId?: Prisma.StringFilter<"MentorRadarPost"> | string
-  title?: Prisma.StringFilter<"MentorRadarPost"> | string
   description?: Prisma.StringFilter<"MentorRadarPost"> | string
   url?: Prisma.StringFilter<"MentorRadarPost"> | string
   sourceDomain?: Prisma.StringFilter<"MentorRadarPost"> | string
   status?: Prisma.EnumRadarPostStatusFilter<"MentorRadarPost"> | $Enums.RadarPostStatus
   rejectReason?: Prisma.StringNullableFilter<"MentorRadarPost"> | string | null
   pinned?: Prisma.BoolFilter<"MentorRadarPost"> | boolean
-  tag?: Prisma.EnumRadarPostTagNullableFilter<"MentorRadarPost"> | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFilter<"MentorRadarPost"> | string
   createdAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MentorRadarPost"> | Date | string
@@ -758,36 +732,34 @@ export type MentorRadarPostScalarWhereInput = {
 
 export type MentorRadarPostCreateWithoutCreatedByInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutRadarPostsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedRadarPostsInput
+  saves?: Prisma.RadarSaveCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostUncheckedCreateWithoutCreatedByInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedById?: string | null
   approvedAt?: Date | string | null
+  saves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostCreateOrConnectWithoutCreatedByInput = {
@@ -802,36 +774,34 @@ export type MentorRadarPostCreateManyCreatedByInputEnvelope = {
 
 export type MentorRadarPostCreateWithoutApprovedByInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutRadarPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutRadarPostsInput
+  saves?: Prisma.RadarSaveCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostUncheckedCreateWithoutApprovedByInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedAt?: Date | string | null
+  saves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type MentorRadarPostCreateOrConnectWithoutApprovedByInput = {
@@ -876,16 +846,94 @@ export type MentorRadarPostUpdateManyWithWhereWithoutApprovedByInput = {
   data: Prisma.XOR<Prisma.MentorRadarPostUpdateManyMutationInput, Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByInput>
 }
 
-export type MentorRadarPostCreateManyTenantInput = {
+export type MentorRadarPostCreateWithoutSavesInput = {
   id?: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  approvedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutRadarPostsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutRadarPostsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedRadarPostsInput
+}
+
+export type MentorRadarPostUncheckedCreateWithoutSavesInput = {
+  id?: string
+  tenantId: string
+  description: string
+  url: string
+  sourceDomain: string
+  status?: $Enums.RadarPostStatus
+  rejectReason?: string | null
+  pinned?: boolean
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  approvedById?: string | null
+  approvedAt?: Date | string | null
+}
+
+export type MentorRadarPostCreateOrConnectWithoutSavesInput = {
+  where: Prisma.MentorRadarPostWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorRadarPostCreateWithoutSavesInput, Prisma.MentorRadarPostUncheckedCreateWithoutSavesInput>
+}
+
+export type MentorRadarPostUpsertWithoutSavesInput = {
+  update: Prisma.XOR<Prisma.MentorRadarPostUpdateWithoutSavesInput, Prisma.MentorRadarPostUncheckedUpdateWithoutSavesInput>
+  create: Prisma.XOR<Prisma.MentorRadarPostCreateWithoutSavesInput, Prisma.MentorRadarPostUncheckedCreateWithoutSavesInput>
+  where?: Prisma.MentorRadarPostWhereInput
+}
+
+export type MentorRadarPostUpdateToOneWithWhereWithoutSavesInput = {
+  where?: Prisma.MentorRadarPostWhereInput
+  data: Prisma.XOR<Prisma.MentorRadarPostUpdateWithoutSavesInput, Prisma.MentorRadarPostUncheckedUpdateWithoutSavesInput>
+}
+
+export type MentorRadarPostUpdateWithoutSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutRadarPostsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutRadarPostsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedRadarPostsNestedInput
+}
+
+export type MentorRadarPostUncheckedUpdateWithoutSavesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type MentorRadarPostCreateManyTenantInput = {
+  id?: string
+  description: string
+  url: string
+  sourceDomain: string
+  status?: $Enums.RadarPostStatus
+  rejectReason?: string | null
+  pinned?: boolean
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -895,48 +943,44 @@ export type MentorRadarPostCreateManyTenantInput = {
 
 export type MentorRadarPostUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.UserUpdateOneRequiredWithoutRadarPostsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedRadarPostsNestedInput
+  saves?: Prisma.RadarSaveUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saves?: Prisma.RadarSaveUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -947,14 +991,12 @@ export type MentorRadarPostUncheckedUpdateManyWithoutTenantInput = {
 export type MentorRadarPostCreateManyCreatedByInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdAt?: Date | string
   updatedAt?: Date | string
   approvedById?: string | null
@@ -964,14 +1006,12 @@ export type MentorRadarPostCreateManyCreatedByInput = {
 export type MentorRadarPostCreateManyApprovedByInput = {
   id?: string
   tenantId: string
-  title: string
   description: string
   url: string
   sourceDomain: string
   status?: $Enums.RadarPostStatus
   rejectReason?: string | null
   pinned?: boolean
-  tag?: $Enums.RadarPostTag | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -980,49 +1020,45 @@ export type MentorRadarPostCreateManyApprovedByInput = {
 
 export type MentorRadarPostUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRadarPostsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedRadarPostsNestedInput
+  saves?: Prisma.RadarSaveUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saves?: Prisma.RadarSaveUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1031,49 +1067,45 @@ export type MentorRadarPostUncheckedUpdateManyWithoutCreatedByInput = {
 
 export type MentorRadarPostUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRadarPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutRadarPostsNestedInput
+  saves?: Prisma.RadarSaveUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saves?: Prisma.RadarSaveUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type MentorRadarPostUncheckedUpdateManyWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   sourceDomain?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRadarPostStatusFieldUpdateOperationsInput | $Enums.RadarPostStatus
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tag?: Prisma.NullableEnumRadarPostTagFieldUpdateOperationsInput | $Enums.RadarPostTag | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1081,18 +1113,45 @@ export type MentorRadarPostUncheckedUpdateManyWithoutApprovedByInput = {
 }
 
 
+/**
+ * Count Type MentorRadarPostCountOutputType
+ */
+
+export type MentorRadarPostCountOutputType = {
+  saves: number
+}
+
+export type MentorRadarPostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  saves?: boolean | MentorRadarPostCountOutputTypeCountSavesArgs
+}
+
+/**
+ * MentorRadarPostCountOutputType without action
+ */
+export type MentorRadarPostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorRadarPostCountOutputType
+   */
+  select?: Prisma.MentorRadarPostCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MentorRadarPostCountOutputType without action
+ */
+export type MentorRadarPostCountOutputTypeCountSavesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RadarSaveWhereInput
+}
+
 
 export type MentorRadarPostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  title?: boolean
   description?: boolean
   url?: boolean
   sourceDomain?: boolean
   status?: boolean
   rejectReason?: boolean
   pinned?: boolean
-  tag?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1101,19 +1160,19 @@ export type MentorRadarPostSelect<ExtArgs extends runtime.Types.Extensions.Inter
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approvedBy?: boolean | Prisma.MentorRadarPost$approvedByArgs<ExtArgs>
+  saves?: boolean | Prisma.MentorRadarPost$savesArgs<ExtArgs>
+  _count?: boolean | Prisma.MentorRadarPostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorRadarPost"]>
 
 export type MentorRadarPostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  title?: boolean
   description?: boolean
   url?: boolean
   sourceDomain?: boolean
   status?: boolean
   rejectReason?: boolean
   pinned?: boolean
-  tag?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1127,14 +1186,12 @@ export type MentorRadarPostSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type MentorRadarPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  title?: boolean
   description?: boolean
   url?: boolean
   sourceDomain?: boolean
   status?: boolean
   rejectReason?: boolean
   pinned?: boolean
-  tag?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1148,14 +1205,12 @@ export type MentorRadarPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type MentorRadarPostSelectScalar = {
   id?: boolean
   tenantId?: boolean
-  title?: boolean
   description?: boolean
   url?: boolean
   sourceDomain?: boolean
   status?: boolean
   rejectReason?: boolean
   pinned?: boolean
-  tag?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1163,11 +1218,13 @@ export type MentorRadarPostSelectScalar = {
   approvedAt?: boolean
 }
 
-export type MentorRadarPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "url" | "sourceDomain" | "status" | "rejectReason" | "pinned" | "tag" | "createdById" | "createdAt" | "updatedAt" | "approvedById" | "approvedAt", ExtArgs["result"]["mentorRadarPost"]>
+export type MentorRadarPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "description" | "url" | "sourceDomain" | "status" | "rejectReason" | "pinned" | "createdById" | "createdAt" | "updatedAt" | "approvedById" | "approvedAt", ExtArgs["result"]["mentorRadarPost"]>
 export type MentorRadarPostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   approvedBy?: boolean | Prisma.MentorRadarPost$approvedByArgs<ExtArgs>
+  saves?: boolean | Prisma.MentorRadarPost$savesArgs<ExtArgs>
+  _count?: boolean | Prisma.MentorRadarPostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MentorRadarPostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1186,18 +1243,17 @@ export type $MentorRadarPostPayload<ExtArgs extends runtime.Types.Extensions.Int
     tenant: Prisma.$TenantPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
     approvedBy: Prisma.$UserPayload<ExtArgs> | null
+    saves: Prisma.$RadarSavePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    title: string
     description: string
     url: string
     sourceDomain: string
     status: $Enums.RadarPostStatus
     rejectReason: string | null
     pinned: boolean
-    tag: $Enums.RadarPostTag | null
     createdById: string
     createdAt: Date
     updatedAt: Date
@@ -1600,6 +1656,7 @@ export interface Prisma__MentorRadarPostClient<T, Null = never, ExtArgs extends 
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   approvedBy<T extends Prisma.MentorRadarPost$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorRadarPost$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  saves<T extends Prisma.MentorRadarPost$savesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorRadarPost$savesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RadarSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1631,14 +1688,12 @@ export interface Prisma__MentorRadarPostClient<T, Null = never, ExtArgs extends 
 export interface MentorRadarPostFieldRefs {
   readonly id: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly tenantId: Prisma.FieldRef<"MentorRadarPost", 'String'>
-  readonly title: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly description: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly url: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly sourceDomain: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly status: Prisma.FieldRef<"MentorRadarPost", 'RadarPostStatus'>
   readonly rejectReason: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly pinned: Prisma.FieldRef<"MentorRadarPost", 'Boolean'>
-  readonly tag: Prisma.FieldRef<"MentorRadarPost", 'RadarPostTag'>
   readonly createdById: Prisma.FieldRef<"MentorRadarPost", 'String'>
   readonly createdAt: Prisma.FieldRef<"MentorRadarPost", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MentorRadarPost", 'DateTime'>
@@ -2056,6 +2111,30 @@ export type MentorRadarPost$approvedByArgs<ExtArgs extends runtime.Types.Extensi
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * MentorRadarPost.saves
+ */
+export type MentorRadarPost$savesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RadarSave
+   */
+  select?: Prisma.RadarSaveSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RadarSave
+   */
+  omit?: Prisma.RadarSaveOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RadarSaveInclude<ExtArgs> | null
+  where?: Prisma.RadarSaveWhereInput
+  orderBy?: Prisma.RadarSaveOrderByWithRelationInput | Prisma.RadarSaveOrderByWithRelationInput[]
+  cursor?: Prisma.RadarSaveWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RadarSaveScalarFieldEnum | Prisma.RadarSaveScalarFieldEnum[]
 }
 
 /**

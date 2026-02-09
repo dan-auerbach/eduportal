@@ -507,22 +507,24 @@ export default async function DashboardPage() {
           </div>
           <div className="space-y-2">
             {latestRadarPosts.map((post) => (
-              <Link
+              <a
                 key={post.id}
-                href={`/radar/${post.id}`}
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block group"
               >
                 <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card px-4 py-3 transition-all hover:shadow-sm hover:border-primary/20">
                   <div className="space-y-0.5 min-w-0 flex-1">
                     <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">
-                      {post.title}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
                       {post.sourceDomain}
+                    </p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {post.description}
                     </p>
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

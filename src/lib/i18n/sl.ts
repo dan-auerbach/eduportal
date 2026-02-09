@@ -136,7 +136,7 @@ export const sl = {
     feedback: "Ocene",
     mentorLive: "#mentor v živo",
     mentorLiveNoEvents: "Ni razpisanih terminov",
-    radar: "Mentor Radar",
+    radar: "Radar",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1161,29 +1161,19 @@ export const sl = {
     today: "Danes",
   },
 
-  // ── Mentor Radar ──────────────────────────────────────────────────
+  // ── Radar ──────────────────────────────────────────────────────────
   radar: {
-    title: "Mentor Radar",
+    title: "Radar",
     subtitle: "Zanimive vsebine, orodja in viri, ki jih deli skupnost.",
     tabApproved: "Potrjeno",
     tabMyPosts: "Moje objave",
     tabPending: "Čaka na potrditev",
-    addPost: "+ Dodaj #radar",
+    addPost: "Dodaj v Radar",
     // Form
-    titleField: "Naslov",
-    titlePlaceholder: "Kratek naslov vsebine...",
     descriptionField: "Opis",
     descriptionPlaceholder: "Zakaj je ta vsebina zanimiva? (do 600 znakov)",
     urlField: "Povezava",
     urlPlaceholder: "https://...",
-    tagField: "Oznaka (neobvezno)",
-    noTag: "Brez oznake",
-    // Tags
-    tagAI: "AI",
-    tagTECH: "Tehnologija",
-    tagPRODUCTIVITY: "Produktivnost",
-    tagMEDIA: "Mediji",
-    tagSECURITY: "Varnost",
     // Status
     statusPending: "V čakanju",
     statusApproved: "Potrjeno",
@@ -1195,29 +1185,33 @@ export const sl = {
     archive: "Arhiviraj",
     pin: "Pripni",
     unpin: "Odpni",
+    save: "Shrani",
+    unsave: "Odstrani",
     openLink: "Odpri povezavo",
-    backToList: "Nazaj na seznam",
+    showMore: "Več",
+    showLess: "Manj",
     // Reject dialog
     rejectTitle: "Zavrni objavo",
     rejectReasonField: "Razlog za zavrnitev",
     rejectReasonPlaceholder: "Pojasnite, zakaj objava ni primerna...",
     // Messages
     postCreated: "Objava oddana v pregled",
+    postCreatedApproved: "Objava objavljena",
     postApproved: "Objava potrjena",
     postRejected: "Objava zavrnjena",
     postArchived: "Objava arhivirana",
     postPinned: "Objava pripeta",
     postUnpinned: "Objava odpeta",
+    postSaved: "Objava shranjena",
+    postUnsaved: "Objava odstranjena",
     maxPinnedReached: "Že imate 3 pripete objave. Najprej odpnite eno.",
     rateLimitReached: "Danes ste že oddali 5 objav. Poskusite jutri.",
-    duplicateWarning: "Ta URL je bil že objavljen v zadnjih 30 dneh: \"{title}\". Vseeno nadaljujete?",
+    duplicateWarning: "Ta URL je bil že objavljen v zadnjih 30 dneh. Vseeno nadaljujete?",
     // Badges
     pinnedBadge: "Pripeto",
     staleBadge: "Staro",
     radarTag: "#radar",
-    // Detail
-    submittedBy: "Oddal/a {name}",
-    approvedByLabel: "Potrdil/a {name}",
+    // Metadata
     rejectedReason: "Razlog: {reason}",
     // Empty states
     noApprovedPosts: "Še ni potrjenih objav.",
@@ -1225,13 +1219,12 @@ export const sl = {
     noMyPosts: "Še niste oddali nobene objave.",
     noPendingPosts: "Ni objav v čakanju.",
     // Dashboard widget
-    widgetTitle: "Mentor Radar",
-    widgetEmpty: "Ni novih vsebin.",
+    widgetTitle: "Radar",
     viewAll: "Prikaži vse",
     // Notifications
-    notifApprovedTitle: "Vaša #radar objava je bila potrjena: {title}",
+    notifApprovedTitle: "Vaša #radar objava je bila potrjena ({domain})",
     notifApprovedMessage: "Vaša objava je sedaj vidna vsem.",
-    notifRejectedTitle: "Vaša #radar objava je bila zavrnjena: {title}",
+    notifRejectedTitle: "Vaša #radar objava je bila zavrnjena ({domain})",
     notifRejectedMessage: "Razlog: {reason}",
   },
 } as const;

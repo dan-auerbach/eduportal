@@ -16,32 +16,29 @@ import type { ActionResult } from "@/types";
 
 export type RadarPostDTO = {
   id: string;
-  title: string;
   description: string;
   url: string;
   sourceDomain: string;
   status: "PENDING" | "APPROVED" | "REJECTED" | "ARCHIVED";
   rejectReason: string | null;
   pinned: boolean;
-  tag: "AI" | "TECH" | "PRODUCTIVITY" | "MEDIA" | "SECURITY" | null;
   createdBy: { id: string; firstName: string; lastName: string } | null;
   approvedBy: { firstName: string; lastName: string } | null;
   createdAt: string;
   approvedAt: string | null;
+  saved: boolean; // Whether current user has saved/bookmarked this post
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 const POST_SELECT = {
   id: true,
-  title: true,
   description: true,
   url: true,
   sourceDomain: true,
   status: true,
   rejectReason: true,
   pinned: true,
-  tag: true,
   createdAt: true,
   approvedAt: true,
   createdBy: {
@@ -53,17 +50,15 @@ const POST_SELECT = {
 } as const;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function toDTO(p: any): RadarPostDTO {
+function toDTO(p: any, savedPostIds?: Set<string>): RadarPostDTO {
   return {
     id: p.id,
-    title: p.title,
     description: p.description,
     url: p.url,
     sourceDomain: p.sourceDomain,
     status: p.status,
     rejectReason: p.rejectReason,
     pinned: p.pinned,
-    tag: p.tag,
     createdBy: p.createdBy,
     approvedBy: p.approvedBy,
     createdAt: p.createdAt instanceof Date ? p.createdAt.toISOString() : p.createdAt,
@@ -72,6 +67,7 @@ function toDTO(p: any): RadarPostDTO {
         ? p.approvedAt.toISOString()
         : p.approvedAt
       : null,
+    saved: savedPostIds?.has(p.id) ?? false,
   };
 }
 
@@ -81,6 +77,29 @@ function parseDomain(url: string): string {
   } catch {
     return url;
   }
+}
+
+/** Sanitize URL: trim, block dangerous schemes */
+function sanitizeUrl(raw: string): string {
+  const trimmed = raw.trim();
+  // Block dangerous schemes
+  if (/^(javascript|data|file|vbscript|blob):/i.test(trimmed)) {
+    throw new Error("URL format ni dovoljen");
+  }
+  return trimmed;
+}
+
+function isAdmin(role: string): boolean {
+  return role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
+}
+
+/** Load saved post IDs for the current user */
+async function getUserSavedPostIds(userId: string): Promise<Set<string>> {
+  const saves = await prisma.radarSave.findMany({
+    where: { userId },
+    select: { postId: true },
+  });
+  return new Set(saves.map((s) => s.postId));
 }
 
 // ── Queries ──────────────────────────────────────────────────────────────────
@@ -93,14 +112,17 @@ export async function getApprovedRadarPosts(): Promise<ActionResult<RadarPostDTO
   try {
     const ctx = await getTenantContext();
 
-    const posts = await prisma.mentorRadarPost.findMany({
-      where: { tenantId: ctx.tenantId, status: "APPROVED" },
-      orderBy: [{ pinned: "desc" }, { approvedAt: "desc" }],
-      take: 50,
-      select: POST_SELECT,
-    });
+    const [posts, savedIds] = await Promise.all([
+      prisma.mentorRadarPost.findMany({
+        where: { tenantId: ctx.tenantId, status: "APPROVED" },
+        orderBy: [{ pinned: "desc" }, { approvedAt: "desc" }],
+        take: 50,
+        select: POST_SELECT,
+      }),
+      getUserSavedPostIds(ctx.user.id),
+    ]);
 
-    return { success: true, data: posts.map(toDTO) };
+    return { success: true, data: posts.map((p) => toDTO(p, savedIds)) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -116,14 +138,17 @@ export async function getMyRadarPosts(): Promise<ActionResult<RadarPostDTO[]>> {
   try {
     const ctx = await getTenantContext();
 
-    const posts = await prisma.mentorRadarPost.findMany({
-      where: { tenantId: ctx.tenantId, createdById: ctx.user.id },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-      select: POST_SELECT,
-    });
+    const [posts, savedIds] = await Promise.all([
+      prisma.mentorRadarPost.findMany({
+        where: { tenantId: ctx.tenantId, createdById: ctx.user.id },
+        orderBy: { createdAt: "desc" },
+        take: 50,
+        select: POST_SELECT,
+      }),
+      getUserSavedPostIds(ctx.user.id),
+    ]);
 
-    return { success: true, data: posts.map(toDTO) };
+    return { success: true, data: posts.map((p) => toDTO(p, savedIds)) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -146,50 +171,12 @@ export async function getPendingRadarPosts(): Promise<ActionResult<RadarPostDTO[
       select: POST_SELECT,
     });
 
-    return { success: true, data: posts.map(toDTO) };
+    return { success: true, data: posts.map((p) => toDTO(p)) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri nalaganju objav" };
-  }
-}
-
-/**
- * Get a single radar post by ID.
- * Non-admin users can only view their own posts or approved posts.
- */
-export async function getRadarPostById(
-  id: string,
-): Promise<ActionResult<RadarPostDTO>> {
-  try {
-    const ctx = await getTenantContext();
-
-    const post = await prisma.mentorRadarPost.findUnique({
-      where: { id },
-      select: { ...POST_SELECT, tenantId: true },
-    });
-
-    if (!post || post.tenantId !== ctx.tenantId) {
-      return { success: false, error: "Objava ne obstaja" };
-    }
-
-    // Non-admin can only see own posts or approved posts
-    const isAdmin =
-      ctx.effectiveRole === "ADMIN" ||
-      ctx.effectiveRole === "SUPER_ADMIN" ||
-      ctx.effectiveRole === "OWNER";
-
-    if (!isAdmin && post.status !== "APPROVED" && post.createdBy?.id !== ctx.user.id) {
-      return { success: false, error: "Nimate dostopa do te objave" };
-    }
-
-    return { success: true, data: toDTO(post) };
-  } catch (e) {
-    if (e instanceof TenantAccessError) {
-      return { success: false, error: e.message };
-    }
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri nalaganju objave" };
   }
 }
 
@@ -209,7 +196,7 @@ export async function getLatestApprovedRadarPosts(
       select: POST_SELECT,
     });
 
-    return { success: true, data: posts.map(toDTO) };
+    return { success: true, data: posts.map((p) => toDTO(p)) };
   } catch (e) {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
@@ -223,7 +210,7 @@ export async function getLatestApprovedRadarPosts(
  */
 export async function checkDuplicateRadarUrl(
   url: string,
-): Promise<ActionResult<{ isDuplicate: boolean; existingTitle?: string }>> {
+): Promise<ActionResult<{ isDuplicate: boolean; existingDomain?: string }>> {
   try {
     const ctx = await getTenantContext();
     const thirtyDaysAgo = new Date();
@@ -236,14 +223,14 @@ export async function checkDuplicateRadarUrl(
         status: "APPROVED",
         approvedAt: { gte: thirtyDaysAgo },
       },
-      select: { title: true },
+      select: { sourceDomain: true },
     });
 
     return {
       success: true,
       data: {
         isDuplicate: !!existing,
-        existingTitle: existing?.title,
+        existingDomain: existing?.sourceDomain,
       },
     };
   } catch (e) {
@@ -258,6 +245,7 @@ export async function checkDuplicateRadarUrl(
 
 /**
  * Create a new radar post. Any authenticated user. Rate limited.
+ * Admin posts are auto-approved.
  */
 export async function createRadarPost(
   data: unknown,
@@ -272,16 +260,24 @@ export async function createRadarPost(
     }
 
     const parsed = CreateRadarPostSchema.parse(data);
+    const safeUrl = sanitizeUrl(parsed.url);
+    const userIsAdmin = isAdmin(ctx.effectiveRole);
 
     const post = await prisma.mentorRadarPost.create({
       data: {
         tenantId: ctx.tenantId,
-        title: parsed.title.trim(),
         description: parsed.description.trim(),
-        url: parsed.url.trim(),
-        sourceDomain: parseDomain(parsed.url.trim()),
-        tag: parsed.tag ?? null,
+        url: safeUrl,
+        sourceDomain: parseDomain(safeUrl),
         createdById: ctx.user.id,
+        // Auto-approve for admins
+        ...(userIsAdmin
+          ? {
+              status: "APPROVED",
+              approvedById: ctx.user.id,
+              approvedAt: new Date(),
+            }
+          : {}),
       },
     });
 
@@ -291,7 +287,7 @@ export async function createRadarPost(
       entityType: "MentorRadarPost",
       entityId: post.id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title, url: post.url },
+      metadata: { url: post.url, autoApproved: userIsAdmin },
     });
 
     return { success: true, data: { id: post.id } };
@@ -317,7 +313,7 @@ export async function approveRadarPost(
 
     const post = await prisma.mentorRadarPost.findUnique({
       where: { id },
-      select: { tenantId: true, status: true, title: true, createdById: true },
+      select: { tenantId: true, status: true, sourceDomain: true, createdById: true },
     });
 
     if (!post || post.tenantId !== ctx.tenantId) {
@@ -343,7 +339,7 @@ export async function approveRadarPost(
       entityType: "MentorRadarPost",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title },
+      metadata: { sourceDomain: post.sourceDomain },
     });
 
     // Notify the author
@@ -353,9 +349,9 @@ export async function approveRadarPost(
           userId: post.createdById,
           tenantId: ctx.tenantId,
           type: "RADAR_APPROVED",
-          title: t("radar.notifApprovedTitle", { title: post.title }),
+          title: t("radar.notifApprovedTitle", { domain: post.sourceDomain }),
           message: t("radar.notifApprovedMessage"),
-          link: `/radar/${id}`,
+          link: `/radar`,
         },
       });
     }
@@ -385,7 +381,7 @@ export async function rejectRadarPost(
 
     const post = await prisma.mentorRadarPost.findUnique({
       where: { id },
-      select: { tenantId: true, status: true, title: true, createdById: true },
+      select: { tenantId: true, status: true, sourceDomain: true, createdById: true },
     });
 
     if (!post || post.tenantId !== ctx.tenantId) {
@@ -410,7 +406,7 @@ export async function rejectRadarPost(
       entityType: "MentorRadarPost",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title, reason: parsed.reason },
+      metadata: { sourceDomain: post.sourceDomain, reason: parsed.reason },
     });
 
     // Notify the author
@@ -420,9 +416,9 @@ export async function rejectRadarPost(
           userId: post.createdById,
           tenantId: ctx.tenantId,
           type: "RADAR_REJECTED",
-          title: t("radar.notifRejectedTitle", { title: post.title }),
+          title: t("radar.notifRejectedTitle", { domain: post.sourceDomain }),
           message: t("radar.notifRejectedMessage", { reason: parsed.reason }),
-          link: `/radar/${id}`,
+          link: `/radar?tab=my`,
         },
       });
     }
@@ -448,7 +444,7 @@ export async function archiveRadarPost(id: string): Promise<ActionResult<void>> 
 
     const post = await prisma.mentorRadarPost.findUnique({
       where: { id },
-      select: { tenantId: true, title: true },
+      select: { tenantId: true, sourceDomain: true },
     });
 
     if (!post || post.tenantId !== ctx.tenantId) {
@@ -466,7 +462,7 @@ export async function archiveRadarPost(id: string): Promise<ActionResult<void>> 
       entityType: "MentorRadarPost",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title },
+      metadata: { sourceDomain: post.sourceDomain },
     });
 
     return { success: true, data: undefined };
@@ -482,7 +478,7 @@ export async function archiveRadarPost(id: string): Promise<ActionResult<void>> 
 }
 
 /**
- * Pin a radar post. Admin+ only. Max 3 pinned per tenant.
+ * Pin a radar post (global). Admin+ only. Max 3 pinned per tenant.
  */
 export async function pinRadarPost(id: string): Promise<ActionResult<void>> {
   try {
@@ -490,7 +486,7 @@ export async function pinRadarPost(id: string): Promise<ActionResult<void>> {
 
     const post = await prisma.mentorRadarPost.findUnique({
       where: { id },
-      select: { tenantId: true, status: true, pinned: true, title: true },
+      select: { tenantId: true, status: true, pinned: true },
     });
 
     if (!post || post.tenantId !== ctx.tenantId) {
@@ -502,10 +498,9 @@ export async function pinRadarPost(id: string): Promise<ActionResult<void>> {
     }
 
     if (post.pinned) {
-      return { success: true, data: undefined }; // Already pinned
+      return { success: true, data: undefined };
     }
 
-    // Check max 3 pinned
     const pinnedCount = await prisma.mentorRadarPost.count({
       where: { tenantId: ctx.tenantId, pinned: true },
     });
@@ -525,7 +520,6 @@ export async function pinRadarPost(id: string): Promise<ActionResult<void>> {
       entityType: "MentorRadarPost",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title },
     });
 
     return { success: true, data: undefined };
@@ -533,15 +527,12 @@ export async function pinRadarPost(id: string): Promise<ActionResult<void>> {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
     }
-    return {
-      success: false,
-      error: e instanceof Error ? e.message : "Napaka pri pripenjanju objave",
-    };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }
 
 /**
- * Unpin a radar post. Admin+ only.
+ * Unpin a radar post (global). Admin+ only.
  */
 export async function unpinRadarPost(id: string): Promise<ActionResult<void>> {
   try {
@@ -549,7 +540,7 @@ export async function unpinRadarPost(id: string): Promise<ActionResult<void>> {
 
     const post = await prisma.mentorRadarPost.findUnique({
       where: { id },
-      select: { tenantId: true, title: true },
+      select: { tenantId: true },
     });
 
     if (!post || post.tenantId !== ctx.tenantId) {
@@ -567,7 +558,6 @@ export async function unpinRadarPost(id: string): Promise<ActionResult<void>> {
       entityType: "MentorRadarPost",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { title: post.title },
     });
 
     return { success: true, data: undefined };
@@ -575,9 +565,70 @@ export async function unpinRadarPost(id: string): Promise<ActionResult<void>> {
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
     }
-    return {
-      success: false,
-      error: e instanceof Error ? e.message : "Napaka pri odpenjanju objave",
-    };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
+// ── User Save / Bookmark ─────────────────────────────────────────────────────
+
+/**
+ * Toggle save/bookmark on a radar post for the current user.
+ */
+export async function toggleRadarSave(
+  postId: string,
+): Promise<ActionResult<{ saved: boolean }>> {
+  try {
+    const ctx = await getTenantContext();
+
+    const existing = await prisma.radarSave.findUnique({
+      where: { userId_postId: { userId: ctx.user.id, postId } },
+    });
+
+    if (existing) {
+      await prisma.radarSave.delete({
+        where: { id: existing.id },
+      });
+      return { success: true, data: { saved: false } };
+    } else {
+      await prisma.radarSave.create({
+        data: { userId: ctx.user.id, postId },
+      });
+      return { success: true, data: { saved: true } };
+    }
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
+// ── Radar Seen (for unread counter) ──────────────────────────────────────────
+
+/**
+ * Mark radar as seen for the current user. Called when user visits /radar.
+ */
+export async function markRadarSeen(): Promise<ActionResult<void>> {
+  try {
+    const ctx = await getTenantContext();
+
+    await prisma.radarSeen.upsert({
+      where: {
+        userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId },
+      },
+      update: { lastSeenAt: new Date() },
+      create: {
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+        lastSeenAt: new Date(),
+      },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Check, X, Archive, Pin, PinOff } from "lucide-react";
+import { Check, X, Archive, Pin, PinOff, Bookmark } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,6 +21,7 @@ import {
   archiveRadarPost,
   pinRadarPost,
   unpinRadarPost,
+  toggleRadarSave,
 } from "@/actions/radar";
 
 // ── Approve ──────────────────────────────────────────────────────────────────
@@ -46,9 +47,9 @@ export function ApproveRadarButton({ postId }: { postId: string }) {
       size="sm"
       onClick={handleApprove}
       disabled={isPending}
-      className="bg-green-600 hover:bg-green-700"
+      className="bg-green-600 hover:bg-green-700 h-7 text-xs px-2"
     >
-      <Check className="mr-1.5 h-4 w-4" />
+      <Check className="mr-1 h-3.5 w-3.5" />
       {t("radar.approve")}
     </Button>
   );
@@ -81,8 +82,8 @@ export function RejectRadarDialog({ postId }: { postId: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="destructive">
-          <X className="mr-1.5 h-4 w-4" />
+        <Button size="sm" variant="destructive" className="h-7 text-xs px-2">
+          <X className="mr-1 h-3.5 w-3.5" />
           {t("radar.reject")}
         </Button>
       </DialogTrigger>
@@ -141,8 +142,8 @@ export function ArchiveRadarButton({ postId }: { postId: string }) {
   }
 
   return (
-    <Button size="sm" variant="outline" onClick={handleArchive} disabled={isPending}>
-      <Archive className="mr-1.5 h-4 w-4" />
+    <Button size="sm" variant="outline" onClick={handleArchive} disabled={isPending} className="h-7 text-xs px-2">
+      <Archive className="mr-1 h-3.5 w-3.5" />
       {t("radar.archive")}
     </Button>
   );
@@ -175,18 +176,58 @@ export function PinRadarToggle({
   }
 
   return (
-    <Button size="sm" variant="outline" onClick={handleToggle} disabled={isPending}>
+    <Button size="sm" variant="outline" onClick={handleToggle} disabled={isPending} className="h-7 text-xs px-2">
       {pinned ? (
         <>
-          <PinOff className="mr-1.5 h-4 w-4" />
+          <PinOff className="mr-1 h-3.5 w-3.5" />
           {t("radar.unpin")}
         </>
       ) : (
         <>
-          <Pin className="mr-1.5 h-4 w-4" />
+          <Pin className="mr-1 h-3.5 w-3.5" />
           {t("radar.pin")}
         </>
       )}
+    </Button>
+  );
+}
+
+// ── Save / Unsave (personal bookmark) ────────────────────────────────────────
+
+export function SaveRadarToggle({
+  postId,
+  saved,
+}: {
+  postId: string;
+  saved: boolean;
+}) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  function handleToggle() {
+    startTransition(async () => {
+      const result = await toggleRadarSave(postId);
+      if (result.success) {
+        toast.success(result.data.saved ? t("radar.postSaved") : t("radar.postUnsaved"));
+        router.refresh();
+      } else {
+        toast.error(result.error);
+      }
+    });
+  }
+
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      onClick={handleToggle}
+      disabled={isPending}
+      className="h-7 w-7"
+      title={saved ? t("radar.unsave") : t("radar.save")}
+    >
+      <Bookmark
+        className={`h-3.5 w-3.5 ${saved ? "fill-primary text-primary" : ""}`}
+      />
     </Button>
   );
 }

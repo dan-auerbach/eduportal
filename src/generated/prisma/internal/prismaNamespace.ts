@@ -419,7 +419,9 @@ export const ModelName = {
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
   UserSession: 'UserSession',
-  MentorRadarPost: 'MentorRadarPost'
+  MentorRadarPost: 'MentorRadarPost',
+  RadarSeen: 'RadarSeen',
+  RadarSave: 'RadarSave'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -435,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3103,6 +3105,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RadarSeen: {
+      payload: Prisma.$RadarSeenPayload<ExtArgs>
+      fields: Prisma.RadarSeenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RadarSeenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RadarSeenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        findFirst: {
+          args: Prisma.RadarSeenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RadarSeenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        findMany: {
+          args: Prisma.RadarSeenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>[]
+        }
+        create: {
+          args: Prisma.RadarSeenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        createMany: {
+          args: Prisma.RadarSeenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RadarSeenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>[]
+        }
+        delete: {
+          args: Prisma.RadarSeenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        update: {
+          args: Prisma.RadarSeenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        deleteMany: {
+          args: Prisma.RadarSeenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RadarSeenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RadarSeenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>[]
+        }
+        upsert: {
+          args: Prisma.RadarSeenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSeenPayload>
+        }
+        aggregate: {
+          args: Prisma.RadarSeenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRadarSeen>
+        }
+        groupBy: {
+          args: Prisma.RadarSeenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RadarSeenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RadarSeenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RadarSeenCountAggregateOutputType> | number
+        }
+      }
+    }
+    RadarSave: {
+      payload: Prisma.$RadarSavePayload<ExtArgs>
+      fields: Prisma.RadarSaveFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RadarSaveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RadarSaveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        findFirst: {
+          args: Prisma.RadarSaveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RadarSaveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        findMany: {
+          args: Prisma.RadarSaveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>[]
+        }
+        create: {
+          args: Prisma.RadarSaveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        createMany: {
+          args: Prisma.RadarSaveCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RadarSaveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>[]
+        }
+        delete: {
+          args: Prisma.RadarSaveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        update: {
+          args: Prisma.RadarSaveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        deleteMany: {
+          args: Prisma.RadarSaveDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RadarSaveUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RadarSaveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>[]
+        }
+        upsert: {
+          args: Prisma.RadarSaveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RadarSavePayload>
+        }
+        aggregate: {
+          args: Prisma.RadarSaveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRadarSave>
+        }
+        groupBy: {
+          args: Prisma.RadarSaveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RadarSaveGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RadarSaveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RadarSaveCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3610,14 +3760,12 @@ export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[key
 export const MentorRadarPostScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  title: 'title',
   description: 'description',
   url: 'url',
   sourceDomain: 'sourceDomain',
   status: 'status',
   rejectReason: 'rejectReason',
   pinned: 'pinned',
-  tag: 'tag',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -3626,6 +3774,26 @@ export const MentorRadarPostScalarFieldEnum = {
 } as const
 
 export type MentorRadarPostScalarFieldEnum = (typeof MentorRadarPostScalarFieldEnum)[keyof typeof MentorRadarPostScalarFieldEnum]
+
+
+export const RadarSeenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type RadarSeenScalarFieldEnum = (typeof RadarSeenScalarFieldEnum)[keyof typeof RadarSeenScalarFieldEnum]
+
+
+export const RadarSaveScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+} as const
+
+export type RadarSaveScalarFieldEnum = (typeof RadarSaveScalarFieldEnum)[keyof typeof RadarSaveScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3968,20 +4136,6 @@ export type EnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostStatus[]'>
     
 
-
-/**
- * Reference to a field of type 'RadarPostTag'
- */
-export type EnumRadarPostTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostTag'>
-    
-
-
-/**
- * Reference to a field of type 'RadarPostTag[]'
- */
-export type ListEnumRadarPostTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostTag[]'>
-    
-
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4113,6 +4267,8 @@ export type GlobalOmitConfig = {
   mentorLiveEvent?: Prisma.MentorLiveEventOmit
   userSession?: Prisma.UserSessionOmit
   mentorRadarPost?: Prisma.MentorRadarPostOmit
+  radarSeen?: Prisma.RadarSeenOmit
+  radarSave?: Prisma.RadarSaveOmit
 }
 
 /* Types for Logging */

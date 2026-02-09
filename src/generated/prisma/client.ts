@@ -219,3 +219,13 @@ export type UserSession = Prisma.UserSessionModel
  * 
  */
 export type MentorRadarPost = Prisma.MentorRadarPostModel
+/**
+ * Model RadarSeen
+ * 
+ */
+export type RadarSeen = Prisma.RadarSeenModel
+/**
+ * Model RadarSave
+ * 
+ */
+export type RadarSave = Prisma.RadarSaveModel

@@ -1161,29 +1161,19 @@ export const en = {
     today: "Today",
   },
 
-  // ── Mentor Radar ──────────────────────────────────────────────────
+  // ── Radar ──────────────────────────────────────────────────────────
   radar: {
-    title: "Mentor Radar",
+    title: "Radar",
     subtitle: "Interesting content, tools and resources shared by the community.",
     tabApproved: "Approved",
     tabMyPosts: "My posts",
     tabPending: "Awaiting approval",
-    addPost: "+ Add #radar",
+    addPost: "Add to Radar",
     // Form
-    titleField: "Title",
-    titlePlaceholder: "Short title for the content...",
     descriptionField: "Description",
     descriptionPlaceholder: "Why is this content interesting? (up to 600 characters)",
     urlField: "Link",
     urlPlaceholder: "https://...",
-    tagField: "Tag (optional)",
-    noTag: "No tag",
-    // Tags
-    tagAI: "AI",
-    tagTECH: "Technology",
-    tagPRODUCTIVITY: "Productivity",
-    tagMEDIA: "Media",
-    tagSECURITY: "Security",
     // Status
     statusPending: "Pending",
     statusApproved: "Approved",
@@ -1195,29 +1185,33 @@ export const en = {
     archive: "Archive",
     pin: "Pin",
     unpin: "Unpin",
+    save: "Save",
+    unsave: "Unsave",
     openLink: "Open link",
-    backToList: "Back to list",
+    showMore: "More",
+    showLess: "Less",
     // Reject dialog
     rejectTitle: "Reject post",
     rejectReasonField: "Reason for rejection",
     rejectReasonPlaceholder: "Explain why this post is not suitable...",
     // Messages
     postCreated: "Post submitted for review",
+    postCreatedApproved: "Post published",
     postApproved: "Post approved",
     postRejected: "Post rejected",
     postArchived: "Post archived",
     postPinned: "Post pinned",
     postUnpinned: "Post unpinned",
+    postSaved: "Post saved",
+    postUnsaved: "Post unsaved",
     maxPinnedReached: "You already have 3 pinned posts. Unpin one first.",
     rateLimitReached: "You have already submitted 5 posts today. Try again tomorrow.",
-    duplicateWarning: "This URL was already published in the last 30 days: \"{title}\". Do you want to continue?",
+    duplicateWarning: "This URL was already published in the last 30 days. Do you want to continue?",
     // Badges
     pinnedBadge: "Pinned",
     staleBadge: "Old",
     radarTag: "#radar",
-    // Detail
-    submittedBy: "Submitted by {name}",
-    approvedByLabel: "Approved by {name}",
+    // Metadata
     rejectedReason: "Reason: {reason}",
     // Empty states
     noApprovedPosts: "No approved posts yet.",
@@ -1225,13 +1219,12 @@ export const en = {
     noMyPosts: "You haven't submitted any posts yet.",
     noPendingPosts: "No posts awaiting approval.",
     // Dashboard widget
-    widgetTitle: "Mentor Radar",
-    widgetEmpty: "No new content.",
+    widgetTitle: "Radar",
     viewAll: "View all",
     // Notifications
-    notifApprovedTitle: "Your #radar post was approved: {title}",
+    notifApprovedTitle: "Your #radar post was approved ({domain})",
     notifApprovedMessage: "Your post is now visible to everyone.",
-    notifRejectedTitle: "Your #radar post was rejected: {title}",
+    notifRejectedTitle: "Your #radar post was rejected ({domain})",
     notifRejectedMessage: "Reason: {reason}",
   },
 } as const;

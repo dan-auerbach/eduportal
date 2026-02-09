@@ -576,13 +576,6 @@ export type EnumRadarPostStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel> | $Enums.RadarPostStatus
 }
 
-export type EnumRadarPostTagNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.RadarPostTag | Prisma.EnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  in?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel> | $Enums.RadarPostTag | null
-}
-
 export type EnumRadarPostStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.RadarPostStatus | Prisma.EnumRadarPostStatusFieldRefInput<$PrismaModel>
   in?: $Enums.RadarPostStatus[] | Prisma.ListEnumRadarPostStatusFieldRefInput<$PrismaModel>
@@ -591,16 +584,6 @@ export type EnumRadarPostStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel>
-}
-
-export type EnumRadarPostTagNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.RadarPostTag | Prisma.EnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  in?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumRadarPostTagNullableWithAggregatesFilter<$PrismaModel> | $Enums.RadarPostTag | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -1113,13 +1096,6 @@ export type NestedEnumRadarPostStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel> | $Enums.RadarPostStatus
 }
 
-export type NestedEnumRadarPostTagNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.RadarPostTag | Prisma.EnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  in?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel> | $Enums.RadarPostTag | null
-}
-
 export type NestedEnumRadarPostStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.RadarPostStatus | Prisma.EnumRadarPostStatusFieldRefInput<$PrismaModel>
   in?: $Enums.RadarPostStatus[] | Prisma.ListEnumRadarPostStatusFieldRefInput<$PrismaModel>
@@ -1128,16 +1104,6 @@ export type NestedEnumRadarPostStatusWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRadarPostStatusFilter<$PrismaModel>
-}
-
-export type NestedEnumRadarPostTagNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.RadarPostTag | Prisma.EnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  in?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.RadarPostTag[] | Prisma.ListEnumRadarPostTagFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumRadarPostTagNullableWithAggregatesFilter<$PrismaModel> | $Enums.RadarPostTag | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumRadarPostTagNullableFilter<$PrismaModel>
 }
 
 

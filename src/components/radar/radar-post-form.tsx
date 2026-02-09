@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus } from "lucide-react";
+import { Radar } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,15 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { createRadarPost, checkDuplicateRadarUrl } from "@/actions/radar";
 
-const TAG_OPTIONS = [
-  { value: "AI", label: "tagAI" },
-  { value: "TECH", label: "tagTECH" },
-  { value: "PRODUCTIVITY", label: "tagPRODUCTIVITY" },
-  { value: "MEDIA", label: "tagMEDIA" },
-  { value: "SECURITY", label: "tagSECURITY" },
-] as const;
-
-export function CreateRadarPostDialog() {
+export function CreateRadarPostDialog({ isAdmin }: { isAdmin?: boolean }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -39,10 +31,8 @@ export function CreateRadarPostDialog() {
 
     const url = (formData.get("url") as string) || "";
     const data = {
-      title: (formData.get("title") as string) || "",
       description: (formData.get("description") as string) || "",
       url,
-      tag: (formData.get("tag") as string) || null,
     };
 
     startTransition(async () => {
@@ -50,7 +40,7 @@ export function CreateRadarPostDialog() {
       if (!confirmedDuplicate && url) {
         const dupResult = await checkDuplicateRadarUrl(url);
         if (dupResult.success && dupResult.data.isDuplicate) {
-          setDuplicateWarn(dupResult.data.existingTitle || "");
+          setDuplicateWarn(dupResult.data.existingDomain || "");
           setConfirmedDuplicate(true);
           return;
         }
@@ -58,7 +48,7 @@ export function CreateRadarPostDialog() {
 
       const result = await createRadarPost(data);
       if (result.success) {
-        toast.success(t("radar.postCreated"));
+        toast.success(isAdmin ? t("radar.postCreatedApproved") : t("radar.postCreated"));
         setOpen(false);
         setDuplicateWarn(null);
         setConfirmedDuplicate(false);
@@ -81,7 +71,7 @@ export function CreateRadarPostDialog() {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" />
+          <Radar className="mr-2 h-4 w-4" />
           {t("radar.addPost")}
         </Button>
       </DialogTrigger>
@@ -91,13 +81,13 @@ export function CreateRadarPostDialog() {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="radar-title">{t("radar.titleField")}</Label>
+            <Label htmlFor="radar-url">{t("radar.urlField")}</Label>
             <Input
-              id="radar-title"
-              name="title"
+              id="radar-url"
+              name="url"
+              type="url"
               required
-              maxLength={120}
-              placeholder={t("radar.titlePlaceholder")}
+              placeholder={t("radar.urlPlaceholder")}
             />
           </div>
 
@@ -113,37 +103,9 @@ export function CreateRadarPostDialog() {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="radar-url">{t("radar.urlField")}</Label>
-            <Input
-              id="radar-url"
-              name="url"
-              type="url"
-              required
-              placeholder={t("radar.urlPlaceholder")}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="radar-tag">{t("radar.tagField")}</Label>
-            <select
-              id="radar-tag"
-              name="tag"
-              defaultValue=""
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <option value="">{t("radar.noTag")}</option>
-              {TAG_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {t(`radar.${opt.label}`)}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {duplicateWarn && (
             <div className="rounded-md border border-yellow-300 bg-yellow-50 p-3 text-sm text-yellow-800">
-              {t("radar.duplicateWarning", { title: duplicateWarn })}
+              {t("radar.duplicateWarning")}
             </div>
           )}
 

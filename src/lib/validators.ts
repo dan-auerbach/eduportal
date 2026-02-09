@@ -206,11 +206,9 @@ export const UpdateLiveEventSchema = z.object({
 });
 
 // ---- Radar post forms ----
+const BLOCKED_URL_SCHEMES = /^(javascript|data|file|vbscript|blob):/i;
+
 export const CreateRadarPostSchema = z.object({
-  title: z
-    .string()
-    .min(1, "Naslov je obvezen")
-    .max(120, "Naslov je predolg (max 120 znakov)"),
   description: z
     .string()
     .min(1, "Opis je obvezen")
@@ -218,11 +216,8 @@ export const CreateRadarPostSchema = z.object({
   url: z
     .string()
     .url("Neveljaven URL")
-    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni"),
-  tag: z
-    .enum(["AI", "TECH", "PRODUCTIVITY", "MEDIA", "SECURITY"])
-    .nullable()
-    .optional(),
+    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni")
+    .refine((val) => !BLOCKED_URL_SCHEMES.test(val), "Neveljaven URL format"),
 });
 
 export const RejectRadarPostSchema = z.object({

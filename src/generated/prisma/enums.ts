@@ -200,14 +200,3 @@ export const RadarPostStatus = {
 } as const
 
 export type RadarPostStatus = (typeof RadarPostStatus)[keyof typeof RadarPostStatus]
-
-
-export const RadarPostTag = {
-  AI: 'AI',
-  TECH: 'TECH',
-  PRODUCTIVITY: 'PRODUCTIVITY',
-  MEDIA: 'MEDIA',
-  SECURITY: 'SECURITY'
-} as const
-
-export type RadarPostTag = (typeof RadarPostTag)[keyof typeof RadarPostTag]

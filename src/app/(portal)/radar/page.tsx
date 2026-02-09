@@ -9,6 +9,7 @@ import {
 import { CreateRadarPostDialog } from "@/components/radar/radar-post-form";
 import { RadarPostCard } from "@/components/radar/radar-post-card";
 import { RadarTabs } from "@/components/radar/radar-tabs";
+import { MarkRadarSeen } from "@/components/radar/mark-radar-seen";
 
 type SearchParams = Promise<{ tab?: string }>;
 
@@ -51,6 +52,9 @@ export default async function RadarPage({
 
   return (
     <div className="space-y-6">
+      {/* Mark radar as seen for unread counter */}
+      <MarkRadarSeen />
+
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -62,20 +66,21 @@ export default async function RadarPage({
             {t("radar.subtitle")}
           </p>
         </div>
-        <CreateRadarPostDialog />
+        <CreateRadarPostDialog isAdmin={isAdmin} />
       </div>
 
       {/* Tabs */}
       <RadarTabs isAdmin={isAdmin} />
 
-      {/* Posts grid */}
+      {/* Posts list — single column, no grid */}
       {posts.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-3 max-w-2xl">
           {posts.map((post) => (
             <RadarPostCard
               key={post.id}
               post={post}
               showStatus={tab === "my"}
+              isAdmin={isAdmin}
             />
           ))}
         </div>

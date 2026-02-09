@@ -56,6 +56,7 @@ model Tenant {
   moduleMentors        ModuleMentor[]
   liveEvents           MentorLiveEvent[]
   radarPosts           MentorRadarPost[]
+  radarSeen            RadarSeen[]
 }
 
 enum TenantTheme {
@@ -136,6 +137,8 @@ model User {
   createdLiveEvents  MentorLiveEvent[] @relation("LiveEventCreator")
   radarPosts         MentorRadarPost[] @relation("RadarPostAuthor")
   approvedRadarPosts MentorRadarPost[] @relation("RadarPostApprover")
+  radarSeen          RadarSeen[]
+  radarSaves         RadarSave[]
 
   @@index([role, isActive])
 }
@@ -954,36 +957,53 @@ enum RadarPostStatus {
   ARCHIVED
 }
 
-enum RadarPostTag {
-  AI
-  TECH
-  PRODUCTIVITY
-  MEDIA
-  SECURITY
-}
-
 model MentorRadarPost {
   id           String          @id @default(cuid())
   tenantId     String
-  title        String          @db.VarChar(120)
   description  String          @db.VarChar(600)
   url          String          @db.Text
   sourceDomain String
   status       RadarPostStatus @default(PENDING)
   rejectReason String?         @db.VarChar(200)
   pinned       Boolean         @default(false)
-  tag          RadarPostTag?
   createdById  String
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
   approvedById String?
   approvedAt   DateTime?
 
-  tenant     Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  createdBy  User   @relation("RadarPostAuthor", fields: [createdById], references: [id], onDelete: Cascade)
-  approvedBy User?  @relation("RadarPostApprover", fields: [approvedById], references: [id], onDelete: SetNull)
+  tenant     Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy  User      @relation("RadarPostAuthor", fields: [createdById], references: [id], onDelete: Cascade)
+  approvedBy User?     @relation("RadarPostApprover", fields: [approvedById], references: [id], onDelete: SetNull)
+  saves      RadarSave[]
 
   @@index([tenantId, status, approvedAt])
   @@index([tenantId, createdById, createdAt])
   @@index([tenantId, pinned, approvedAt])
+}
+
+model RadarSeen {
+  id         String   @id @default(cuid())
+  userId     String
+  tenantId   String
+  lastSeenAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
+}
+
+model RadarSave {
+  id     String   @id @default(cuid())
+  userId String
+  postId String
+  createdAt DateTime @default(now())
+
+  user User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post MentorRadarPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([userId])
 }

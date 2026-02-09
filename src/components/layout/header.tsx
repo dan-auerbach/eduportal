@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bell, LogOut, User, Menu, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { t } from "@/lib/i18n";
+import { clearTenantCookies } from "@/actions/auth";
 
 const UPDATES_LAST_SEEN_KEY = "mentor-updates-last-seen";
 const NOTIFICATION_POLL_INTERVAL = 30_000; // 30 seconds
@@ -193,7 +194,10 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick }: HeaderProp
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => signOut({ callbackUrl: "/auth/login" })}
+              onClick={async () => {
+                await clearTenantCookies();
+                signOut({ callbackUrl: "/auth/login" });
+              }}
               className="flex items-center gap-2 text-destructive"
             >
               <LogOut className="h-4 w-4" />

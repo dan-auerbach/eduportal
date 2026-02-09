@@ -1170,7 +1170,7 @@ export const sl = {
     tabPending: "Čaka na potrditev",
     addPost: "Dodaj",
     // Inline composer
-    composerUrlPlaceholder: "Prilepi povezavo …",
+    composerUrlPlaceholder: "Prilepi link + zakaj je zanimiv …",
     composerDescPlaceholder: "Zakaj je zanimivo? (neobvezno, do 600 znakov)",
     composerSubmitting: "Dodajanje …",
     composerPendingToast: "Hvala. Objavo mora potrditi admin.",

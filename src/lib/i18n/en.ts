@@ -1170,7 +1170,7 @@ export const en = {
     tabPending: "Awaiting approval",
     addPost: "Add",
     // Inline composer
-    composerUrlPlaceholder: "Paste a link …",
+    composerUrlPlaceholder: "Paste a link + why it's interesting …",
     composerDescPlaceholder: "Why is it interesting? (optional, up to 600 chars)",
     composerSubmitting: "Adding …",
     composerPendingToast: "Thanks. An admin needs to approve your post.",

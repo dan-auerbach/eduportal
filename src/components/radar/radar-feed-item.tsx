@@ -45,9 +45,7 @@ function formatDate(isoString: string): string {
   });
 }
 
-const DESC_CLAMP = 160;
-
-// ── Tiny icon button ────────────────────────────────────────────────────────
+// ── Tiny icon button (accessible: focusable, has title) ─────────────────────
 
 function IconBtn({
   onClick,
@@ -71,7 +69,8 @@ function IconBtn({
       }}
       disabled={disabled}
       title={title}
-      className={`rounded p-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/60 disabled:opacity-30 transition-colors ${className}`}
+      aria-label={title}
+      className={`rounded p-1 text-muted-foreground/50 hover:text-foreground focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-30 transition-colors ${className}`}
     >
       {children}
     </button>
@@ -94,7 +93,6 @@ export function RadarFeedItem({
   const authorName = post.createdBy
     ? `${post.createdBy.firstName} ${post.createdBy.lastName}`
     : "";
-  const longDesc = post.description.length > DESC_CLAMP;
 
   // Action hooks
   const approve = useRadarAction(
@@ -111,16 +109,13 @@ export function RadarFeedItem({
   );
   const saveToggle = useRadarAction(
     () => toggleRadarSave(post.id),
-    "", // handled inside
-    (result) => {
-      // result.data.saved is available on save toggle
-    },
+    "", // toast handled by hook based on saved state
   );
 
   return (
-    <div className="group relative py-3 px-1">
+    <div className="group/item relative py-2.5 px-1 focus-within:bg-muted/30 transition-colors">
       {/* Row 1: domain + actions */}
-      <div className="flex items-center gap-2 min-w-0">
+      <div className="flex items-center gap-1.5 min-w-0">
         {/* Pinned indicator */}
         {post.pinned && (
           <Pin className="h-3 w-3 text-amber-500 shrink-0 -rotate-45" />
@@ -132,31 +127,44 @@ export function RadarFeedItem({
             title={t("radar.newBadge")}
           />
         )}
-        {/* Domain link */}
+
+        {/* Domain link — ellipsis, max-width, full-URL tooltip */}
         <a
           href={post.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[13px] font-semibold text-foreground hover:text-primary transition-colors truncate min-w-0"
+          title={post.url}
+          className="text-[13px] font-semibold text-foreground hover:text-primary transition-colors truncate max-w-[180px] sm:max-w-[240px]"
         >
           {post.sourceDomain}
         </a>
 
-        {/* Status badge (for "My posts" tab) */}
+        {/* Status badge ("My posts" tab) */}
         {showStatus && (
           <Badge
             variant="outline"
-            className={`text-[10px] px-1.5 py-0 h-4 leading-none ${STATUS_COLORS[post.status] || ""}`}
+            className={`text-[10px] px-1.5 py-0 h-4 leading-none shrink-0 ${STATUS_COLORS[post.status] || ""}`}
           >
             {t(`radar.status${post.status.charAt(0)}${post.status.slice(1).toLowerCase()}`)}
           </Badge>
         )}
 
         {/* Spacer */}
-        <div className="flex-1" />
+        <div className="flex-1 min-w-0" />
 
-        {/* Action icons — always visible on mobile, hover-reveal on desktop */}
-        <div className="flex items-center gap-0.5 shrink-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+        {/* External link — always visible (primary CTA) */}
+        <IconBtn
+          onClick={() =>
+            window.open(post.url, "_blank", "noopener,noreferrer")
+          }
+          title={t("radar.openLink")}
+          className="!text-muted-foreground/40 hover:!text-primary shrink-0"
+        >
+          <ExternalLink className="h-3.5 w-3.5" />
+        </IconBtn>
+
+        {/* Secondary actions — hover-reveal on desktop, always visible on mobile */}
+        <div className="flex items-center shrink-0 md:opacity-0 md:group-hover/item:opacity-100 md:group-focus-within/item:opacity-100 transition-opacity">
           {/* Bookmark (all users, approved posts) */}
           {post.status === "APPROVED" && (
             <IconBtn
@@ -202,42 +210,35 @@ export function RadarFeedItem({
               onClick={approve.execute}
               disabled={approve.pending}
               title={t("radar.approve")}
-              className="hover:text-green-600"
+              className="hover:!text-green-600 focus-visible:!text-green-600"
             >
               <Check className="h-3.5 w-3.5" />
             </IconBtn>
           )}
 
-          {/* Admin: reject (pending) — uses dialog */}
+          {/* Admin: reject (pending) — dialog */}
           {isAdmin && post.status === "PENDING" && (
             <RejectRadarDialog postId={post.id} iconOnly />
           )}
-
-          {/* External link */}
-          <IconBtn
-            onClick={() =>
-              window.open(post.url, "_blank", "noopener,noreferrer")
-            }
-            title={t("radar.openLink")}
-          >
-            <ExternalLink className="h-3.5 w-3.5" />
-          </IconBtn>
         </div>
       </div>
 
-      {/* Row 2: description */}
+      {/* Row 2: description — CSS line-clamp (2 desktop, 3 mobile) */}
       {post.description && (
-        <div className="mt-1 text-[13px] leading-snug text-muted-foreground">
-          <span className="whitespace-pre-line">
-            {expanded || !longDesc
-              ? post.description
-              : post.description.slice(0, DESC_CLAMP) + "…"}
-          </span>
-          {longDesc && (
+        <div className="mt-0.5">
+          <p
+            className={`text-[13px] leading-snug text-muted-foreground whitespace-pre-line ${
+              !expanded ? "line-clamp-3 sm:line-clamp-2" : ""
+            }`}
+          >
+            {post.description}
+          </p>
+          {/* Show toggle only if description is potentially long enough to clamp */}
+          {post.description.length > 80 && (
             <button
               type="button"
               onClick={() => setExpanded(!expanded)}
-              className="ml-1 text-primary/70 hover:text-primary text-[12px] font-medium hover:underline"
+              className="text-primary/60 hover:text-primary text-[12px] font-medium hover:underline focus-visible:underline focus-visible:outline-none mt-0.5"
             >
               {expanded ? t("radar.showLess") : t("radar.showMore")}
             </button>
@@ -246,7 +247,7 @@ export function RadarFeedItem({
       )}
 
       {/* Row 3: meta */}
-      <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground/60">
+      <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-muted-foreground/50">
         {authorName && <span>{authorName}</span>}
         {authorName && <span>·</span>}
         <span>{formatDate(post.approvedAt || post.createdAt)}</span>
@@ -254,7 +255,7 @@ export function RadarFeedItem({
 
       {/* Reject reason */}
       {post.rejectReason && (
-        <p className="mt-1 text-[11px] text-red-500/80">
+        <p className="mt-1 text-[11px] text-red-500/70">
           {t("radar.rejectedReason", { reason: post.rejectReason })}
         </p>
       )}

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Loader2, ArrowLeft, Mail, CheckCircle2 } from "lucide-react";
 import { t } from "@/lib/i18n";
+import { requestPasswordReset } from "@/actions/email";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -33,10 +34,8 @@ export default function ForgotPasswordPage() {
 
     setLoading(true);
 
-    // TODO: Implement actual password reset email sending
-    // For now, simulate a short delay and show the safe success message
-    // regardless of whether the email exists (security best practice)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Send password reset email (always returns success — security best practice)
+    await requestPasswordReset(email);
 
     setSubmitted(true);
     setLoading(false);

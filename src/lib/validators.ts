@@ -47,6 +47,12 @@ export const ModuleFeedbackSchema = z.object({
   suggestion: z.string().min(20, "Predlog mora vsebovati vsaj 20 znakov").max(500),
 });
 
+// ---- Password reset ----
+export const ResetPasswordSchema = z.object({
+  token: z.string().min(1, "Token je obvezen"),
+  password: z.string().min(8, "Geslo mora imeti vsaj 8 znakov"),
+});
+
 // ---- User forms ----
 export const LoginSchema = z.object({
   email: z.string().email("Neveljaven email"),

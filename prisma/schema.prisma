@@ -57,6 +57,15 @@ model Tenant {
   liveEvents           MentorLiveEvent[]
   radarPosts           MentorRadarPost[]
   radarSeen            RadarSeen[]
+
+  // Email templates (owner-configurable, plain text with {placeholder} vars)
+  emailInviteSubject   String?
+  emailInviteBody      String?  @db.Text
+  emailResetSubject    String?
+  emailResetBody       String?  @db.Text
+
+  emailTokens          EmailToken[]
+  emailPreferences     EmailPreference[]
 }
 
 enum TenantTheme {
@@ -139,6 +148,8 @@ model User {
   approvedRadarPosts MentorRadarPost[] @relation("RadarPostApprover")
   radarSeen          RadarSeen[]
   radarSaves         RadarSave[]
+  emailTokens        EmailToken[]
+  emailPreferences   EmailPreference[]
 
   @@index([role, isActive])
 }
@@ -630,6 +641,7 @@ enum NotificationType {
   SYSTEM
   RADAR_APPROVED
   RADAR_REJECTED
+  NEW_KNOWLEDGE
 }
 
 model NotificationDedup {
@@ -868,6 +880,12 @@ enum AuditAction {
   RADAR_POST_ARCHIVED
   RADAR_POST_PINNED
   RADAR_POST_UNPINNED
+  EMAIL_SENT
+  EMAIL_PREFERENCE_UPDATED
+  PASSWORD_RESET_REQUESTED
+  PASSWORD_RESET_COMPLETED
+  INVITE_SENT
+  INVITE_ACCEPTED
 }
 
 // ============================================
@@ -1007,4 +1025,50 @@ model RadarSave {
 
   @@unique([userId, postId])
   @@index([userId])
+}
+
+// ============================================
+// EMAIL TOKENS (PASSWORD RESET + INVITE)
+// ============================================
+
+enum EmailTokenType {
+  PASSWORD_RESET
+  INVITE
+}
+
+model EmailToken {
+  id        String         @id @default(cuid())
+  userId    String
+  tenantId  String?
+  type      EmailTokenType
+  token     String         @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime       @default(now())
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId, type])
+}
+
+// ============================================
+// EMAIL PREFERENCES (PER USER PER TENANT)
+// ============================================
+
+model EmailPreference {
+  id                   String  @id @default(cuid())
+  userId               String
+  tenantId             String
+  mentorQuestion       String  @default("INSTANT")
+  liveTrainingReminder Boolean @default(true)
+  newKnowledgeDigest   String  @default("DAILY")
+  securityNotices      Boolean @default(true)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
 }

@@ -264,6 +264,8 @@ export type UserWhereInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
   radarSaves?: Prisma.RadarSaveListRelationFilter
+  emailTokens?: Prisma.EmailTokenListRelationFilter
+  emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -305,6 +307,8 @@ export type UserOrderByWithRelationInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostOrderByRelationAggregateInput
   radarSeen?: Prisma.RadarSeenOrderByRelationAggregateInput
   radarSaves?: Prisma.RadarSaveOrderByRelationAggregateInput
+  emailTokens?: Prisma.EmailTokenOrderByRelationAggregateInput
+  emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -349,6 +353,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   approvedRadarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
   radarSaves?: Prisma.RadarSaveListRelationFilter
+  emailTokens?: Prisma.EmailTokenListRelationFilter
+  emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -426,6 +432,8 @@ export type UserCreateInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -467,6 +475,8 @@ export type UserUncheckedCreateInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -508,6 +518,8 @@ export type UserUpdateInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -549,6 +561,8 @@ export type UserUncheckedUpdateInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1035,6 +1049,34 @@ export type UserUpdateOneRequiredWithoutRadarSavesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRadarSavesInput, Prisma.UserUpdateWithoutRadarSavesInput>, Prisma.UserUncheckedUpdateWithoutRadarSavesInput>
 }
 
+export type UserCreateNestedOneWithoutEmailTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailTokensInput, Prisma.UserUncheckedCreateWithoutEmailTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEmailTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailTokensInput, Prisma.UserUncheckedCreateWithoutEmailTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailTokensInput
+  upsert?: Prisma.UserUpsertWithoutEmailTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailTokensInput, Prisma.UserUpdateWithoutEmailTokensInput>, Prisma.UserUncheckedUpdateWithoutEmailTokensInput>
+}
+
+export type UserCreateNestedOneWithoutEmailPreferencesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailPreferencesInput, Prisma.UserUncheckedCreateWithoutEmailPreferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailPreferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEmailPreferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailPreferencesInput, Prisma.UserUncheckedCreateWithoutEmailPreferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailPreferencesInput
+  upsert?: Prisma.UserUpsertWithoutEmailPreferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailPreferencesInput, Prisma.UserUpdateWithoutEmailPreferencesInput>, Prisma.UserUncheckedUpdateWithoutEmailPreferencesInput>
+}
+
 export type UserCreateWithoutMembershipsInput = {
   id?: string
   email: string
@@ -1073,6 +1115,8 @@ export type UserCreateWithoutMembershipsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1113,6 +1157,8 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1169,6 +1215,8 @@ export type UserUpdateWithoutMembershipsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1209,6 +1257,8 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1249,6 +1299,8 @@ export type UserCreateWithoutPermissionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1289,6 +1341,8 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1345,6 +1399,8 @@ export type UserUpdateWithoutPermissionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1385,6 +1441,8 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1425,6 +1483,8 @@ export type UserCreateWithoutGroupsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1465,6 +1525,8 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1521,6 +1583,8 @@ export type UserUpdateWithoutGroupsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1561,6 +1625,8 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -1601,6 +1667,8 @@ export type UserCreateWithoutCreatedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -1641,6 +1709,8 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -1697,6 +1767,8 @@ export type UserUpdateWithoutCreatedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -1737,6 +1809,8 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -1777,6 +1851,8 @@ export type UserCreateWithoutSectionCompletionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -1817,6 +1893,8 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -1873,6 +1951,8 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -1913,6 +1993,8 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -1953,6 +2035,8 @@ export type UserCreateWithoutModuleAccessesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -1993,6 +2077,8 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -2049,6 +2135,8 @@ export type UserUpdateWithoutModuleAccessesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -2089,6 +2177,8 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -2129,6 +2219,8 @@ export type UserCreateWithoutQuizAttemptsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -2169,6 +2261,8 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -2225,6 +2319,8 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -2265,6 +2361,8 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -2305,6 +2403,8 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -2345,6 +2445,8 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -2401,6 +2503,8 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2441,6 +2545,8 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -2481,6 +2587,8 @@ export type UserCreateWithoutProgressOverridesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -2521,6 +2629,8 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -2577,6 +2687,8 @@ export type UserUpdateWithoutProgressOverridesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -2617,6 +2729,8 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2657,6 +2771,8 @@ export type UserCreateWithoutCertificatesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2697,6 +2813,8 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2753,6 +2871,8 @@ export type UserUpdateWithoutCertificatesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2793,6 +2913,8 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -2833,6 +2955,8 @@ export type UserCreateWithoutCommentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2873,6 +2997,8 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -2929,6 +3055,8 @@ export type UserUpdateWithoutCommentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -2969,6 +3097,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3009,6 +3139,8 @@ export type UserCreateWithoutNotificationsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3049,6 +3181,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3105,6 +3239,8 @@ export type UserUpdateWithoutNotificationsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3145,6 +3281,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -3185,6 +3323,8 @@ export type UserCreateWithoutPinnedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -3225,6 +3365,8 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -3281,6 +3423,8 @@ export type UserUpdateWithoutPinnedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -3321,6 +3465,8 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMentorModulesInput = {
@@ -3361,6 +3507,8 @@ export type UserCreateWithoutMentorModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMentorModulesInput = {
@@ -3401,6 +3549,8 @@ export type UserUncheckedCreateWithoutMentorModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMentorModulesInput = {
@@ -3457,6 +3607,8 @@ export type UserUpdateWithoutMentorModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMentorModulesInput = {
@@ -3497,6 +3649,8 @@ export type UserUncheckedUpdateWithoutMentorModulesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -3537,6 +3691,8 @@ export type UserCreateWithoutChangeLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -3577,6 +3733,8 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -3633,6 +3791,8 @@ export type UserUpdateWithoutChangeLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -3673,6 +3833,8 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -3713,6 +3875,8 @@ export type UserCreateWithoutModuleReviewsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -3753,6 +3917,8 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -3809,6 +3975,8 @@ export type UserUpdateWithoutModuleReviewsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -3849,6 +4017,8 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -3889,6 +4059,8 @@ export type UserCreateWithoutAuditLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -3929,6 +4101,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3985,6 +4159,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -4025,6 +4201,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -4065,6 +4243,8 @@ export type UserCreateWithoutChangelogEntriesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -4105,6 +4285,8 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -4161,6 +4343,8 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -4201,6 +4385,8 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatMessagesInput = {
@@ -4241,6 +4427,8 @@ export type UserCreateWithoutChatMessagesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatMessagesInput = {
@@ -4281,6 +4469,8 @@ export type UserUncheckedCreateWithoutChatMessagesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatMessagesInput = {
@@ -4326,6 +4516,8 @@ export type UserCreateWithoutConfirmedAnswersInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
@@ -4366,6 +4558,8 @@ export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConfirmedAnswersInput = {
@@ -4422,6 +4616,8 @@ export type UserUpdateWithoutChatMessagesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatMessagesInput = {
@@ -4462,6 +4658,8 @@ export type UserUncheckedUpdateWithoutChatMessagesInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConfirmedAnswersInput = {
@@ -4513,6 +4711,8 @@ export type UserUpdateWithoutConfirmedAnswersInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
@@ -4553,6 +4753,8 @@ export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedLiveEventsInput = {
@@ -4593,6 +4795,8 @@ export type UserCreateWithoutCreatedLiveEventsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
@@ -4633,6 +4837,8 @@ export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLiveEventsInput = {
@@ -4689,6 +4895,8 @@ export type UserUpdateWithoutCreatedLiveEventsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
@@ -4729,6 +4937,8 @@ export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -4769,6 +4979,8 @@ export type UserCreateWithoutSessionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -4809,6 +5021,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -4865,6 +5079,8 @@ export type UserUpdateWithoutSessionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -4905,6 +5121,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarPostsInput = {
@@ -4945,6 +5163,8 @@ export type UserCreateWithoutRadarPostsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarPostsInput = {
@@ -4985,6 +5205,8 @@ export type UserUncheckedCreateWithoutRadarPostsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarPostsInput = {
@@ -5030,6 +5252,8 @@ export type UserCreateWithoutApprovedRadarPostsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
@@ -5070,6 +5294,8 @@ export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedRadarPostsInput = {
@@ -5126,6 +5352,8 @@ export type UserUpdateWithoutRadarPostsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarPostsInput = {
@@ -5166,6 +5394,8 @@ export type UserUncheckedUpdateWithoutRadarPostsInput = {
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutApprovedRadarPostsInput = {
@@ -5217,6 +5447,8 @@ export type UserUpdateWithoutApprovedRadarPostsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
@@ -5257,6 +5489,8 @@ export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarSeenInput = {
@@ -5297,6 +5531,8 @@ export type UserCreateWithoutRadarSeenInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarSeenInput = {
@@ -5337,6 +5573,8 @@ export type UserUncheckedCreateWithoutRadarSeenInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarSeenInput = {
@@ -5393,6 +5631,8 @@ export type UserUpdateWithoutRadarSeenInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSeenInput = {
@@ -5433,6 +5673,8 @@ export type UserUncheckedUpdateWithoutRadarSeenInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarSavesInput = {
@@ -5473,6 +5715,8 @@ export type UserCreateWithoutRadarSavesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
   approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarSavesInput = {
@@ -5513,6 +5757,8 @@ export type UserUncheckedCreateWithoutRadarSavesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarSavesInput = {
@@ -5569,6 +5815,8 @@ export type UserUpdateWithoutRadarSavesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
   approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSavesInput = {
@@ -5609,6 +5857,376 @@ export type UserUncheckedUpdateWithoutRadarSavesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
   approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEmailTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEmailTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutEmailTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailTokensInput, Prisma.UserUncheckedCreateWithoutEmailTokensInput>
+}
+
+export type UserUpsertWithoutEmailTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEmailTokensInput, Prisma.UserUncheckedUpdateWithoutEmailTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailTokensInput, Prisma.UserUncheckedCreateWithoutEmailTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEmailTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEmailTokensInput, Prisma.UserUncheckedUpdateWithoutEmailTokensInput>
+}
+
+export type UserUpdateWithoutEmailTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmailTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEmailPreferencesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEmailPreferencesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutEmailPreferencesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailPreferencesInput, Prisma.UserUncheckedCreateWithoutEmailPreferencesInput>
+}
+
+export type UserUpsertWithoutEmailPreferencesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEmailPreferencesInput, Prisma.UserUncheckedUpdateWithoutEmailPreferencesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailPreferencesInput, Prisma.UserUncheckedCreateWithoutEmailPreferencesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEmailPreferencesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEmailPreferencesInput, Prisma.UserUncheckedUpdateWithoutEmailPreferencesInput>
+}
+
+export type UserUpdateWithoutEmailPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -5643,6 +6261,8 @@ export type UserCountOutputType = {
   approvedRadarPosts: number
   radarSeen: number
   radarSaves: number
+  emailTokens: number
+  emailPreferences: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5672,6 +6292,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   approvedRadarPosts?: boolean | UserCountOutputTypeCountApprovedRadarPostsArgs
   radarSeen?: boolean | UserCountOutputTypeCountRadarSeenArgs
   radarSaves?: boolean | UserCountOutputTypeCountRadarSavesArgs
+  emailTokens?: boolean | UserCountOutputTypeCountEmailTokensArgs
+  emailPreferences?: boolean | UserCountOutputTypeCountEmailPreferencesArgs
 }
 
 /**
@@ -5866,6 +6488,20 @@ export type UserCountOutputTypeCountRadarSavesArgs<ExtArgs extends runtime.Types
   where?: Prisma.RadarSaveWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEmailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEmailPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailPreferenceWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5906,6 +6542,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   approvedRadarPosts?: boolean | Prisma.User$approvedRadarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.User$radarSeenArgs<ExtArgs>
   radarSaves?: boolean | Prisma.User$radarSavesArgs<ExtArgs>
+  emailTokens?: boolean | Prisma.User$emailTokensArgs<ExtArgs>
+  emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -5982,6 +6620,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   approvedRadarPosts?: boolean | Prisma.User$approvedRadarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.User$radarSeenArgs<ExtArgs>
   radarSaves?: boolean | Prisma.User$radarSavesArgs<ExtArgs>
+  emailTokens?: boolean | Prisma.User$emailTokensArgs<ExtArgs>
+  emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -6016,6 +6656,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     approvedRadarPosts: Prisma.$MentorRadarPostPayload<ExtArgs>[]
     radarSeen: Prisma.$RadarSeenPayload<ExtArgs>[]
     radarSaves: Prisma.$RadarSavePayload<ExtArgs>[]
+    emailTokens: Prisma.$EmailTokenPayload<ExtArgs>[]
+    emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6450,6 +7092,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   approvedRadarPosts<T extends Prisma.User$approvedRadarPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedRadarPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorRadarPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   radarSeen<T extends Prisma.User$radarSeenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$radarSeenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RadarSeenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   radarSaves<T extends Prisma.User$radarSavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$radarSavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RadarSavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailTokens<T extends Prisma.User$emailTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailPreferences<T extends Prisma.User$emailPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7500,6 +8144,54 @@ export type User$radarSavesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.RadarSaveScalarFieldEnum | Prisma.RadarSaveScalarFieldEnum[]
+}
+
+/**
+ * User.emailTokens
+ */
+export type User$emailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailToken
+   */
+  select?: Prisma.EmailTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailToken
+   */
+  omit?: Prisma.EmailTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailTokenInclude<ExtArgs> | null
+  where?: Prisma.EmailTokenWhereInput
+  orderBy?: Prisma.EmailTokenOrderByWithRelationInput | Prisma.EmailTokenOrderByWithRelationInput[]
+  cursor?: Prisma.EmailTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailTokenScalarFieldEnum | Prisma.EmailTokenScalarFieldEnum[]
+}
+
+/**
+ * User.emailPreferences
+ */
+export type User$emailPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailPreference
+   */
+  select?: Prisma.EmailPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailPreference
+   */
+  omit?: Prisma.EmailPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailPreferenceInclude<ExtArgs> | null
+  where?: Prisma.EmailPreferenceWhereInput
+  orderBy?: Prisma.EmailPreferenceOrderByWithRelationInput | Prisma.EmailPreferenceOrderByWithRelationInput[]
+  cursor?: Prisma.EmailPreferenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailPreferenceScalarFieldEnum | Prisma.EmailPreferenceScalarFieldEnum[]
 }
 
 /**

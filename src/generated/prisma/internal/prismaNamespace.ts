@@ -421,7 +421,9 @@ export const ModelName = {
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
   RadarSeen: 'RadarSeen',
-  RadarSave: 'RadarSave'
+  RadarSave: 'RadarSave',
+  EmailToken: 'EmailToken',
+  EmailPreference: 'EmailPreference'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -437,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3253,6 +3255,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EmailToken: {
+      payload: Prisma.$EmailTokenPayload<ExtArgs>
+      fields: Prisma.EmailTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmailTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmailTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.EmailTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmailTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        findMany: {
+          args: Prisma.EmailTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>[]
+        }
+        create: {
+          args: Prisma.EmailTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        createMany: {
+          args: Prisma.EmailTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmailTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.EmailTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        update: {
+          args: Prisma.EmailTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.EmailTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmailTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmailTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.EmailTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.EmailTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmailToken>
+        }
+        groupBy: {
+          args: Prisma.EmailTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmailTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailTokenCountAggregateOutputType> | number
+        }
+      }
+    }
+    EmailPreference: {
+      payload: Prisma.$EmailPreferencePayload<ExtArgs>
+      fields: Prisma.EmailPreferenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmailPreferenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmailPreferenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        findFirst: {
+          args: Prisma.EmailPreferenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmailPreferenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        findMany: {
+          args: Prisma.EmailPreferenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>[]
+        }
+        create: {
+          args: Prisma.EmailPreferenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        createMany: {
+          args: Prisma.EmailPreferenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmailPreferenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>[]
+        }
+        delete: {
+          args: Prisma.EmailPreferenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        update: {
+          args: Prisma.EmailPreferenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        deleteMany: {
+          args: Prisma.EmailPreferenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmailPreferenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmailPreferenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>[]
+        }
+        upsert: {
+          args: Prisma.EmailPreferenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailPreferencePayload>
+        }
+        aggregate: {
+          args: Prisma.EmailPreferenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmailPreference>
+        }
+        groupBy: {
+          args: Prisma.EmailPreferenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailPreferenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmailPreferenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailPreferenceCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3302,7 +3452,11 @@ export const TenantScalarFieldEnum = {
   locale: 'locale',
   createdAt: 'createdAt',
   archivedAt: 'archivedAt',
-  chatTopic: 'chatTopic'
+  chatTopic: 'chatTopic',
+  emailInviteSubject: 'emailInviteSubject',
+  emailInviteBody: 'emailInviteBody',
+  emailResetSubject: 'emailResetSubject',
+  emailResetBody: 'emailResetBody'
 } as const
 
 export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -3796,6 +3950,33 @@ export const RadarSaveScalarFieldEnum = {
 export type RadarSaveScalarFieldEnum = (typeof RadarSaveScalarFieldEnum)[keyof typeof RadarSaveScalarFieldEnum]
 
 
+export const EmailTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  type: 'type',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EmailTokenScalarFieldEnum = (typeof EmailTokenScalarFieldEnum)[keyof typeof EmailTokenScalarFieldEnum]
+
+
+export const EmailPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  mentorQuestion: 'mentorQuestion',
+  liveTrainingReminder: 'liveTrainingReminder',
+  newKnowledgeDigest: 'newKnowledgeDigest',
+  securityNotices: 'securityNotices'
+} as const
+
+export type EmailPreferenceScalarFieldEnum = (typeof EmailPreferenceScalarFieldEnum)[keyof typeof EmailPreferenceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4136,6 +4317,20 @@ export type EnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'EmailTokenType'
+ */
+export type EnumEmailTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmailTokenType'>
+    
+
+
+/**
+ * Reference to a field of type 'EmailTokenType[]'
+ */
+export type ListEnumEmailTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmailTokenType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4269,6 +4464,8 @@ export type GlobalOmitConfig = {
   mentorRadarPost?: Prisma.MentorRadarPostOmit
   radarSeen?: Prisma.RadarSeenOmit
   radarSave?: Prisma.RadarSaveOmit
+  emailToken?: Prisma.EmailTokenOmit
+  emailPreference?: Prisma.EmailPreferenceOmit
 }
 
 /* Types for Logging */

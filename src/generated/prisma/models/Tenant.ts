@@ -35,6 +35,10 @@ export type TenantMinAggregateOutputType = {
   createdAt: Date | null
   archivedAt: Date | null
   chatTopic: string | null
+  emailInviteSubject: string | null
+  emailInviteBody: string | null
+  emailResetSubject: string | null
+  emailResetBody: string | null
 }
 
 export type TenantMaxAggregateOutputType = {
@@ -48,6 +52,10 @@ export type TenantMaxAggregateOutputType = {
   createdAt: Date | null
   archivedAt: Date | null
   chatTopic: string | null
+  emailInviteSubject: string | null
+  emailInviteBody: string | null
+  emailResetSubject: string | null
+  emailResetBody: string | null
 }
 
 export type TenantCountAggregateOutputType = {
@@ -61,6 +69,10 @@ export type TenantCountAggregateOutputType = {
   createdAt: number
   archivedAt: number
   chatTopic: number
+  emailInviteSubject: number
+  emailInviteBody: number
+  emailResetSubject: number
+  emailResetBody: number
   _all: number
 }
 
@@ -76,6 +88,10 @@ export type TenantMinAggregateInputType = {
   createdAt?: true
   archivedAt?: true
   chatTopic?: true
+  emailInviteSubject?: true
+  emailInviteBody?: true
+  emailResetSubject?: true
+  emailResetBody?: true
 }
 
 export type TenantMaxAggregateInputType = {
@@ -89,6 +105,10 @@ export type TenantMaxAggregateInputType = {
   createdAt?: true
   archivedAt?: true
   chatTopic?: true
+  emailInviteSubject?: true
+  emailInviteBody?: true
+  emailResetSubject?: true
+  emailResetBody?: true
 }
 
 export type TenantCountAggregateInputType = {
@@ -102,6 +122,10 @@ export type TenantCountAggregateInputType = {
   createdAt?: true
   archivedAt?: true
   chatTopic?: true
+  emailInviteSubject?: true
+  emailInviteBody?: true
+  emailResetSubject?: true
+  emailResetBody?: true
   _all?: true
 }
 
@@ -188,6 +212,10 @@ export type TenantGroupByOutputType = {
   createdAt: Date
   archivedAt: Date | null
   chatTopic: string | null
+  emailInviteSubject: string | null
+  emailInviteBody: string | null
+  emailResetSubject: string | null
+  emailResetBody: string | null
   _count: TenantCountAggregateOutputType | null
   _min: TenantMinAggregateOutputType | null
   _max: TenantMaxAggregateOutputType | null
@@ -222,6 +250,10 @@ export type TenantWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Tenant"> | Date | string | null
   chatTopic?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailInviteSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailInviteBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailResetSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailResetBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -256,6 +288,8 @@ export type TenantWhereInput = {
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
   radarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
+  emailTokens?: Prisma.EmailTokenListRelationFilter
+  emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -269,6 +303,10 @@ export type TenantOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   chatTopic?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailInviteSubject?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailInviteBody?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailResetSubject?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailResetBody?: Prisma.SortOrderInput | Prisma.SortOrder
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   modules?: Prisma.ModuleOrderByRelationAggregateInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
@@ -303,6 +341,8 @@ export type TenantOrderByWithRelationInput = {
   liveEvents?: Prisma.MentorLiveEventOrderByRelationAggregateInput
   radarPosts?: Prisma.MentorRadarPostOrderByRelationAggregateInput
   radarSeen?: Prisma.RadarSeenOrderByRelationAggregateInput
+  emailTokens?: Prisma.EmailTokenOrderByRelationAggregateInput
+  emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -319,6 +359,10 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Tenant"> | Date | string | null
   chatTopic?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailInviteSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailInviteBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailResetSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  emailResetBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -353,6 +397,8 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
   radarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
+  emailTokens?: Prisma.EmailTokenListRelationFilter
+  emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -366,6 +412,10 @@ export type TenantOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   chatTopic?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailInviteSubject?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailInviteBody?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailResetSubject?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailResetBody?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TenantCountOrderByAggregateInput
   _max?: Prisma.TenantMaxOrderByAggregateInput
   _min?: Prisma.TenantMinOrderByAggregateInput
@@ -385,6 +435,10 @@ export type TenantScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Tenant"> | Date | string | null
   chatTopic?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
+  emailInviteSubject?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
+  emailInviteBody?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
+  emailResetSubject?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
+  emailResetBody?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
 }
 
 export type TenantCreateInput = {
@@ -398,6 +452,10 @@ export type TenantCreateInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -432,6 +490,8 @@ export type TenantCreateInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -445,6 +505,10 @@ export type TenantUncheckedCreateInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -479,6 +543,8 @@ export type TenantUncheckedCreateInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -492,6 +558,10 @@ export type TenantUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -526,6 +596,8 @@ export type TenantUpdateInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -539,6 +611,10 @@ export type TenantUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -573,6 +649,8 @@ export type TenantUncheckedUpdateInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -586,6 +664,10 @@ export type TenantCreateManyInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
 }
 
 export type TenantUpdateManyMutationInput = {
@@ -599,6 +681,10 @@ export type TenantUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TenantUncheckedUpdateManyInput = {
@@ -612,6 +698,10 @@ export type TenantUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TenantCountOrderByAggregateInput = {
@@ -625,6 +715,10 @@ export type TenantCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   chatTopic?: Prisma.SortOrder
+  emailInviteSubject?: Prisma.SortOrder
+  emailInviteBody?: Prisma.SortOrder
+  emailResetSubject?: Prisma.SortOrder
+  emailResetBody?: Prisma.SortOrder
 }
 
 export type TenantMaxOrderByAggregateInput = {
@@ -638,6 +732,10 @@ export type TenantMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   chatTopic?: Prisma.SortOrder
+  emailInviteSubject?: Prisma.SortOrder
+  emailInviteBody?: Prisma.SortOrder
+  emailResetSubject?: Prisma.SortOrder
+  emailResetBody?: Prisma.SortOrder
 }
 
 export type TenantMinOrderByAggregateInput = {
@@ -651,6 +749,10 @@ export type TenantMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   chatTopic?: Prisma.SortOrder
+  emailInviteSubject?: Prisma.SortOrder
+  emailInviteBody?: Prisma.SortOrder
+  emailResetSubject?: Prisma.SortOrder
+  emailResetBody?: Prisma.SortOrder
 }
 
 export type TenantScalarRelationFilter = {
@@ -1167,6 +1269,36 @@ export type TenantUpdateOneRequiredWithoutRadarSeenNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutRadarSeenInput, Prisma.TenantUpdateWithoutRadarSeenInput>, Prisma.TenantUncheckedUpdateWithoutRadarSeenInput>
 }
 
+export type TenantCreateNestedOneWithoutEmailTokensInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailTokensInput, Prisma.TenantUncheckedCreateWithoutEmailTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailTokensInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneWithoutEmailTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailTokensInput, Prisma.TenantUncheckedCreateWithoutEmailTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailTokensInput
+  upsert?: Prisma.TenantUpsertWithoutEmailTokensInput
+  disconnect?: Prisma.TenantWhereInput | boolean
+  delete?: Prisma.TenantWhereInput | boolean
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutEmailTokensInput, Prisma.TenantUpdateWithoutEmailTokensInput>, Prisma.TenantUncheckedUpdateWithoutEmailTokensInput>
+}
+
+export type TenantCreateNestedOneWithoutEmailPreferencesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailPreferencesInput, Prisma.TenantUncheckedCreateWithoutEmailPreferencesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailPreferencesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutEmailPreferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutEmailPreferencesInput, Prisma.TenantUncheckedCreateWithoutEmailPreferencesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutEmailPreferencesInput
+  upsert?: Prisma.TenantUpsertWithoutEmailPreferencesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutEmailPreferencesInput, Prisma.TenantUpdateWithoutEmailPreferencesInput>, Prisma.TenantUncheckedUpdateWithoutEmailPreferencesInput>
+}
+
 export type TenantCreateWithoutMembershipsInput = {
   id?: string
   name: string
@@ -1178,6 +1310,10 @@ export type TenantCreateWithoutMembershipsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1211,6 +1347,8 @@ export type TenantCreateWithoutMembershipsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -1224,6 +1362,10 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1257,6 +1399,8 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -1286,6 +1430,10 @@ export type TenantUpdateWithoutMembershipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1319,6 +1467,8 @@ export type TenantUpdateWithoutMembershipsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -1332,6 +1482,10 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1365,6 +1519,8 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserPermissionsInput = {
@@ -1378,6 +1534,10 @@ export type TenantCreateWithoutUserPermissionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -1411,6 +1571,8 @@ export type TenantCreateWithoutUserPermissionsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserPermissionsInput = {
@@ -1424,6 +1586,10 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -1457,6 +1623,8 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserPermissionsInput = {
@@ -1486,6 +1654,10 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -1519,6 +1691,8 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
@@ -1532,6 +1706,10 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -1565,6 +1743,8 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutGroupsInput = {
@@ -1578,6 +1758,10 @@ export type TenantCreateWithoutGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1611,6 +1795,8 @@ export type TenantCreateWithoutGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutGroupsInput = {
@@ -1624,6 +1810,10 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1657,6 +1847,8 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutGroupsInput = {
@@ -1686,6 +1878,10 @@ export type TenantUpdateWithoutGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1719,6 +1915,8 @@ export type TenantUpdateWithoutGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutGroupsInput = {
@@ -1732,6 +1930,10 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1765,6 +1967,8 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutUserGroupsInput = {
@@ -1778,6 +1982,10 @@ export type TenantCreateWithoutUserGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -1811,6 +2019,8 @@ export type TenantCreateWithoutUserGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUserGroupsInput = {
@@ -1824,6 +2034,10 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -1857,6 +2071,8 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUserGroupsInput = {
@@ -1886,6 +2102,10 @@ export type TenantUpdateWithoutUserGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -1919,6 +2139,8 @@ export type TenantUpdateWithoutUserGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUserGroupsInput = {
@@ -1932,6 +2154,10 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -1965,6 +2191,8 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulesInput = {
@@ -1978,6 +2206,10 @@ export type TenantCreateWithoutModulesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -2011,6 +2243,8 @@ export type TenantCreateWithoutModulesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulesInput = {
@@ -2024,6 +2258,10 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -2057,6 +2295,8 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulesInput = {
@@ -2086,6 +2326,10 @@ export type TenantUpdateWithoutModulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -2119,6 +2363,8 @@ export type TenantUpdateWithoutModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulesInput = {
@@ -2132,6 +2378,10 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -2165,6 +2415,8 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleGroupsInput = {
@@ -2178,6 +2430,10 @@ export type TenantCreateWithoutModuleGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2211,6 +2467,8 @@ export type TenantCreateWithoutModuleGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleGroupsInput = {
@@ -2224,6 +2482,10 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2257,6 +2519,8 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleGroupsInput = {
@@ -2286,6 +2550,10 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2319,6 +2587,8 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
@@ -2332,6 +2602,10 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2365,6 +2639,8 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModulePrerequisitesInput = {
@@ -2378,6 +2654,10 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2411,6 +2691,8 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
@@ -2424,6 +2706,10 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2457,6 +2743,8 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModulePrerequisitesInput = {
@@ -2486,6 +2774,10 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2519,6 +2811,8 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
@@ -2532,6 +2826,10 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2565,6 +2863,8 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionsInput = {
@@ -2578,6 +2878,10 @@ export type TenantCreateWithoutSectionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2611,6 +2915,8 @@ export type TenantCreateWithoutSectionsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionsInput = {
@@ -2624,6 +2930,10 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2657,6 +2967,8 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionsInput = {
@@ -2686,6 +2998,10 @@ export type TenantUpdateWithoutSectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2719,6 +3035,8 @@ export type TenantUpdateWithoutSectionsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionsInput = {
@@ -2732,6 +3050,10 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2765,6 +3087,8 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSectionCompletionsInput = {
@@ -2778,6 +3102,10 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2811,6 +3139,8 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
@@ -2824,6 +3154,10 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2857,6 +3191,8 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSectionCompletionsInput = {
@@ -2886,6 +3222,10 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2919,6 +3259,8 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -2932,6 +3274,10 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2965,6 +3311,8 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleAccessesInput = {
@@ -2978,6 +3326,10 @@ export type TenantCreateWithoutModuleAccessesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3011,6 +3363,8 @@ export type TenantCreateWithoutModuleAccessesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleAccessesInput = {
@@ -3024,6 +3378,10 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3057,6 +3415,8 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleAccessesInput = {
@@ -3086,6 +3446,10 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3119,6 +3483,8 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
@@ -3132,6 +3498,10 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3165,6 +3535,8 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAttachmentsInput = {
@@ -3178,6 +3550,10 @@ export type TenantCreateWithoutAttachmentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3211,6 +3587,8 @@ export type TenantCreateWithoutAttachmentsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAttachmentsInput = {
@@ -3224,6 +3602,10 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3257,6 +3639,8 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAttachmentsInput = {
@@ -3286,6 +3670,10 @@ export type TenantUpdateWithoutAttachmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3319,6 +3707,8 @@ export type TenantUpdateWithoutAttachmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAttachmentsInput = {
@@ -3332,6 +3722,10 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3365,6 +3759,8 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizzesInput = {
@@ -3378,6 +3774,10 @@ export type TenantCreateWithoutQuizzesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3411,6 +3811,8 @@ export type TenantCreateWithoutQuizzesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizzesInput = {
@@ -3424,6 +3826,10 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3457,6 +3863,8 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizzesInput = {
@@ -3486,6 +3894,10 @@ export type TenantUpdateWithoutQuizzesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3519,6 +3931,8 @@ export type TenantUpdateWithoutQuizzesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizzesInput = {
@@ -3532,6 +3946,10 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3565,6 +3983,8 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizQuestionsInput = {
@@ -3578,6 +3998,10 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3611,6 +4035,8 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
@@ -3624,6 +4050,10 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3657,6 +4087,8 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizQuestionsInput = {
@@ -3686,6 +4118,10 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3719,6 +4155,8 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
@@ -3732,6 +4170,10 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3765,6 +4207,8 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutQuizAttemptsInput = {
@@ -3778,6 +4222,10 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3811,6 +4259,8 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -3824,6 +4274,10 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3857,6 +4311,8 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -3886,6 +4342,10 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3919,6 +4379,8 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -3932,6 +4394,10 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3965,6 +4431,8 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSelfAssessmentsInput = {
@@ -3978,6 +4446,10 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4011,6 +4483,8 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -4024,6 +4498,10 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4057,6 +4535,8 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -4086,6 +4566,10 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4119,6 +4603,8 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -4132,6 +4618,10 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4165,6 +4655,8 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProgressOverridesInput = {
@@ -4178,6 +4670,10 @@ export type TenantCreateWithoutProgressOverridesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4211,6 +4707,8 @@ export type TenantCreateWithoutProgressOverridesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProgressOverridesInput = {
@@ -4224,6 +4722,10 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4257,6 +4759,8 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProgressOverridesInput = {
@@ -4286,6 +4790,10 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4319,6 +4827,8 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
@@ -4332,6 +4842,10 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4365,6 +4879,8 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCertificatesInput = {
@@ -4378,6 +4894,10 @@ export type TenantCreateWithoutCertificatesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4411,6 +4931,8 @@ export type TenantCreateWithoutCertificatesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCertificatesInput = {
@@ -4424,6 +4946,10 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4457,6 +4983,8 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCertificatesInput = {
@@ -4486,6 +5014,10 @@ export type TenantUpdateWithoutCertificatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4519,6 +5051,8 @@ export type TenantUpdateWithoutCertificatesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCertificatesInput = {
@@ -4532,6 +5066,10 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4565,6 +5103,8 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCommentsInput = {
@@ -4578,6 +5118,10 @@ export type TenantCreateWithoutCommentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4611,6 +5155,8 @@ export type TenantCreateWithoutCommentsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCommentsInput = {
@@ -4624,6 +5170,10 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4657,6 +5207,8 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCommentsInput = {
@@ -4686,6 +5238,10 @@ export type TenantUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4719,6 +5275,8 @@ export type TenantUpdateWithoutCommentsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCommentsInput = {
@@ -4732,6 +5290,10 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4765,6 +5327,8 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationsInput = {
@@ -4778,6 +5342,10 @@ export type TenantCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4811,6 +5379,8 @@ export type TenantCreateWithoutNotificationsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationsInput = {
@@ -4824,6 +5394,10 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4857,6 +5431,8 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationsInput = {
@@ -4886,6 +5462,10 @@ export type TenantUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4919,6 +5499,8 @@ export type TenantUpdateWithoutNotificationsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationsInput = {
@@ -4932,6 +5514,10 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4965,6 +5551,8 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutNotificationDedupsInput = {
@@ -4978,6 +5566,10 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5011,6 +5603,8 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
@@ -5024,6 +5618,10 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5057,6 +5655,8 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutNotificationDedupsInput = {
@@ -5086,6 +5686,10 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5119,6 +5723,8 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
@@ -5132,6 +5738,10 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5165,6 +5775,8 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -5178,6 +5790,10 @@ export type TenantCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5211,6 +5827,8 @@ export type TenantCreateWithoutCategoriesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -5224,6 +5842,10 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5257,6 +5879,8 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -5286,6 +5910,10 @@ export type TenantUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5319,6 +5947,8 @@ export type TenantUpdateWithoutCategoriesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -5332,6 +5962,10 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5365,6 +5999,8 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCompanyPinnedModulesInput = {
@@ -5378,6 +6014,10 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5411,6 +6051,8 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
@@ -5424,6 +6066,10 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5457,6 +6103,8 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCompanyPinnedModulesInput = {
@@ -5486,6 +6134,10 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5519,6 +6171,8 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
@@ -5532,6 +6186,10 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5565,6 +6223,8 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTagsInput = {
@@ -5578,6 +6238,10 @@ export type TenantCreateWithoutTagsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5611,6 +6275,8 @@ export type TenantCreateWithoutTagsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTagsInput = {
@@ -5624,6 +6290,10 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5657,6 +6327,8 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTagsInput = {
@@ -5686,6 +6358,10 @@ export type TenantUpdateWithoutTagsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5719,6 +6395,8 @@ export type TenantUpdateWithoutTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTagsInput = {
@@ -5732,6 +6410,10 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5765,6 +6447,8 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleTagsInput = {
@@ -5778,6 +6462,10 @@ export type TenantCreateWithoutModuleTagsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5811,6 +6499,8 @@ export type TenantCreateWithoutModuleTagsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleTagsInput = {
@@ -5824,6 +6514,10 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5857,6 +6551,8 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleTagsInput = {
@@ -5886,6 +6582,10 @@ export type TenantUpdateWithoutModuleTagsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5919,6 +6619,8 @@ export type TenantUpdateWithoutModuleTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleTagsInput = {
@@ -5932,6 +6634,10 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5965,6 +6671,8 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleMentorsInput = {
@@ -5978,6 +6686,10 @@ export type TenantCreateWithoutModuleMentorsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6011,6 +6723,8 @@ export type TenantCreateWithoutModuleMentorsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleMentorsInput = {
@@ -6024,6 +6738,10 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6057,6 +6775,8 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleMentorsInput = {
@@ -6086,6 +6806,10 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6119,6 +6843,8 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
@@ -6132,6 +6858,10 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6165,6 +6895,8 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChangeLogsInput = {
@@ -6178,6 +6910,10 @@ export type TenantCreateWithoutChangeLogsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6211,6 +6947,8 @@ export type TenantCreateWithoutChangeLogsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangeLogsInput = {
@@ -6224,6 +6962,10 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6257,6 +6999,8 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangeLogsInput = {
@@ -6286,6 +7030,10 @@ export type TenantUpdateWithoutChangeLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6319,6 +7067,8 @@ export type TenantUpdateWithoutChangeLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangeLogsInput = {
@@ -6332,6 +7082,10 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6365,6 +7119,8 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutModuleReviewsInput = {
@@ -6378,6 +7134,10 @@ export type TenantCreateWithoutModuleReviewsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6411,6 +7171,8 @@ export type TenantCreateWithoutModuleReviewsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutModuleReviewsInput = {
@@ -6424,6 +7186,10 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6457,6 +7223,8 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutModuleReviewsInput = {
@@ -6486,6 +7254,10 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6519,6 +7291,8 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
@@ -6532,6 +7306,10 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6565,6 +7343,8 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -6578,6 +7358,10 @@ export type TenantCreateWithoutAuditLogsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6611,6 +7395,8 @@ export type TenantCreateWithoutAuditLogsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -6624,6 +7410,10 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6657,6 +7447,8 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -6686,6 +7478,10 @@ export type TenantUpdateWithoutAuditLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6719,6 +7515,8 @@ export type TenantUpdateWithoutAuditLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -6732,6 +7530,10 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6765,6 +7567,8 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChangelogEntriesInput = {
@@ -6778,6 +7582,10 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6811,6 +7619,8 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
@@ -6824,6 +7634,10 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6857,6 +7671,8 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChangelogEntriesInput = {
@@ -6886,6 +7702,10 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6919,6 +7739,8 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -6932,6 +7754,10 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6965,6 +7791,8 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutChatMessagesInput = {
@@ -6978,6 +7806,10 @@ export type TenantCreateWithoutChatMessagesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7011,6 +7843,8 @@ export type TenantCreateWithoutChatMessagesInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutChatMessagesInput = {
@@ -7024,6 +7858,10 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7057,6 +7895,8 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutChatMessagesInput = {
@@ -7086,6 +7926,10 @@ export type TenantUpdateWithoutChatMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7119,6 +7963,8 @@ export type TenantUpdateWithoutChatMessagesInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutChatMessagesInput = {
@@ -7132,6 +7978,10 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7165,6 +8015,8 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutLiveEventsInput = {
@@ -7178,6 +8030,10 @@ export type TenantCreateWithoutLiveEventsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7211,6 +8067,8 @@ export type TenantCreateWithoutLiveEventsInput = {
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutLiveEventsInput = {
@@ -7224,6 +8082,10 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7257,6 +8119,8 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutLiveEventsInput = {
@@ -7286,6 +8150,10 @@ export type TenantUpdateWithoutLiveEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7319,6 +8187,8 @@ export type TenantUpdateWithoutLiveEventsInput = {
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutLiveEventsInput = {
@@ -7332,6 +8202,10 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7365,6 +8239,8 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSessionsInput = {
@@ -7378,6 +8254,10 @@ export type TenantCreateWithoutSessionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7411,6 +8291,8 @@ export type TenantCreateWithoutSessionsInput = {
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSessionsInput = {
@@ -7424,6 +8306,10 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7457,6 +8343,8 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSessionsInput = {
@@ -7486,6 +8374,10 @@ export type TenantUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7519,6 +8411,8 @@ export type TenantUpdateWithoutSessionsInput = {
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSessionsInput = {
@@ -7532,6 +8426,10 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7565,6 +8463,8 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRadarPostsInput = {
@@ -7578,6 +8478,10 @@ export type TenantCreateWithoutRadarPostsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7611,6 +8515,8 @@ export type TenantCreateWithoutRadarPostsInput = {
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRadarPostsInput = {
@@ -7624,6 +8530,10 @@ export type TenantUncheckedCreateWithoutRadarPostsInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7657,6 +8567,8 @@ export type TenantUncheckedCreateWithoutRadarPostsInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRadarPostsInput = {
@@ -7686,6 +8598,10 @@ export type TenantUpdateWithoutRadarPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7719,6 +8635,8 @@ export type TenantUpdateWithoutRadarPostsInput = {
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRadarPostsInput = {
@@ -7732,6 +8650,10 @@ export type TenantUncheckedUpdateWithoutRadarPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7765,6 +8687,8 @@ export type TenantUncheckedUpdateWithoutRadarPostsInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRadarSeenInput = {
@@ -7778,6 +8702,10 @@ export type TenantCreateWithoutRadarSeenInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7811,6 +8739,8 @@ export type TenantCreateWithoutRadarSeenInput = {
   moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRadarSeenInput = {
@@ -7824,6 +8754,10 @@ export type TenantUncheckedCreateWithoutRadarSeenInput = {
   createdAt?: Date | string
   archivedAt?: Date | string | null
   chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7857,6 +8791,8 @@ export type TenantUncheckedCreateWithoutRadarSeenInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRadarSeenInput = {
@@ -7886,6 +8822,10 @@ export type TenantUpdateWithoutRadarSeenInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7919,6 +8859,8 @@ export type TenantUpdateWithoutRadarSeenInput = {
   moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRadarSeenInput = {
@@ -7932,6 +8874,10 @@ export type TenantUncheckedUpdateWithoutRadarSeenInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7965,6 +8911,456 @@ export type TenantUncheckedUpdateWithoutRadarSeenInput = {
   moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutEmailTokensInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutEmailTokensInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutEmailTokensInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailTokensInput, Prisma.TenantUncheckedCreateWithoutEmailTokensInput>
+}
+
+export type TenantUpsertWithoutEmailTokensInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutEmailTokensInput, Prisma.TenantUncheckedUpdateWithoutEmailTokensInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailTokensInput, Prisma.TenantUncheckedCreateWithoutEmailTokensInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutEmailTokensInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutEmailTokensInput, Prisma.TenantUncheckedUpdateWithoutEmailTokensInput>
+}
+
+export type TenantUpdateWithoutEmailTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutEmailTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutEmailPreferencesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutEmailPreferencesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutEmailPreferencesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailPreferencesInput, Prisma.TenantUncheckedCreateWithoutEmailPreferencesInput>
+}
+
+export type TenantUpsertWithoutEmailPreferencesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutEmailPreferencesInput, Prisma.TenantUncheckedUpdateWithoutEmailPreferencesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutEmailPreferencesInput, Prisma.TenantUncheckedCreateWithoutEmailPreferencesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutEmailPreferencesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutEmailPreferencesInput, Prisma.TenantUncheckedUpdateWithoutEmailPreferencesInput>
+}
+
+export type TenantUpdateWithoutEmailPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutEmailPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -8007,6 +9403,8 @@ export type TenantCountOutputType = {
   liveEvents: number
   radarPosts: number
   radarSeen: number
+  emailTokens: number
+  emailPreferences: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8044,6 +9442,8 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   liveEvents?: boolean | TenantCountOutputTypeCountLiveEventsArgs
   radarPosts?: boolean | TenantCountOutputTypeCountRadarPostsArgs
   radarSeen?: boolean | TenantCountOutputTypeCountRadarSeenArgs
+  emailTokens?: boolean | TenantCountOutputTypeCountEmailTokensArgs
+  emailPreferences?: boolean | TenantCountOutputTypeCountEmailPreferencesArgs
 }
 
 /**
@@ -8294,6 +9694,20 @@ export type TenantCountOutputTypeCountRadarSeenArgs<ExtArgs extends runtime.Type
   where?: Prisma.RadarSeenWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountEmailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailTokenWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountEmailPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailPreferenceWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -8306,6 +9720,10 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   archivedAt?: boolean
   chatTopic?: boolean
+  emailInviteSubject?: boolean
+  emailInviteBody?: boolean
+  emailResetSubject?: boolean
+  emailResetBody?: boolean
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   groups?: boolean | Prisma.Tenant$groupsArgs<ExtArgs>
@@ -8340,6 +9758,8 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   liveEvents?: boolean | Prisma.Tenant$liveEventsArgs<ExtArgs>
   radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.Tenant$radarSeenArgs<ExtArgs>
+  emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
+  emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -8354,6 +9774,10 @@ export type TenantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdAt?: boolean
   archivedAt?: boolean
   chatTopic?: boolean
+  emailInviteSubject?: boolean
+  emailInviteBody?: boolean
+  emailResetSubject?: boolean
+  emailResetBody?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -8367,6 +9791,10 @@ export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdAt?: boolean
   archivedAt?: boolean
   chatTopic?: boolean
+  emailInviteSubject?: boolean
+  emailInviteBody?: boolean
+  emailResetSubject?: boolean
+  emailResetBody?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectScalar = {
@@ -8380,9 +9808,13 @@ export type TenantSelectScalar = {
   createdAt?: boolean
   archivedAt?: boolean
   chatTopic?: boolean
+  emailInviteSubject?: boolean
+  emailInviteBody?: boolean
+  emailResetSubject?: boolean
+  emailResetBody?: boolean
 }
 
-export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt" | "chatTopic", ExtArgs["result"]["tenant"]>
+export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt" | "chatTopic" | "emailInviteSubject" | "emailInviteBody" | "emailResetSubject" | "emailResetBody", ExtArgs["result"]["tenant"]>
 export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
@@ -8418,6 +9850,8 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   liveEvents?: boolean | Prisma.Tenant$liveEventsArgs<ExtArgs>
   radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.Tenant$radarSeenArgs<ExtArgs>
+  emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
+  emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -8460,6 +9894,8 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     liveEvents: Prisma.$MentorLiveEventPayload<ExtArgs>[]
     radarPosts: Prisma.$MentorRadarPostPayload<ExtArgs>[]
     radarSeen: Prisma.$RadarSeenPayload<ExtArgs>[]
+    emailTokens: Prisma.$EmailTokenPayload<ExtArgs>[]
+    emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -8472,6 +9908,10 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     createdAt: Date
     archivedAt: Date | null
     chatTopic: string | null
+    emailInviteSubject: string | null
+    emailInviteBody: string | null
+    emailResetSubject: string | null
+    emailResetBody: string | null
   }, ExtArgs["result"]["tenant"]>
   composites: {}
 }
@@ -8900,6 +10340,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   liveEvents<T extends Prisma.Tenant$liveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$liveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorLiveEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   radarPosts<T extends Prisma.Tenant$radarPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$radarPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorRadarPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   radarSeen<T extends Prisma.Tenant$radarSeenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$radarSeenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RadarSeenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailTokens<T extends Prisma.Tenant$emailTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailPreferences<T extends Prisma.Tenant$emailPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8939,6 +10381,10 @@ export interface TenantFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Tenant", 'DateTime'>
   readonly archivedAt: Prisma.FieldRef<"Tenant", 'DateTime'>
   readonly chatTopic: Prisma.FieldRef<"Tenant", 'String'>
+  readonly emailInviteSubject: Prisma.FieldRef<"Tenant", 'String'>
+  readonly emailInviteBody: Prisma.FieldRef<"Tenant", 'String'>
+  readonly emailResetSubject: Prisma.FieldRef<"Tenant", 'String'>
+  readonly emailResetBody: Prisma.FieldRef<"Tenant", 'String'>
 }
     
 
@@ -10140,6 +11586,54 @@ export type Tenant$radarSeenArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.RadarSeenScalarFieldEnum | Prisma.RadarSeenScalarFieldEnum[]
+}
+
+/**
+ * Tenant.emailTokens
+ */
+export type Tenant$emailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailToken
+   */
+  select?: Prisma.EmailTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailToken
+   */
+  omit?: Prisma.EmailTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailTokenInclude<ExtArgs> | null
+  where?: Prisma.EmailTokenWhereInput
+  orderBy?: Prisma.EmailTokenOrderByWithRelationInput | Prisma.EmailTokenOrderByWithRelationInput[]
+  cursor?: Prisma.EmailTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailTokenScalarFieldEnum | Prisma.EmailTokenScalarFieldEnum[]
+}
+
+/**
+ * Tenant.emailPreferences
+ */
+export type Tenant$emailPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailPreference
+   */
+  select?: Prisma.EmailPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailPreference
+   */
+  omit?: Prisma.EmailPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailPreferenceInclude<ExtArgs> | null
+  where?: Prisma.EmailPreferenceWhereInput
+  orderBy?: Prisma.EmailPreferenceOrderByWithRelationInput | Prisma.EmailPreferenceOrderByWithRelationInput[]
+  cursor?: Prisma.EmailPreferenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailPreferenceScalarFieldEnum | Prisma.EmailPreferenceScalarFieldEnum[]
 }
 
 /**

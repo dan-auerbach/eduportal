@@ -42,7 +42,8 @@ type NotificationData = {
     | "MODULE_UPDATED"
     | "SYSTEM"
     | "RADAR_APPROVED"
-    | "RADAR_REJECTED";
+    | "RADAR_REJECTED"
+    | "NEW_KNOWLEDGE";
   title: string;
   message: string;
   link: string | null;
@@ -61,6 +62,7 @@ const typeIcons: Record<NotificationData["type"], React.ReactNode> = {
   SYSTEM: <Settings className="h-4 w-4 text-gray-500" />,
   RADAR_APPROVED: <Radar className="h-4 w-4 text-green-500" />,
   RADAR_REJECTED: <Radar className="h-4 w-4 text-red-500" />,
+  NEW_KNOWLEDGE: <BookOpen className="h-4 w-4 text-emerald-500" />,
 };
 
 function getTypeLabel(type: NotificationData["type"]): string {
@@ -75,6 +77,7 @@ function getTypeLabel(type: NotificationData["type"]): string {
     SYSTEM: t("notifications.typeSystem"),
     RADAR_APPROVED: t("notifications.typeRadarApproved"),
     RADAR_REJECTED: t("notifications.typeRadarRejected"),
+    NEW_KNOWLEDGE: t("notifications.typeNewKnowledge"),
   };
   return map[type];
 }

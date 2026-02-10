@@ -132,7 +132,8 @@ export const NotificationType = {
   MODULE_UPDATED: 'MODULE_UPDATED',
   SYSTEM: 'SYSTEM',
   RADAR_APPROVED: 'RADAR_APPROVED',
-  RADAR_REJECTED: 'RADAR_REJECTED'
+  RADAR_REJECTED: 'RADAR_REJECTED',
+  NEW_KNOWLEDGE: 'NEW_KNOWLEDGE'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -177,7 +178,13 @@ export const AuditAction = {
   RADAR_POST_REJECTED: 'RADAR_POST_REJECTED',
   RADAR_POST_ARCHIVED: 'RADAR_POST_ARCHIVED',
   RADAR_POST_PINNED: 'RADAR_POST_PINNED',
-  RADAR_POST_UNPINNED: 'RADAR_POST_UNPINNED'
+  RADAR_POST_UNPINNED: 'RADAR_POST_UNPINNED',
+  EMAIL_SENT: 'EMAIL_SENT',
+  EMAIL_PREFERENCE_UPDATED: 'EMAIL_PREFERENCE_UPDATED',
+  PASSWORD_RESET_REQUESTED: 'PASSWORD_RESET_REQUESTED',
+  PASSWORD_RESET_COMPLETED: 'PASSWORD_RESET_COMPLETED',
+  INVITE_SENT: 'INVITE_SENT',
+  INVITE_ACCEPTED: 'INVITE_ACCEPTED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -201,3 +208,11 @@ export const RadarPostStatus = {
 } as const
 
 export type RadarPostStatus = (typeof RadarPostStatus)[keyof typeof RadarPostStatus]
+
+
+export const EmailTokenType = {
+  PASSWORD_RESET: 'PASSWORD_RESET',
+  INVITE: 'INVITE'
+} as const
+
+export type EmailTokenType = (typeof EmailTokenType)[keyof typeof EmailTokenType]

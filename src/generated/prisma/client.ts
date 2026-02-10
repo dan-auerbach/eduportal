@@ -229,3 +229,13 @@ export type RadarSeen = Prisma.RadarSeenModel
  * 
  */
 export type RadarSave = Prisma.RadarSaveModel
+/**
+ * Model EmailToken
+ * 
+ */
+export type EmailToken = Prisma.EmailTokenModel
+/**
+ * Model EmailPreference
+ * 
+ */
+export type EmailPreference = Prisma.EmailPreferenceModel

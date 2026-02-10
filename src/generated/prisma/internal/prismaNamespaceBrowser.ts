@@ -88,7 +88,9 @@ export const ModelName = {
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
   RadarSeen: 'RadarSeen',
-  RadarSave: 'RadarSave'
+  RadarSave: 'RadarSave',
+  EmailToken: 'EmailToken',
+  EmailPreference: 'EmailPreference'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -117,7 +119,11 @@ export const TenantScalarFieldEnum = {
   locale: 'locale',
   createdAt: 'createdAt',
   archivedAt: 'archivedAt',
-  chatTopic: 'chatTopic'
+  chatTopic: 'chatTopic',
+  emailInviteSubject: 'emailInviteSubject',
+  emailInviteBody: 'emailInviteBody',
+  emailResetSubject: 'emailResetSubject',
+  emailResetBody: 'emailResetBody'
 } as const
 
 export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -609,6 +615,33 @@ export const RadarSaveScalarFieldEnum = {
 } as const
 
 export type RadarSaveScalarFieldEnum = (typeof RadarSaveScalarFieldEnum)[keyof typeof RadarSaveScalarFieldEnum]
+
+
+export const EmailTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  type: 'type',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EmailTokenScalarFieldEnum = (typeof EmailTokenScalarFieldEnum)[keyof typeof EmailTokenScalarFieldEnum]
+
+
+export const EmailPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  mentorQuestion: 'mentorQuestion',
+  liveTrainingReminder: 'liveTrainingReminder',
+  newKnowledgeDigest: 'newKnowledgeDigest',
+  securityNotices: 'securityNotices'
+} as const
+
+export type EmailPreferenceScalarFieldEnum = (typeof EmailPreferenceScalarFieldEnum)[keyof typeof EmailPreferenceScalarFieldEnum]
 
 
 export const SortOrder = {

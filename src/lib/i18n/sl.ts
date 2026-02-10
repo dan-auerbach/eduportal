@@ -315,6 +315,7 @@ export const sl = {
     typeSystem: "Sistem",
     typeRadarApproved: "Radar objava potrjena",
     typeRadarRejected: "Radar objava zavrnjena",
+    typeNewKnowledge: "Novo znanje dodano",
     deadlineApproaching: "Rok se bliža: {title}",
     deadlineMessage: "Do roka je še {time}",
     moduleUpdatedTitle: "Znanje posodobljeno: {title}",

@@ -315,6 +315,7 @@ export const en = {
     typeSystem: "System",
     typeRadarApproved: "Radar post approved",
     typeRadarRejected: "Radar post rejected",
+    typeNewKnowledge: "New knowledge added",
     deadlineApproaching: "Deadline approaching: {title}",
     deadlineMessage: "Due in {time}",
     moduleUpdatedTitle: "Knowledge updated: {title}",

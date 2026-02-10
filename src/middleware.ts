@@ -18,6 +18,7 @@ export default auth((req) => {
   if (
     pathname.startsWith("/api/auth") ||
     pathname.startsWith("/api/cron") ||
+    pathname.startsWith("/api/webhooks") ||
     pathname.startsWith("/api/email") ||
     pathname.startsWith("/api/logos") ||
     pathname.startsWith("/api/covers")

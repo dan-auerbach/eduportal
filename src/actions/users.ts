@@ -9,7 +9,7 @@ import { logAudit } from "@/lib/audit";
 import { getTenantContext, requireTenantRole } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { checkUserLimit } from "@/lib/plan";
-import { CreateUserSchema, UpdateUserSchema } from "@/lib/validators";
+import { CreateUserSchema, UpdateUserSchema, BulkUserIdsSchema } from "@/lib/validators";
 import type { ActionResult } from "@/types";
 import { Prisma } from "@/generated/prisma/client";
 import type { Permission, TenantRole } from "@/generated/prisma/client";
@@ -371,6 +371,166 @@ export async function deactivateUser(
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri deaktivaciji uporabnika" };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// bulkDeactivateUsers - deactivate multiple users (set isActive=false)
+// ---------------------------------------------------------------------------
+export async function bulkDeactivateUsers(
+  userIds: string[]
+): Promise<ActionResult<{ count: number }>> {
+  try {
+    const ctx = await getTenantContext();
+    await requirePermission(ctx.user, "MANAGE_USERS");
+
+    const parsed = BulkUserIdsSchema.parse({ userIds });
+
+    // Verify all users have membership in this tenant
+    const memberships = await prisma.membership.findMany({
+      where: {
+        tenantId: ctx.tenantId,
+        userId: { in: parsed.userIds },
+      },
+      select: { userId: true },
+    });
+
+    // Filter out self — cannot deactivate yourself
+    const validIds = memberships
+      .map((m) => m.userId)
+      .filter((id) => id !== ctx.user.id);
+
+    if (validIds.length === 0) {
+      return { success: false, error: "Ni veljavnih uporabnikov za deaktivacijo" };
+    }
+
+    await prisma.user.updateMany({
+      where: { id: { in: validIds } },
+      data: { isActive: false, deletedAt: new Date() },
+    });
+
+    for (const userId of validIds) {
+      await logAudit({
+        actorId: ctx.user.id,
+        action: "USER_DEACTIVATED",
+        entityType: "User",
+        entityId: userId,
+        tenantId: ctx.tenantId,
+        metadata: { bulk: true, batchSize: validIds.length },
+      });
+    }
+
+    return { success: true, data: { count: validIds.length } };
+  } catch (e) {
+    if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri skupinski deaktivaciji" };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// bulkReactivateUsers - reactivate multiple deactivated users
+// ---------------------------------------------------------------------------
+export async function bulkReactivateUsers(
+  userIds: string[]
+): Promise<ActionResult<{ count: number }>> {
+  try {
+    const ctx = await getTenantContext();
+    await requirePermission(ctx.user, "MANAGE_USERS");
+
+    const parsed = BulkUserIdsSchema.parse({ userIds });
+
+    // Verify all users have membership in this tenant
+    const memberships = await prisma.membership.findMany({
+      where: {
+        tenantId: ctx.tenantId,
+        userId: { in: parsed.userIds },
+      },
+      select: { userId: true },
+    });
+
+    const validIds = memberships.map((m) => m.userId);
+    if (validIds.length === 0) {
+      return { success: false, error: "Ni veljavnih uporabnikov za reaktivacijo" };
+    }
+
+    await prisma.user.updateMany({
+      where: { id: { in: validIds } },
+      data: { isActive: true, deletedAt: null },
+    });
+
+    for (const userId of validIds) {
+      await logAudit({
+        actorId: ctx.user.id,
+        action: "USER_UPDATED",
+        entityType: "User",
+        entityId: userId,
+        tenantId: ctx.tenantId,
+        metadata: { action: "reactivated", bulk: true, batchSize: validIds.length },
+      });
+    }
+
+    return { success: true, data: { count: validIds.length } };
+  } catch (e) {
+    if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri skupinski reaktivaciji" };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// bulkDeleteUsers - permanently delete multiple users (OWNER only)
+// ---------------------------------------------------------------------------
+export async function bulkDeleteUsers(
+  userIds: string[]
+): Promise<ActionResult<{ count: number }>> {
+  try {
+    const ctx = await getTenantContext();
+
+    // Owner only — strict check
+    if (ctx.effectiveRole !== "OWNER") {
+      return { success: false, error: "Samo lastnik lahko trajno izbriše uporabnike" };
+    }
+
+    const parsed = BulkUserIdsSchema.parse({ userIds });
+
+    // Filter out self
+    const filteredIds = parsed.userIds.filter((id) => id !== ctx.user.id);
+    if (filteredIds.length === 0) {
+      return { success: false, error: "Ne morete izbrisati samega sebe" };
+    }
+
+    // Fetch emails for audit trail before deletion
+    const users = await prisma.user.findMany({
+      where: { id: { in: filteredIds } },
+      select: { id: true, email: true },
+    });
+
+    // Audit BEFORE deletion (data will be gone after)
+    for (const user of users) {
+      await logAudit({
+        actorId: ctx.user.id,
+        action: "USER_DELETED",
+        entityType: "User",
+        entityId: user.id,
+        tenantId: ctx.tenantId,
+        metadata: { email: user.email, bulk: true, batchSize: users.length },
+      });
+    }
+
+    // Hard delete — Prisma onDelete: Cascade handles memberships, sessions, etc.
+    await prisma.user.deleteMany({
+      where: { id: { in: filteredIds } },
+    });
+
+    return { success: true, data: { count: users.length } };
+  } catch (e) {
+    if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri skupinskem brisanju" };
   }
 }
 

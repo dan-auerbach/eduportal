@@ -124,11 +124,10 @@ export async function sendEmail(opts: {
     return { success: false, error: "RESEND_API_KEY not configured" };
   }
 
-  // Convert plain text body to HTML with clickable <a> links.
-  // We send ONLY html with text="" to opt out of Resend's plain text
-  // auto-generation. Without this, Resend generates a plain text part and
-  // email clients (Outlook, some Gmail views) prefer it over HTML, causing
-  // long URLs to break across lines and become non-clickable.
+  // Convert plain text to HTML with styled CTA buttons for URLs.
+  // Send both html + text so email clients can choose the best format:
+  // - Modern clients render HTML with clickable buttons
+  // - Plain text clients / accessibility tools show the original text with full URLs
   const html = textToHtml(opts.text);
 
   const payload = {
@@ -136,7 +135,7 @@ export async function sendEmail(opts: {
     to: opts.to,
     subject: opts.subject,
     html,
-    text: "",          // Opt out of plain text — forces HTML rendering
+    text: opts.text,
     headers: opts.headers,
   };
 

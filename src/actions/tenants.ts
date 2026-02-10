@@ -70,6 +70,7 @@ export async function getTenant(id: string): Promise<ActionResult<unknown>> {
                 lastName: true,
                 avatar: true,
                 isActive: true,
+                deletedAt: true,
               },
             },
           },

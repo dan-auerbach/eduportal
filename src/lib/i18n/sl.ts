@@ -507,6 +507,22 @@ export const sl = {
       last30days: "Zadnjih 30 dni",
       time: "Čas",
       sessions: "Seje",
+      // Bulk operations
+      tabActive: "Aktivni",
+      tabDeactivated: "Deaktivirani",
+      noDeactivatedUsers: "Ni deaktiviranih uporabnikov",
+      selectedCount: "{count} izbranih",
+      bulkDeactivate: "Deaktiviraj izbrane",
+      bulkReactivate: "Ponovno aktiviraj",
+      bulkDelete: "Trajno izbriši",
+      bulkDeactivateConfirm: "Ali ste prepričani, da želite deaktivirati {count} uporabnikov? Ne bodo se mogli prijaviti.",
+      bulkReactivateConfirm: "Ali ste prepričani, da želite ponovno aktivirati {count} uporabnikov?",
+      bulkDeleteConfirm: "Ali ste prepričani, da želite TRAJNO IZBRISATI {count} uporabnikov? To dejanje je nepovratno. Vsi njihovi podatki (napredek, certifikati, kvizi) bodo izgubljeni.",
+      bulkDeactivateSuccess: "{count} uporabnikov deaktiviranih",
+      bulkReactivateSuccess: "{count} uporabnikov ponovno aktiviranih",
+      bulkDeleteSuccess: "{count} uporabnikov trajno izbrisanih",
+      reactivateUser: "Ponovno aktiviraj",
+      deactivatedAt: "Deaktiviran",
     },
 
     // ── Admin Groups ─────────────────────────────────────────────

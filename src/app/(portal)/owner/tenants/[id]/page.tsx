@@ -1,25 +1,15 @@
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { getTenant, getTenantMembers } from "@/actions/tenants";
+import { getTenant } from "@/actions/tenants";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import Link from "next/link";
 import { ArrowLeft, Building2, Users, BookOpen, Award } from "lucide-react";
 import { t } from "@/lib/i18n";
-import { format } from "date-fns";
-import { getDateLocale } from "@/lib/i18n/date-locale";
 import { TenantEditForm } from "./tenant-edit-form";
-import { MemberRoleSelect, RemoveMemberButton } from "./tenant-member-actions";
 import { TenantPlanSelect } from "./tenant-plan-select";
+import { TenantMembersTable } from "./tenant-members-table";
 import type { TenantTheme, TenantPlan, TenantRole } from "@/generated/prisma/client";
 
 interface TenantDetailPageProps {
@@ -58,6 +48,7 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
         lastName: string;
         avatar: string | null;
         isActive: boolean;
+        deletedAt: Date | null;
       };
     }>;
     _count: {
@@ -164,7 +155,7 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
         </CardContent>
       </Card>
 
-      {/* Members table */}
+      {/* Members table with bulk actions */}
       <Card>
         <CardHeader>
           <CardTitle>{t("tenant.members")}</CardTitle>
@@ -173,55 +164,15 @@ export default async function TenantDetailPage({ params }: TenantDetailPageProps
           </CardDescription>
         </CardHeader>
         <CardContent className="overflow-x-auto">
-          {tenant.memberships.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">
-              {t("common.noData")}
-            </p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("admin.users.tableUser")}</TableHead>
-                  <TableHead>{t("admin.users.tableEmail")}</TableHead>
-                  <TableHead>{t("tenant.memberRole")}</TableHead>
-                  <TableHead>{t("admin.users.tableStatus")}</TableHead>
-                  <TableHead className="w-[50px]">{t("common.actions")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {tenant.memberships.map((membership) => (
-                  <TableRow key={membership.id}>
-                    <TableCell className="font-medium">
-                      {membership.user.firstName} {membership.user.lastName}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {membership.user.email}
-                    </TableCell>
-                    <TableCell>
-                      <MemberRoleSelect
-                        tenantId={tenant.id}
-                        userId={membership.user.id}
-                        currentRole={membership.role}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={membership.user.isActive ? "default" : "secondary"}>
-                        {membership.user.isActive
-                          ? t("admin.users.statusActive")
-                          : t("admin.users.statusInactive")}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <RemoveMemberButton
-                        tenantId={tenant.id}
-                        userId={membership.user.id}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
+          <TenantMembersTable
+            tenantId={tenant.id}
+            activeMemberships={tenant.memberships.filter(
+              (m) => m.user.isActive
+            )}
+            deactivatedMemberships={tenant.memberships.filter(
+              (m) => !m.user.isActive
+            )}
+          />
         </CardContent>
       </Card>
     </div>

@@ -76,6 +76,11 @@ export const UpdateUserSchema = z.object({
   isActive: z.boolean().optional(),
 });
 
+// ---- Bulk user operations ----
+export const BulkUserIdsSchema = z.object({
+  userIds: z.array(z.string().cuid()).min(1, "Izberite vsaj enega uporabnika").max(100, "Največ 100 uporabnikov naenkrat"),
+});
+
 // ---- Module forms ----
 export const CreateModuleSchema = z.object({
   title: z.string().min(1, "Naslov je obvezen"),

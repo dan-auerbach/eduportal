@@ -507,6 +507,22 @@ export const en = {
       last30days: "Last 30 days",
       time: "Time",
       sessions: "Sessions",
+      // Bulk operations
+      tabActive: "Active",
+      tabDeactivated: "Deactivated",
+      noDeactivatedUsers: "No deactivated users",
+      selectedCount: "{count} selected",
+      bulkDeactivate: "Deactivate selected",
+      bulkReactivate: "Reactivate",
+      bulkDelete: "Delete permanently",
+      bulkDeactivateConfirm: "Are you sure you want to deactivate {count} users? They will not be able to log in.",
+      bulkReactivateConfirm: "Are you sure you want to reactivate {count} users?",
+      bulkDeleteConfirm: "Are you sure you want to PERMANENTLY DELETE {count} users? This action cannot be undone. All their data (progress, certificates, quizzes) will be lost.",
+      bulkDeactivateSuccess: "{count} users deactivated",
+      bulkReactivateSuccess: "{count} users reactivated",
+      bulkDeleteSuccess: "{count} users permanently deleted",
+      reactivateUser: "Reactivate",
+      deactivatedAt: "Deactivated",
     },
 
     // ── Admin Groups ─────────────────────────────────────────────

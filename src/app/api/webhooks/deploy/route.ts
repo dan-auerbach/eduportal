@@ -45,6 +45,7 @@ function incrementVersion(current: string | null): string {
 // ── Main handler ─────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  try {
   const rawBody = await req.text();
   const isManual = req.nextUrl.searchParams.get("manual") === "true";
 
@@ -192,4 +193,11 @@ ${commitList}`,
     summary,
     commitsProcessed: messages.length,
   });
+  } catch (error) {
+    console.error("[deploy-webhook] Unhandled error:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Internal server error" },
+      { status: 500 },
+    );
+  }
 }

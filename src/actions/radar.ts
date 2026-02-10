@@ -302,7 +302,6 @@ export async function createRadarPost(
 
     const parsed = CreateRadarPostSchema.parse(data);
     const safeUrl = sanitizeUrl(parsed.url);
-    const userIsAdmin = isAdmin(ctx.effectiveRole);
 
     const post = await prisma.mentorRadarPost.create({
       data: {
@@ -311,14 +310,10 @@ export async function createRadarPost(
         url: safeUrl,
         sourceDomain: parseDomain(safeUrl),
         createdById: ctx.user.id,
-        // Auto-approve for admins
-        ...(userIsAdmin
-          ? {
-              status: "APPROVED",
-              approvedById: ctx.user.id,
-              approvedAt: new Date(),
-            }
-          : {}),
+        // Auto-approve all posts
+        status: "APPROVED",
+        approvedById: ctx.user.id,
+        approvedAt: new Date(),
       },
     });
 
@@ -328,7 +323,7 @@ export async function createRadarPost(
       entityType: "MentorRadarPost",
       entityId: post.id,
       tenantId: ctx.tenantId,
-      metadata: { url: post.url, autoApproved: userIsAdmin },
+      metadata: { url: post.url, autoApproved: true },
     });
 
     return { success: true, data: { id: post.id } };

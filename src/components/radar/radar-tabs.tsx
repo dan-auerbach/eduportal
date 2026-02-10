@@ -5,16 +5,13 @@ import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/i18n";
 
-export function RadarTabs({ isAdmin }: { isAdmin: boolean }) {
+export function RadarTabs() {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "approved";
 
   const tabs = [
     { key: "approved", label: t("radar.tabApproved") },
     { key: "my", label: t("radar.tabMyPosts") },
-    ...(isAdmin
-      ? [{ key: "pending", label: t("radar.tabPending") }]
-      : []),
   ];
 
   return (

@@ -13,7 +13,7 @@ import { createRadarPost, checkDuplicateRadarUrl } from "@/actions/radar";
  * Two fields: URL (required) + description (optional).
  * Enter in URL field focuses description. Enter in description submits.
  */
-export function RadarComposer({ isAdmin }: { isAdmin: boolean }) {
+export function RadarComposer() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [url, setUrl] = useState("");
@@ -49,11 +49,7 @@ export function RadarComposer({ isAdmin }: { isAdmin: boolean }) {
       });
 
       if (result.success) {
-        toast.success(
-          isAdmin
-            ? t("radar.composerApprovedToast")
-            : t("radar.composerPendingToast"),
-        );
+        toast.success(t("radar.composerApprovedToast"));
         reset();
         router.refresh();
       } else {
@@ -83,9 +79,9 @@ export function RadarComposer({ isAdmin }: { isAdmin: boolean }) {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="rounded-lg border border-border/60 bg-card/80 backdrop-blur-sm p-3 sticky top-0 z-10"
+      className="rounded-lg border border-border/60 bg-card p-4 sticky top-0 z-10 shadow-sm"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {/* URL input */}
         <input
           type="url"
@@ -97,14 +93,14 @@ export function RadarComposer({ isAdmin }: { isAdmin: boolean }) {
           onKeyDown={handleUrlKeyDown}
           placeholder={t("radar.composerUrlPlaceholder")}
           required
-          className="flex-1 min-w-0 bg-transparent text-sm placeholder:text-muted-foreground/50 outline-none"
+          className="flex-1 min-w-0 bg-transparent text-base placeholder:text-muted-foreground/40 outline-none"
           disabled={isPending}
         />
         {/* Submit button */}
         <button
           type="submit"
           disabled={isPending || !url.trim()}
-          className="shrink-0 rounded-md bg-primary text-primary-foreground p-1.5 disabled:opacity-40 hover:bg-primary/90 transition-colors"
+          className="shrink-0 rounded-md bg-primary text-primary-foreground p-2 disabled:opacity-40 hover:bg-primary/90 transition-colors"
           title={t("radar.addPost")}
         >
           {isPending ? (
@@ -124,12 +120,12 @@ export function RadarComposer({ isAdmin }: { isAdmin: boolean }) {
           placeholder={t("radar.composerDescPlaceholder")}
           maxLength={600}
           rows={2}
-          className="mt-2 w-full resize-none bg-transparent text-xs text-muted-foreground placeholder:text-muted-foreground/40 outline-none leading-relaxed"
+          className="mt-3 w-full resize-none bg-transparent text-sm text-muted-foreground placeholder:text-muted-foreground/40 outline-none leading-relaxed"
           disabled={isPending}
         />
       )}
       {dupWarn && (
-        <p className="mt-1 text-[11px] text-yellow-600">
+        <p className="mt-1.5 text-xs text-yellow-600">
           {t("radar.duplicateWarning")}
         </p>
       )}

@@ -4,7 +4,6 @@ import { Radar } from "lucide-react";
 import {
   getApprovedRadarPosts,
   getMyRadarPosts,
-  getPendingRadarPosts,
 } from "@/actions/radar";
 import { RadarComposer } from "@/components/radar/radar-composer";
 import { RadarFeedItem } from "@/components/radar/radar-feed-item";
@@ -33,9 +32,7 @@ export default async function RadarPage({
   const result =
     tab === "my"
       ? await getMyRadarPosts()
-      : tab === "pending" && isAdmin
-        ? await getPendingRadarPosts()
-        : await getApprovedRadarPosts();
+      : await getApprovedRadarPosts();
 
   const posts = result.success ? result.data : [];
 
@@ -43,60 +40,60 @@ export default async function RadarPage({
   const emptyMessage =
     tab === "my"
       ? t("radar.noMyPosts")
-      : tab === "pending"
-        ? t("radar.noPendingPosts")
-        : t("radar.noApprovedPosts");
+      : t("radar.noApprovedPosts");
 
   const emptyDesc =
     tab === "approved" ? t("radar.noApprovedPostsDesc") : undefined;
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-3xl">
       {/* Mark radar as seen for unread counter */}
       <MarkRadarSeen />
 
-      {/* Compact header */}
-      <div className="flex items-center gap-2 mb-4">
-        <Radar className="h-5 w-5 text-primary shrink-0" />
-        <h1 className="text-lg font-bold">{t("radar.title")}</h1>
-        <span className="text-xs text-muted-foreground/60 hidden sm:inline">
-          {t("radar.subtitle")}
-        </span>
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <Radar className="h-6 w-6 text-primary shrink-0" />
+        <div>
+          <h1 className="text-2xl font-bold">{t("radar.title")}</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            {t("radar.subtitle")}
+          </p>
+        </div>
       </div>
 
       {/* Inline composer — always visible on approved tab */}
       {tab === "approved" && (
-        <div className="mb-4">
-          <RadarComposer isAdmin={isAdmin} />
+        <div className="mb-6">
+          <RadarComposer />
         </div>
       )}
 
       {/* Tabs */}
-      <div className="mb-2">
-        <RadarTabs isAdmin={isAdmin} />
+      <div className="mb-4">
+        <RadarTabs />
       </div>
 
       {/* Feed */}
       {posts.length > 0 ? (
-        <div className="divide-y divide-border/40">
+        <div className="space-y-2">
           {posts.map((post) => (
             <RadarFeedItem
               key={post.id}
               post={post}
               showStatus={tab === "my"}
               isAdmin={isAdmin}
-              useCreatedAt={tab === "my" || tab === "pending"}
+              useCreatedAt={tab === "my"}
             />
           ))}
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <Radar className="h-10 w-10 text-muted-foreground/20 mb-3" />
-          <p className="text-sm text-muted-foreground">
+          <Radar className="h-12 w-12 text-muted-foreground/20 mb-4" />
+          <p className="text-base font-medium text-muted-foreground">
             {emptyMessage}
           </p>
           {emptyDesc && (
-            <p className="text-xs text-muted-foreground/50 mt-1">
+            <p className="text-sm text-muted-foreground/60 mt-1">
               {emptyDesc}
             </p>
           )}

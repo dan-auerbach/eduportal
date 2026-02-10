@@ -1,0 +1,22 @@
+name: Auto-generate changelog
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    # Wait for Vercel deploy to finish before generating changelog
+    steps:
+      - name: Wait for deploy
+        run: sleep 90
+
+      - name: Trigger changelog generation
+        run: |
+          curl -s -X POST \
+            "${{ secrets.APP_URL }}/api/webhooks/deploy?manual=true" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            --max-time 30

@@ -479,6 +479,15 @@ export const sl = {
       assignGroups: "Skupine",
       noGroupsAvailable: "Ni razpoložljivih skupin.",
       userCreated: "Uporabnik uspešno ustvarjen",
+      // Invite
+      inviteTitle: "Pošlji povabilo",
+      inviteDescription: "Uporabnik {name} je bil ustvarjen. Pošljite mu povabilo za aktivacijo računa.",
+      sendInvite: "Pošlji povabilo po e-pošti",
+      inviteSending: "Pošiljanje...",
+      inviteSent: "Povabilo poslano",
+      inviteSentButton: "Povabilo poslano",
+      copyInviteText: "Kopiraj besedilo povabila",
+      inviteCopied: "Besedilo povabila kopirano v odložišče",
       // User edit
       saveChanges: "Shrani spremembe",
       deactivateUser: "Deaktiviraj uporabnika",

@@ -1,5 +1,6 @@
 "use server";
 
+import crypto from "crypto";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
@@ -161,10 +162,11 @@ export async function getUser(id: string): Promise<ActionResult<NonNullable<Awai
 
 // ---------------------------------------------------------------------------
 // createUser - create user globally + create Membership in active tenant
+// No password required — user receives invite to set their own password.
 // ---------------------------------------------------------------------------
 export async function createUser(
   data: unknown
-): Promise<ActionResult<{ id: string }>> {
+): Promise<ActionResult<{ id: string; inviteToken: string }>> {
   try {
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_USERS");
@@ -176,12 +178,15 @@ export async function createUser(
     }
 
     const parsed = CreateUserSchema.parse(data);
-    const passwordHash = await hash(parsed.password, 12);
+
+    // Placeholder hash — not a valid bcrypt hash, so login is impossible
+    // until the user sets their password via invite link
+    const placeholderHash = `$INVITE$${crypto.randomBytes(32).toString("hex")}`;
 
     const user = await prisma.user.create({
       data: {
         email: parsed.email,
-        passwordHash,
+        passwordHash: placeholderHash,
         firstName: parsed.firstName,
         lastName: parsed.lastName,
         role: parsed.role,
@@ -212,6 +217,18 @@ export async function createUser(
       });
     }
 
+    // Create invite token (valid for 7 days)
+    const inviteToken = crypto.randomBytes(32).toString("hex");
+    await prisma.emailToken.create({
+      data: {
+        userId: user.id,
+        tenantId: ctx.tenantId,
+        type: "INVITE",
+        token: inviteToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+      },
+    });
+
     await logAudit({
       actorId: ctx.user.id,
       action: "USER_CREATED",
@@ -221,7 +238,7 @@ export async function createUser(
       metadata: { email: user.email, role: user.role, groupIds: parsed.groupIds },
     });
 
-    return { success: true, data: { id: user.id } };
+    return { success: true, data: { id: user.id, inviteToken } };
   } catch (e) {
     if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
       return { success: false, error: e.message };

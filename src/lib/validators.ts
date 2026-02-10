@@ -61,7 +61,6 @@ export const LoginSchema = z.object({
 
 export const CreateUserSchema = z.object({
   email: z.string().email("Neveljaven email"),
-  password: z.string().min(8, "Geslo mora imeti vsaj 8 znakov"),
   firstName: z.string().min(1, "Ime je obvezno"),
   lastName: z.string().min(1, "Priimek je obvezen"),
   role: z.enum(["OWNER", "SUPER_ADMIN", "ADMIN", "EMPLOYEE"]),

@@ -269,3 +269,117 @@ export async function resetPasswordWithToken(
     return { success: false, error: "UNKNOWN_ERROR" };
   }
 }
+
+// ── Invite Email ─────────────────────────────────────────────────────────────
+
+/**
+ * Send an invite email to a newly created user.
+ * Called from the admin user creation dialog.
+ */
+export async function sendInviteEmail(
+  userId: string,
+  inviteToken: string,
+): Promise<ActionResult> {
+  const locale = getLocaleOrDefault();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, firstName: true },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    // Find the invite token record to get tenantId
+    const tokenRecord = await prisma.emailToken.findUnique({
+      where: { token: inviteToken },
+      select: { tenantId: true },
+    });
+
+    const tenantId = tokenRecord?.tenantId ?? null;
+    const tenantName = tenantId ? await getTenantName(tenantId) : "Mentor";
+
+    // Build invite URL
+    const inviteUrl = `${getAppUrl()}/auth/reset-password/${inviteToken}`;
+
+    // Get templates (tenant custom or defaults)
+    const subject = renderTemplate(
+      await getTemplate(tenantId, "inviteSubject", locale),
+      { firstName: user.firstName, tenantName, link: inviteUrl },
+    );
+    const body = renderTemplate(
+      await getTemplate(tenantId, "inviteBody", locale),
+      { firstName: user.firstName, tenantName, link: inviteUrl },
+    );
+
+    // Send email
+    const result = await sendEmail({ to: user.email, subject, text: body });
+
+    if (!result.success) {
+      return { success: false, error: result.error ?? "Failed to send email" };
+    }
+
+    // Audit log
+    if (tenantId) {
+      await logAudit({
+        actorId: userId,
+        tenantId,
+        action: "INVITE_SENT",
+        entityType: "User",
+        entityId: userId,
+        metadata: { email: user.email, messageId: result.messageId },
+      });
+    }
+
+    return { success: true, data: undefined };
+  } catch (err) {
+    console.error("[sendInviteEmail] Error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+/**
+ * Get a preview of the invite email text (for copy-to-clipboard).
+ */
+export async function getInvitePreview(
+  userId: string,
+  inviteToken: string,
+): Promise<ActionResult<{ subject: string; body: string }>> {
+  const locale = getLocaleOrDefault();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, firstName: true },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    const tokenRecord = await prisma.emailToken.findUnique({
+      where: { token: inviteToken },
+      select: { tenantId: true },
+    });
+
+    const tenantId = tokenRecord?.tenantId ?? null;
+    const tenantName = tenantId ? await getTenantName(tenantId) : "Mentor";
+    const inviteUrl = `${getAppUrl()}/auth/reset-password/${inviteToken}`;
+
+    const subject = renderTemplate(
+      await getTemplate(tenantId, "inviteSubject", locale),
+      { firstName: user.firstName, tenantName, link: inviteUrl },
+    );
+    const body = renderTemplate(
+      await getTemplate(tenantId, "inviteBody", locale),
+      { firstName: user.firstName, tenantName, link: inviteUrl },
+    );
+
+    return { success: true, data: { subject, body } };
+  } catch (err) {
+    console.error("[getInvitePreview] Error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}

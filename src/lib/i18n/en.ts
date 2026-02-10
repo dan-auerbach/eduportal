@@ -479,6 +479,15 @@ export const en = {
       assignGroups: "Groups",
       noGroupsAvailable: "No groups available.",
       userCreated: "User created successfully",
+      // Invite
+      inviteTitle: "Send invitation",
+      inviteDescription: "User {name} has been created. Send an invitation to activate their account.",
+      sendInvite: "Send invitation email",
+      inviteSending: "Sending...",
+      inviteSent: "Invitation sent",
+      inviteSentButton: "Invitation sent",
+      copyInviteText: "Copy invitation text",
+      inviteCopied: "Invitation text copied to clipboard",
       // User edit
       saveChanges: "Save changes",
       deactivateUser: "Deactivate user",

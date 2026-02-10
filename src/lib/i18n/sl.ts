@@ -1275,4 +1275,22 @@ export const sl = {
     notifRejectedTitle: "Vaša #radar objava je bila zavrnjena ({domain})",
     notifRejectedMessage: "Razlog: {reason}",
   },
+
+  // ── Email Templates (tenant settings) ─────────────────────────────
+  emailTemplates: {
+    title: "Email predloge",
+    subtitle: "Prilagodite besedilo povabila in ponastavitve gesla.",
+    description: "Pustite prazno za privzeto besedilo. Uporabite prostoznakovne oznake za dinamične vrednosti.",
+    placeholders: "Razpoložljive oznake",
+    inviteTitle: "Povabilo",
+    resetTitle: "Ponastavitev gesla",
+    subject: "Zadeva",
+    body: "Besedilo",
+    inviteSubjectPlaceholder: "npr. Povabilo v {tenantName}",
+    inviteBodyPlaceholder: "Besedilo povabila...",
+    resetSubjectPlaceholder: "npr. Ponastavitev gesla – {tenantName}",
+    resetBodyPlaceholder: "Besedilo za ponastavitev gesla...",
+    resetDefault: "Ponastavi na privzeto",
+    saved: "Email predloge shranjene",
+  },
 } as const;

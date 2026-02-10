@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { t } from "@/lib/i18n";
 import { SettingsForm } from "./settings-form";
+import { EmailTemplatesForm } from "./email-templates-form";
 
 export default async function AdminSettingsPage() {
   const ctx = await getTenantContext();
@@ -59,6 +60,17 @@ export default async function AdminSettingsPage() {
               locale: ctx.tenantLocale,
             }}
           />
+        </CardContent>
+      </Card>
+
+      {/* Email templates */}
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("emailTemplates.title")}</CardTitle>
+          <CardDescription>{t("emailTemplates.subtitle")}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <EmailTemplatesForm />
         </CardContent>
       </Card>
     </div>

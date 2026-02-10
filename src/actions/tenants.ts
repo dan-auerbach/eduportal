@@ -659,11 +659,16 @@ export async function updateTenantSettings(
 
     const parsed = UpdateTenantSchema.parse(data);
 
-    // Only allow logoUrl, theme, and locale updates through this action
+    // Whitelist of allowed fields for this action
     const updateData: Record<string, unknown> = {};
     if (parsed.logoUrl !== undefined) updateData.logoUrl = parsed.logoUrl;
     if (parsed.theme !== undefined) updateData.theme = parsed.theme;
     if (parsed.locale !== undefined) updateData.locale = parsed.locale;
+    // Email template fields
+    if (parsed.emailInviteSubject !== undefined) updateData.emailInviteSubject = parsed.emailInviteSubject;
+    if (parsed.emailInviteBody !== undefined) updateData.emailInviteBody = parsed.emailInviteBody;
+    if (parsed.emailResetSubject !== undefined) updateData.emailResetSubject = parsed.emailResetSubject;
+    if (parsed.emailResetBody !== undefined) updateData.emailResetBody = parsed.emailResetBody;
 
     const tenant = await prisma.tenant.update({
       where: { id: ctx.tenantId },
@@ -687,6 +692,41 @@ export async function updateTenantSettings(
       success: false,
       error: e instanceof Error ? e.message : "Napaka pri posodabljanju nastavitev podjetja",
     };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// getEmailTemplates - get custom email templates for current tenant
+// ---------------------------------------------------------------------------
+export async function getEmailTemplates(): Promise<ActionResult<{
+  emailInviteSubject: string | null;
+  emailInviteBody: string | null;
+  emailResetSubject: string | null;
+  emailResetBody: string | null;
+}>> {
+  try {
+    const ctx = await getTenantContext();
+    if (ctx.effectiveRole !== "SUPER_ADMIN" && ctx.effectiveRole !== ("OWNER" as TenantRole)) {
+      return { success: false, error: "Nimate pravic" };
+    }
+
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: ctx.tenantId },
+      select: {
+        emailInviteSubject: true,
+        emailInviteBody: true,
+        emailResetSubject: true,
+        emailResetBody: true,
+      },
+    });
+
+    if (!tenant) {
+      return { success: false, error: "Podjetje ne obstaja" };
+    }
+
+    return { success: true, data: tenant };
+  } catch (e) {
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }
 

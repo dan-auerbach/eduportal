@@ -176,6 +176,11 @@ export const UpdateTenantSchema = z.object({
   logoUrl: logoUrlSchema.nullable().optional(),
   theme: z.enum(["DEFAULT", "OCEAN", "SUNSET"]).optional(),
   locale: z.enum(["en", "sl"]).optional(),
+  // Email templates (optional — null resets to default)
+  emailInviteSubject: z.string().max(200).nullable().optional(),
+  emailInviteBody: z.string().max(5000).nullable().optional(),
+  emailResetSubject: z.string().max(200).nullable().optional(),
+  emailResetBody: z.string().max(5000).nullable().optional(),
 });
 
 export const CreateMembershipSchema = z.object({

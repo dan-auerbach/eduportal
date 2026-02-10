@@ -1275,4 +1275,22 @@ export const en = {
     notifRejectedTitle: "Your #radar post was rejected ({domain})",
     notifRejectedMessage: "Reason: {reason}",
   },
+
+  // ── Email Templates (tenant settings) ─────────────────────────────
+  emailTemplates: {
+    title: "Email templates",
+    subtitle: "Customize invitation and password reset email text.",
+    description: "Leave empty to use default text. Use placeholder tags for dynamic values.",
+    placeholders: "Available placeholders",
+    inviteTitle: "Invitation",
+    resetTitle: "Password reset",
+    subject: "Subject",
+    body: "Body",
+    inviteSubjectPlaceholder: "e.g. Invitation to {tenantName}",
+    inviteBodyPlaceholder: "Invitation body text...",
+    resetSubjectPlaceholder: "e.g. Password reset – {tenantName}",
+    resetBodyPlaceholder: "Password reset body text...",
+    resetDefault: "Reset to default",
+    saved: "Email templates saved",
+  },
 } as const;

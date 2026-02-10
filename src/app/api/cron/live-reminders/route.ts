@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { sendEmail, renderTemplate, buildEmailFooter, getAppUrl } from "@/lib/email";
+import { sendEmail, renderTemplate, buildEmailFooter } from "@/lib/email";
 import { EMAIL_DEFAULTS } from "@/lib/email-defaults";
 import { format } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -125,7 +125,8 @@ export async function GET(req: Request) {
           await sendEmail({
             to: membership.user.email,
             subject,
-            text: body + footer,
+            text: body + footer.text,
+            headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },
           });
 
           // Record dedup

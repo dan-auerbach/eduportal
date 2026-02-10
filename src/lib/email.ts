@@ -21,17 +21,56 @@ function getJwtSecret(): Uint8Array {
   return new TextEncoder().encode(secret);
 }
 
+// ── Plain text → minimal HTML ────────────────────────────────────────────────
+
+/**
+ * Convert plain text email body to minimal HTML.
+ * - Escapes HTML entities
+ * - Converts URLs to clickable <a> links
+ * - Converts newlines to <br>
+ * Wraps in a basic HTML document for consistent rendering.
+ */
+function textToHtml(text: string): string {
+  // 1. Escape HTML entities
+  let html = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+  // 2. Convert URLs to clickable links (must come before newline conversion)
+  html = html.replace(
+    /(https?:\/\/[^\s<>"']+)/g,
+    '<a href="$1" style="color:#2563eb;word-break:break-all;">$1</a>',
+  );
+
+  // 3. Convert newlines to <br>
+  html = html.replace(/\n/g, "<br>\n");
+
+  // 4. Wrap in minimal HTML document
+  return [
+    '<!DOCTYPE html>',
+    '<html><head><meta charset="utf-8"></head>',
+    '<body style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;font-size:14px;line-height:1.6;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;">',
+    html,
+    '</body></html>',
+  ].join("");
+}
+
 // ── Send email ───────────────────────────────────────────────────────────────
 
 export async function sendEmail(opts: {
   to: string;
   subject: string;
   text: string;
+  headers?: Record<string, string>;
 }): Promise<{ success: boolean; messageId?: string; error?: string }> {
   if (!process.env.RESEND_API_KEY) {
     console.warn("[email] RESEND_API_KEY not set — skipping email send to:", opts.to);
     return { success: false, error: "RESEND_API_KEY not configured" };
   }
+
+  const html = textToHtml(opts.text);
 
   try {
     const { data, error } = await getResend().emails.send({
@@ -39,6 +78,8 @@ export async function sendEmail(opts: {
       to: opts.to,
       subject: opts.subject,
       text: opts.text,
+      html,
+      headers: opts.headers,
     });
 
     if (error) {
@@ -52,6 +93,8 @@ export async function sendEmail(opts: {
           to: opts.to,
           subject: opts.subject,
           text: opts.text,
+          html,
+          headers: opts.headers,
         });
         if (retry.error) {
           return { success: false, error: retry.error.message };
@@ -132,31 +175,35 @@ export async function verifyUnsubscribeToken(
 /**
  * Build the standard footer appended to notification emails.
  * Includes manage-preferences and one-click unsubscribe links.
+ * Returns both the footer text and the unsubscribe URL (for List-Unsubscribe header).
  */
 export async function buildEmailFooter(
   userId: string,
   tenantId: string,
   unsubscribeType: string,
   locale: "sl" | "en" = "sl",
-): Promise<string> {
+): Promise<{ text: string; unsubscribeUrl: string }> {
   const preferencesUrl = `${APP_URL}/profile`;
   const unsubscribeUrl = await buildUnsubscribeUrl(userId, tenantId, unsubscribeType);
 
+  let text: string;
   if (locale === "sl") {
-    return [
+    text = [
       "",
       "---",
       `Za upravljanje email obvestil: ${preferencesUrl}`,
       `Za odjavo od teh obvestil: ${unsubscribeUrl}`,
     ].join("\n");
+  } else {
+    text = [
+      "",
+      "---",
+      `Manage email notifications: ${preferencesUrl}`,
+      `Unsubscribe from these notifications: ${unsubscribeUrl}`,
+    ].join("\n");
   }
 
-  return [
-    "",
-    "---",
-    `Manage email notifications: ${preferencesUrl}`,
-    `Unsubscribe from these notifications: ${unsubscribeUrl}`,
-  ].join("\n");
+  return { text, unsubscribeUrl };
 }
 
 // ── App URL helper ───────────────────────────────────────────────────────────

@@ -145,7 +145,8 @@ export async function GET(req: Request) {
       await sendEmail({
         to: userData.email,
         subject,
-        text: body + footer,
+        text: body + footer.text,
+        headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },
       });
 
       // Record dedup

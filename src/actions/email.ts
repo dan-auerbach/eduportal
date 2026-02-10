@@ -635,10 +635,15 @@ export async function sendMentorQuestionNotification(opts: {
         tenantName: tenant.name,
       });
 
-      // Append unsubscribe footer
+      // Append unsubscribe footer + List-Unsubscribe header
       const footer = await buildEmailFooter(mentor.user.id, opts.tenantId, "mentorQuestion", locale);
 
-      await sendEmail({ to: mentor.user.email, subject, text: body + footer });
+      await sendEmail({
+        to: mentor.user.email,
+        subject,
+        text: body + footer.text,
+        headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },
+      });
 
       // Record dedup
       await prisma.notificationDedup.create({
@@ -742,7 +747,12 @@ export async function sendKnowledgeInstantNotification(opts: {
 
       const footer = await buildEmailFooter(userId, opts.tenantId, "newKnowledgeDigest", locale);
 
-      await sendEmail({ to: user.email, subject, text: body + footer });
+      await sendEmail({
+        to: user.email,
+        subject,
+        text: body + footer.text,
+        headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },
+      });
 
       await prisma.notificationDedup.create({
         data: {

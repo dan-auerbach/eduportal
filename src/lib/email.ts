@@ -10,8 +10,8 @@ function getResend(): Resend {
   }
   return _resend;
 }
-const EMAIL_FROM = process.env.EMAIL_FROM || "Mentor <mentor@mentor.mojimediji.si>";
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const EMAIL_FROM = (process.env.EMAIL_FROM || "Mentor <mentor@mentor.mojimediji.si>").trim();
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").trim();
 
 // ── Secret for JWT (reuse AUTH_SECRET from next-auth) ────────────────────────
 

@@ -36,6 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { EmailPreferences } from "@/components/profile/email-preferences";
 
 const roleVariants: Record<string, "default" | "secondary" | "destructive"> = {
   SUPER_ADMIN: "destructive",
@@ -355,6 +356,22 @@ export default async function ProfilePage() {
               </TableBody>
             </Table>
           )}
+        </CardContent>
+      </Card>
+
+      {/* Email Preferences */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Mail className="h-5 w-5" />
+            {t("emailPreferences.title")}
+          </CardTitle>
+          <CardDescription>
+            {t("emailPreferences.subtitle")}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <EmailPreferences />
         </CardContent>
       </Card>
     </div>

@@ -468,3 +468,85 @@ export async function sendSecurityNotice(
     // Fire-and-forget — don't throw
   }
 }
+
+// ── Email Preferences ────────────────────────────────────────────────────────
+
+type EmailPreferenceData = {
+  mentorQuestion: string;
+  liveTrainingReminder: boolean;
+  newKnowledgeDigest: string;
+  securityNotices: boolean;
+};
+
+/**
+ * Get email preferences for current user in active tenant.
+ * Creates default preferences if none exist.
+ */
+export async function getEmailPreferences(): Promise<ActionResult<EmailPreferenceData>> {
+  try {
+    const { getTenantContext } = await import("@/lib/tenant");
+    const ctx = await getTenantContext();
+
+    let pref = await prisma.emailPreference.findUnique({
+      where: { userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId } },
+    });
+
+    if (!pref) {
+      pref = await prisma.emailPreference.create({
+        data: {
+          userId: ctx.user.id,
+          tenantId: ctx.tenantId,
+        },
+      });
+    }
+
+    return {
+      success: true,
+      data: {
+        mentorQuestion: pref.mentorQuestion,
+        liveTrainingReminder: pref.liveTrainingReminder,
+        newKnowledgeDigest: pref.newKnowledgeDigest,
+        securityNotices: pref.securityNotices,
+      },
+    };
+  } catch (err) {
+    console.error("[getEmailPreferences] Error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+/**
+ * Update email preferences for current user in active tenant.
+ */
+export async function updateEmailPreferences(
+  data: Partial<EmailPreferenceData>,
+): Promise<ActionResult> {
+  try {
+    const { getTenantContext } = await import("@/lib/tenant");
+    const ctx = await getTenantContext();
+
+    await prisma.emailPreference.upsert({
+      where: { userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId } },
+      create: {
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+        ...data,
+      },
+      update: data,
+    });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      tenantId: ctx.tenantId,
+      action: "EMAIL_PREFERENCE_UPDATED",
+      entityType: "EmailPreference",
+      entityId: ctx.user.id,
+      metadata: JSON.parse(JSON.stringify(data)),
+    });
+
+    return { success: true, data: undefined };
+  } catch (err) {
+    console.error("[updateEmailPreferences] Error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}

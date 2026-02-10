@@ -1276,6 +1276,24 @@ export const en = {
     notifRejectedMessage: "Reason: {reason}",
   },
 
+  // ── Email Preferences (profile) ─────────────────────────────────
+  emailPreferences: {
+    title: "Email notifications",
+    subtitle: "Choose which email notifications you want to receive.",
+    saved: "Preferences saved",
+    mentorQuestion: "Mentor questions",
+    mentorQuestionDesc: "Notification when an employee asks a question in a module.",
+    liveReminder: "Live training reminders",
+    liveReminderDesc: "Reminder 24h and 1h before the session.",
+    knowledgeDigest: "New knowledge",
+    knowledgeDigestDesc: "Notification about newly added knowledge.",
+    securityNotices: "Security notices",
+    securityNoticesDesc: "Notifications about password or email changes.",
+    instant: "Instant",
+    daily: "Daily",
+    muted: "Off",
+  },
+
   // ── Email Templates (tenant settings) ─────────────────────────────
   emailTemplates: {
     title: "Email templates",

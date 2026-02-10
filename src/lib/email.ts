@@ -1,9 +1,15 @@
 import { Resend } from "resend";
 import { SignJWT, jwtVerify } from "jose";
 
-// ── Resend client ────────────────────────────────────────────────────────────
+// ── Resend client (lazy init to avoid build errors without API key) ──────────
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@mentor.mojimediji.si";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
@@ -28,7 +34,7 @@ export async function sendEmail(opts: {
   }
 
   try {
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: EMAIL_FROM,
       to: opts.to,
       subject: opts.subject,
@@ -41,7 +47,7 @@ export async function sendEmail(opts: {
       // Retry once on transient errors
       if (error.name === "rate_limit_exceeded" || error.name === "internal_server_error") {
         await new Promise((r) => setTimeout(r, 1000));
-        const retry = await resend.emails.send({
+        const retry = await getResend().emails.send({
           from: EMAIL_FROM,
           to: opts.to,
           subject: opts.subject,

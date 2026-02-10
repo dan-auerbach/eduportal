@@ -1276,6 +1276,24 @@ export const sl = {
     notifRejectedMessage: "Razlog: {reason}",
   },
 
+  // ── Email Preferences (profile) ─────────────────────────────────
+  emailPreferences: {
+    title: "Email obvestila",
+    subtitle: "Izberite, katera obvestila želite prejemati po e-pošti.",
+    saved: "Nastavitve shranjene",
+    mentorQuestion: "Vprašanja za mentorja",
+    mentorQuestionDesc: "Obvestilo, ko zaposleni postavi vprašanje v modulu.",
+    liveReminder: "Opomniki za usposabljanje v živo",
+    liveReminderDesc: "Opomnik 24h in 1h pred začetkom.",
+    knowledgeDigest: "Nova znanja",
+    knowledgeDigestDesc: "Obvestilo o novih dodanih znanjih.",
+    securityNotices: "Varnostna obvestila",
+    securityNoticesDesc: "Obvestila o spremembah gesla ali e-pošte.",
+    instant: "Takoj",
+    daily: "Dnevno",
+    muted: "Izključeno",
+  },
+
   // ── Email Templates (tenant settings) ─────────────────────────────
   emailTemplates: {
     title: "Email predloge",

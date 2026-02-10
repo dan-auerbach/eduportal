@@ -282,6 +282,18 @@ export async function sendChatMessage(
       select: MSG_SELECT,
     });
 
+    // Fire-and-forget: notify mentors if this is a module chat message
+    if (moduleId) {
+      void import("@/actions/email").then(({ sendMentorQuestionNotification }) =>
+        sendMentorQuestionNotification({
+          moduleId: moduleId!,
+          tenantId: ctx.tenantId,
+          senderName: displayName,
+          messagePreview: sanitized,
+        }),
+      );
+    }
+
     return { success: true, data: toDTO(message as RawMessage) };
   } catch (e) {
     if (e instanceof TenantAccessError) {

@@ -3,7 +3,7 @@
 import crypto from "crypto";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { sendEmail, renderTemplate, getAppUrl } from "@/lib/email";
+import { sendEmail, renderTemplate, getAppUrl, buildEmailFooter } from "@/lib/email";
 import { EMAIL_DEFAULTS } from "@/lib/email-defaults";
 import { logAudit } from "@/lib/audit";
 import { rateLimit } from "@/lib/rate-limit";
@@ -548,5 +548,213 @@ export async function updateEmailPreferences(
   } catch (err) {
     console.error("[updateEmailPreferences] Error:", err);
     return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+// ── Mentor Question Notification ──────────────────────────────────────────
+
+/**
+ * Send email notification to mentors when a question is posted in module chat.
+ * Fire-and-forget — errors are logged but not surfaced.
+ * Dedup: max 1 email per mentor per module per 30-minute window.
+ */
+export async function sendMentorQuestionNotification(opts: {
+  moduleId: string;
+  tenantId: string;
+  senderName: string;
+  messagePreview: string;
+}): Promise<void> {
+  try {
+    // Find all mentors for this module
+    const mentors = await prisma.moduleMentor.findMany({
+      where: { moduleId: opts.moduleId, tenantId: opts.tenantId },
+      include: {
+        user: { select: { id: true, email: true, firstName: true, isActive: true } },
+      },
+    });
+
+    if (mentors.length === 0) return;
+
+    // Get module title + tenant name
+    const [module, tenant] = await Promise.all([
+      prisma.module.findUnique({
+        where: { id: opts.moduleId },
+        select: { title: true },
+      }),
+      prisma.tenant.findUnique({
+        where: { id: opts.tenantId },
+        select: { name: true, locale: true },
+      }),
+    ]);
+
+    if (!module || !tenant) return;
+
+    const locale = (tenant.locale === "en" ? "en" : "sl") as Locale;
+    const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
+
+    // Dedup key: 30-minute window
+    const now = new Date();
+    const halfHourSlot = `${now.getUTCFullYear()}-${now.getUTCMonth()}-${now.getUTCDate()}-${now.getUTCHours()}-${Math.floor(now.getUTCMinutes() / 30)}`;
+
+    for (const mentor of mentors) {
+      if (!mentor.user.isActive) continue;
+
+      // Check email preference
+      const pref = await prisma.emailPreference.findUnique({
+        where: { userId_tenantId: { userId: mentor.user.id, tenantId: opts.tenantId } },
+        select: { mentorQuestion: true },
+      });
+      // Default is INSTANT; skip if MUTED
+      if (pref?.mentorQuestion === "MUTED") continue;
+
+      // Check dedup
+      const existing = await prisma.notificationDedup.findUnique({
+        where: {
+          userId_type_entityId_dedupKey: {
+            userId: mentor.user.id,
+            type: "NEW_MODULE", // Reuse existing enum value for mentor question dedup
+            entityId: opts.moduleId,
+            dedupKey: `mentor-q-${halfHourSlot}`,
+          },
+        },
+      });
+      if (existing) continue;
+
+      // Build email
+      const moduleUrl = `${getAppUrl()}/modules/${opts.moduleId}`;
+      const subject = renderTemplate(defaults.mentorQuestionSubject, {
+        moduleTitle: module.title,
+        tenantName: tenant.name,
+      });
+      const body = renderTemplate(defaults.mentorQuestionBody, {
+        firstName: mentor.user.firstName,
+        moduleTitle: module.title,
+        senderName: opts.senderName,
+        messagePreview: opts.messagePreview.slice(0, 200),
+        link: moduleUrl,
+        tenantName: tenant.name,
+      });
+
+      // Append unsubscribe footer
+      const footer = await buildEmailFooter(mentor.user.id, opts.tenantId, "mentorQuestion", locale);
+
+      await sendEmail({ to: mentor.user.email, subject, text: body + footer });
+
+      // Record dedup
+      await prisma.notificationDedup.create({
+        data: {
+          userId: mentor.user.id,
+          tenantId: opts.tenantId,
+          type: "NEW_MODULE",
+          entityId: opts.moduleId,
+          dedupKey: `mentor-q-${halfHourSlot}`,
+        },
+      });
+    }
+  } catch (err) {
+    console.error("[sendMentorQuestionNotification] Error:", err);
+  }
+}
+
+// ── Knowledge Instant Notification ────────────────────────────────────────
+
+/**
+ * Send instant notification when a module is published, to users with
+ * newKnowledgeDigest = "INSTANT" preference.
+ * Fire-and-forget — errors are logged but not surfaced.
+ */
+export async function sendKnowledgeInstantNotification(opts: {
+  moduleId: string;
+  moduleTitle: string;
+  tenantId: string;
+}): Promise<void> {
+  try {
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: opts.tenantId },
+      select: { name: true, locale: true },
+    });
+    if (!tenant) return;
+
+    const locale = (tenant.locale === "en" ? "en" : "sl") as Locale;
+    const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
+
+    // Find assigned users via ModuleGroup → UserGroup
+    const moduleGroups = await prisma.moduleGroup.findMany({
+      where: { moduleId: opts.moduleId },
+      include: {
+        group: {
+          include: {
+            users: {
+              select: {
+                userId: true,
+                user: { select: { id: true, email: true, firstName: true, isActive: true } },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    // Collect unique users
+    const usersMap = new Map<string, { id: string; email: string; firstName: string }>();
+    for (const mg of moduleGroups) {
+      for (const ug of mg.group.users) {
+        if (ug.user.isActive && !usersMap.has(ug.userId)) {
+          usersMap.set(ug.userId, ug.user);
+        }
+      }
+    }
+
+    const moduleUrl = `${getAppUrl()}/modules/${opts.moduleId}`;
+
+    for (const [userId, user] of usersMap) {
+      // Check email preference — only send to INSTANT
+      const pref = await prisma.emailPreference.findUnique({
+        where: { userId_tenantId: { userId, tenantId: opts.tenantId } },
+        select: { newKnowledgeDigest: true },
+      });
+      // Default is DAILY, so only send if explicitly INSTANT
+      if (pref?.newKnowledgeDigest !== "INSTANT") continue;
+
+      // Dedup
+      const existing = await prisma.notificationDedup.findUnique({
+        where: {
+          userId_type_entityId_dedupKey: {
+            userId,
+            type: "NEW_KNOWLEDGE",
+            entityId: opts.moduleId,
+            dedupKey: `instant-${opts.moduleId}`,
+          },
+        },
+      });
+      if (existing) continue;
+
+      const subject = renderTemplate(defaults.knowledgeInstantSubject, {
+        moduleTitle: opts.moduleTitle,
+        tenantName: tenant.name,
+      });
+      const body = renderTemplate(defaults.knowledgeInstantBody, {
+        firstName: user.firstName,
+        moduleTitle: opts.moduleTitle,
+        link: moduleUrl,
+        tenantName: tenant.name,
+      });
+
+      const footer = await buildEmailFooter(userId, opts.tenantId, "newKnowledgeDigest", locale);
+
+      await sendEmail({ to: user.email, subject, text: body + footer });
+
+      await prisma.notificationDedup.create({
+        data: {
+          userId,
+          tenantId: opts.tenantId,
+          type: "NEW_KNOWLEDGE",
+          entityId: opts.moduleId,
+          dedupKey: `instant-${opts.moduleId}`,
+        },
+      });
+    }
+  } catch (err) {
+    console.error("[sendKnowledgeInstantNotification] Error:", err);
   }
 }

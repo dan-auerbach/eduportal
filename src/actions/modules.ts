@@ -354,6 +354,15 @@ export async function publishModule(
       metadata: { title: module.title },
     });
 
+    // Fire-and-forget: send instant knowledge notification to users with INSTANT preference
+    void import("@/actions/email").then(({ sendKnowledgeInstantNotification }) =>
+      sendKnowledgeInstantNotification({
+        moduleId: module.id,
+        moduleTitle: module.title,
+        tenantId: ctx.tenantId,
+      }),
+    );
+
     return { success: true, data: { id: module.id } };
   } catch (e) {
     if (e instanceof ForbiddenError) {

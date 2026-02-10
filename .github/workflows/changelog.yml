@@ -13,10 +13,29 @@ jobs:
         run: sleep 90
 
       - name: Trigger changelog generation
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl -s -X POST \
-            "${{ secrets.APP_URL }}/api/webhooks/deploy?manual=true" \
-            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "::error::Missing secrets: APP_URL and/or CRON_SECRET not configured"
+            exit 1
+          fi
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "${APP_URL}/api/webhooks/deploy?manual=true" \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
             -H "Content-Type: application/json" \
             -d '{}' \
-            --max-time 30
+            --max-time 60)
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response: $BODY"
+
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::error::Changelog generation failed with HTTP $HTTP_CODE"
+            exit 1
+          fi

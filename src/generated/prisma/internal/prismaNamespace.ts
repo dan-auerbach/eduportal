@@ -418,6 +418,7 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
+  LiveEventGroup: 'LiveEventGroup',
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
   RadarSeen: 'RadarSeen',
@@ -439,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2959,6 +2960,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LiveEventGroup: {
+      payload: Prisma.$LiveEventGroupPayload<ExtArgs>
+      fields: Prisma.LiveEventGroupFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LiveEventGroupFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LiveEventGroupFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        findFirst: {
+          args: Prisma.LiveEventGroupFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LiveEventGroupFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        findMany: {
+          args: Prisma.LiveEventGroupFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>[]
+        }
+        create: {
+          args: Prisma.LiveEventGroupCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        createMany: {
+          args: Prisma.LiveEventGroupCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LiveEventGroupCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>[]
+        }
+        delete: {
+          args: Prisma.LiveEventGroupDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        update: {
+          args: Prisma.LiveEventGroupUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        deleteMany: {
+          args: Prisma.LiveEventGroupDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LiveEventGroupUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LiveEventGroupUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>[]
+        }
+        upsert: {
+          args: Prisma.LiveEventGroupUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventGroupPayload>
+        }
+        aggregate: {
+          args: Prisma.LiveEventGroupAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLiveEventGroup>
+        }
+        groupBy: {
+          args: Prisma.LiveEventGroupGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventGroupGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LiveEventGroupCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventGroupCountAggregateOutputType> | number
+        }
+      }
+    }
     UserSession: {
       payload: Prisma.$UserSessionPayload<ExtArgs>
       fields: Prisma.UserSessionFieldRefs
@@ -3898,6 +3973,15 @@ export const MentorLiveEventScalarFieldEnum = {
 export type MentorLiveEventScalarFieldEnum = (typeof MentorLiveEventScalarFieldEnum)[keyof typeof MentorLiveEventScalarFieldEnum]
 
 
+export const LiveEventGroupScalarFieldEnum = {
+  eventId: 'eventId',
+  groupId: 'groupId',
+  tenantId: 'tenantId'
+} as const
+
+export type LiveEventGroupScalarFieldEnum = (typeof LiveEventGroupScalarFieldEnum)[keyof typeof LiveEventGroupScalarFieldEnum]
+
+
 export const UserSessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -4460,6 +4544,7 @@ export type GlobalOmitConfig = {
   changelogEntry?: Prisma.ChangelogEntryOmit
   chatMessage?: Prisma.ChatMessageOmit
   mentorLiveEvent?: Prisma.MentorLiveEventOmit
+  liveEventGroup?: Prisma.LiveEventGroupOmit
   userSession?: Prisma.UserSessionOmit
   mentorRadarPost?: Prisma.MentorRadarPostOmit
   radarSeen?: Prisma.RadarSeenOmit

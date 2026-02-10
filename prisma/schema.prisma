@@ -55,6 +55,7 @@ model Tenant {
   chatTopic            String?
   moduleMentors        ModuleMentor[]
   liveEvents           MentorLiveEvent[]
+  liveEventGroups      LiveEventGroup[]
   radarPosts           MentorRadarPost[]
   radarSeen            RadarSeen[]
 
@@ -208,9 +209,10 @@ model Group {
   color       String?
   createdAt   DateTime @default(now())
 
-  tenant  Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  users   UserGroup[]
-  modules ModuleGroup[]
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  users      UserGroup[]
+  modules    ModuleGroup[]
+  liveEvents LiveEventGroup[]
 
   @@unique([name, tenantId])
   @@index([tenantId])
@@ -940,8 +942,23 @@ model MentorLiveEvent {
   tenant        Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   createdBy     User?   @relation("LiveEventCreator", fields: [createdById], references: [id], onDelete: SetNull)
   relatedModule Module? @relation(fields: [relatedModuleId], references: [id], onDelete: SetNull)
+  groups        LiveEventGroup[]
 
   @@index([tenantId, startsAt])
+}
+
+model LiveEventGroup {
+  eventId  String
+  groupId  String
+  tenantId String
+
+  event  MentorLiveEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  group  Group           @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  tenant Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, groupId])
+  @@index([groupId])
+  @@index([tenantId])
 }
 
 // ============================================

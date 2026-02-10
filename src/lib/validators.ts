@@ -207,6 +207,7 @@ export const CreateLiveEventSchema = z.object({
     .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni"),
   instructions: z.string().max(2000, "Navodila so predolga (max 2000 znakov)").optional(),
   relatedModuleId: z.string().cuid().nullable().optional(),
+  groupIds: z.array(z.string().cuid()).optional(),
 });
 
 export const UpdateLiveEventSchema = z.object({
@@ -219,6 +220,7 @@ export const UpdateLiveEventSchema = z.object({
     .optional(),
   instructions: z.string().max(2000).nullable().optional(),
   relatedModuleId: z.string().cuid().nullable().optional(),
+  groupIds: z.array(z.string().cuid()).optional(),
 });
 
 // ---- Radar post forms ----

@@ -18,6 +18,9 @@ function verifyCronSecret(req: Request): boolean {
 /**
  * Live training reminder cron — runs daily at 07:00 UTC.
  * Sends a reminder for all MentorLiveEvents starting in the next 24 hours.
+ * If an event has groups assigned, only members of those groups receive the reminder.
+ * If no groups are assigned, all tenant members receive it (backward compatible).
+ * Users in multiple groups only receive one email per event.
  * Hobby plan limitation: can only run 1x/day, so no 1h-before reminder.
  */
 export async function GET(req: Request) {
@@ -40,7 +43,7 @@ export async function GET(req: Request) {
     setLocale(locale);
     const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
 
-    // Find events starting in the next 24 hours
+    // Find events starting in the next 24 hours, including their groups
     const events = await prisma.mentorLiveEvent.findMany({
       where: {
         tenantId: tenant.id,
@@ -54,24 +57,54 @@ export async function GET(req: Request) {
         title: true,
         startsAt: true,
         meetUrl: true,
+        groups: { select: { groupId: true } },
       },
     });
 
     for (const event of events) {
-      // Find all users with membership in this tenant
-      const memberships = await prisma.membership.findMany({
-        where: {
-          tenantId: tenant.id,
-          user: { isActive: true, deletedAt: null },
-        },
-        select: {
-          userId: true,
-          user: { select: { id: true, email: true, firstName: true } },
-        },
-      });
+      const groupIds = event.groups.map((g) => g.groupId);
 
-      for (const membership of memberships) {
-        const userId = membership.userId;
+      // Determine target users based on whether event has groups
+      let targetUsers: Array<{ userId: string; user: { id: string; email: string; firstName: string } }>;
+
+      if (groupIds.length > 0) {
+        // Event has groups: only send to unique members of those groups
+        const userGroups = await prisma.userGroup.findMany({
+          where: {
+            groupId: { in: groupIds },
+            tenantId: tenant.id,
+            user: { isActive: true, deletedAt: null },
+          },
+          select: {
+            userId: true,
+            user: { select: { id: true, email: true, firstName: true } },
+          },
+        });
+        // Deduplicate users across groups
+        const seen = new Set<string>();
+        targetUsers = [];
+        for (const ug of userGroups) {
+          if (!seen.has(ug.userId)) {
+            seen.add(ug.userId);
+            targetUsers.push(ug);
+          }
+        }
+      } else {
+        // No groups: send to all tenant members (backward compatible)
+        targetUsers = await prisma.membership.findMany({
+          where: {
+            tenantId: tenant.id,
+            user: { isActive: true, deletedAt: null },
+          },
+          select: {
+            userId: true,
+            user: { select: { id: true, email: true, firstName: true } },
+          },
+        });
+      }
+
+      for (const target of targetUsers) {
+        const userId = target.userId;
 
         // Check email preference
         const pref = await prisma.emailPreference.findUnique({
@@ -105,7 +138,7 @@ export async function GET(req: Request) {
           tenantName: tenant.name,
         });
         const body = renderTemplate(defaults.liveReminderBody, {
-          firstName: membership.user.firstName,
+          firstName: target.user.firstName,
           eventTitle: event.title,
           startsAt: formattedDate,
           meetUrl: event.meetUrl,
@@ -120,7 +153,7 @@ export async function GET(req: Request) {
         );
 
         await sendEmail({
-          to: membership.user.email,
+          to: target.user.email,
           subject,
           text: body + footer.text,
           headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -28,14 +29,71 @@ function toLocalDatetimeString(isoString: string): string {
   return local.toISOString().slice(0, 16);
 }
 
-// ── Create Dialog ────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────
 
 type ModuleOption = { id: string; title: string };
+type GroupOption = { id: string; name: string };
 
-export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) {
+// ── Group Checkboxes ─────────────────────────────────────────────────────────
+
+function GroupCheckboxes({
+  groups,
+  selected,
+  onChange,
+  idPrefix,
+}: {
+  groups: GroupOption[];
+  selected: Set<string>;
+  onChange: (next: Set<string>) => void;
+  idPrefix: string;
+}) {
+  if (groups.length === 0) return null;
+
+  return (
+    <div className="space-y-2">
+      <Label>{t("mentorLive.groupsField")}</Label>
+      <p className="text-xs text-muted-foreground">{t("mentorLive.groupsHint")}</p>
+      <div className="grid gap-2 max-h-40 overflow-y-auto rounded-md border p-3">
+        {groups.map((g) => (
+          <label
+            key={g.id}
+            htmlFor={`${idPrefix}-group-${g.id}`}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <Checkbox
+              id={`${idPrefix}-group-${g.id}`}
+              checked={selected.has(g.id)}
+              onCheckedChange={(checked) => {
+                const next = new Set(selected);
+                if (checked) next.add(g.id);
+                else next.delete(g.id);
+                onChange(next);
+              }}
+            />
+            <span className="text-sm">{g.name}</span>
+          </label>
+        ))}
+      </div>
+      {selected.size === 0 && (
+        <p className="text-xs text-muted-foreground">{t("mentorLive.allUsers")}</p>
+      )}
+    </div>
+  );
+}
+
+// ── Create Dialog ────────────────────────────────────────────────────────────
+
+export function CreateLiveEventDialog({
+  modules,
+  groups,
+}: {
+  modules: ModuleOption[];
+  groups: GroupOption[];
+}) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [selectedGroups, setSelectedGroups] = useState<Set<string>>(new Set());
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -50,6 +108,7 @@ export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) 
       meetUrl: (formData.get("meetUrl") as string) || "",
       instructions: (formData.get("instructions") as string) || undefined,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
+      groupIds: [...selectedGroups],
     };
 
     startTransition(async () => {
@@ -57,6 +116,7 @@ export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) 
       if (result.success) {
         toast.success(t("mentorLive.eventCreated"));
         setOpen(false);
+        setSelectedGroups(new Set());
         router.refresh();
       } else {
         toast.error(result.error);
@@ -72,7 +132,7 @@ export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) 
           {t("mentorLive.addEvent")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t("mentorLive.addEvent")}</DialogTitle>
         </DialogHeader>
@@ -115,6 +175,12 @@ export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) 
               ))}
             </select>
           </div>
+          <GroupCheckboxes
+            groups={groups}
+            selected={selectedGroups}
+            onChange={setSelectedGroups}
+            idPrefix="create"
+          />
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               {t("common.cancel")}
@@ -134,13 +200,18 @@ export function CreateLiveEventDialog({ modules }: { modules: ModuleOption[] }) 
 export function EditLiveEventDialog({
   event,
   modules,
+  groups,
 }: {
   event: LiveEventDTO;
   modules: ModuleOption[];
+  groups: GroupOption[];
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [selectedGroups, setSelectedGroups] = useState<Set<string>>(
+    new Set(event.groups.map((g) => g.id))
+  );
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -155,6 +226,7 @@ export function EditLiveEventDialog({
       meetUrl: (formData.get("meetUrl") as string) || undefined,
       instructions: (formData.get("instructions") as string) || null,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
+      groupIds: [...selectedGroups],
     };
 
     startTransition(async () => {
@@ -177,7 +249,7 @@ export function EditLiveEventDialog({
           {t("mentorLive.editEvent")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t("mentorLive.editEvent")}</DialogTitle>
         </DialogHeader>
@@ -239,6 +311,12 @@ export function EditLiveEventDialog({
               ))}
             </select>
           </div>
+          <GroupCheckboxes
+            groups={groups}
+            selected={selectedGroups}
+            onChange={setSelectedGroups}
+            idPrefix="edit"
+          />
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               {t("common.cancel")}

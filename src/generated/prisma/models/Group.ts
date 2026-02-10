@@ -193,6 +193,7 @@ export type GroupWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   users?: Prisma.UserGroupListRelationFilter
   modules?: Prisma.ModuleGroupListRelationFilter
+  liveEvents?: Prisma.LiveEventGroupListRelationFilter
 }
 
 export type GroupOrderByWithRelationInput = {
@@ -205,6 +206,7 @@ export type GroupOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   users?: Prisma.UserGroupOrderByRelationAggregateInput
   modules?: Prisma.ModuleGroupOrderByRelationAggregateInput
+  liveEvents?: Prisma.LiveEventGroupOrderByRelationAggregateInput
 }
 
 export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -221,6 +223,7 @@ export type GroupWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   users?: Prisma.UserGroupListRelationFilter
   modules?: Prisma.ModuleGroupListRelationFilter
+  liveEvents?: Prisma.LiveEventGroupListRelationFilter
 }, "id" | "name_tenantId">
 
 export type GroupOrderByWithAggregationInput = {
@@ -256,6 +259,7 @@ export type GroupCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutGroupsInput
   users?: Prisma.UserGroupCreateNestedManyWithoutGroupInput
   modules?: Prisma.ModuleGroupCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateInput = {
@@ -267,6 +271,7 @@ export type GroupUncheckedCreateInput = {
   createdAt?: Date | string
   users?: Prisma.UserGroupUncheckedCreateNestedManyWithoutGroupInput
   modules?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUpdateInput = {
@@ -278,6 +283,7 @@ export type GroupUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGroupsNestedInput
   users?: Prisma.UserGroupUpdateManyWithoutGroupNestedInput
   modules?: Prisma.ModuleGroupUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateInput = {
@@ -289,6 +295,7 @@ export type GroupUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserGroupUncheckedUpdateManyWithoutGroupNestedInput
   modules?: Prisma.ModuleGroupUncheckedUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupCreateManyInput = {
@@ -434,6 +441,20 @@ export type GroupUpdateOneRequiredWithoutModulesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutModulesInput, Prisma.GroupUpdateWithoutModulesInput>, Prisma.GroupUncheckedUpdateWithoutModulesInput>
 }
 
+export type GroupCreateNestedOneWithoutLiveEventsInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutLiveEventsInput, Prisma.GroupUncheckedCreateWithoutLiveEventsInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutLiveEventsInput
+  connect?: Prisma.GroupWhereUniqueInput
+}
+
+export type GroupUpdateOneRequiredWithoutLiveEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutLiveEventsInput, Prisma.GroupUncheckedCreateWithoutLiveEventsInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutLiveEventsInput
+  upsert?: Prisma.GroupUpsertWithoutLiveEventsInput
+  connect?: Prisma.GroupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutLiveEventsInput, Prisma.GroupUpdateWithoutLiveEventsInput>, Prisma.GroupUncheckedUpdateWithoutLiveEventsInput>
+}
+
 export type GroupCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -442,6 +463,7 @@ export type GroupCreateWithoutTenantInput = {
   createdAt?: Date | string
   users?: Prisma.UserGroupCreateNestedManyWithoutGroupInput
   modules?: Prisma.ModuleGroupCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateWithoutTenantInput = {
@@ -452,6 +474,7 @@ export type GroupUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   users?: Prisma.UserGroupUncheckedCreateNestedManyWithoutGroupInput
   modules?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupCreateOrConnectWithoutTenantInput = {
@@ -500,6 +523,7 @@ export type GroupCreateWithoutUsersInput = {
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGroupsInput
   modules?: Prisma.ModuleGroupCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateWithoutUsersInput = {
@@ -510,6 +534,7 @@ export type GroupUncheckedCreateWithoutUsersInput = {
   color?: string | null
   createdAt?: Date | string
   modules?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupCreateOrConnectWithoutUsersInput = {
@@ -536,6 +561,7 @@ export type GroupUpdateWithoutUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGroupsNestedInput
   modules?: Prisma.ModuleGroupUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutUsersInput = {
@@ -546,6 +572,7 @@ export type GroupUncheckedUpdateWithoutUsersInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   modules?: Prisma.ModuleGroupUncheckedUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupCreateWithoutModulesInput = {
@@ -556,6 +583,7 @@ export type GroupCreateWithoutModulesInput = {
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGroupsInput
   users?: Prisma.UserGroupCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateWithoutModulesInput = {
@@ -566,6 +594,7 @@ export type GroupUncheckedCreateWithoutModulesInput = {
   color?: string | null
   createdAt?: Date | string
   users?: Prisma.UserGroupUncheckedCreateNestedManyWithoutGroupInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupCreateOrConnectWithoutModulesInput = {
@@ -592,6 +621,7 @@ export type GroupUpdateWithoutModulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGroupsNestedInput
   users?: Prisma.UserGroupUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutModulesInput = {
@@ -602,6 +632,67 @@ export type GroupUncheckedUpdateWithoutModulesInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserGroupUncheckedUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupCreateWithoutLiveEventsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  color?: string | null
+  createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutGroupsInput
+  users?: Prisma.UserGroupCreateNestedManyWithoutGroupInput
+  modules?: Prisma.ModuleGroupCreateNestedManyWithoutGroupInput
+}
+
+export type GroupUncheckedCreateWithoutLiveEventsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  description?: string | null
+  color?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserGroupUncheckedCreateNestedManyWithoutGroupInput
+  modules?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type GroupCreateOrConnectWithoutLiveEventsInput = {
+  where: Prisma.GroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.GroupCreateWithoutLiveEventsInput, Prisma.GroupUncheckedCreateWithoutLiveEventsInput>
+}
+
+export type GroupUpsertWithoutLiveEventsInput = {
+  update: Prisma.XOR<Prisma.GroupUpdateWithoutLiveEventsInput, Prisma.GroupUncheckedUpdateWithoutLiveEventsInput>
+  create: Prisma.XOR<Prisma.GroupCreateWithoutLiveEventsInput, Prisma.GroupUncheckedCreateWithoutLiveEventsInput>
+  where?: Prisma.GroupWhereInput
+}
+
+export type GroupUpdateToOneWithWhereWithoutLiveEventsInput = {
+  where?: Prisma.GroupWhereInput
+  data: Prisma.XOR<Prisma.GroupUpdateWithoutLiveEventsInput, Prisma.GroupUncheckedUpdateWithoutLiveEventsInput>
+}
+
+export type GroupUpdateWithoutLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutGroupsNestedInput
+  users?: Prisma.UserGroupUpdateManyWithoutGroupNestedInput
+  modules?: Prisma.ModuleGroupUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupUncheckedUpdateWithoutLiveEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserGroupUncheckedUpdateManyWithoutGroupNestedInput
+  modules?: Prisma.ModuleGroupUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupCreateManyTenantInput = {
@@ -620,6 +711,7 @@ export type GroupUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserGroupUpdateManyWithoutGroupNestedInput
   modules?: Prisma.ModuleGroupUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutTenantInput = {
@@ -630,6 +722,7 @@ export type GroupUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserGroupUncheckedUpdateManyWithoutGroupNestedInput
   modules?: Prisma.ModuleGroupUncheckedUpdateManyWithoutGroupNestedInput
+  liveEvents?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutTenantInput = {
@@ -648,11 +741,13 @@ export type GroupUncheckedUpdateManyWithoutTenantInput = {
 export type GroupCountOutputType = {
   users: number
   modules: number
+  liveEvents: number
 }
 
 export type GroupCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | GroupCountOutputTypeCountUsersArgs
   modules?: boolean | GroupCountOutputTypeCountModulesArgs
+  liveEvents?: boolean | GroupCountOutputTypeCountLiveEventsArgs
 }
 
 /**
@@ -679,6 +774,13 @@ export type GroupCountOutputTypeCountModulesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.ModuleGroupWhereInput
 }
 
+/**
+ * GroupCountOutputType without action
+ */
+export type GroupCountOutputTypeCountLiveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventGroupWhereInput
+}
+
 
 export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -690,6 +792,7 @@ export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Group$usersArgs<ExtArgs>
   modules?: boolean | Prisma.Group$modulesArgs<ExtArgs>
+  liveEvents?: boolean | Prisma.Group$liveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.GroupCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["group"]>
 
@@ -727,6 +830,7 @@ export type GroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Group$usersArgs<ExtArgs>
   modules?: boolean | Prisma.Group$modulesArgs<ExtArgs>
+  liveEvents?: boolean | Prisma.Group$liveEventsArgs<ExtArgs>
   _count?: boolean | Prisma.GroupCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GroupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -742,6 +846,7 @@ export type $GroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tenant: Prisma.$TenantPayload<ExtArgs>
     users: Prisma.$UserGroupPayload<ExtArgs>[]
     modules: Prisma.$ModuleGroupPayload<ExtArgs>[]
+    liveEvents: Prisma.$LiveEventGroupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1147,6 +1252,7 @@ export interface Prisma__GroupClient<T, Null = never, ExtArgs extends runtime.Ty
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   users<T extends Prisma.Group$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   modules<T extends Prisma.Group$modulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveEvents<T extends Prisma.Group$liveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$liveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1623,6 +1729,30 @@ export type Group$modulesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ModuleGroupScalarFieldEnum | Prisma.ModuleGroupScalarFieldEnum[]
+}
+
+/**
+ * Group.liveEvents
+ */
+export type Group$liveEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventGroup
+   */
+  select?: Prisma.LiveEventGroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventGroup
+   */
+  omit?: Prisma.LiveEventGroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventGroupInclude<ExtArgs> | null
+  where?: Prisma.LiveEventGroupWhereInput
+  orderBy?: Prisma.LiveEventGroupOrderByWithRelationInput | Prisma.LiveEventGroupOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventGroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventGroupScalarFieldEnum | Prisma.LiveEventGroupScalarFieldEnum[]
 }
 
 /**

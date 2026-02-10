@@ -210,6 +210,11 @@ export type ChatMessage = Prisma.ChatMessageModel
  */
 export type MentorLiveEvent = Prisma.MentorLiveEventModel
 /**
+ * Model LiveEventGroup
+ * 
+ */
+export type LiveEventGroup = Prisma.LiveEventGroupModel
+/**
  * Model UserSession
  * 
  */

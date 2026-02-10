@@ -1218,6 +1218,9 @@ export const sl = {
     relatedModuleField: "Povezano znanje (neobvezno)",
     noModule: "Brez povezave",
     today: "Danes",
+    groupsField: "Skupine",
+    groupsHint: "Izberite skupine, ki jim je termin namenjen",
+    allUsers: "Vsi uporabniki",
   },
 
   // ── Radar ──────────────────────────────────────────────────────────

@@ -129,6 +129,21 @@ export const EMAIL_DEFAULTS = {
       "Lep pozdrav,",
       "{tenantName}",
     ].join("\n"),
+
+    // ── Notification: live event created ─────────────────────────────
+    liveCreatedSubject: "Nov termin: {eventTitle} – {startsAt}",
+    liveCreatedBody: [
+      "Pozdravljeni {firstName},",
+      "",
+      "Razpisan je nov termin usposabljanja v živo:",
+      "",
+      "  {eventTitle}",
+      "  Datum in ura: {startsAt}",
+      "  Povezava: {meetUrl}",
+      "",
+      "Lep pozdrav,",
+      "{tenantName}",
+    ].join("\n"),
   },
 
   en: {
@@ -248,6 +263,21 @@ export const EMAIL_DEFAULTS = {
       "",
       "View it here:",
       "{link}",
+      "",
+      "Best regards,",
+      "{tenantName}",
+    ].join("\n"),
+
+    // ── Notification: live event created ─────────────────────────────
+    liveCreatedSubject: "New live training: {eventTitle} – {startsAt}",
+    liveCreatedBody: [
+      "Hello {firstName},",
+      "",
+      "A new live training session has been scheduled:",
+      "",
+      "  {eventTitle}",
+      "  Date & time: {startsAt}",
+      "  Link: {meetUrl}",
       "",
       "Best regards,",
       "{tenantName}",

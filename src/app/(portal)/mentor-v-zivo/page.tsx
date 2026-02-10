@@ -1,11 +1,12 @@
 import { getTenantContext } from "@/lib/tenant";
 import { setLocale, t } from "@/lib/i18n";
-import { getLiveEventsOverview, getPublishedModulesForSelect } from "@/actions/live-events";
+import { getLiveEventsOverview, getPublishedModulesForSelect, getGroupsForSelect } from "@/actions/live-events";
 import type { LiveEventDTO } from "@/actions/live-events";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Radio, ExternalLink, BookOpen, Calendar, Info } from "lucide-react";
+import { Radio, ExternalLink, BookOpen, Calendar, Info, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CreateLiveEventDialog, EditLiveEventDialog } from "@/components/live-events/live-event-form";
 import { DeleteLiveEventButton } from "@/components/live-events/live-event-actions";
@@ -38,17 +39,40 @@ function formatEventDateShort(isoString: string, locale: string): string {
   return `${datePart}, ${timePart}`;
 }
 
+// ── Group badges ─────────────────────────────────────────────────────────────
+
+function EventGroupBadges({ event }: { event: LiveEventDTO }) {
+  if (event.groups.length === 0) return null;
+  return (
+    <div className="flex items-center gap-1.5 flex-wrap">
+      <Users className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+      {event.groups.map((g) => (
+        <Badge
+          key={g.id}
+          variant="outline"
+          className="text-xs"
+          style={g.color ? { borderColor: g.color, color: g.color } : undefined}
+        >
+          {g.name}
+        </Badge>
+      ))}
+    </div>
+  );
+}
+
 // ── Sub-components ───────────────────────────────────────────────────────────
 
 function EventHighlight({
   event,
   isAdmin,
   modules,
+  groups,
   locale,
 }: {
   event: LiveEventDTO;
   isAdmin: boolean;
   modules: { id: string; title: string }[];
+  groups: { id: string; name: string }[];
   locale: string;
 }) {
   return (
@@ -63,7 +87,7 @@ function EventHighlight({
           </div>
           {isAdmin && (
             <div className="flex gap-1 shrink-0">
-              <EditLiveEventDialog event={event} modules={modules} />
+              <EditLiveEventDialog event={event} modules={modules} groups={groups} />
               <DeleteLiveEventButton eventId={event.id} />
             </div>
           )}
@@ -76,6 +100,8 @@ function EventHighlight({
             {formatEventDateTime(event.startsAt, locale)}
           </span>
         </div>
+
+        <EventGroupBadges event={event} />
 
         {event.instructions && (
           <div className="flex gap-2 text-sm">
@@ -119,12 +145,14 @@ function EventListItem({
   showJoin,
   isAdmin,
   modules,
+  groups,
   locale,
 }: {
   event: LiveEventDTO;
   showJoin: boolean;
   isAdmin: boolean;
   modules: { id: string; title: string }[];
+  groups: { id: string; name: string }[];
   locale: string;
 }) {
   return (
@@ -134,6 +162,7 @@ function EventListItem({
         <p className="text-sm text-muted-foreground">
           {formatEventDateShort(event.startsAt, locale)}
         </p>
+        <EventGroupBadges event={event} />
         {event.relatedModule && (
           <Link
             href={`/modules/${event.relatedModule.id}`}
@@ -155,7 +184,7 @@ function EventListItem({
         )}
         {isAdmin && (
           <>
-            <EditLiveEventDialog event={event} modules={modules} />
+            <EditLiveEventDialog event={event} modules={modules} groups={groups} />
             <DeleteLiveEventButton eventId={event.id} />
           </>
         )}
@@ -180,13 +209,16 @@ export default async function MentorLivePage() {
 
   const { nextEvent, upcoming, past } = overviewResult.data;
 
-  // Fetch modules for admin select dropdown
+  // Fetch modules and groups for admin form dropdowns
   let modules: { id: string; title: string }[] = [];
+  let groups: { id: string; name: string }[] = [];
   if (isAdmin) {
-    const modulesResult = await getPublishedModulesForSelect();
-    if (modulesResult.success) {
-      modules = modulesResult.data;
-    }
+    const [modulesResult, groupsResult] = await Promise.all([
+      getPublishedModulesForSelect(),
+      getGroupsForSelect(),
+    ]);
+    if (modulesResult.success) modules = modulesResult.data;
+    if (groupsResult.success) groups = groupsResult.data;
   }
 
   const locale = ctx.tenantLocale;
@@ -200,7 +232,7 @@ export default async function MentorLivePage() {
           <Radio className="h-6 w-6 text-primary" />
           <h1 className="text-2xl font-bold">{t("mentorLive.title")}</h1>
         </div>
-        {isAdmin && <CreateLiveEventDialog modules={modules} />}
+        {isAdmin && <CreateLiveEventDialog modules={modules} groups={groups} />}
       </div>
 
       {/* Empty state */}
@@ -212,7 +244,7 @@ export default async function MentorLivePage() {
             <p className="text-sm text-muted-foreground mt-1">{t("mentorLive.noEventsDesc")}</p>
             {isAdmin && (
               <div className="mt-4">
-                <CreateLiveEventDialog modules={modules} />
+                <CreateLiveEventDialog modules={modules} groups={groups} />
               </div>
             )}
           </CardContent>
@@ -221,7 +253,7 @@ export default async function MentorLivePage() {
 
       {/* Highlight: next event */}
       {nextEvent && (
-        <EventHighlight event={nextEvent} isAdmin={isAdmin} modules={modules} locale={locale} />
+        <EventHighlight event={nextEvent} isAdmin={isAdmin} modules={modules} groups={groups} locale={locale} />
       )}
 
       {/* Upcoming events */}
@@ -236,6 +268,7 @@ export default async function MentorLivePage() {
                 showJoin={true}
                 isAdmin={isAdmin}
                 modules={modules}
+                groups={groups}
                 locale={locale}
               />
             ))}
@@ -255,6 +288,7 @@ export default async function MentorLivePage() {
                 showJoin={false}
                 isAdmin={isAdmin}
                 modules={modules}
+                groups={groups}
                 locale={locale}
               />
             ))}

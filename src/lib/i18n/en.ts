@@ -1218,6 +1218,9 @@ export const en = {
     relatedModuleField: "Related knowledge (optional)",
     noModule: "None",
     today: "Today",
+    groupsField: "Groups",
+    groupsHint: "Select groups this session is for",
+    allUsers: "All users",
   },
 
   // ── Radar ──────────────────────────────────────────────────────────

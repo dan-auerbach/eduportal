@@ -768,3 +768,113 @@ export async function sendKnowledgeInstantNotification(opts: {
     console.error("[sendKnowledgeInstantNotification] Error:", err);
   }
 }
+
+// ---------------------------------------------------------------------------
+// sendLiveEventCreatedNotification — notify group members when a live event is created
+// ---------------------------------------------------------------------------
+export async function sendLiveEventCreatedNotification(opts: {
+  eventId: string;
+  tenantId: string;
+  groupIds: string[];
+  eventTitle: string;
+  startsAt: Date;
+  meetUrl: string;
+}): Promise<void> {
+  try {
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: opts.tenantId },
+      select: { name: true, locale: true },
+    });
+    if (!tenant) return;
+
+    const locale = (tenant.locale === "en" ? "en" : "sl") as Locale;
+    const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
+
+    // Find unique users across all selected groups
+    const userGroups = await prisma.userGroup.findMany({
+      where: {
+        groupId: { in: opts.groupIds },
+        tenantId: opts.tenantId,
+      },
+      select: {
+        userId: true,
+        user: { select: { id: true, email: true, firstName: true, isActive: true } },
+      },
+    });
+
+    // Deduplicate users (a user may be in multiple groups)
+    const usersMap = new Map<string, { id: string; email: string; firstName: string }>();
+    for (const ug of userGroups) {
+      if (ug.user.isActive && !usersMap.has(ug.userId)) {
+        usersMap.set(ug.userId, ug.user);
+      }
+    }
+
+    const { format } = await import("date-fns");
+    const { getDateLocale } = await import("@/lib/i18n/date-locale");
+    const { setLocale } = await import("@/lib/i18n");
+    setLocale(locale);
+
+    const formattedDate = format(opts.startsAt, "d. MMMM yyyy 'ob' HH:mm", {
+      locale: getDateLocale(),
+    });
+
+    for (const [userId, user] of usersMap) {
+      // Check email preference
+      const pref = await prisma.emailPreference.findUnique({
+        where: { userId_tenantId: { userId, tenantId: opts.tenantId } },
+        select: { liveTrainingReminder: true },
+      });
+      // Default is true; skip if explicitly false
+      if (pref && !pref.liveTrainingReminder) continue;
+
+      // Dedup: one notification per event creation per user
+      const dedupKey = `live-created-${opts.eventId}`;
+      const existing = await prisma.notificationDedup.findUnique({
+        where: {
+          userId_type_entityId_dedupKey: {
+            userId,
+            type: "SYSTEM",
+            entityId: opts.eventId,
+            dedupKey,
+          },
+        },
+      });
+      if (existing) continue;
+
+      const subject = renderTemplate(defaults.liveCreatedSubject, {
+        eventTitle: opts.eventTitle,
+        startsAt: formattedDate,
+        tenantName: tenant.name,
+      });
+      const body = renderTemplate(defaults.liveCreatedBody, {
+        firstName: user.firstName,
+        eventTitle: opts.eventTitle,
+        startsAt: formattedDate,
+        meetUrl: opts.meetUrl,
+        tenantName: tenant.name,
+      });
+
+      const footer = await buildEmailFooter(userId, opts.tenantId, "liveTrainingReminder", locale);
+
+      await sendEmail({
+        to: user.email,
+        subject,
+        text: body + footer.text,
+        headers: { "List-Unsubscribe": `<${footer.unsubscribeUrl}>` },
+      });
+
+      await prisma.notificationDedup.create({
+        data: {
+          userId,
+          tenantId: opts.tenantId,
+          type: "SYSTEM",
+          entityId: opts.eventId,
+          dedupKey,
+        },
+      });
+    }
+  } catch (err) {
+    console.error("[sendLiveEventCreatedNotification] Error:", err);
+  }
+}

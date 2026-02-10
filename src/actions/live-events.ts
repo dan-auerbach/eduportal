@@ -4,9 +4,16 @@ import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError, requireTenantRole } from "@/lib/tenant";
 import { logAudit } from "@/lib/audit";
 import { CreateLiveEventSchema, UpdateLiveEventSchema } from "@/lib/validators";
+import { sendLiveEventCreatedNotification } from "@/actions/email";
 import type { ActionResult } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
+
+export type LiveEventGroupDTO = {
+  id: string;
+  name: string;
+  color: string | null;
+};
 
 export type LiveEventDTO = {
   id: string;
@@ -16,6 +23,7 @@ export type LiveEventDTO = {
   instructions: string | null;
   relatedModule: { id: string; title: string } | null;
   createdBy: { firstName: string; lastName: string } | null;
+  groups: LiveEventGroupDTO[];
   createdAt: string;
 };
 
@@ -40,6 +48,13 @@ const EVENT_SELECT = {
   createdBy: {
     select: { firstName: true, lastName: true },
   },
+  groups: {
+    select: {
+      group: {
+        select: { id: true, name: true, color: true },
+      },
+    },
+  },
 } as const;
 
 type RawEvent = {
@@ -51,6 +66,7 @@ type RawEvent = {
   createdAt: Date;
   relatedModule: { id: string; title: string } | null;
   createdBy: { firstName: string; lastName: string } | null;
+  groups: Array<{ group: { id: string; name: string; color: string | null } }>;
 };
 
 function toDTO(e: RawEvent): LiveEventDTO {
@@ -62,6 +78,7 @@ function toDTO(e: RawEvent): LiveEventDTO {
     instructions: e.instructions,
     relatedModule: e.relatedModule,
     createdBy: e.createdBy,
+    groups: e.groups.map((g) => g.group),
     createdAt: e.createdAt.toISOString(),
   };
 }
@@ -152,10 +169,33 @@ export async function getPublishedModulesForSelect(): Promise<
   }
 }
 
+/**
+ * Get groups for the group-select checkboxes in the admin form.
+ */
+export async function getGroupsForSelect(): Promise<
+  ActionResult<{ id: string; name: string }[]>
+> {
+  try {
+    const ctx = await getTenantContext();
+    const groups = await prisma.group.findMany({
+      where: { tenantId: ctx.tenantId },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true },
+    });
+    return { success: true, data: groups };
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
 // ── Admin CRUD ───────────────────────────────────────────────────────────────
 
 /**
  * Create a new live event. Admin+ only.
+ * Sends email notification to members of selected groups.
  */
 export async function createLiveEvent(
   data: unknown,
@@ -176,13 +216,37 @@ export async function createLiveEvent(
       },
     });
 
+    // Link groups
+    const groupIds = parsed.groupIds ?? [];
+    if (groupIds.length > 0) {
+      await prisma.liveEventGroup.createMany({
+        data: groupIds.map((groupId) => ({
+          eventId: event.id,
+          groupId,
+          tenantId: ctx.tenantId,
+        })),
+      });
+
+      // Send email notification to group members (fire-and-forget)
+      sendLiveEventCreatedNotification({
+        eventId: event.id,
+        tenantId: ctx.tenantId,
+        groupIds,
+        eventTitle: event.title,
+        startsAt: event.startsAt,
+        meetUrl: event.meetUrl,
+      }).catch((err) => {
+        console.error("[createLiveEvent] email notification error:", err);
+      });
+    }
+
     await logAudit({
       actorId: ctx.user.id,
       action: "LIVE_EVENT_CREATED",
       entityType: "MentorLiveEvent",
       entityId: event.id,
       tenantId: ctx.tenantId,
-      metadata: { title: event.title },
+      metadata: { title: event.title, groupIds },
     });
 
     return { success: true, data: { id: event.id } };
@@ -196,6 +260,7 @@ export async function createLiveEvent(
 
 /**
  * Update an existing live event. Admin+ only.
+ * Does NOT send email notifications on update.
  */
 export async function updateLiveEvent(
   id: string,
@@ -229,13 +294,32 @@ export async function updateLiveEvent(
       data: updateData,
     });
 
+    // Update groups if provided (replace all)
+    if (parsed.groupIds !== undefined) {
+      await prisma.liveEventGroup.deleteMany({ where: { eventId: id } });
+      if (parsed.groupIds.length > 0) {
+        await prisma.liveEventGroup.createMany({
+          data: parsed.groupIds.map((groupId) => ({
+            eventId: id,
+            groupId,
+            tenantId: ctx.tenantId,
+          })),
+        });
+      }
+    }
+
     await logAudit({
       actorId: ctx.user.id,
       action: "LIVE_EVENT_UPDATED",
       entityType: "MentorLiveEvent",
       entityId: id,
       tenantId: ctx.tenantId,
-      metadata: { changes: Object.keys(updateData) },
+      metadata: {
+        changes: [
+          ...Object.keys(updateData),
+          ...(parsed.groupIds !== undefined ? ["groupIds"] : []),
+        ],
+      },
     });
 
     return { success: true, data: { id } };

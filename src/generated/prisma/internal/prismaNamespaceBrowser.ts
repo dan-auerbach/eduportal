@@ -85,6 +85,7 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
+  LiveEventGroup: 'LiveEventGroup',
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
   RadarSeen: 'RadarSeen',
@@ -563,6 +564,15 @@ export const MentorLiveEventScalarFieldEnum = {
 } as const
 
 export type MentorLiveEventScalarFieldEnum = (typeof MentorLiveEventScalarFieldEnum)[keyof typeof MentorLiveEventScalarFieldEnum]
+
+
+export const LiveEventGroupScalarFieldEnum = {
+  eventId: 'eventId',
+  groupId: 'groupId',
+  tenantId: 'tenantId'
+} as const
+
+export type LiveEventGroupScalarFieldEnum = (typeof LiveEventGroupScalarFieldEnum)[keyof typeof LiveEventGroupScalarFieldEnum]
 
 
 export const UserSessionScalarFieldEnum = {

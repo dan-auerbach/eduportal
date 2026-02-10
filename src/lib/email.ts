@@ -81,9 +81,11 @@ export async function sendEmail(opts: {
     return { success: false, error: "RESEND_API_KEY not configured" };
   }
 
-  // Send HTML only — Resend auto-generates the plain text fallback.
-  // Sending both text + html caused Gmail/Outlook to prefer the plain text
-  // version, where long URLs break across lines and aren't clickable.
+  // Convert plain text body to HTML with clickable <a> links.
+  // We send ONLY html with text="" to opt out of Resend's plain text
+  // auto-generation. Without this, Resend generates a plain text part and
+  // email clients (Outlook, some Gmail views) prefer it over HTML, causing
+  // long URLs to break across lines and become non-clickable.
   const html = textToHtml(opts.text);
 
   const payload = {
@@ -91,6 +93,7 @@ export async function sendEmail(opts: {
     to: opts.to,
     subject: opts.subject,
     html,
+    text: "",          // Opt out of plain text — forces HTML rendering
     headers: opts.headers,
   };
 

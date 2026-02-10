@@ -34,6 +34,7 @@ export async function GET(req: NextRequest) {
       radarUnread: 0,
       notificationsUnread: 0,
       latestUpdateAt: null,
+      nextLiveEvent: null,
     });
   }
 
@@ -41,7 +42,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // Run all count queries in parallel for minimum latency
-    const [chatCount, radarData, notifCount, latestUpdate] = await Promise.all([
+    const [chatCount, radarData, notifCount, latestUpdate, nextEvent] = await Promise.all([
       // 1) Chat unread: count global messages after lastRead cursor
       prisma.chatMessage.count({
         where: {
@@ -86,6 +87,13 @@ export async function GET(req: NextRequest) {
         orderBy: { createdAt: "desc" },
         select: { createdAt: true },
       }),
+
+      // 5) Next upcoming live event (for sidebar sub-label)
+      prisma.mentorLiveEvent.findFirst({
+        where: { tenantId: ctx.tenantId, startsAt: { gte: new Date() } },
+        orderBy: { startsAt: "asc" },
+        select: { title: true, startsAt: true },
+      }),
     ]);
 
     const elapsed = Date.now() - start;
@@ -95,6 +103,9 @@ export async function GET(req: NextRequest) {
       radarUnread: Math.min(radarData, 99),
       notificationsUnread: Math.min(notifCount, 99),
       latestUpdateAt: latestUpdate?.createdAt?.toISOString() ?? null,
+      nextLiveEvent: nextEvent
+        ? { title: nextEvent.title, startsAt: nextEvent.startsAt.toISOString() }
+        : null,
     });
 
     // Server-Timing header for observability
@@ -107,6 +118,7 @@ export async function GET(req: NextRequest) {
       radarUnread: 0,
       notificationsUnread: 0,
       latestUpdateAt: null,
+      nextLiveEvent: null,
     });
   }
 }

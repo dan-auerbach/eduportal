@@ -62,7 +62,6 @@ type SidebarProps = {
   tenantName?: string;
   tenantLogoUrl?: string | null;
   onNavigate?: () => void;
-  nextLiveEvent?: { title: string; startsAt: string } | null;
   navCounts?: NavCounts;
 };
 
@@ -70,7 +69,7 @@ type SidebarProps = {
  * SidebarContent — shared nav content used in both desktop sidebar and mobile drawer.
  * Badge counts come from `navCounts` prop (single /api/nav-counts poll in AppShell).
  */
-export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, nextLiveEvent, navCounts }: SidebarProps) {
+export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCounts }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
@@ -173,8 +172,9 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, nextLive
           const showBadge = badgeCount > 0;
           const isMentorLive = item.href === "/mentor-v-zivo";
 
-          // Build sub-label for #mentor v živo
+          // Build sub-label for #mentor v živo (data comes from navCounts poll)
           let liveSubLabel: string | null = null;
+          const nextLiveEvent = navCounts?.nextLiveEvent;
           if (isMentorLive) {
             if (nextLiveEvent) {
               const d = new Date(nextLiveEvent.startsAt);
@@ -241,10 +241,10 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, nextLive
 /**
  * Desktop sidebar — hidden on mobile, shown on md+
  */
-export function Sidebar({ tenantId, tenantName, tenantLogoUrl, nextLiveEvent, navCounts }: SidebarProps) {
+export function Sidebar({ tenantId, tenantName, tenantLogoUrl, navCounts }: SidebarProps) {
   return (
     <aside className="hidden md:flex h-full w-64 flex-col border-r bg-card">
-      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} nextLiveEvent={nextLiveEvent} navCounts={navCounts} />
+      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} navCounts={navCounts} />
     </aside>
   );
 }

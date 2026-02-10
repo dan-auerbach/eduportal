@@ -19,7 +19,6 @@ type AppShellProps = {
   tenantTheme?: string;
   effectiveRole?: string;
   isOwnerImpersonating?: boolean;
-  nextLiveEvent?: { title: string; startsAt: string } | null;
 };
 
 export function AppShell({
@@ -30,11 +29,10 @@ export function AppShell({
   tenantTheme,
   effectiveRole,
   isOwnerImpersonating,
-  nextLiveEvent,
 }: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Single source of truth for all nav badge counts (one request, 60s poll)
+  // Single source of truth for all nav badge counts + next live event (one request, 60s poll)
   const navCounts = useNavCounts(tenantId);
 
   return (
@@ -44,7 +42,6 @@ export function AppShell({
         tenantId={tenantId}
         tenantName={tenantName}
         tenantLogoUrl={tenantLogoUrl}
-        nextLiveEvent={nextLiveEvent}
         navCounts={navCounts}
       />
 
@@ -56,7 +53,6 @@ export function AppShell({
               tenantId={tenantId}
               tenantName={tenantName}
               tenantLogoUrl={tenantLogoUrl}
-              nextLiveEvent={nextLiveEvent}
               navCounts={navCounts}
               onNavigate={() => setMobileOpen(false)}
             />

@@ -10,6 +10,7 @@ export type NavCounts = {
   radarUnread: number;
   notificationsUnread: number;
   latestUpdateAt: string | null;
+  nextLiveEvent: { title: string; startsAt: string } | null;
 };
 
 const EMPTY: NavCounts = {
@@ -17,6 +18,7 @@ const EMPTY: NavCounts = {
   radarUnread: 0,
   notificationsUnread: 0,
   latestUpdateAt: null,
+  nextLiveEvent: null,
 };
 
 /**

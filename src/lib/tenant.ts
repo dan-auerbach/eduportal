@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 import { getCurrentUser, type SessionUser } from "./auth";
@@ -40,9 +41,12 @@ export async function getActiveTenantId(): Promise<string | null> {
 
 /**
  * Get the full tenant context for the current request.
- * This is the main function every server action/page should call.
+ * Wrapped with React.cache() so that layout + page share a single
+ * execution per request — avoids duplicate DB queries.
  */
-export async function getTenantContext(): Promise<TenantContext> {
+export const getTenantContext = cache(_getTenantContextImpl);
+
+async function _getTenantContextImpl(): Promise<TenantContext> {
   const user = await getCurrentUser();
   const cookieStore = await cookies();
 

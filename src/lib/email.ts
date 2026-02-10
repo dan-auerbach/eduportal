@@ -25,10 +25,10 @@ function getJwtSecret(): Uint8Array {
 
 /**
  * Convert plain text email body to minimal HTML.
- * - Escapes HTML entities
- * - Converts URLs to clickable <a> links
- * - Converts newlines to <br>
- * Wraps in a basic HTML document for consistent rendering.
+ *
+ * IMPORTANT: Each output line must stay under ~78 characters to avoid SMTP
+ * line-wrapping that can break <a href="…"> attributes. We achieve this by
+ * emitting each paragraph/link on its own short line.
  */
 function escapeHtml(str: string): string {
   return str
@@ -39,33 +39,76 @@ function escapeHtml(str: string): string {
 }
 
 function textToHtml(text: string): string {
-  // Split text by URLs. With a capturing group in split(), the URLs are
-  // included in the result array at odd indices.
-  const parts = text.split(/(https?:\/\/[^\s<>"']+)/g);
-  let html = "";
+  const lines = text.split("\n");
+  const bodyLines: string[] = [];
 
-  for (let i = 0; i < parts.length; i++) {
-    if (i % 2 === 1) {
-      // Odd index = captured URL — wrap in <a> tag
-      const url = parts[i];
-      html += `<a href="${url}" style="color:#2563eb;word-break:break-all;">${escapeHtml(url)}</a>`;
-    } else {
-      // Even index = regular text — escape HTML entities
-      html += escapeHtml(parts[i]);
+  for (const line of lines) {
+    if (line.trim() === "") {
+      bodyLines.push("<br>");
+      continue;
     }
+
+    // Split line by URLs
+    const parts = line.split(/(https?:\/\/[^\s<>"']+)/g);
+    const segments: string[] = [];
+
+    for (let i = 0; i < parts.length; i++) {
+      if (i % 2 === 1) {
+        // URL — render as a styled CTA button.
+        // Inline styles are on <td> to keep the <a> tag short (under ~200 chars)
+        // and avoid SMTP line-wrapping that breaks href attributes.
+        const url = parts[i];
+        const label = url.replace(/^https?:\/\//, "").split("/").slice(0, 2).join("/");
+        const tdStyle = [
+          "background-color:#2563eb;",
+          "border-radius:6px;",
+          "padding:10px 20px;",
+          "font-weight:500;",
+          "text-align:center;",
+        ].join("");
+        const aStyle = "color:#ffffff;text-decoration:none;";
+        segments.push(
+          [
+            "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\">",
+            "<tr>",
+            `<td style="${tdStyle}">`,
+            `<a href="${url}" target="_blank" style="${aStyle}">`,
+            `${escapeHtml(label)} &rarr;</a>`,
+            "</td>",
+            "</tr>",
+            "</table>",
+          ].join("\n"),
+        );
+      } else if (parts[i]) {
+        segments.push(`<p style="margin:0;">${escapeHtml(parts[i])}</p>`);
+      }
+    }
+
+    bodyLines.push(segments.join("\n"));
   }
 
-  // Convert newlines to <br>
-  html = html.replace(/\n/g, "<br>\n");
-
-  // Wrap in minimal HTML document
-  return [
-    '<!DOCTYPE html>',
-    '<html><head><meta charset="utf-8"></head>',
-    '<body style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;font-size:14px;line-height:1.6;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;">',
-    html,
-    '</body></html>',
+  const bodyStyle = [
+    "font-family:sans-serif;",
+    "font-size:14px;",
+    "line-height:1.6;",
+    "color:#1a1a1a;",
+    "max-width:600px;",
+    "margin:0 auto;",
+    "padding:20px;",
   ].join("");
+
+  return [
+    "<!DOCTYPE html>",
+    "<html>",
+    "<head>",
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width">',
+    "</head>",
+    `<body style="${bodyStyle}">`,
+    ...bodyLines,
+    "</body>",
+    "</html>",
+  ].join("\n");
 }
 
 // ── Send email ───────────────────────────────────────────────────────────────

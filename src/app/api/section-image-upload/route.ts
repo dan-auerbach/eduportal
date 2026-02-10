@@ -10,8 +10,11 @@ import { put } from "@vercel/blob";
 import { getCurrentUser } from "@/lib/auth";
 import { getTenantContext } from "@/lib/tenant";
 import { hasPermission } from "@/lib/permissions";
+import sharp from "sharp";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
+const IMAGE_TARGET_SIZE = 75 * 1024; // 75 KB target after compression
+const IMAGE_MAX_WIDTH = 1200; // max width in pixels
 const ALLOWED_TYPES = [
   "image/jpeg",
   "image/png",
@@ -57,11 +60,9 @@ export async function POST(req: Request) {
     }
 
     // Build pathname
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
     const safeName = file.name
       .replace(/[^a-zA-Z0-9._-]/g, "_")
       .slice(0, 80);
-    const pathname = `section-images/${ctx.tenantId}/${Date.now()}-${safeName}`;
 
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     if (!token) {
@@ -71,11 +72,41 @@ export async function POST(req: Request) {
       );
     }
 
+    // Compress raster images to ≤75KB JPEG; pass SVG through as-is
+    const buffer = Buffer.from(await file.arrayBuffer());
+    let uploadBuffer: Buffer | File;
+    let uploadContentType = file.type;
+    let outputExt = file.name.split(".").pop()?.toLowerCase() || "jpg";
+
+    if (file.type !== "image/svg+xml") {
+      let img = sharp(buffer).resize({
+        width: IMAGE_MAX_WIDTH,
+        withoutEnlargement: true,
+      });
+
+      let quality = 80;
+      let compressed = await img.jpeg({ quality, mozjpeg: true }).toBuffer();
+
+      while (compressed.length > IMAGE_TARGET_SIZE && quality > 20) {
+        quality -= 10;
+        compressed = await img.jpeg({ quality, mozjpeg: true }).toBuffer();
+      }
+
+      uploadBuffer = compressed;
+      uploadContentType = "image/jpeg";
+      outputExt = "jpg";
+    } else {
+      uploadBuffer = file;
+    }
+
+    const pathname = `section-images/${ctx.tenantId}/${Date.now()}-${safeName.replace(/\.[^.]+$/, "")}.${outputExt}`;
+
     // Upload to Vercel Blob
-    const blob = await put(pathname, file, {
+    const blob = await put(pathname, uploadBuffer, {
       access: "public",
       token,
       addRandomSuffix: true,
+      contentType: uploadContentType,
     });
 
     return NextResponse.json({

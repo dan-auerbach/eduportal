@@ -26,7 +26,9 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type NavItem = { href: string; labelKey: string; icon: LucideIcon; ownerOnly?: boolean };
+type NavItem = { href: string; labelKey: string; icon: LucideIcon; ownerOnly?: boolean; minRole?: "SUPER_ADMIN" | "OWNER" };
+
+const ROLE_LEVEL: Record<string, number> = { EMPLOYEE: 1, ADMIN: 2, SUPER_ADMIN: 3, OWNER: 4 };
 
 const employeeNav: NavItem[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: LayoutDashboard },
@@ -40,13 +42,13 @@ const employeeNav: NavItem[] = [
 const adminNav: NavItem[] = [
   { href: "/admin", labelKey: "nav.overview", icon: LayoutDashboard },
   { href: "/admin/modules", labelKey: "nav.modules", icon: BookOpen },
-  { href: "/admin/users", labelKey: "nav.users", icon: Users },
+  { href: "/admin/users", labelKey: "nav.users", icon: Users, minRole: "SUPER_ADMIN" },
   { href: "/admin/groups", labelKey: "nav.groups", icon: FolderOpen },
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
   { href: "/admin/feedback", labelKey: "nav.feedback", icon: Star },
   { href: "/admin/audit-log", labelKey: "nav.auditLog", icon: FileText, ownerOnly: true },
-  { href: "/admin/settings", labelKey: "nav.settings", icon: Settings },
+  { href: "/admin/settings", labelKey: "nav.settings", icon: Settings, minRole: "SUPER_ADMIN" },
 ];
 
 const ownerNav: NavItem[] = [
@@ -86,7 +88,12 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, nextLive
       ? adminNav
       : employeeNav;
 
-  const navItems = rawNavItems.filter((item) => !item.ownerOnly || isOwner);
+  const userLevel = ROLE_LEVEL[role ?? "EMPLOYEE"] ?? 1;
+  const navItems = rawNavItems.filter((item) => {
+    if (item.ownerOnly && !isOwner) return false;
+    if (item.minRole && userLevel < (ROLE_LEVEL[item.minRole] ?? 99)) return false;
+    return true;
+  });
 
   // Badge counts from centralized nav-counts (suppress when on the relevant page)
   const chatUnread = isOnChatPage ? 0 : (navCounts?.chatUnread ?? 0);

@@ -449,6 +449,8 @@ export const en = {
       lastName: "Last name",
       password: "Password",
       selectRole: "Select role",
+      assignGroups: "Groups",
+      noGroupsAvailable: "No groups available.",
       userCreated: "User created successfully",
       // User edit
       saveChanges: "Save changes",

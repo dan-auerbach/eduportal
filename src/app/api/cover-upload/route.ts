@@ -3,8 +3,11 @@ import { auth } from "@/lib/auth";
 import { storage, generateHashKey } from "@/lib/storage";
 import { getTenantContext, hasMinRole } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
+import sharp from "sharp";
 
 const COVER_MAX_SIZE = 1000 * 1024; // 1000 KB = ~1 MB
+const COVER_TARGET_SIZE = 75 * 1024; // 75 KB target after compression
+const COVER_MAX_WIDTH = 1200; // max width in pixels
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -117,7 +120,7 @@ export async function POST(req: Request) {
       outputExt = ".svg";
       contentType = "image/svg+xml";
     } else {
-      // Raster images: accept as-is (no sharp dependency)
+      // Raster images: validate magic bytes, resize & compress to ≤75KB JPEG
       if (buffer.length < 4) {
         return NextResponse.json(
           { error: "Datoteka ni veljavna slika" },
@@ -135,9 +138,23 @@ export async function POST(req: Request) {
         );
       }
 
-      processedBuffer = buffer;
-      outputExt = isPng ? ".png" : ".jpg";
-      contentType = isPng ? "image/png" : "image/jpeg";
+      // Resize to max width & convert to JPEG with quality stepping
+      let img = sharp(buffer).resize({
+        width: COVER_MAX_WIDTH,
+        withoutEnlargement: true,
+      });
+
+      // Start at quality 80, step down until ≤ target size
+      let quality = 80;
+      processedBuffer = await img.jpeg({ quality, mozjpeg: true }).toBuffer();
+
+      while (processedBuffer.length > COVER_TARGET_SIZE && quality > 20) {
+        quality -= 10;
+        processedBuffer = await img.jpeg({ quality, mozjpeg: true }).toBuffer();
+      }
+
+      outputExt = ".jpg";
+      contentType = "image/jpeg";
     }
 
     // 6. Save to storage

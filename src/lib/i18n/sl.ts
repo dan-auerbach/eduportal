@@ -449,6 +449,8 @@ export const sl = {
       lastName: "Priimek",
       password: "Geslo",
       selectRole: "Izberite vlogo",
+      assignGroups: "Skupine",
+      noGroupsAvailable: "Ni razpoložljivih skupin.",
       userCreated: "Uporabnik uspešno ustvarjen",
       // User edit
       saveChanges: "Shrani spremembe",

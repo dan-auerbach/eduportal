@@ -60,6 +60,7 @@ export const CreateUserSchema = z.object({
   lastName: z.string().min(1, "Priimek je obvezen"),
   role: z.enum(["OWNER", "SUPER_ADMIN", "ADMIN", "EMPLOYEE"]),
   tenantRole: z.enum(["SUPER_ADMIN", "ADMIN", "HR", "EMPLOYEE", "VIEWER"]).optional(),
+  groupIds: z.array(z.string().cuid()).optional(),
 });
 
 export const UpdateUserSchema = z.object({

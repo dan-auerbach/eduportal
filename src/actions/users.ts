@@ -11,7 +11,57 @@ import { checkUserLimit } from "@/lib/plan";
 import { CreateUserSchema, UpdateUserSchema } from "@/lib/validators";
 import type { ActionResult } from "@/types";
 import { Prisma } from "@/generated/prisma/client";
-import type { Permission } from "@/generated/prisma/client";
+import type { Permission, TenantRole } from "@/generated/prisma/client";
+
+// ── Default permissions per role ───────────────────────────────────────────
+// When a user is created or their role changes, grant these permissions
+// automatically so they can actually access the admin pages their role allows.
+
+const ROLE_DEFAULT_PERMISSIONS: Partial<Record<TenantRole, Permission[]>> = {
+  ADMIN: [
+    "MANAGE_OWN_MODULES",
+    "VIEW_ALL_PROGRESS",
+    "MANAGE_GROUPS",
+    "MANAGE_QUIZZES",
+    "VIEW_ANALYTICS",
+  ],
+  SUPER_ADMIN: [
+    "MANAGE_ALL_MODULES",
+    "MANAGE_OWN_MODULES",
+    "VIEW_ALL_PROGRESS",
+    "MANAGE_USERS",
+    "MANAGE_GROUPS",
+    "MANAGE_QUIZZES",
+    "VIEW_ANALYTICS",
+    "VIEW_AUDIT_LOG",
+    "EXPORT_REPORTS",
+  ],
+};
+
+/**
+ * Sync UserPermission records for a user in a tenant based on their role.
+ * Creates any missing permissions, does not remove extras.
+ */
+async function syncRolePermissions(
+  userId: string,
+  tenantId: string,
+  role: TenantRole,
+  grantedBy: string
+): Promise<void> {
+  const perms = ROLE_DEFAULT_PERMISSIONS[role];
+  if (!perms || perms.length === 0) return;
+
+  // Use createMany with skipDuplicates to avoid conflicts
+  await prisma.userPermission.createMany({
+    data: perms.map((p) => ({
+      userId,
+      tenantId,
+      permission: p,
+      grantedBy,
+    })),
+    skipDuplicates: true,
+  });
+}
 
 // ---------------------------------------------------------------------------
 // getUsers - list users with optional search (requires MANAGE_USERS)
@@ -147,13 +197,28 @@ export async function createUser(
       },
     });
 
+    // Auto-grant default permissions for the assigned role
+    await syncRolePermissions(user.id, ctx.tenantId, parsed.role as TenantRole, ctx.user.id);
+
+    // Assign to groups if provided
+    if (parsed.groupIds && parsed.groupIds.length > 0) {
+      await prisma.userGroup.createMany({
+        data: parsed.groupIds.map((groupId: string) => ({
+          userId: user.id,
+          groupId,
+          tenantId: ctx.tenantId,
+        })),
+        skipDuplicates: true,
+      });
+    }
+
     await logAudit({
       actorId: ctx.user.id,
       action: "USER_CREATED",
       entityType: "User",
       entityId: user.id,
       tenantId: ctx.tenantId,
-      metadata: { email: user.email, role: user.role },
+      metadata: { email: user.email, role: user.role, groupIds: parsed.groupIds },
     });
 
     return { success: true, data: { id: user.id } };
@@ -198,6 +263,9 @@ export async function updateUser(
         where: { userId_tenantId: { userId: id, tenantId: ctx.tenantId } },
         data: { role: parsed.role },
       });
+
+      // Auto-grant default permissions for the new role
+      await syncRolePermissions(id, ctx.tenantId, parsed.role as TenantRole, ctx.user.id);
     }
 
     await logAudit({

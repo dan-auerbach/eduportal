@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { getTenantContext } from "@/lib/tenant";
+import { getTenantContext, hasMinRole } from "@/lib/tenant";
 import { requirePermission } from "@/lib/permissions";
 import { getPlanLimits } from "@/lib/plan";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -201,12 +201,14 @@ export default async function AdminDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-between" asChild>
-                <Link href="/admin/users">
-                  {t("admin.dashboard.manageUsers")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              {hasMinRole(ctx.effectiveRole, "SUPER_ADMIN") && (
+                <Button variant="outline" className="w-full justify-between" asChild>
+                  <Link href="/admin/users">
+                    {t("admin.dashboard.manageUsers")}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
               <Button variant="outline" className="w-full justify-between" asChild>
                 <Link href="/admin/modules">
                   {t("admin.dashboard.manageModules")}
@@ -225,12 +227,14 @@ export default async function AdminDashboardPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outline" className="w-full justify-between" asChild>
-                <Link href="/admin/audit-log">
-                  {t("admin.dashboard.viewAuditLog")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              {ctx.user.role === "OWNER" && (
+                <Button variant="outline" className="w-full justify-between" asChild>
+                  <Link href="/admin/audit-log">
+                    {t("admin.dashboard.viewAuditLog")}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>

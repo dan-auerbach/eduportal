@@ -81,17 +81,21 @@ export async function sendEmail(opts: {
     return { success: false, error: "RESEND_API_KEY not configured" };
   }
 
+  // Send HTML only — Resend auto-generates the plain text fallback.
+  // Sending both text + html caused Gmail/Outlook to prefer the plain text
+  // version, where long URLs break across lines and aren't clickable.
   const html = textToHtml(opts.text);
 
+  const payload = {
+    from: EMAIL_FROM,
+    to: opts.to,
+    subject: opts.subject,
+    html,
+    headers: opts.headers,
+  };
+
   try {
-    const { data, error } = await getResend().emails.send({
-      from: EMAIL_FROM,
-      to: opts.to,
-      subject: opts.subject,
-      text: opts.text,
-      html,
-      headers: opts.headers,
-    });
+    const { data, error } = await getResend().emails.send(payload);
 
     if (error) {
       console.error("[email] Resend error:", error);
@@ -99,14 +103,7 @@ export async function sendEmail(opts: {
       // Retry once on transient errors
       if (error.name === "rate_limit_exceeded" || error.name === "internal_server_error") {
         await new Promise((r) => setTimeout(r, 1000));
-        const retry = await getResend().emails.send({
-          from: EMAIL_FROM,
-          to: opts.to,
-          subject: opts.subject,
-          text: opts.text,
-          html,
-          headers: opts.headers,
-        });
+        const retry = await getResend().emails.send(payload);
         if (retry.error) {
           return { success: false, error: retry.error.message };
         }

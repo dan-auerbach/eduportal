@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/i18n";
+import type { NavCounts } from "@/hooks/use-nav-counts";
 import {
   GraduationCap,
   LayoutDashboard,
@@ -53,91 +53,6 @@ const ownerNav: NavItem[] = [
   { href: "/owner", labelKey: "nav.tenants", icon: Building2 },
 ];
 
-// ── Chat unread badge hook ───────────────────────────────────────────────────
-
-const LAST_READ_KEY_PREFIX = "ircLastRead:";
-const POLL_INTERVAL = 15_000; // 15 seconds
-
-function useChatUnreadCount(tenantId: string | undefined, isOnChatPage: boolean) {
-  const [count, setCount] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (!tenantId) return;
-
-    // When user is on chat page, always show 0
-    if (isOnChatPage) {
-      setCount(0);
-      return;
-    }
-
-    const fetchUnread = async () => {
-      try {
-        const lastRead = localStorage.getItem(`${LAST_READ_KEY_PREFIX}${tenantId}`) ?? "";
-        const url = lastRead
-          ? `/api/chat/unread?after=${encodeURIComponent(lastRead)}`
-          : `/api/chat/unread`;
-        const res = await fetch(url);
-        if (res.ok) {
-          const data = await res.json();
-          setCount(data.count ?? 0);
-        }
-      } catch {
-        // ignore
-      }
-    };
-
-    fetchUnread();
-    intervalRef.current = setInterval(fetchUnread, POLL_INTERVAL);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [tenantId, isOnChatPage]);
-
-  return count;
-}
-
-// ── Radar unread badge hook ──────────────────────────────────────────────────
-
-const RADAR_POLL_INTERVAL = 30_000; // 30 seconds
-
-function useRadarUnreadCount(tenantId: string | undefined, isOnRadarPage: boolean) {
-  const [count, setCount] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (!tenantId) return;
-
-    // When user is on radar page, always show 0 (MarkRadarSeen handles it)
-    if (isOnRadarPage) {
-      setCount(0);
-      return;
-    }
-
-    const fetchUnread = async () => {
-      try {
-        const res = await fetch("/api/radar/unread");
-        if (res.ok) {
-          const data = await res.json();
-          setCount(data.count ?? 0);
-        }
-      } catch {
-        // ignore
-      }
-    };
-
-    fetchUnread();
-    intervalRef.current = setInterval(fetchUnread, RADAR_POLL_INTERVAL);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [tenantId, isOnRadarPage]);
-
-  return count;
-}
-
 // ── Sidebar ──────────────────────────────────────────────────────────────────
 
 type SidebarProps = {
@@ -146,12 +61,14 @@ type SidebarProps = {
   tenantLogoUrl?: string | null;
   onNavigate?: () => void;
   nextLiveEvent?: { title: string; startsAt: string } | null;
+  navCounts?: NavCounts;
 };
 
 /**
  * SidebarContent — shared nav content used in both desktop sidebar and mobile drawer.
+ * Badge counts come from `navCounts` prop (single /api/nav-counts poll in AppShell).
  */
-export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate, nextLiveEvent }: SidebarProps) {
+export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, nextLiveEvent, navCounts }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
@@ -171,8 +88,9 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
 
   const navItems = rawNavItems.filter((item) => !item.ownerOnly || isOwner);
 
-  const chatUnread = useChatUnreadCount(tenantId, isOnChatPage);
-  const radarUnread = useRadarUnreadCount(tenantId, isOnRadarPage);
+  // Badge counts from centralized nav-counts (suppress when on the relevant page)
+  const chatUnread = isOnChatPage ? 0 : (navCounts?.chatUnread ?? 0);
+  const radarUnread = isOnRadarPage ? 0 : (navCounts?.radarUnread ?? 0);
 
   return (
     <>
@@ -316,10 +234,10 @@ export function SidebarContent({ tenantId, tenantName, tenantLogoUrl, onNavigate
 /**
  * Desktop sidebar — hidden on mobile, shown on md+
  */
-export function Sidebar({ tenantId, tenantName, tenantLogoUrl, nextLiveEvent }: SidebarProps) {
+export function Sidebar({ tenantId, tenantName, tenantLogoUrl, nextLiveEvent, navCounts }: SidebarProps) {
   return (
     <aside className="hidden md:flex h-full w-64 flex-col border-r bg-card">
-      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} nextLiveEvent={nextLiveEvent} />
+      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} nextLiveEvent={nextLiveEvent} navCounts={navCounts} />
     </aside>
   );
 }

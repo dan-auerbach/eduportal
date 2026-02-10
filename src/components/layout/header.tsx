@@ -1,7 +1,6 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,99 +15,9 @@ import { Bell, LogOut, User, Menu, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { t } from "@/lib/i18n";
 import { clearTenantCookies } from "@/actions/auth";
+import type { NavCounts } from "@/hooks/use-nav-counts";
 
 const UPDATES_LAST_SEEN_KEY = "mentor-updates-last-seen";
-const NOTIFICATION_POLL_INTERVAL = 30_000; // 30 seconds
-const UPDATES_POLL_INTERVAL = 60_000; // 60 seconds
-
-// ── Hook: unread notification count ─────────────────────────────────────────
-
-function useUnreadNotificationCount() {
-  const [count, setCount] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const pathname = usePathname();
-  const isOnNotificationsPage = pathname === "/notifications";
-
-  useEffect(() => {
-    if (isOnNotificationsPage) {
-      setCount(0);
-      return;
-    }
-
-    const fetchCount = async () => {
-      try {
-        const res = await fetch("/api/notifications/unread-count");
-        if (res.ok) {
-          const data = await res.json();
-          setCount(data.count ?? 0);
-        }
-      } catch {
-        // ignore
-      }
-    };
-
-    fetchCount();
-    intervalRef.current = setInterval(fetchCount, NOTIFICATION_POLL_INTERVAL);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isOnNotificationsPage]);
-
-  return count;
-}
-
-// ── Hook: unseen updates count ──────────────────────────────────────────────
-
-function useUnseenUpdatesCount() {
-  const [hasNew, setHasNew] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const pathname = usePathname();
-  const isOnUpdatesPage = pathname === "/updates";
-
-  useEffect(() => {
-    // When user visits updates page, mark all as seen
-    if (isOnUpdatesPage) {
-      localStorage.setItem(UPDATES_LAST_SEEN_KEY, new Date().toISOString());
-      setHasNew(false);
-      return;
-    }
-
-    const checkUpdates = async () => {
-      try {
-        const res = await fetch("/api/updates");
-        if (res.ok) {
-          const entries = await res.json();
-          if (entries.length === 0) {
-            setHasNew(false);
-            return;
-          }
-          const lastSeen = localStorage.getItem(UPDATES_LAST_SEEN_KEY);
-          if (!lastSeen) {
-            // Never visited updates → show indicator
-            setHasNew(true);
-            return;
-          }
-          const lastSeenDate = new Date(lastSeen);
-          const latestEntry = entries[0]; // sorted by createdAt desc
-          const latestDate = new Date(latestEntry.createdAt);
-          setHasNew(latestDate > lastSeenDate);
-        }
-      } catch {
-        // ignore
-      }
-    };
-
-    checkUpdates();
-    intervalRef.current = setInterval(checkUpdates, UPDATES_POLL_INTERVAL);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isOnUpdatesPage]);
-
-  return hasNew;
-}
 
 // ── Header component ────────────────────────────────────────────────────────
 
@@ -116,18 +25,38 @@ type HeaderProps = {
   tenantLogoUrl?: string | null;
   effectiveRole?: string;
   onMenuClick?: () => void;
+  navCounts?: NavCounts;
 };
 
-export function Header({ tenantLogoUrl, effectiveRole, onMenuClick }: HeaderProps) {
+export function Header({ tenantLogoUrl, effectiveRole, onMenuClick, navCounts }: HeaderProps) {
   const { data: session } = useSession();
   const user = session?.user;
+  const pathname = usePathname();
 
   const initials = user
     ? `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase()
     : "?";
 
-  const unreadNotifications = useUnreadNotificationCount();
-  const hasNewUpdates = useUnseenUpdatesCount();
+  // Notification count from centralized nav-counts (suppress on notifications page)
+  const isOnNotificationsPage = pathname === "/notifications";
+  const unreadNotifications = isOnNotificationsPage ? 0 : (navCounts?.notificationsUnread ?? 0);
+
+  // Updates unseen dot: compare latestUpdateAt from nav-counts with localStorage
+  const isOnUpdatesPage = pathname === "/updates";
+  let hasNewUpdates = false;
+  if (typeof localStorage !== "undefined") {
+    // When user visits updates page, mark as seen
+    if (isOnUpdatesPage) {
+      localStorage.setItem(UPDATES_LAST_SEEN_KEY, new Date().toISOString());
+    } else if (navCounts?.latestUpdateAt) {
+      const lastSeen = localStorage.getItem(UPDATES_LAST_SEEN_KEY);
+      if (!lastSeen) {
+        hasNewUpdates = true;
+      } else {
+        hasNewUpdates = new Date(navCounts.latestUpdateAt) > new Date(lastSeen);
+      }
+    }
+  }
 
   // Show updates icon to admin, super_admin, owner
   const canSeeUpdates =

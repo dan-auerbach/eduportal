@@ -213,6 +213,14 @@ export function EditLiveEventDialog({
     new Set(event.groups.map((g) => g.id))
   );
 
+  // Sync selectedGroups when event.groups changes (e.g. after router.refresh())
+  const eventGroupIds = event.groups.map((g) => g.id).sort().join(",");
+  const [prevGroupIds, setPrevGroupIds] = useState(eventGroupIds);
+  if (eventGroupIds !== prevGroupIds) {
+    setPrevGroupIds(eventGroupIds);
+    setSelectedGroups(new Set(event.groups.map((g) => g.id)));
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

@@ -132,17 +132,27 @@ export function CreateUserDialog() {
     if (!inviteResult) return;
     setInviteCopying(true);
 
-    const result = await getInvitePreview(inviteResult.userId, inviteResult.inviteToken);
+    try {
+      const result = await getInvitePreview(inviteResult.userId, inviteResult.inviteToken);
 
-    if (result.success) {
-      const text = `${result.data.subject}\n\n${result.data.body}`;
-      await navigator.clipboard.writeText(text);
-      toast.success(t("admin.users.inviteCopied"));
-    } else {
-      toast.error(result.error);
+      if (result.success) {
+        const text = `${result.data.subject}\n\n${result.data.body}`;
+        try {
+          await navigator.clipboard.writeText(text);
+          toast.success(t("admin.users.inviteCopied"));
+        } catch {
+          // Clipboard API may fail (e.g. non-HTTPS, permission denied) — fallback to prompt
+          window.prompt(t("admin.users.copyInviteText"), text);
+        }
+      } else {
+        toast.error(result.error);
+      }
+    } catch (err) {
+      console.error("[handleCopyInvite] Error:", err);
+      toast.error(err instanceof Error ? err.message : "Napaka pri kopiranju");
+    } finally {
+      setInviteCopying(false);
     }
-
-    setInviteCopying(false);
   }
 
   return (

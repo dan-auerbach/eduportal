@@ -30,24 +30,35 @@ function getJwtSecret(): Uint8Array {
  * - Converts newlines to <br>
  * Wraps in a basic HTML document for consistent rendering.
  */
-function textToHtml(text: string): string {
-  // 1. Escape HTML entities
-  let html = text
+function escapeHtml(str: string): string {
+  return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
 
-  // 2. Convert URLs to clickable links (must come before newline conversion)
-  html = html.replace(
-    /(https?:\/\/[^\s<>"']+)/g,
-    '<a href="$1" style="color:#2563eb;word-break:break-all;">$1</a>',
-  );
+function textToHtml(text: string): string {
+  // Split text by URLs. With a capturing group in split(), the URLs are
+  // included in the result array at odd indices.
+  const parts = text.split(/(https?:\/\/[^\s<>"']+)/g);
+  let html = "";
 
-  // 3. Convert newlines to <br>
+  for (let i = 0; i < parts.length; i++) {
+    if (i % 2 === 1) {
+      // Odd index = captured URL — wrap in <a> tag
+      const url = parts[i];
+      html += `<a href="${url}" style="color:#2563eb;word-break:break-all;">${escapeHtml(url)}</a>`;
+    } else {
+      // Even index = regular text — escape HTML entities
+      html += escapeHtml(parts[i]);
+    }
+  }
+
+  // Convert newlines to <br>
   html = html.replace(/\n/g, "<br>\n");
 
-  // 4. Wrap in minimal HTML document
+  // Wrap in minimal HTML document
   return [
     '<!DOCTYPE html>',
     '<html><head><meta charset="utf-8"></head>',

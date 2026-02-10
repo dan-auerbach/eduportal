@@ -269,6 +269,13 @@ export async function updateUser(
       return { success: false, error: "Uporabnik ne obstaja" };
     }
 
+    // Capture old email for security notice
+    let oldEmail: string | undefined;
+    if (parsed.email) {
+      const existing = await prisma.user.findUnique({ where: { id }, select: { email: true } });
+      oldEmail = existing?.email;
+    }
+
     const user = await prisma.user.update({
       where: { id },
       data: parsed,
@@ -293,6 +300,12 @@ export async function updateUser(
       tenantId: ctx.tenantId,
       metadata: { changes: parsed },
     });
+
+    // Send security notice if email changed (fire-and-forget)
+    if (parsed.email && oldEmail && parsed.email !== oldEmail) {
+      const { sendSecurityNotice } = await import("@/actions/email");
+      void sendSecurityNotice(id, "EMAIL_CHANGED", { oldEmail });
+    }
 
     return { success: true, data: { id: user.id } };
   } catch (e) {
@@ -409,6 +422,10 @@ export async function resetUserPassword(
       tenantId: ctx.tenantId,
       metadata: { email: existing.email },
     });
+
+    // Send security notice (fire-and-forget)
+    const { sendSecurityNotice } = await import("@/actions/email");
+    void sendSecurityNotice(id, "PASSWORD_CHANGED");
 
     return { success: true, data: { temporaryPassword } };
   } catch (e) {

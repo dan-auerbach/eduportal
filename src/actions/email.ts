@@ -263,6 +263,11 @@ export async function resetPasswordWithToken(
       metadata: { email: emailToken.user.email },
     });
 
+    // Send security notice (fire-and-forget, only for password reset — not initial invite)
+    if (emailToken.type === "PASSWORD_RESET") {
+      void sendSecurityNotice(emailToken.userId, "PASSWORD_CHANGED");
+    }
+
     return { success: true, data: undefined };
   } catch (err) {
     console.error("[resetPasswordWithToken] Error:", err);
@@ -381,5 +386,85 @@ export async function getInvitePreview(
   } catch (err) {
     console.error("[getInvitePreview] Error:", err);
     return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+// ── Security Notices ─────────────────────────────────────────────────────────
+
+/**
+ * Send a security notice email (password changed, email changed).
+ * Respects EmailPreference.securityNotices — won't send if opted out.
+ * Fire-and-forget — errors are logged but not surfaced.
+ */
+export async function sendSecurityNotice(
+  userId: string,
+  type: "PASSWORD_CHANGED" | "EMAIL_CHANGED",
+  opts?: { oldEmail?: string },
+): Promise<void> {
+  const locale = getLocaleOrDefault();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        email: true,
+        firstName: true,
+        memberships: {
+          select: {
+            tenantId: true,
+            tenant: { select: { name: true } },
+          },
+          take: 1,
+        },
+      },
+    });
+
+    if (!user) return;
+
+    const tenantId = user.memberships[0]?.tenantId ?? null;
+    const tenantName = user.memberships[0]?.tenant.name ?? "Mentor";
+
+    // Check email preference (securityNotices)
+    if (tenantId) {
+      const pref = await prisma.emailPreference.findUnique({
+        where: { userId_tenantId: { userId, tenantId } },
+        select: { securityNotices: true },
+      });
+      // If preference exists and securityNotices is false, skip
+      if (pref && !pref.securityNotices) return;
+    }
+
+    // Get templates from defaults (no tenant-custom templates for security notices)
+    const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
+    let subject: string;
+    let body: string;
+
+    if (type === "PASSWORD_CHANGED") {
+      subject = renderTemplate(defaults.passwordChangedSubject, { firstName: user.firstName, tenantName });
+      body = renderTemplate(defaults.passwordChangedBody, { firstName: user.firstName, tenantName });
+    } else {
+      subject = renderTemplate(defaults.emailChangedSubject, { firstName: user.firstName, tenantName });
+      body = renderTemplate(defaults.emailChangedBody, { firstName: user.firstName, tenantName });
+    }
+
+    // Send to current email
+    await sendEmail({ to: user.email, subject, text: body });
+
+    // If email was changed, also notify the old email
+    if (type === "EMAIL_CHANGED" && opts?.oldEmail && opts.oldEmail !== user.email) {
+      await sendEmail({ to: opts.oldEmail, subject, text: body });
+    }
+
+    await logAudit({
+      actorId: userId,
+      tenantId: tenantId ?? undefined,
+      action: "EMAIL_SENT",
+      entityType: "User",
+      entityId: userId,
+      metadata: { type, email: user.email },
+    });
+  } catch (err) {
+    console.error("[sendSecurityNotice] Error:", err);
+    // Fire-and-forget — don't throw
   }
 }

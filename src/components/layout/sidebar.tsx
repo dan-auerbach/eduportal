@@ -103,6 +103,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
       {/* Logo + tenant — click navigates to dashboard */}
       <Link
         href="/dashboard"
+        prefetch={false}
         onClick={onNavigate}
         className="flex h-14 items-center gap-2 border-b px-4 hover:bg-muted/50 transition-colors"
       >
@@ -121,6 +122,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
         <div className="flex border-b p-2">
           <Link
             href="/dashboard"
+            prefetch={false}
             onClick={onNavigate}
             className={cn(
               "flex-1 rounded-md px-3 py-1.5 text-center text-sm font-medium transition-colors",
@@ -131,6 +133,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
           </Link>
           <Link
             href="/admin"
+            prefetch={false}
             onClick={onNavigate}
             className={cn(
               "flex-1 rounded-md px-3 py-1.5 text-center text-sm font-medium transition-colors",
@@ -142,6 +145,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
           {isOwner && (
             <Link
               href="/owner"
+              prefetch={false}
               onClick={onNavigate}
               className={cn(
                 "flex-1 rounded-md px-3 py-1.5 text-center text-sm font-medium transition-colors",
@@ -197,6 +201,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               onClick={onNavigate}
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",

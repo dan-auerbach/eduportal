@@ -82,7 +82,7 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick, navCounts }:
         {/* Updates (Megaphone) — admin/owner only */}
         {canSeeUpdates && (
           <Button variant="ghost" size="icon" asChild className="relative">
-            <Link href="/updates">
+            <Link href="/updates" prefetch={false}>
               <Megaphone className="h-4 w-4" />
               {hasNewUpdates && (
                 <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary" />
@@ -93,7 +93,7 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick, navCounts }:
 
         {/* Notifications (Bell) */}
         <Button variant="ghost" size="icon" asChild className="relative">
-          <Link href="/notifications">
+          <Link href="/notifications" prefetch={false}>
             <Bell className="h-4 w-4" />
             {unreadNotifications > 0 && (
               <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center min-w-[1.1rem] h-[1.1rem] px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-semibold">
@@ -116,7 +116,7 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick, navCounts }:
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuItem asChild>
-              <Link href="/profile" className="flex items-center gap-2">
+              <Link href="/profile" prefetch={false} className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 {t("nav.profile")}
               </Link>

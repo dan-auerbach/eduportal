@@ -129,7 +129,7 @@ export async function POST(req: NextRequest) {
   const commitList = messages.map((m, i) => `${i + 1}. ${m}`).join("\n");
 
   const aiResponse = await anthropic.messages.create({
-    model: "claude-haiku-4-20250514",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 300,
     messages: [
       {

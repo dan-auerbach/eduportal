@@ -4,7 +4,7 @@ import { getLiveEventsOverview, getPublishedModulesForSelect, getGroupsForSelect
 import type { LiveEventDTO } from "@/actions/live-events";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Radio, ExternalLink, BookOpen, Calendar, Info, Users } from "lucide-react";
+import { Radio, ExternalLink, BookOpen, Calendar, CalendarPlus, Info, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -122,7 +122,7 @@ function EventHighlight({
           </div>
         )}
 
-        <div className="pt-2">
+        <div className="flex items-center gap-3 pt-2">
           <a
             href={event.meetUrl}
             target="_blank"
@@ -132,6 +132,12 @@ function EventHighlight({
             <Button size="lg">
               <ExternalLink className="mr-2 h-4 w-4" />
               {t("mentorLive.join")}
+            </Button>
+          </a>
+          <a href={`/api/calendar/live-event/${event.id}`}>
+            <Button variant="outline" size="lg">
+              <CalendarPlus className="mr-2 h-4 w-4" />
+              {t("mentorLive.addToCalendar")}
             </Button>
           </a>
         </div>
@@ -174,13 +180,22 @@ function EventListItem({
         )}
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        {showJoin && event.meetUrl && (
-          <a href={event.meetUrl} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm" className="gap-1.5">
-              <ExternalLink className="h-3.5 w-3.5" />
-              {t("mentorLive.join")}
-            </Button>
-          </a>
+        {showJoin && (
+          <>
+            <a href={`/api/calendar/live-event/${event.id}`}>
+              <Button variant="ghost" size="sm" className="gap-1.5" title={t("mentorLive.addToCalendar")}>
+                <CalendarPlus className="h-3.5 w-3.5" />
+              </Button>
+            </a>
+            {event.meetUrl && (
+              <a href={event.meetUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="gap-1.5">
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  {t("mentorLive.join")}
+                </Button>
+              </a>
+            )}
+          </>
         )}
         {isAdmin && (
           <>

@@ -1221,6 +1221,7 @@ export const en = {
     groupsField: "Groups",
     groupsHint: "Select groups this session is for",
     allUsers: "All users",
+    addToCalendar: "Add to calendar",
   },
 
   // ── Radar ──────────────────────────────────────────────────────────

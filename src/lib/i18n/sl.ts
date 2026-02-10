@@ -1221,6 +1221,7 @@ export const sl = {
     groupsField: "Skupine",
     groupsHint: "Izberite skupine, ki jim je termin namenjen",
     allUsers: "Vsi uporabniki",
+    addToCalendar: "Dodaj v koledar",
   },
 
   // ── Radar ──────────────────────────────────────────────────────────

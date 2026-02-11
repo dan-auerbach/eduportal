@@ -221,6 +221,22 @@ export function ModuleEditor({
   }
 
   async function handlePublish() {
+    // Save metadata first so title/description/estimatedTime are persisted
+    const data = {
+      title,
+      description,
+      difficulty,
+      estimatedTime: estimatedTime ? parseInt(estimatedTime) : null,
+      isMandatory,
+      categoryId,
+      coverImage,
+    };
+    const saveResult = await updateModule(moduleId, data);
+    if (!saveResult.success) {
+      toast.error(saveResult.error);
+      return;
+    }
+
     const result = await publishModule(moduleId);
     if (result.success) {
       toast.success(t("admin.modules.modulePublished"));

@@ -8,8 +8,22 @@ import { Radio, ExternalLink, BookOpen, Calendar, CalendarPlus, Info, Users } fr
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CreateLiveEventDialog, EditLiveEventDialog } from "@/components/live-events/live-event-form";
+import { CreateLiveEventDialog, EditLiveEventDialog, GoogleMeetIcon, TeamsIcon, detectPlatform } from "@/components/live-events/live-event-form";
 import { DeleteLiveEventButton } from "@/components/live-events/live-event-actions";
+
+function MeetPlatformIcon({ url, className }: { url: string; className?: string }) {
+  const platform = detectPlatform(url);
+  if (platform === "meet") return <GoogleMeetIcon className={className} />;
+  if (platform === "teams") return <TeamsIcon className={className} />;
+  return <ExternalLink className={className} />;
+}
+
+function meetPlatformLabel(url: string): string {
+  const platform = detectPlatform(url);
+  if (platform === "meet") return "Google Meet";
+  if (platform === "teams") return "MS Teams";
+  return t("mentorLive.join");
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -130,8 +144,8 @@ function EventHighlight({
             className="inline-flex items-center gap-2"
           >
             <Button size="lg">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              {t("mentorLive.join")}
+              <MeetPlatformIcon url={event.meetUrl} className="mr-2 h-4 w-4" />
+              {meetPlatformLabel(event.meetUrl)}
             </Button>
           </a>
           <a href={`/api/calendar/live-event/${event.id}`}>
@@ -190,8 +204,8 @@ function EventListItem({
             {event.meetUrl && (
               <a href={event.meetUrl} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="gap-1.5">
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  {t("mentorLive.join")}
+                  <MeetPlatformIcon url={event.meetUrl} className="h-3.5 w-3.5" />
+                  {meetPlatformLabel(event.meetUrl)}
                 </Button>
               </a>
             )}

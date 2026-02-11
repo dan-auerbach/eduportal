@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, Video } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,94 @@ import {
 } from "@/components/ui/dialog";
 import { createLiveEvent, updateLiveEvent } from "@/actions/live-events";
 import type { LiveEventDTO } from "@/actions/live-events";
+
+// ── Platform detection + icons ───────────────────────────────────────────────
+
+type MeetPlatform = "meet" | "teams" | "other";
+
+function detectPlatform(url: string): MeetPlatform {
+  if (/meet\.google\.com/i.test(url)) return "meet";
+  if (/teams\.microsoft\.com|teams\.live\.com/i.test(url)) return "teams";
+  return "other";
+}
+
+function GoogleMeetIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.5 11L18.5 7.5V16.5L14.5 13V15C14.5 15.55 14.05 16 13.5 16H6.5C5.95 16 5.5 15.55 5.5 15V9C5.5 8.45 5.95 8 6.5 8H13.5C14.05 8 14.5 8.45 14.5 9V11Z" fill="currentColor"/>
+    </svg>
+  );
+}
+
+function TeamsIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19.5 7.5H17V5.5C17 4.95 16.55 4.5 16 4.5H12C11.45 4.5 11 4.95 11 5.5V7.5H8.5C7.67 7.5 7 8.17 7 9V15C7 15.83 7.67 16.5 8.5 16.5H11V18.5C11 19.05 11.45 19.5 12 19.5H16C16.55 19.5 17 19.05 17 18.5V16.5H19.5C20.33 16.5 21 15.83 21 15V9C21 8.17 20.33 7.5 19.5 7.5ZM14 6.5C14.55 6.5 15 6.95 15 7.5H13C13 6.95 13.45 6.5 14 6.5ZM19 14.5H17V9.5H19V14.5Z" fill="currentColor"/>
+    </svg>
+  );
+}
+
+export { GoogleMeetIcon, TeamsIcon, detectPlatform };
+export type { MeetPlatform };
+
+// ── Platform Quick-Select ────────────────────────────────────────────────────
+
+function PlatformQuickSelect({
+  currentUrl,
+  onSelect,
+}: {
+  currentUrl: string;
+  onSelect: (platform: MeetPlatform) => void;
+}) {
+  const active = detectPlatform(currentUrl);
+
+  return (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        onClick={() => onSelect("meet")}
+        className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+          active === "meet"
+            ? "border-primary bg-primary/10 text-primary"
+            : "border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        }`}
+      >
+        <GoogleMeetIcon className="h-3.5 w-3.5" />
+        Google Meet
+      </button>
+      <button
+        type="button"
+        onClick={() => onSelect("teams")}
+        className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+          active === "teams"
+            ? "border-primary bg-primary/10 text-primary"
+            : "border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        }`}
+      >
+        <TeamsIcon className="h-3.5 w-3.5" />
+        MS Teams
+      </button>
+      <button
+        type="button"
+        onClick={() => onSelect("other")}
+        className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+          active === "other" && currentUrl.length > 0
+            ? "border-primary bg-primary/10 text-primary"
+            : "border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        }`}
+      >
+        <Video className="h-3.5 w-3.5" />
+        {t("mentorLive.otherPlatform")}
+      </button>
+    </div>
+  );
+}
+
+const PLATFORM_PLACEHOLDERS: Record<MeetPlatform, string> = {
+  meet: "https://meet.google.com/xxx-xxxx-xxx",
+  teams: "https://teams.microsoft.com/l/meetup-join/...",
+  other: "https://...",
+};
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -94,6 +182,19 @@ export function CreateLiveEventDialog({
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [selectedGroups, setSelectedGroups] = useState<Set<string>>(new Set());
+  const [meetUrl, setMeetUrl] = useState("");
+  const [activePlatform, setActivePlatform] = useState<MeetPlatform>("meet");
+
+  function handlePlatformSelect(platform: MeetPlatform) {
+    setActivePlatform(platform);
+    // If URL is empty or matches a different platform prefix, set a new prefix
+    const current = meetUrl.trim();
+    if (!current || detectPlatform(current) !== platform) {
+      if (platform === "meet") setMeetUrl("https://meet.google.com/");
+      else if (platform === "teams") setMeetUrl("https://teams.microsoft.com/l/meetup-join/");
+      else setMeetUrl("");
+    }
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -105,7 +206,7 @@ export function CreateLiveEventDialog({
     const data = {
       title: (formData.get("title") as string) || "",
       startsAt: startsAtISO,
-      meetUrl: (formData.get("meetUrl") as string) || "",
+      meetUrl: meetUrl || "",
       instructions: (formData.get("instructions") as string) || undefined,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
       groupIds: [...selectedGroups],
@@ -117,6 +218,8 @@ export function CreateLiveEventDialog({
         toast.success(t("mentorLive.eventCreated"));
         setOpen(false);
         setSelectedGroups(new Set());
+        setMeetUrl("");
+        setActivePlatform("meet");
         router.refresh();
       } else {
         toast.error(result.error);
@@ -147,12 +250,18 @@ export function CreateLiveEventDialog({
           </div>
           <div className="space-y-2">
             <Label htmlFor="meetUrl">{t("mentorLive.meetUrlField")}</Label>
+            <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
             <Input
               id="meetUrl"
               name="meetUrl"
               type="url"
               required
-              placeholder={t("mentorLive.meetUrlPlaceholder")}
+              value={meetUrl}
+              onChange={(e) => {
+                setMeetUrl(e.target.value);
+                setActivePlatform(detectPlatform(e.target.value));
+              }}
+              placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
             />
           </div>
           <div className="space-y-2">
@@ -212,6 +321,8 @@ export function EditLiveEventDialog({
   const [selectedGroups, setSelectedGroups] = useState<Set<string>>(
     new Set(event.groups.map((g) => g.id))
   );
+  const [meetUrl, setMeetUrl] = useState(event.meetUrl);
+  const [activePlatform, setActivePlatform] = useState<MeetPlatform>(detectPlatform(event.meetUrl));
 
   // Sync selectedGroups when event.groups changes (e.g. after router.refresh())
   const eventGroupIds = event.groups.map((g) => g.id).sort().join(",");
@@ -219,6 +330,24 @@ export function EditLiveEventDialog({
   if (eventGroupIds !== prevGroupIds) {
     setPrevGroupIds(eventGroupIds);
     setSelectedGroups(new Set(event.groups.map((g) => g.id)));
+  }
+
+  // Sync meetUrl when event.meetUrl changes
+  const [prevMeetUrl, setPrevMeetUrl] = useState(event.meetUrl);
+  if (event.meetUrl !== prevMeetUrl) {
+    setPrevMeetUrl(event.meetUrl);
+    setMeetUrl(event.meetUrl);
+    setActivePlatform(detectPlatform(event.meetUrl));
+  }
+
+  function handlePlatformSelect(platform: MeetPlatform) {
+    setActivePlatform(platform);
+    const current = meetUrl.trim();
+    if (!current || detectPlatform(current) !== platform) {
+      if (platform === "meet") setMeetUrl("https://meet.google.com/");
+      else if (platform === "teams") setMeetUrl("https://teams.microsoft.com/l/meetup-join/");
+      else setMeetUrl("");
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -231,7 +360,7 @@ export function EditLiveEventDialog({
     const data = {
       title: (formData.get("title") as string) || undefined,
       startsAt: startsAtISO,
-      meetUrl: (formData.get("meetUrl") as string) || undefined,
+      meetUrl: meetUrl || undefined,
       instructions: (formData.get("instructions") as string) || null,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
       groupIds: [...selectedGroups],
@@ -284,13 +413,18 @@ export function EditLiveEventDialog({
           </div>
           <div className="space-y-2">
             <Label htmlFor="edit-meetUrl">{t("mentorLive.meetUrlField")}</Label>
+            <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
             <Input
               id="edit-meetUrl"
               name="meetUrl"
               type="url"
               required
-              defaultValue={event.meetUrl}
-              placeholder={t("mentorLive.meetUrlPlaceholder")}
+              value={meetUrl}
+              onChange={(e) => {
+                setMeetUrl(e.target.value);
+                setActivePlatform(detectPlatform(e.target.value));
+              }}
+              placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
             />
           </div>
           <div className="space-y-2">

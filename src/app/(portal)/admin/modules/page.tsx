@@ -45,12 +45,14 @@ export default async function AdminModulesPage({
   });
 
   const params = await searchParams;
-  const activeTab = params.tab || "ALL";
+  const activeTab = params.tab || "ACTIVE";
 
   const where =
-    activeTab !== "ALL"
-      ? { status: activeTab as ModuleStatus, tenantId: ctx.tenantId }
-      : { tenantId: ctx.tenantId };
+    activeTab === "ALL"
+      ? { tenantId: ctx.tenantId }
+      : activeTab === "ACTIVE"
+        ? { status: { in: ["DRAFT" as ModuleStatus, "PUBLISHED" as ModuleStatus] }, tenantId: ctx.tenantId }
+        : { status: activeTab as ModuleStatus, tenantId: ctx.tenantId };
 
   const [modules, moduleCount, companyPins] = await Promise.all([
     prisma.module.findMany({
@@ -123,8 +125,8 @@ export default async function AdminModulesPage({
 
       <Tabs defaultValue={activeTab}>
         <TabsList>
-          <TabsTrigger value="ALL" asChild>
-            <Link href="/admin/modules?tab=ALL">{t("admin.modules.tabAll")}</Link>
+          <TabsTrigger value="ACTIVE" asChild>
+            <Link href="/admin/modules?tab=ACTIVE">{t("admin.modules.tabActive")}</Link>
           </TabsTrigger>
           <TabsTrigger value="DRAFT" asChild>
             <Link href="/admin/modules?tab=DRAFT">{t("admin.modules.tabDraft")}</Link>
@@ -134,6 +136,9 @@ export default async function AdminModulesPage({
           </TabsTrigger>
           <TabsTrigger value="ARCHIVED" asChild>
             <Link href="/admin/modules?tab=ARCHIVED">{t("admin.modules.tabArchived")}</Link>
+          </TabsTrigger>
+          <TabsTrigger value="ALL" asChild>
+            <Link href="/admin/modules?tab=ALL">{t("admin.modules.tabAll")}</Link>
           </TabsTrigger>
         </TabsList>
       </Tabs>

@@ -579,6 +579,7 @@ export const sl = {
       title: "Znanje",
       subtitle: "Ustvarjanje in upravljanje učnih znanj",
       createModule: "Ustvari znanje",
+      tabActive: "Aktivna",
       tabAll: "Vse",
       tabDraft: "Osnutki",
       tabPublished: "Objavljeni",

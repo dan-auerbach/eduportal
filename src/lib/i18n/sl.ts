@@ -1243,6 +1243,8 @@ export const sl = {
   radar: {
     title: "Radar",
     subtitle: "Zanimive vsebine, orodja in viri, ki jih deli skupnost.",
+    tabAll: "Vse",
+    tabSaved: "Shranjene",
     tabApproved: "Potrjeno",
     tabMyPosts: "Moje objave",
     tabPending: "Čaka na potrditev",
@@ -1297,10 +1299,14 @@ export const sl = {
     // Metadata
     rejectedReason: "Razlog: {reason}",
     // Empty states
-    noApprovedPosts: "Še ni potrjenih objav.",
+    noApprovedPosts: "Še ni objav.",
     noApprovedPostsDesc: "Bodite prvi, ki deli zanimivo vsebino!",
+    noSavedPosts: "Ni shranjenih objav.",
+    noSavedPostsDesc: "Shranite objave s klikom na zaznamek.",
     noMyPosts: "Še niste oddali nobene objave.",
     noPendingPosts: "Ni objav v čakanju.",
+    copyLink: "Kopiraj povezavo",
+    linkCopied: "Povezava kopirana",
     // Dashboard widget
     widgetTitle: "Radar",
     viewAll: "Prikaži vse",

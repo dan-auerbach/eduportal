@@ -172,6 +172,49 @@ export async function getApprovedRadarPosts(): Promise<ActionResult<RadarPostDTO
 }
 
 /**
+ * Get radar posts that the current user has saved/bookmarked.
+ */
+export async function getSavedRadarPosts(): Promise<ActionResult<RadarPostDTO[]>> {
+  try {
+    const ctx = await getTenantContext();
+
+    const saves = await prisma.radarSave.findMany({
+      where: { userId: ctx.user.id },
+      select: { postId: true, createdAt: true },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (saves.length === 0) {
+      return { success: true, data: [] };
+    }
+
+    const postIds = saves.map((s) => s.postId);
+    const posts = await prisma.mentorRadarPost.findMany({
+      where: {
+        id: { in: postIds },
+        tenantId: ctx.tenantId,
+        status: "APPROVED",
+      },
+      select: POST_SELECT,
+    });
+
+    const savedIds = new Set(postIds);
+    // Sort by save time (most recent first)
+    const saveOrder = new Map(saves.map((s, i) => [s.postId, i]));
+    const dtos = posts
+      .map((p) => toDTO(p, savedIds))
+      .sort((a, b) => (saveOrder.get(a.id) ?? 0) - (saveOrder.get(b.id) ?? 0));
+
+    return { success: true, data: dtos };
+  } catch (e) {
+    if (e instanceof TenantAccessError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri nalaganju objav" };
+  }
+}
+
+/**
  * Get current user's radar posts (all statuses).
  */
 export async function getMyRadarPosts(): Promise<ActionResult<RadarPostDTO[]>> {
@@ -454,7 +497,7 @@ export async function rejectRadarPost(
           type: "RADAR_REJECTED",
           title: t("radar.notifRejectedTitle", { domain: post.sourceDomain }),
           message: t("radar.notifRejectedMessage", { reason: parsed.reason }),
-          link: `/radar?tab=my`,
+          link: `/radar`,
         },
       });
     }

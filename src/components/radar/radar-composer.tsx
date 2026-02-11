@@ -8,10 +8,8 @@ import { t } from "@/lib/i18n";
 import { createRadarPost, checkDuplicateRadarUrl } from "@/actions/radar";
 
 /**
- * RadarComposer — inline sticky input bar for adding Radar posts.
- * Desktop: always visible at the top of the feed, no modal.
- * Two fields: URL (required) + description (optional).
- * Enter in URL field focuses description. Enter in description submits.
+ * RadarComposer — compact inline input for adding Radar posts.
+ * X-style: single line URL → expand description on focus.
  */
 export function RadarComposer() {
   const router = useRouter();
@@ -20,7 +18,6 @@ export function RadarComposer() {
   const [description, setDescription] = useState("");
   const [dupWarn, setDupWarn] = useState(false);
   const descRef = useRef<HTMLTextAreaElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
 
   function reset() {
     setUrl("");
@@ -33,7 +30,6 @@ export function RadarComposer() {
     if (!url.trim()) return;
 
     startTransition(async () => {
-      // Duplicate check (first time only)
       if (!dupWarn && url.trim()) {
         const dupResult = await checkDuplicateRadarUrl(url.trim());
         if (dupResult.success && dupResult.data.isDuplicate) {
@@ -68,7 +64,6 @@ export function RadarComposer() {
   }
 
   function handleDescKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    // Cmd/Ctrl+Enter or Enter (without shift) submits
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
@@ -77,12 +72,10 @@ export function RadarComposer() {
 
   return (
     <form
-      ref={formRef}
       onSubmit={handleSubmit}
-      className="rounded-lg border border-border/60 bg-card p-4 sticky top-0 z-10 shadow-sm"
+      className="border-b border-border pb-3"
     >
-      <div className="flex items-center gap-3">
-        {/* URL input */}
+      <div className="flex items-center gap-2">
         <input
           type="url"
           value={url}
@@ -93,24 +86,22 @@ export function RadarComposer() {
           onKeyDown={handleUrlKeyDown}
           placeholder={t("radar.composerUrlPlaceholder")}
           required
-          className="flex-1 min-w-0 bg-transparent text-base placeholder:text-muted-foreground/40 outline-none"
+          className="flex-1 min-w-0 bg-transparent text-sm placeholder:text-muted-foreground/40 outline-none py-2"
           disabled={isPending}
         />
-        {/* Submit button */}
         <button
           type="submit"
           disabled={isPending || !url.trim()}
-          className="shrink-0 rounded-md bg-primary text-primary-foreground p-2 disabled:opacity-40 hover:bg-primary/90 transition-colors"
+          className="shrink-0 rounded-full bg-primary text-primary-foreground p-1.5 disabled:opacity-30 hover:bg-primary/90 transition-colors"
           title={t("radar.addPost")}
         >
           {isPending ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
           ) : (
-            <Send className="h-4 w-4" />
+            <Send className="h-3.5 w-3.5" />
           )}
         </button>
       </div>
-      {/* Description — expands when URL has content */}
       {url.trim().length > 0 && (
         <textarea
           ref={descRef}
@@ -120,12 +111,12 @@ export function RadarComposer() {
           placeholder={t("radar.composerDescPlaceholder")}
           maxLength={600}
           rows={2}
-          className="mt-3 w-full resize-none bg-transparent text-sm text-muted-foreground placeholder:text-muted-foreground/40 outline-none leading-relaxed"
+          className="mt-1 w-full resize-none bg-transparent text-sm text-muted-foreground placeholder:text-muted-foreground/40 outline-none leading-relaxed"
           disabled={isPending}
         />
       )}
       {dupWarn && (
-        <p className="mt-1.5 text-xs text-yellow-600">
+        <p className="mt-1 text-xs text-yellow-600">
           {t("radar.duplicateWarning")}
         </p>
       )}

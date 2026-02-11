@@ -1229,6 +1229,8 @@ export const en = {
   radar: {
     title: "Radar",
     subtitle: "Interesting content, tools and resources shared by the community.",
+    tabAll: "All",
+    tabSaved: "Saved",
     tabApproved: "Approved",
     tabMyPosts: "My posts",
     tabPending: "Awaiting approval",
@@ -1283,10 +1285,14 @@ export const en = {
     // Metadata
     rejectedReason: "Reason: {reason}",
     // Empty states
-    noApprovedPosts: "No approved posts yet.",
+    noApprovedPosts: "No posts yet.",
     noApprovedPostsDesc: "Be the first to share interesting content!",
+    noSavedPosts: "No saved posts.",
+    noSavedPostsDesc: "Save posts by clicking the bookmark icon.",
     noMyPosts: "You haven't submitted any posts yet.",
     noPendingPosts: "No posts awaiting approval.",
+    copyLink: "Copy link",
+    linkCopied: "Link copied",
     // Dashboard widget
     widgetTitle: "Radar",
     viewAll: "View all",

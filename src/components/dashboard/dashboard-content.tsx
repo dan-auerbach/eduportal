@@ -379,7 +379,11 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
                     size="lg"
                     className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg shadow-black/10"
                   >
-                    <Link href={`/modules/${heroModule.id}`}>
+                    <Link href={
+                      heroModule.progress.status === "READY_FOR_QUIZ"
+                        ? `/modules/${heroModule.id}/quiz/${heroModule.progress.quizResults.find(q => !q.passed)?.quizId ?? heroModule.progress.quizResults[0]?.quizId}`
+                        : `/modules/${heroModule.id}`
+                    }>
                       {heroModule.progress.status === "NOT_STARTED"
                         ? t("dashboard.startModule")
                         : heroModule.progress.status === "READY_FOR_QUIZ"

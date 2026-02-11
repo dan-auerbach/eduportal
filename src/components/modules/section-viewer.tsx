@@ -189,7 +189,7 @@ export function SectionViewer({
   const [acknowledging, setAcknowledging] = useState(false);
   const [showQuizPrompt, setShowQuizPrompt] = useState(
     // Show quiz prompt on load if all sections done + quiz not passed
-    initialProgress >= 100 && quizzes.length > 0 && !quizzes.every(q => q.passed)
+    initialCompletedIds.length >= sections.length && quizzes.length > 0 && !quizzes.every(q => q.passed)
   );
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"content" | "chat">(initialTab);

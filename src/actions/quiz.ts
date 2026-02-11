@@ -91,9 +91,9 @@ export async function getQuizForAttempt(
       return { success: false, error: "Nimate dostopa do tega modula" };
     }
 
-    // Check that all sections are completed
+    // Check that all sections are completed (sections only, not quiz — avoid circular dependency)
     const progress = await getModuleProgress(ctx.user.id, quiz.moduleId, ctx.tenantId);
-    if (progress.percentage < 100) {
+    if (progress.completedSections < progress.totalSections) {
       return {
         success: false,
         error: "Zaključite vse sekcije pred poskusom kviza",
@@ -183,9 +183,9 @@ export async function submitQuizAttempt(
       return { success: false, error: "Kviz ne obstaja" };
     }
 
-    // Check all sections completed
+    // Check all sections completed (sections only, not quiz — avoid circular dependency)
     const progress = await getModuleProgress(ctx.user.id, quiz.moduleId, ctx.tenantId);
-    if (progress.percentage < 100) {
+    if (progress.completedSections < progress.totalSections) {
       return {
         success: false,
         error: "Zaključite vse sekcije pred poskusom kviza",

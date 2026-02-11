@@ -132,7 +132,8 @@ export default async function AdminLateUsersPage({
       if (progress.percentage === 0) {
         reason = "NOT_STARTED";
       } else if (
-        progress.percentage === 100 &&
+        progress.completedSections >= progress.totalSections &&
+        progress.hasQuizzes &&
         !progress.allQuizzesPassed
       ) {
         reason = "MISSING_QUIZ";

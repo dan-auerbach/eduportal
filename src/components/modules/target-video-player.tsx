@@ -8,7 +8,7 @@ import { t } from "@/lib/i18n";
 
 const TARGETVIDEO_SCRIPT_SRC =
   "https://player.target-video.com/player/build/targetvideo.min.js";
-const TARGETVIDEO_PLAYER_ID = "49298";
+const TARGETVIDEO_PLAYER_ID = "49376";
 
 // ── Singleton script loader ─────────────────────────────────────────────────
 

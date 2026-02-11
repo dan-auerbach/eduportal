@@ -22,7 +22,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { reorderSections } from "@/actions/modules";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { GripVertical, Lock, ChevronRight } from "lucide-react";
+import { GripVertical, Lock, ChevronRight, Video } from "lucide-react";
 import type { SectionType } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
 
@@ -183,6 +183,12 @@ function SortableSectionRow({
       <span className="flex-1 text-sm font-medium truncate">
         {section.title || t("admin.sectionEditor.untitledSection")}
       </span>
+      {(section.type === "VIDEO" || section.type === "MIXED") && (
+        <Badge className="text-xs shrink-0 bg-blue-600 hover:bg-blue-600 text-white gap-1">
+          <Video className="h-3 w-3" />
+          VIDEO
+        </Badge>
+      )}
       <Badge variant="outline" className="text-xs shrink-0">
         {getSectionTypeLabel(section.type)}
       </Badge>

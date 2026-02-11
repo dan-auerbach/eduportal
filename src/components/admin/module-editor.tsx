@@ -165,7 +165,6 @@ export function ModuleEditor({
 
   // Quiz state
   const [addingQuiz, setAddingQuiz] = useState(false);
-  const [newQuizTitle, setNewQuizTitle] = useState("");
 
   // Mentor state
   const [mentorIds, setMentorIds] = useState<Set<string>>(
@@ -314,13 +313,12 @@ export function ModuleEditor({
 
   // Quiz handlers
   async function handleAddQuiz() {
-    if (!newQuizTitle.trim()) return;
     setAddingQuiz(true);
 
-    const result = await createQuiz(moduleId, { title: newQuizTitle.trim() });
+    const quizNumber = quizzes.length + 1;
+    const result = await createQuiz(moduleId, { title: `Kviz ${quizNumber}` });
     if (result.success) {
       toast.success(t("admin.quizEditor.quizSaved"));
-      setNewQuizTitle("");
       router.refresh();
     } else {
       toast.error(result.error);
@@ -610,30 +608,14 @@ export function ModuleEditor({
           )}
 
           <Separator />
-          <div className="flex items-end gap-3">
-            <div className="flex-1 space-y-2">
-              <Label>{t("admin.quizEditor.quizTitle")}</Label>
-              <Input
-                placeholder={t("admin.quizEditor.quizTitlePlaceholder")}
-                value={newQuizTitle}
-                onChange={(e) => setNewQuizTitle(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleAddQuiz();
-                  }
-                }}
-              />
-            </div>
-            <Button
-              size="sm"
-              onClick={handleAddQuiz}
-              disabled={!newQuizTitle.trim() || addingQuiz}
-            >
-              <Plus className="mr-1 h-4 w-4" />
-              {t("admin.quizEditor.addQuiz")}
-            </Button>
-          </div>
+          <Button
+            size="sm"
+            onClick={handleAddQuiz}
+            disabled={addingQuiz}
+          >
+            <Plus className="mr-1 h-4 w-4" />
+            {t("admin.quizEditor.addQuiz")}
+          </Button>
         </CardContent>
       </Card>
 
@@ -896,7 +878,6 @@ function QuizEditor({
   onDelete: () => void;
 }) {
   const router = useRouter();
-  const [quizTitle, setQuizTitle] = useState(quiz.title);
   const [passingScore, setPassingScore] = useState(quiz.passingScore.toString());
   const [maxAttempts, setMaxAttempts] = useState(quiz.maxAttempts.toString());
   const [savingMeta, setSavingMeta] = useState(false);
@@ -904,7 +885,7 @@ function QuizEditor({
   async function handleSaveMeta() {
     setSavingMeta(true);
     const result = await updateQuiz(quiz.id, {
-      title: quizTitle,
+      title: quiz.title,
       passingScore: parseInt(passingScore) || 70,
       maxAttempts: parseInt(maxAttempts) || 3,
     });
@@ -920,48 +901,40 @@ function QuizEditor({
   return (
     <div className="rounded-lg border p-4 space-y-4">
       {/* Quiz metadata */}
-      <div className="flex items-start gap-3">
-        <div className="flex-1 space-y-3">
-          <div className="flex items-center gap-3">
-            <Input
-              value={quizTitle}
-              onChange={(e) => setQuizTitle(e.target.value)}
-              className="font-medium"
-            />
-            <div className="flex items-center gap-2">
-              <Label className="text-xs whitespace-nowrap">{t("admin.quizEditor.passingScore")}</Label>
-              <Input
-                type="number"
-                min={0}
-                max={100}
-                value={passingScore}
-                onChange={(e) => setPassingScore(e.target.value)}
-                className="w-20"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Label className="text-xs whitespace-nowrap">{t("admin.quizEditor.maxAttempts")}</Label>
-              <Input
-                type="number"
-                min={1}
-                value={maxAttempts}
-                onChange={(e) => setMaxAttempts(e.target.value)}
-                className="w-20"
-              />
-            </div>
-            <Button size="sm" variant="outline" onClick={handleSaveMeta} disabled={savingMeta}>
-              <Save className="h-3 w-3" />
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="text-destructive"
-              onClick={onDelete}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
+      <div className="flex items-center gap-3">
+        <span className="text-sm font-semibold flex-shrink-0">{quiz.title}</span>
+        <div className="flex items-center gap-2">
+          <Label className="text-xs whitespace-nowrap">{t("admin.quizEditor.passingScore")}</Label>
+          <Input
+            type="number"
+            min={0}
+            max={100}
+            value={passingScore}
+            onChange={(e) => setPassingScore(e.target.value)}
+            className="w-20"
+          />
         </div>
+        <div className="flex items-center gap-2">
+          <Label className="text-xs whitespace-nowrap">{t("admin.quizEditor.maxAttempts")}</Label>
+          <Input
+            type="number"
+            min={1}
+            value={maxAttempts}
+            onChange={(e) => setMaxAttempts(e.target.value)}
+            className="w-20"
+          />
+        </div>
+        <Button size="sm" variant="outline" onClick={handleSaveMeta} disabled={savingMeta}>
+          <Save className="h-3 w-3" />
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-destructive"
+          onClick={onDelete}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
       </div>
 
       <Separator />

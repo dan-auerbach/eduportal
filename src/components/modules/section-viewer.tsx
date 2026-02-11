@@ -604,6 +604,12 @@ export function SectionViewer({
             {/* Section header — hidden on mobile (shown in mobile header bar instead) */}
             <div className="hidden md:block p-6 border-b">
               <div className="flex items-center gap-2">
+                {(activeSection.type === "VIDEO" || activeSection.type === "MIXED") && (
+                  <Badge className="text-xs bg-blue-600 hover:bg-blue-600 text-white gap-1">
+                    <Play className="h-3 w-3" />
+                    VIDEO
+                  </Badge>
+                )}
                 <Badge variant="outline" className="text-xs">
                   {t(`sectionType.${activeSection.type}`)}
                 </Badge>
@@ -623,6 +629,12 @@ export function SectionViewer({
 
             {/* Compact mobile section header (badges + type) */}
             <div className="md:hidden px-4 py-2 border-b flex items-center gap-2">
+              {(activeSection.type === "VIDEO" || activeSection.type === "MIXED") && (
+                <Badge className="text-xs bg-blue-600 hover:bg-blue-600 text-white gap-1">
+                  <Play className="h-3 w-3" />
+                  VIDEO
+                </Badge>
+              )}
               <Badge variant="outline" className="text-xs">
                 {t(`sectionType.${activeSection.type}`)}
               </Badge>

@@ -221,6 +221,8 @@ export const sl = {
     startModule: "Začni znanje",
     allCompleted: "Odlično! Zaključili ste vsa znanja.",
     progressSummary: "{completed} od {total} znanj zaključenih",
+    groupActivity: "Dogajanje v tvoji skupini",
+    completedModule: "je osvojil/a znanje",
   },
 
   // ── Modules (Employee) ───────────────────────────────────────────
@@ -266,6 +268,10 @@ export const sl = {
     sortProgress: "Napredek",
     sortTitle: "Naziv",
     sortCategory: "Področje",
+    // Mobile filters
+    filtersButton: "Filtri",
+    applyFilters: "Uporabi",
+    clearFilters: "Počisti",
     // Assignment reason & mentors on cards
     assignedBecause: "Dodeljeno: {groups}",
     andMore: "+{count}",

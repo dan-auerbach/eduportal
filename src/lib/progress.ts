@@ -4,6 +4,8 @@ export type ModuleProgress = {
   status: "NOT_STARTED" | "IN_PROGRESS" | "READY_FOR_QUIZ" | "COMPLETED";
   completedSections: number;
   totalSections: number;
+  totalSteps: number;
+  completedSteps: number;
   percentage: number;
   quizResults: { quizId: string; quizTitle: string; passed: boolean }[];
   allQuizzesPassed: boolean;
@@ -33,23 +35,26 @@ export async function getModuleProgress(userId: string, moduleId: string, tenant
       prisma.userModuleLastAccess.findFirst({ where: { userId, moduleId } }),
     ]);
 
-  const percentage =
-    totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
-
   const quizResults = quizzes.map((q) => ({
     quizId: q.id,
     quizTitle: q.title,
     passed: q.attempts.length > 0,
   }));
 
+  const passedQuizCount = quizResults.filter((q) => q.passed).length;
   const allQuizzesPassed = quizzes.length === 0 || quizResults.every((q) => q.passed);
   const hasQuizzes = quizzes.length > 0;
   const hasOverride = !!override;
 
+  // Quiz counts as a step in the percentage
+  const totalSteps = totalSections + quizzes.length;
+  const completedSteps = completedSections + passedQuizCount;
+  const percentage = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
+
   let status: ModuleProgress["status"] = "NOT_STARTED";
-  if (hasOverride || (percentage === 100 && allQuizzesPassed)) {
+  if (hasOverride || (completedSections >= totalSections && allQuizzesPassed)) {
     status = "COMPLETED";
-  } else if (percentage === 100 && hasQuizzes && !allQuizzesPassed) {
+  } else if (completedSections >= totalSections && hasQuizzes && !allQuizzesPassed) {
     status = "READY_FOR_QUIZ";
   } else if (completedSections > 0 || quizzes.some((q) => q.attempts.length > 0)) {
     status = "IN_PROGRESS";
@@ -59,6 +64,8 @@ export async function getModuleProgress(userId: string, moduleId: string, tenant
     status,
     completedSections,
     totalSections,
+    totalSteps,
+    completedSteps,
     percentage,
     quizResults,
     allQuizzesPassed,
@@ -291,20 +298,26 @@ export async function getBatchedProgressForTenant(
       // Compute progress
       const totalSections = sectionCountMap.get(moduleId) ?? 0;
       const completedSections = completionCountMap.get(pairKey) ?? 0;
-      const percentage = totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
       const hasOverride = overrideSet.has(pairKey);
       const lastAccessedAt = lastAccessMap.get(pairKey) ?? null;
 
       const moduleQuizIds = moduleQuizMap.get(moduleId);
       const hasQuizzes = !!moduleQuizIds && moduleQuizIds.size > 0;
       const passedQuizIds = userPassedQuizMap.get(pairKey);
+      const passedQuizCount = passedQuizIds?.size ?? 0;
       const allQuizzesPassed = !hasQuizzes || (!!passedQuizIds && passedQuizIds.size >= (moduleQuizIds?.size ?? 0));
+
+      // Quiz counts as a step in the percentage
+      const quizCount = moduleQuizIds?.size ?? 0;
+      const totalSteps = totalSections + quizCount;
+      const completedSteps = completedSections + passedQuizCount;
+      const percentage = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 
       // Status (mirrors getModuleProgress logic exactly)
       let status: ModuleProgress["status"] = "NOT_STARTED";
-      if (hasOverride || (percentage === 100 && allQuizzesPassed)) {
+      if (hasOverride || (completedSections >= totalSections && allQuizzesPassed)) {
         status = "COMPLETED";
-      } else if (percentage === 100 && hasQuizzes && !allQuizzesPassed) {
+      } else if (completedSections >= totalSections && hasQuizzes && !allQuizzesPassed) {
         status = "READY_FOR_QUIZ";
       } else if (completedSections > 0 || (passedQuizIds && passedQuizIds.size > 0)) {
         status = "IN_PROGRESS";
@@ -416,7 +429,6 @@ export async function getBatchedProgressForUser(
   for (const moduleId of moduleIds) {
     const totalSections = sectionCountMap.get(moduleId) ?? 0;
     const completedSections = completionCountMap.get(moduleId) ?? 0;
-    const percentage = totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
 
     const quizzes = moduleQuizMap.get(moduleId) ?? [];
     const quizResults = quizzes.map((q) => ({
@@ -424,16 +436,22 @@ export async function getBatchedProgressForUser(
       quizTitle: q.title,
       passed: q.attempts.length > 0,
     }));
+    const passedQuizCount = quizResults.filter((q) => q.passed).length;
     const allQuizzesPassed = quizzes.length === 0 || quizResults.every((q) => q.passed);
     const hasQuizzes = quizzes.length > 0;
+
+    // Quiz counts as a step in the percentage
+    const totalSteps = totalSections + quizzes.length;
+    const completedSteps = completedSections + passedQuizCount;
+    const percentage = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 
     const override = overrideMap.get(moduleId);
     const hasOverride = !!override;
 
     let status: ModuleProgress["status"] = "NOT_STARTED";
-    if (hasOverride || (percentage === 100 && allQuizzesPassed)) {
+    if (hasOverride || (completedSections >= totalSections && allQuizzesPassed)) {
       status = "COMPLETED";
-    } else if (percentage === 100 && hasQuizzes && !allQuizzesPassed) {
+    } else if (completedSections >= totalSections && hasQuizzes && !allQuizzesPassed) {
       status = "READY_FOR_QUIZ";
     } else if (completedSections > 0 || quizzes.some((q) => q.attempts.length > 0)) {
       status = "IN_PROGRESS";
@@ -443,6 +461,8 @@ export async function getBatchedProgressForUser(
       status,
       completedSections,
       totalSections,
+      totalSteps,
+      completedSteps,
       percentage,
       quizResults,
       allQuizzesPassed,

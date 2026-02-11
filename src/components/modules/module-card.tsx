@@ -38,6 +38,8 @@ export type ModuleCardProps = {
     status: "NOT_STARTED" | "IN_PROGRESS" | "READY_FOR_QUIZ" | "COMPLETED";
     completedSections: number;
     totalSections: number;
+    totalSteps: number;
+    completedSteps: number;
   };
   deadline?: Date | null;
   allQuizzesPassed?: boolean;
@@ -331,7 +333,7 @@ export function ModuleCard({ module }: { module: ModuleCardProps }) {
                   <div className="text-xs text-muted-foreground">
                     <span className="font-medium text-foreground">{module.progress.percentage}%</span>
                     <span className="mx-1">·</span>
-                    <span>{module.progress.completedSections}/{module.progress.totalSections}</span>
+                    <span>{module.progress.completedSteps}/{module.progress.totalSteps}</span>
                   </div>
                 </div>
               )}

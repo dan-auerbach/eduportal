@@ -122,6 +122,8 @@ export default async function ModulesPage({
           status: progress.status,
           completedSections: progress.completedSections,
           totalSections: progress.totalSections,
+          totalSteps: progress.totalSteps,
+          completedSteps: progress.completedSteps,
         },
         deadline: null, // No per-user deadline for admin
         needsReview: reviewMap.has(module.id) && module.version > reviewMap.get(module.id)!,
@@ -231,6 +233,8 @@ export default async function ModulesPage({
           status: progress.status,
           completedSections: progress.completedSections,
           totalSections: progress.totalSections,
+          totalSteps: progress.totalSteps,
+          completedSteps: progress.completedSteps,
         },
         deadline,
         needsReview: reviewMap.has(module.id) && module.version > reviewMap.get(module.id)!,

@@ -10,13 +10,16 @@ import {
   Sparkles,
   MessageSquare,
   CheckCircle2,
+  Users,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getBatchedProgressForUser, type ModuleProgress } from "@/lib/progress";
+import { getRecentGroupCompletions } from "@/lib/group-activity";
 import { sortModules } from "@/lib/module-sort";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
 import { CompletedModuleCard } from "@/components/modules/completed-module-card";
 import { CompletedSection } from "@/components/modules/completed-section";
@@ -228,6 +231,9 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
   // Sort using the recommended algorithm (pin-aware + smart ordering)
   modulesWithProgress = sortModules(modulesWithProgress, "recommended", companyPinSet, userPinSet);
 
+  // Fetch group activity (social feed)
+  const groupActivity = await getRecentGroupCompletions(userId, tenantId);
+
   // Stats
   const totalModules = modulesWithProgress.length;
   const completedModules = modulesWithProgress.filter(
@@ -285,6 +291,8 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
       status: m.progress.status,
       completedSections: m.progress.completedSections,
       totalSections: m.progress.totalSections,
+      totalSteps: m.progress.totalSteps,
+      completedSteps: m.progress.completedSteps,
     },
     deadline: m.deadline,
     needsReview: false, // "Updated" badge shown only on /modules page where version data is available
@@ -541,6 +549,47 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
           )}
         </div>
       </div>
+
+      {/* ─── Group Activity Feed ─── */}
+      {groupActivity.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-base font-semibold flex items-center gap-2">
+            <Users className="h-4 w-4 text-muted-foreground" />
+            {t("dashboard.groupActivity")}
+          </h2>
+          <div className="space-y-2">
+            {groupActivity.map((item, i) => (
+              <Link
+                key={`${item.userId}-${item.moduleId}-${i}`}
+                href={`/modules/${item.moduleId}`}
+                className="block group"
+              >
+                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-card px-4 py-3 transition-all hover:shadow-sm hover:border-primary/20">
+                  <Avatar className="h-8 w-8 shrink-0">
+                    {item.avatar && <AvatarImage src={item.avatar} alt={`${item.firstName} ${item.lastName}`} />}
+                    <AvatarFallback className="text-xs">
+                      {item.firstName[0]}{item.lastName[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm truncate">
+                      <span className="font-medium">{item.firstName}</span>
+                      {" "}
+                      <span className="text-muted-foreground">{t("dashboard.completedModule")}</span>
+                      {" "}
+                      <span className="font-medium group-hover:text-primary transition-colors">{item.moduleTitle}</span>
+                    </p>
+                    <p className="text-[11px] text-muted-foreground/70">
+                      {formatDistanceToNow(new Date(item.completedAt), { addSuffix: true, locale: getDateLocale() })}
+                    </p>
+                  </div>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }

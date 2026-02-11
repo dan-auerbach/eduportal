@@ -28,6 +28,9 @@ function meetPlatformLabel(url: string): string {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
+// Force CET timezone so server-rendered times match the user's local time
+const TZ = "Europe/Ljubljana";
+
 function formatEventDateTime(isoString: string, locale: string): string {
   const loc = locale === "sl" ? "sl-SI" : "en-GB";
   const d = new Date(isoString);
@@ -36,8 +39,9 @@ function formatEventDateTime(isoString: string, locale: string): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: TZ,
   });
-  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: TZ });
   return `${datePart} ob ${timePart}`;
 }
 
@@ -49,8 +53,9 @@ function formatEventDateShort(isoString: string, locale: string): string {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: TZ,
   });
-  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: TZ });
   return `${datePart}, ${timePart}`;
 }
 

@@ -55,6 +55,13 @@ export async function GET(
     modulePrerequisites,
     selfAssessments,
     moduleAccesses,
+    // ── Additional tables (v1.1) ──
+    chatMessages,
+    liveEvents,
+    liveEventGroups,
+    radarPosts,
+    radarSaves,
+    emailPreferences,
   ] = await Promise.all([
     prisma.membership.findMany({
       where: { tenantId },
@@ -114,6 +121,17 @@ export async function GET(
     prisma.modulePrerequisite.findMany({ where: { tenantId }, take: MAX_ROWS }),
     prisma.moduleSelfAssessment.findMany({ where: { tenantId }, take: MAX_ROWS }),
     prisma.userModuleLastAccess.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    // ── Additional tables (v1.1) ──
+    prisma.chatMessage.findMany({ where: { tenantId }, orderBy: { createdAt: "desc" }, take: MAX_ROWS }),
+    prisma.mentorLiveEvent.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.liveEventGroup.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    prisma.mentorRadarPost.findMany({ where: { tenantId }, take: MAX_ROWS }),
+    // RadarSave has no tenantId — join via posts
+    prisma.radarSave.findMany({
+      where: { post: { tenantId } },
+      take: MAX_ROWS,
+    }),
+    prisma.emailPreference.findMany({ where: { tenantId }, take: MAX_ROWS }),
   ]);
 
   // ── Build ZIP ──────────────────────────────────────────────
@@ -124,7 +142,7 @@ export async function GET(
     slug: tenant.slug,
     name: tenant.name,
     exportedAt: new Date().toISOString(),
-    version: "1.0",
+    version: "1.1",
     maxRowsPerTable: MAX_ROWS,
   };
 
@@ -164,6 +182,13 @@ export async function GET(
     "module_prerequisites.json": toJson(modulePrerequisites),
     "self_assessments.json": toJson(selfAssessments),
     "module_accesses.json": toJson(moduleAccesses),
+    // ── Additional tables (v1.1) ──
+    "chat_messages.json": toJson(chatMessages),
+    "live_events.json": toJson(liveEvents),
+    "live_event_groups.json": toJson(liveEventGroups),
+    "radar_posts.json": toJson(radarPosts),
+    "radar_saves.json": toJson(radarSaves),
+    "email_preferences.json": toJson(emailPreferences),
   };
 
   const zipped = zipSync(files);

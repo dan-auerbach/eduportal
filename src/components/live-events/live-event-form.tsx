@@ -20,15 +20,10 @@ import {
 import { createLiveEvent, updateLiveEvent } from "@/actions/live-events";
 import type { LiveEventDTO } from "@/actions/live-events";
 
-// ── Platform detection + icons ───────────────────────────────────────────────
+// ── Platform detection (shared) + icons ──────────────────────────────────────
 
-type MeetPlatform = "meet" | "teams" | "other";
-
-function detectPlatform(url: string): MeetPlatform {
-  if (/meet\.google\.com/i.test(url)) return "meet";
-  if (/teams\.microsoft\.com|teams\.live\.com/i.test(url)) return "teams";
-  return "other";
-}
+import { detectPlatform } from "@/lib/meet-platform";
+import type { MeetPlatform } from "@/lib/meet-platform";
 
 function GoogleMeetIcon({ className }: { className?: string }) {
   return (

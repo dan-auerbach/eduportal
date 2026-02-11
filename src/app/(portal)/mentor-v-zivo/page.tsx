@@ -8,7 +8,8 @@ import { Radio, ExternalLink, BookOpen, Calendar, CalendarPlus, Info, Users } fr
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CreateLiveEventDialog, EditLiveEventDialog, GoogleMeetIcon, TeamsIcon, detectPlatform } from "@/components/live-events/live-event-form";
+import { CreateLiveEventDialog, EditLiveEventDialog, GoogleMeetIcon, TeamsIcon } from "@/components/live-events/live-event-form";
+import { detectPlatform } from "@/lib/meet-platform";
 import { DeleteLiveEventButton } from "@/components/live-events/live-event-actions";
 
 function MeetPlatformIcon({ url, className }: { url: string; className?: string }) {

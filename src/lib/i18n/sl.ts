@@ -214,6 +214,7 @@ export const sl = {
     due: "Rok {time} ({date})",
     goToModule: "Pojdi na znanje",
     yourModules: "Vaša znanja",
+    availableModules: "Znanje na voljo",
     continueLearning: "Nadaljuj učenje",
     continueModule: "Nadaljuj z znanjem",
     startNextModule: "Začni naslednje znanje",

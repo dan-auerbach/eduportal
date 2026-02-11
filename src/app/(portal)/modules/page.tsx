@@ -124,7 +124,7 @@ export default async function ModulesPage({
           totalSections: progress.totalSections,
         },
         deadline: null, // No per-user deadline for admin
-        needsReview: module.version > (reviewMap.get(module.id) ?? 0),
+        needsReview: reviewMap.has(module.id) && module.version > reviewMap.get(module.id)!,
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
         categoryName: module.category?.name ?? null,
@@ -233,7 +233,7 @@ export default async function ModulesPage({
           totalSections: progress.totalSections,
         },
         deadline,
-        needsReview: module.version > (reviewMap.get(module.id) ?? 0),
+        needsReview: reviewMap.has(module.id) && module.version > reviewMap.get(module.id)!,
         isUserPinned: userPinSet.has(module.id),
         isCompanyPinned: companyPinSet.has(module.id),
         categoryName: module.category?.name ?? null,

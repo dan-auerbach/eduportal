@@ -9,6 +9,7 @@ import {
   Award,
   Sparkles,
   MessageSquare,
+  CheckCircle2,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getBatchedProgressForUser, type ModuleProgress } from "@/lib/progress";
@@ -17,6 +18,8 @@ import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
+import { CompletedModuleCard } from "@/components/modules/completed-module-card";
+import { CompletedSection } from "@/components/modules/completed-section";
 
 type MentorInfo = { id: string; firstName: string; lastName: string; avatar: string | null };
 
@@ -284,7 +287,7 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
       totalSections: m.progress.totalSections,
     },
     deadline: m.deadline,
-    needsReview: m.progress.status !== "COMPLETED" && (reviewMap.get(m.id) ?? 0) < 1,
+    needsReview: false, // "Updated" badge shown only on /modules page where version data is available
     isUserPinned: m.isUserPinned,
     isCompanyPinned: m.isCompanyPinned,
     categoryName: m.categoryName,
@@ -472,37 +475,71 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
         </div>
       )}
 
-      {/* ─── Module grid ─── */}
-      <div>
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-base font-semibold">{t("dashboard.yourModules")}</h2>
-          <Button variant="ghost" size="sm" asChild className="text-xs text-muted-foreground hover:text-foreground">
-            <Link href="/modules">
-              {t("common.viewAll")}
-              <ArrowRight className="ml-1 h-3.5 w-3.5" />
-            </Link>
-          </Button>
-        </div>
+      {/* ─── Module grid: Active ─── */}
+      <div className="space-y-8">
+        <div>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-base font-semibold">{t("dashboard.availableModules")}</h2>
+            <Button variant="ghost" size="sm" asChild className="text-xs text-muted-foreground hover:text-foreground">
+              <Link href="/modules">
+                {t("common.viewAll")}
+                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              </Link>
+            </Button>
+          </div>
 
-        {moduleCards.length === 0 ? (
-          <div className="rounded-xl border border-border/40 bg-card">
-            <div className="py-16 text-center text-muted-foreground">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50">
-                <BookOpen className="h-7 w-7 opacity-40" />
+          {moduleCards.length === 0 ? (
+            <div className="rounded-xl border border-border/40 bg-card">
+              <div className="py-16 text-center text-muted-foreground">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50">
+                  <BookOpen className="h-7 w-7 opacity-40" />
+                </div>
+                <p className="font-medium">{t("dashboard.noModulesAssigned")}</p>
+                <p className="text-sm mt-1 opacity-70">
+                  {t("dashboard.contactAdmin")}
+                </p>
               </div>
-              <p className="font-medium">{t("dashboard.noModulesAssigned")}</p>
-              <p className="text-sm mt-1 opacity-70">
-                {t("dashboard.contactAdmin")}
-              </p>
             </div>
-          </div>
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {moduleCards.map((m) => (
-              <ModuleCard key={m.id} module={m} />
-            ))}
-          </div>
-        )}
+          ) : (
+            (() => {
+              const activeCards = moduleCards.filter((m) => m.progress.status !== "COMPLETED");
+              const completedCards = moduleCards.filter((m) => m.progress.status === "COMPLETED");
+              return (
+                <>
+                  {activeCards.length > 0 ? (
+                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                      {activeCards.map((m) => (
+                        <ModuleCard key={m.id} module={m} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="rounded-xl border border-border/40 bg-card">
+                      <div className="py-10 text-center text-muted-foreground">
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/30">
+                          <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+                        </div>
+                        <p className="font-medium">{t("modules.noActiveModules")}</p>
+                        <p className="text-sm mt-1 opacity-70">{t("modules.noActiveModulesHint")}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {completedCards.length > 0 && (
+                    <div className="mt-6">
+                      <CompletedSection count={completedCards.length}>
+                        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                          {completedCards.map((m) => (
+                            <CompletedModuleCard key={m.id} module={m} />
+                          ))}
+                        </div>
+                      </CompletedSection>
+                    </div>
+                  )}
+                </>
+              );
+            })()
+          )}
+        </div>
       </div>
     </>
   );

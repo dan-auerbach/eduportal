@@ -76,9 +76,17 @@ function toDTO(e: RawEvent): LiveEventDTO {
     startsAt: e.startsAt.toISOString(),
     meetUrl: e.meetUrl,
     instructions: e.instructions,
-    relatedModule: e.relatedModule,
-    createdBy: e.createdBy,
-    groups: e.groups.map((g) => g.group),
+    relatedModule: e.relatedModule
+      ? { id: e.relatedModule.id, title: e.relatedModule.title }
+      : null,
+    createdBy: e.createdBy
+      ? { firstName: e.createdBy.firstName, lastName: e.createdBy.lastName }
+      : null,
+    groups: e.groups.map((g) => ({
+      id: g.group.id,
+      name: g.group.name,
+      color: g.group.color,
+    })),
     createdAt: e.createdAt.toISOString(),
   };
 }
@@ -124,6 +132,7 @@ export async function getLiveEventsOverview(): Promise<ActionResult<LiveEventsOv
     if (e instanceof TenantAccessError) {
       return { success: false, error: e.message };
     }
+    console.error("[getLiveEventsOverview] unexpected error:", e);
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri nalaganju terminov" };
   }
 }

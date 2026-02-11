@@ -268,6 +268,12 @@ export const sl = {
     // Assignment reason & mentors on cards
     assignedBecause: "Dodeljeno: {groups}",
     andMore: "+{count}",
+    // Sections
+    activeKnowledge: "Aktivna znanja",
+    completedKnowledge: "Zaključena znanja",
+    noActiveModules: "Nimate aktivnih znanj.",
+    noActiveModulesHint: "Vsa dodeljena znanja ste zaključili!",
+    completedCount: "Zaključena znanja ({count})",
   },
 
   // ── Updates / Changelog ──────────────────────────────────────────

@@ -1,9 +1,11 @@
-import { BookOpen } from "lucide-react";
+import { BookOpen, CheckCircle2 } from "lucide-react";
 import { getTenantContext } from "@/lib/tenant";
 import { t } from "@/lib/i18n";
 import { prisma } from "@/lib/prisma";
 import { getBatchedProgressForUser } from "@/lib/progress";
 import { ModuleCard, type ModuleCardProps } from "@/components/modules/module-card";
+import { CompletedModuleCard } from "@/components/modules/completed-module-card";
+import { CompletedSection } from "@/components/modules/completed-section";
 import { ModuleFilters } from "@/components/modules/module-filters";
 import { CategoryTabBar } from "@/components/modules/category-tab-bar";
 import { sortModules, type SortableModule } from "@/lib/module-sort";
@@ -277,7 +279,12 @@ export default async function ModulesPage({
   // Sort modules using the sort utility
   const sortedModules = sortModules(modulesWithProgress, sortBy, companyPinSet, userPinSet);
 
+  // Split into active and completed
+  const activeModules = sortedModules.filter((m) => m.progress.status !== "COMPLETED");
+  const completedModules = sortedModules.filter((m) => m.progress.status === "COMPLETED");
+
   const hasFilters = !!(searchQuery || difficultyFilter || tagFilter || categoryFilter);
+  const totalModules = sortedModules.length;
 
   return (
     <div className="space-y-6">
@@ -302,7 +309,7 @@ export default async function ModulesPage({
         currentSort={sortBy}
       />
 
-      {sortedModules.length === 0 ? (
+      {totalModules === 0 ? (
         <div className="rounded-xl border border-border/40 bg-card">
           <div className="py-16 text-center text-muted-foreground">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50">
@@ -317,10 +324,41 @@ export default async function ModulesPage({
           </div>
         </div>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {sortedModules.map((module) => (
-            <ModuleCard key={module.id} module={module} />
-          ))}
+        <div className="space-y-8">
+          {/* ─── Active Knowledge ─── */}
+          {activeModules.length > 0 ? (
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold tracking-tight">
+                {t("modules.activeKnowledge")}
+              </h2>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {activeModules.map((module) => (
+                  <ModuleCard key={module.id} module={module} />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-border/40 bg-card">
+              <div className="py-10 text-center text-muted-foreground">
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/30">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+                </div>
+                <p className="font-medium">{t("modules.noActiveModules")}</p>
+                <p className="text-sm mt-1 opacity-70">{t("modules.noActiveModulesHint")}</p>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Completed Knowledge (collapsed) ─── */}
+          {completedModules.length > 0 && (
+            <CompletedSection count={completedModules.length}>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {completedModules.map((module) => (
+                  <CompletedModuleCard key={module.id} module={module} />
+                ))}
+              </div>
+            </CompletedSection>
+          )}
         </div>
       )}
     </div>

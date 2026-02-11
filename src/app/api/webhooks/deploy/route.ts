@@ -20,9 +20,10 @@ function verifyVercelSignature(
 
 /** For manual triggers, reuse the same CRON_SECRET Bearer pattern. */
 function verifyCronSecret(req: NextRequest): boolean {
-  const header = req.headers.get("authorization") ?? "";
-  const expected = `Bearer ${process.env.CRON_SECRET ?? ""}`;
-  if (header.length !== expected.length) return false;
+  const header = (req.headers.get("authorization") ?? "").trim();
+  const secret = (process.env.CRON_SECRET ?? "").trim();
+  const expected = `Bearer ${secret}`;
+  if (header.length !== expected.length || !secret) return false;
   return timingSafeEqual(Buffer.from(header), Buffer.from(expected));
 }
 
@@ -86,7 +87,7 @@ export async function POST(req: NextRequest) {
   const since = latestEntry?.createdAt ?? new Date(0);
 
   // ── Fetch commits from GitHub ──────────────────────────────────────────────
-  const ghToken = process.env.GITHUB_TOKEN;
+  const ghToken = (process.env.GITHUB_TOKEN ?? "").trim();
   if (!ghToken) {
     return NextResponse.json({ error: "GITHUB_TOKEN not configured" }, { status: 500 });
   }
@@ -119,7 +120,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Generate changelog via Claude ──────────────────────────────────────────
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const anthropicKey = (process.env.ANTHROPIC_API_KEY ?? "").trim();
   if (!anthropicKey) {
     return NextResponse.json({ error: "ANTHROPIC_API_KEY not configured" }, { status: 500 });
   }

@@ -3,13 +3,14 @@ name: Auto-generate changelog
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   changelog:
     runs-on: ubuntu-latest
-    # Wait for Vercel deploy to finish before generating changelog
     steps:
       - name: Wait for deploy
+        if: github.event_name == 'push'
         run: sleep 180
 
       - name: Trigger changelog generation
@@ -19,43 +20,32 @@ jobs:
         run: |
           if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then
             echo "::error::Missing secrets: APP_URL and/or CRON_SECRET not configured"
+            echo "APP_URL empty: $([ -z "$APP_URL" ] && echo YES || echo NO)"
+            echo "CRON_SECRET empty: $([ -z "$CRON_SECRET" ] && echo YES || echo NO)"
             exit 1
           fi
 
-          echo "APP_URL is set to: ${APP_URL}"
+          echo "APP_URL length: ${#APP_URL}"
+          echo "CRON_SECRET length: ${#CRON_SECRET}"
+          echo "Target: ${APP_URL}/api/webhooks/deploy?manual=true"
 
-          # Retry up to 3 times with 30s delay between attempts
-          MAX_RETRIES=3
-          RETRY_DELAY=30
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "${APP_URL}/api/webhooks/deploy?manual=true" \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            --max-time 120)
 
-          for attempt in $(seq 1 $MAX_RETRIES); do
-            echo "Attempt $attempt of $MAX_RETRIES..."
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
 
-            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-              "${APP_URL}/api/webhooks/deploy?manual=true" \
-              -H "Authorization: Bearer ${CRON_SECRET}" \
-              -H "Content-Type: application/json" \
-              -d '{}' \
-              --max-time 120)
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response body: $BODY"
 
-            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-            BODY=$(echo "$RESPONSE" | sed '$d')
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ]; then
+            echo "Changelog generation succeeded!"
+            exit 0
+          fi
 
-            echo "HTTP Status: $HTTP_CODE"
-            echo "Response: $BODY"
-
-            if [ "$HTTP_CODE" -lt 400 ] && [ "$HTTP_CODE" -ge 200 ]; then
-              echo "Changelog generation succeeded!"
-              exit 0
-            fi
-
-            echo "::warning::Attempt $attempt failed with HTTP $HTTP_CODE"
-
-            if [ "$attempt" -lt "$MAX_RETRIES" ]; then
-              echo "Retrying in ${RETRY_DELAY}s..."
-              sleep $RETRY_DELAY
-            fi
-          done
-
-          echo "::error::Changelog generation failed after $MAX_RETRIES attempts"
+          echo "::error::Changelog generation failed with HTTP $HTTP_CODE"
           exit 1

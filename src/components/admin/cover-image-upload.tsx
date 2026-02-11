@@ -10,7 +10,7 @@ import { t } from "@/lib/i18n";
 import { toast } from "sonner";
 
 const ACCEPTED_TYPES = ".jpg,.jpeg,.png,.svg";
-const MAX_SIZE_KB = 1000;
+const MAX_SIZE_KB = 2000;
 const MAX_SIZE_BYTES = MAX_SIZE_KB * 1024;
 
 interface CoverImageUploadProps {

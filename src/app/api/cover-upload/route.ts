@@ -5,7 +5,7 @@ import { getTenantContext, hasMinRole } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import sharp from "sharp";
 
-const COVER_MAX_SIZE = 1000 * 1024; // 1000 KB = ~1 MB
+const COVER_MAX_SIZE = 2000 * 1024; // 2000 KB = ~2 MB
 const COVER_TARGET_SIZE = 75 * 1024; // 75 KB target after compression
 const COVER_MAX_WIDTH = 1200; // max width in pixels
 

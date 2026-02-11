@@ -315,8 +315,7 @@ export function ModuleEditor({
   async function handleAddQuiz() {
     setAddingQuiz(true);
 
-    const quizNumber = quizzes.length + 1;
-    const result = await createQuiz(moduleId, { title: `Kviz ${quizNumber}` });
+    const result = await createQuiz(moduleId, { title: "Kviz" });
     if (result.success) {
       toast.success(t("admin.quizEditor.quizSaved"));
       router.refresh();
@@ -607,15 +606,19 @@ export function ModuleEditor({
             ))
           )}
 
-          <Separator />
-          <Button
-            size="sm"
-            onClick={handleAddQuiz}
-            disabled={addingQuiz}
-          >
-            <Plus className="mr-1 h-4 w-4" />
-            {t("admin.quizEditor.addQuiz")}
-          </Button>
+          {quizzes.length === 0 && (
+            <>
+              <Separator />
+              <Button
+                size="sm"
+                onClick={handleAddQuiz}
+                disabled={addingQuiz}
+              >
+                <Plus className="mr-1 h-4 w-4" />
+                {t("admin.quizEditor.addQuiz")}
+              </Button>
+            </>
+          )}
         </CardContent>
       </Card>
 

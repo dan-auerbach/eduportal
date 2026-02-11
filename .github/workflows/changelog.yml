@@ -10,7 +10,7 @@ jobs:
     # Wait for Vercel deploy to finish before generating changelog
     steps:
       - name: Wait for deploy
-        run: sleep 90
+        run: sleep 180
 
       - name: Trigger changelog generation
         env:
@@ -22,20 +22,40 @@ jobs:
             exit 1
           fi
 
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            "${APP_URL}/api/webhooks/deploy?manual=true" \
-            -H "Authorization: Bearer ${CRON_SECRET}" \
-            -H "Content-Type: application/json" \
-            -d '{}' \
-            --max-time 60)
+          echo "APP_URL is set to: ${APP_URL}"
 
-          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
+          # Retry up to 3 times with 30s delay between attempts
+          MAX_RETRIES=3
+          RETRY_DELAY=30
 
-          echo "HTTP Status: $HTTP_CODE"
-          echo "Response: $BODY"
+          for attempt in $(seq 1 $MAX_RETRIES); do
+            echo "Attempt $attempt of $MAX_RETRIES..."
 
-          if [ "$HTTP_CODE" -ge 400 ]; then
-            echo "::error::Changelog generation failed with HTTP $HTTP_CODE"
-            exit 1
-          fi
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+              "${APP_URL}/api/webhooks/deploy?manual=true" \
+              -H "Authorization: Bearer ${CRON_SECRET}" \
+              -H "Content-Type: application/json" \
+              -d '{}' \
+              --max-time 120)
+
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            BODY=$(echo "$RESPONSE" | sed '$d')
+
+            echo "HTTP Status: $HTTP_CODE"
+            echo "Response: $BODY"
+
+            if [ "$HTTP_CODE" -lt 400 ] && [ "$HTTP_CODE" -ge 200 ]; then
+              echo "Changelog generation succeeded!"
+              exit 0
+            fi
+
+            echo "::warning::Attempt $attempt failed with HTTP $HTTP_CODE"
+
+            if [ "$attempt" -lt "$MAX_RETRIES" ]; then
+              echo "Retrying in ${RETRY_DELAY}s..."
+              sleep $RETRY_DELAY
+            fi
+          done
+
+          echo "::error::Changelog generation failed after $MAX_RETRIES attempts"
+          exit 1

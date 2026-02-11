@@ -18,6 +18,24 @@ type ActionResult<T = void> =
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
+/** Format a Date as "d. MMMM yyyy ob HH:mm" in Europe/Ljubljana timezone */
+function formatDateTimeCET(date: Date, locale: string): string {
+  const loc = locale === "sl" ? "sl-SI" : "en-GB";
+  const tz = "Europe/Ljubljana";
+  const datePart = date.toLocaleDateString(loc, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: tz,
+  });
+  const timePart = date.toLocaleTimeString(loc, {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: tz,
+  });
+  return `${datePart} ob ${timePart}`;
+}
+
 function generateToken(): string {
   return crypto.randomBytes(32).toString("hex");
 }
@@ -810,14 +828,7 @@ export async function sendLiveEventCreatedNotification(opts: {
       }
     }
 
-    const { format } = await import("date-fns");
-    const { getDateLocale } = await import("@/lib/i18n/date-locale");
-    const { setLocale } = await import("@/lib/i18n");
-    setLocale(locale);
-
-    const formattedDate = format(opts.startsAt, "d. MMMM yyyy 'ob' HH:mm", {
-      locale: getDateLocale(),
-    });
+    const formattedDate = formatDateTimeCET(opts.startsAt, locale);
 
     for (const [userId, user] of usersMap) {
       // Check email preference

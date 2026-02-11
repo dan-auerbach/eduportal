@@ -2,11 +2,27 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendEmail, renderTemplate, buildEmailFooter } from "@/lib/email";
 import { EMAIL_DEFAULTS } from "@/lib/email-defaults";
-import { format } from "date-fns";
-import { getDateLocale } from "@/lib/i18n/date-locale";
 import { setLocale, isValidLocale, DEFAULT_LOCALE } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { timingSafeEqual } from "crypto";
+
+/** Format a Date as "d. MMMM yyyy ob HH:mm" in Europe/Ljubljana timezone */
+function formatDateTimeCET(date: Date, locale: string): string {
+  const loc = locale === "sl" ? "sl-SI" : "en-GB";
+  const tz = "Europe/Ljubljana";
+  const datePart = date.toLocaleDateString(loc, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: tz,
+  });
+  const timePart = date.toLocaleTimeString(loc, {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: tz,
+  });
+  return `${datePart} ob ${timePart}`;
+}
 
 function verifyCronSecret(req: Request): boolean {
   const header = req.headers.get("authorization") ?? "";
@@ -129,9 +145,7 @@ export async function GET(req: Request) {
         if (existing) continue;
 
         // Build email
-        const formattedDate = format(event.startsAt, "d. MMMM yyyy 'ob' HH:mm", {
-          locale: getDateLocale(),
-        });
+        const formattedDate = formatDateTimeCET(event.startsAt, locale);
         const subject = renderTemplate(defaults.liveReminderSubject, {
           eventTitle: event.title,
           startsAt: formattedDate,

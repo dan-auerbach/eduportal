@@ -125,13 +125,14 @@ export default async function ModuleViewerPage({
     attachments: s.attachments,
   }));
 
-  // Load quiz data for sidebar
+  // Load quiz data for sidebar (only quizzes that have questions)
   const quizzes = await prisma.quiz.findMany({
     where: { moduleId },
     orderBy: { sortOrder: "asc" },
     select: {
       id: true,
       title: true,
+      _count: { select: { questions: true } },
       attempts: {
         where: { userId: user.id, passed: true },
         take: 1,
@@ -140,11 +141,13 @@ export default async function ModuleViewerPage({
     },
   });
 
-  const quizData = quizzes.map((q) => ({
-    id: q.id,
-    title: q.title,
-    passed: q.attempts.length > 0,
-  }));
+  const quizData = quizzes
+    .filter((q) => q._count.questions > 0)
+    .map((q) => ({
+      id: q.id,
+      title: q.title,
+      passed: q.attempts.length > 0,
+    }));
 
   // Compute assignment groups for this user + module
   let assignmentGroups: string[] = [];

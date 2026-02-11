@@ -22,7 +22,7 @@ export async function getModuleProgress(userId: string, moduleId: string, tenant
       prisma.section.count({ where: { moduleId } }),
       prisma.sectionCompletion.count({ where: { userId, section: { moduleId } } }),
       prisma.quiz.findMany({
-        where: { moduleId },
+        where: { moduleId, questions: { some: {} } },
         include: {
           attempts: {
             where: { userId, passed: true },
@@ -174,9 +174,9 @@ export async function getBatchedProgressForTenant(
       where: { tenantId },
       select: { userId: true, moduleId: true, lastAccessedAt: true },
     }),
-    // Q8a: All quizzes (to know which modules have quizzes and how many)
+    // Q8a: All quizzes that have questions (to know which modules have quizzes and how many)
     prisma.quiz.findMany({
-      where: { module: { tenantId, status: "PUBLISHED" } },
+      where: { module: { tenantId, status: "PUBLISHED" }, questions: { some: {} } },
       select: { id: true, moduleId: true },
     }),
     // Q8b: Passed quiz attempts (distinct per user+quiz)
@@ -362,9 +362,9 @@ export async function getBatchedProgressForUser(
       where: { userId, section: { moduleId: { in: moduleIds } } },
       select: { section: { select: { moduleId: true } } },
     }),
-    // Q3: Quizzes with passed attempts for this user
+    // Q3: Quizzes with questions + passed attempts for this user
     prisma.quiz.findMany({
-      where: { moduleId: { in: moduleIds } },
+      where: { moduleId: { in: moduleIds }, questions: { some: {} } },
       include: {
         attempts: {
           where: { userId, passed: true },

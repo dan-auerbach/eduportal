@@ -112,6 +112,11 @@ export async function getQuizForAttempt(
       return { success: false, error: "Porabili ste vse poskuse" };
     }
 
+    // Reject quizzes with no questions (admin forgot to add them)
+    if (quiz.questions.length === 0) {
+      return { success: false, error: "Kviz nima vprašanj" };
+    }
+
     // Strip isCorrect from options
     const questions: QuizQuestionForAttempt[] = quiz.questions.map((q) => ({
       id: q.id,
@@ -190,6 +195,11 @@ export async function submitQuizAttempt(
         success: false,
         error: "Zaključite vse sekcije pred poskusom kviza",
       };
+    }
+
+    // Reject quizzes with no questions
+    if (quiz.questions.length === 0) {
+      return { success: false, error: "Kviz nima vprašanj" };
     }
 
     // Check max attempts

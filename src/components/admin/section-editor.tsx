@@ -699,14 +699,16 @@ function VideoEditor({
       const { uploadUrl, uid } = await createRes.json();
 
       // Step 2: Upload via TUS protocol directly to Cloudflare
-      const { Upload: TusUpload } = await import("tus-js-client");
+      const tus = await import("tus-js-client");
 
       await new Promise<void>((resolve, reject) => {
-        const upload = new TusUpload(file, {
-          endpoint: uploadUrl,
+        const upload = new tus.Upload(file, {
           uploadUrl: uploadUrl,
-          chunkSize: 5 * 1024 * 1024, // 5 MB chunks
+          chunkSize: 50 * 1024 * 1024, // 50 MB chunks
           retryDelays: [0, 1000, 3000, 5000],
+          // Disable fingerprinting to prevent resume HEAD requests
+          removeFingerprintOnSuccess: true,
+          urlStorage: new tus.NoopUrlStorage(),
           metadata: {
             filename: file.name,
             filetype: file.type,

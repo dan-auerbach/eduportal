@@ -7,8 +7,8 @@ function getAccountId(): string {
 }
 
 function getApiToken(): string {
-  const token = process.env.CLOUDFLARE_API_TOKEN;
-  if (!token) throw new Error("CLOUDFLARE_API_TOKEN is not set");
+  const token = process.env.CLOUDFLARE_STREAM_API_TOKEN;
+  if (!token) throw new Error("CLOUDFLARE_STREAM_API_TOKEN is not set");
   return token;
 }
 

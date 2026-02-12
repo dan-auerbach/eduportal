@@ -33,11 +33,13 @@ interface SectionData {
   type: SectionType;
   sortOrder: number;
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "CLOUDFLARE_STREAM" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
   videoMimeType: string | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
 }
 
 interface SectionListProps {

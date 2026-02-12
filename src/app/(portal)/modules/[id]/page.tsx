@@ -122,6 +122,8 @@ export default async function ModuleViewerPage({
     videoSourceType: s.videoSourceType,
     videoBlobUrl: s.videoBlobUrl,
     videoMimeType: s.videoMimeType,
+    cloudflareStreamUid: s.cloudflareStreamUid,
+    videoStatus: s.videoStatus,
     attachments: s.attachments,
   }));
 

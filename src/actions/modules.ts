@@ -666,7 +666,17 @@ export async function deleteSection(
       await requirePermission(currentUser, "MANAGE_OWN_MODULES");
     }
 
-    // Clean up video blob if exists
+    // Clean up Cloudflare Stream video if exists
+    if (existing.cloudflareStreamUid) {
+      try {
+        const { deleteCloudflareStreamVideo } = await import("@/lib/cloudflare-stream");
+        await deleteCloudflareStreamVideo(existing.cloudflareStreamUid);
+      } catch {
+        // Ignore CF deletion errors
+      }
+    }
+
+    // Clean up legacy video blob if exists
     if (existing.videoBlobUrl) {
       try {
         const { del } = await import("@vercel/blob");
@@ -1295,16 +1305,15 @@ export async function acknowledgeModuleUpdate(
 }
 
 // ---------------------------------------------------------------------------
-// saveVideoMetadata - save video blob metadata to section after client upload
+// saveVideoMetadata - save Cloudflare Stream metadata to section after upload
 // ---------------------------------------------------------------------------
 export async function saveVideoMetadata(
   sectionId: string,
   data: {
-    videoBlobUrl: string;
-    videoBlobPathname: string;
-    videoMimeType: string;
-    videoSize: number;
+    cloudflareStreamUid: string;
     videoFileName: string;
+    videoSize: number;
+    videoMimeType: string;
   }
 ): Promise<ActionResult<void>> {
   try {
@@ -1331,8 +1340,18 @@ export async function saveVideoMetadata(
       }
     }
 
-    // Clean up old blob if exists
-    if (existing.videoBlobUrl && existing.videoBlobUrl !== data.videoBlobUrl) {
+    // Clean up old CF Stream video if replacing with a different one
+    if (existing.cloudflareStreamUid && existing.cloudflareStreamUid !== data.cloudflareStreamUid) {
+      try {
+        const { deleteCloudflareStreamVideo } = await import("@/lib/cloudflare-stream");
+        await deleteCloudflareStreamVideo(existing.cloudflareStreamUid);
+      } catch {
+        // Ignore
+      }
+    }
+
+    // Clean up old blob if migrating from UPLOAD
+    if (existing.videoBlobUrl) {
       try {
         const { del } = await import("@vercel/blob");
         await del(existing.videoBlobUrl);
@@ -1344,12 +1363,14 @@ export async function saveVideoMetadata(
     await prisma.section.update({
       where: { id: sectionId },
       data: {
-        videoSourceType: "UPLOAD",
-        videoBlobUrl: data.videoBlobUrl,
-        videoBlobPathname: data.videoBlobPathname,
-        videoMimeType: data.videoMimeType,
-        videoSize: data.videoSize,
+        videoSourceType: "CLOUDFLARE_STREAM",
+        cloudflareStreamUid: data.cloudflareStreamUid,
+        videoStatus: "PENDING",
         videoFileName: data.videoFileName,
+        videoSize: data.videoSize,
+        videoMimeType: data.videoMimeType,
+        videoBlobUrl: null,
+        videoBlobPathname: null,
       },
     });
 

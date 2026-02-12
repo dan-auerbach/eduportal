@@ -3658,7 +3658,9 @@ export const SectionScalarFieldEnum = {
   videoBlobPathname: 'videoBlobPathname',
   videoMimeType: 'videoMimeType',
   videoSize: 'videoSize',
-  videoFileName: 'videoFileName'
+  videoFileName: 'videoFileName',
+  cloudflareStreamUid: 'cloudflareStreamUid',
+  videoStatus: 'videoStatus'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -4301,6 +4303,20 @@ export type EnumVideoSourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'VideoSourceType[]'
  */
 export type ListEnumVideoSourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VideoSourceType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VideoStatus'
+ */
+export type EnumVideoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VideoStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'VideoStatus[]'
+ */
+export type ListEnumVideoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VideoStatus[]'>
     
 
 

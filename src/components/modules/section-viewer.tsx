@@ -48,9 +48,11 @@ type SectionData = {
   sortOrder: number;
   type: "TEXT" | "VIDEO" | "ATTACHMENT" | "MIXED";
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "CLOUDFLARE_STREAM" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoMimeType: string | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
   attachments: {
     id: string;
     fileName: string;
@@ -155,6 +157,49 @@ function isSectionUnlocked(
 ): boolean {
   if (!section.unlockAfterSectionId) return true;
   return completedIds.has(section.unlockAfterSectionId);
+}
+
+// ─── CF Stream Pending Player ────────────────────────────────────────
+function CfStreamPendingPlayer({ sectionId }: { sectionId: string }) {
+  const router = useRouter();
+  const [status, setStatus] = useState<"PENDING" | "ERROR">("PENDING");
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/videos/status?sectionId=${sectionId}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.status === "READY") {
+          clearInterval(interval);
+          router.refresh();
+        } else if (data.status === "ERROR") {
+          setStatus("ERROR");
+          clearInterval(interval);
+        }
+      } catch {
+        // Ignore polling errors
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [sectionId, router]);
+
+  if (status === "ERROR") {
+    return (
+      <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-muted flex flex-col items-center justify-center">
+        <AlertTriangle className="h-8 w-8 text-destructive mb-2" />
+        <p className="text-sm text-destructive">{t("sectionViewer.videoError")}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-muted flex flex-col items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+      <p className="text-sm text-muted-foreground">{t("sectionViewer.videoProcessing")}</p>
+    </div>
+  );
 }
 
 export function SectionViewer({
@@ -668,7 +713,28 @@ export function SectionViewer({
                       return null;
                     }
 
-                    // Uploaded video
+                    // Cloudflare Stream video
+                    if (activeSection.videoSourceType === "CLOUDFLARE_STREAM" && activeSection.cloudflareStreamUid) {
+                      if (activeSection.videoStatus !== "READY") {
+                        return (
+                          <CfStreamPendingPlayer sectionId={activeSection.id} />
+                        );
+                      }
+                      const subdomain = process.env.NEXT_PUBLIC_CF_STREAM_SUBDOMAIN;
+                      return (
+                        <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">
+                          <iframe
+                            src={`https://${subdomain}/${activeSection.cloudflareStreamUid}/iframe`}
+                            title={activeSection.title}
+                            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="h-full w-full border-0"
+                          />
+                        </div>
+                      );
+                    }
+
+                    // Legacy uploaded video (Vercel Blob)
                     if (activeSection.videoSourceType === "UPLOAD" && activeSection.videoBlobUrl) {
                       return (
                         <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">

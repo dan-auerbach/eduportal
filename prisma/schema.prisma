@@ -344,6 +344,9 @@ model Section {
   videoMimeType        String?
   videoSize            Int?
   videoFileName        String?
+  // Cloudflare Stream fields
+  cloudflareStreamUid  String?
+  videoStatus          VideoStatus?
 
   module             Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -359,7 +362,14 @@ model Section {
 enum VideoSourceType {
   YOUTUBE_VIMEO_URL
   UPLOAD
+  CLOUDFLARE_STREAM
   TARGETVIDEO
+}
+
+enum VideoStatus {
+  PENDING
+  READY
+  ERROR
 }
 
 enum SectionType {

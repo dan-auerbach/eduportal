@@ -151,6 +151,8 @@ export default async function AdminModuleEditPage({
           videoFileName: s.videoFileName,
           videoSize: s.videoSize,
           videoMimeType: s.videoMimeType,
+          cloudflareStreamUid: s.cloudflareStreamUid,
+          videoStatus: s.videoStatus,
         }))}
         groups={module.groups.map((g) => ({
           moduleId: module.id,

@@ -87,10 +87,20 @@ export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 export const VideoSourceType = {
   YOUTUBE_VIMEO_URL: 'YOUTUBE_VIMEO_URL',
   UPLOAD: 'UPLOAD',
+  CLOUDFLARE_STREAM: 'CLOUDFLARE_STREAM',
   TARGETVIDEO: 'TARGETVIDEO'
 } as const
 
 export type VideoSourceType = (typeof VideoSourceType)[keyof typeof VideoSourceType]
+
+
+export const VideoStatus = {
+  PENDING: 'PENDING',
+  READY: 'READY',
+  ERROR: 'ERROR'
+} as const
+
+export type VideoStatus = (typeof VideoStatus)[keyof typeof VideoStatus]
 
 
 export const SectionType = {

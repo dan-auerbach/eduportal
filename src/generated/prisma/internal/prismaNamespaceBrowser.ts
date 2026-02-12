@@ -251,7 +251,9 @@ export const SectionScalarFieldEnum = {
   videoBlobPathname: 'videoBlobPathname',
   videoMimeType: 'videoMimeType',
   videoSize: 'videoSize',
-  videoFileName: 'videoFileName'
+  videoFileName: 'videoFileName',
+  cloudflareStreamUid: 'cloudflareStreamUid',
+  videoStatus: 'videoStatus'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]

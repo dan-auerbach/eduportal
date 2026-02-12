@@ -51,6 +51,8 @@ export type SectionMinAggregateOutputType = {
   videoMimeType: string | null
   videoSize: number | null
   videoFileName: string | null
+  cloudflareStreamUid: string | null
+  videoStatus: $Enums.VideoStatus | null
 }
 
 export type SectionMaxAggregateOutputType = {
@@ -68,6 +70,8 @@ export type SectionMaxAggregateOutputType = {
   videoMimeType: string | null
   videoSize: number | null
   videoFileName: string | null
+  cloudflareStreamUid: string | null
+  videoStatus: $Enums.VideoStatus | null
 }
 
 export type SectionCountAggregateOutputType = {
@@ -85,6 +89,8 @@ export type SectionCountAggregateOutputType = {
   videoMimeType: number
   videoSize: number
   videoFileName: number
+  cloudflareStreamUid: number
+  videoStatus: number
   _all: number
 }
 
@@ -114,6 +120,8 @@ export type SectionMinAggregateInputType = {
   videoMimeType?: true
   videoSize?: true
   videoFileName?: true
+  cloudflareStreamUid?: true
+  videoStatus?: true
 }
 
 export type SectionMaxAggregateInputType = {
@@ -131,6 +139,8 @@ export type SectionMaxAggregateInputType = {
   videoMimeType?: true
   videoSize?: true
   videoFileName?: true
+  cloudflareStreamUid?: true
+  videoStatus?: true
 }
 
 export type SectionCountAggregateInputType = {
@@ -148,6 +158,8 @@ export type SectionCountAggregateInputType = {
   videoMimeType?: true
   videoSize?: true
   videoFileName?: true
+  cloudflareStreamUid?: true
+  videoStatus?: true
   _all?: true
 }
 
@@ -252,6 +264,8 @@ export type SectionGroupByOutputType = {
   videoMimeType: string | null
   videoSize: number | null
   videoFileName: string | null
+  cloudflareStreamUid: string | null
+  videoStatus: $Enums.VideoStatus | null
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
   _sum: SectionSumAggregateOutputType | null
@@ -292,6 +306,8 @@ export type SectionWhereInput = {
   videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
   videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
   videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
+  cloudflareStreamUid?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoStatus?: Prisma.EnumVideoStatusNullableFilter<"Section"> | $Enums.VideoStatus | null
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   unlockAfterSection?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
@@ -315,6 +331,8 @@ export type SectionOrderByWithRelationInput = {
   videoMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   videoSize?: Prisma.SortOrderInput | Prisma.SortOrder
   videoFileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  cloudflareStreamUid?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   module?: Prisma.ModuleOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
   unlockAfterSection?: Prisma.SectionOrderByWithRelationInput
@@ -341,6 +359,8 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
   videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
   videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
+  cloudflareStreamUid?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoStatus?: Prisma.EnumVideoStatusNullableFilter<"Section"> | $Enums.VideoStatus | null
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   unlockAfterSection?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
@@ -364,6 +384,8 @@ export type SectionOrderByWithAggregationInput = {
   videoMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
   videoSize?: Prisma.SortOrderInput | Prisma.SortOrder
   videoFileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  cloudflareStreamUid?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
   _max?: Prisma.SectionMaxOrderByAggregateInput
@@ -389,6 +411,8 @@ export type SectionScalarWhereWithAggregatesInput = {
   videoMimeType?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
   videoSize?: Prisma.IntNullableWithAggregatesFilter<"Section"> | number | null
   videoFileName?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  cloudflareStreamUid?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
+  videoStatus?: Prisma.EnumVideoStatusNullableWithAggregatesFilter<"Section"> | $Enums.VideoStatus | null
 }
 
 export type SectionCreateInput = {
@@ -403,6 +427,8 @@ export type SectionCreateInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -426,6 +452,8 @@ export type SectionUncheckedCreateInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -443,6 +471,8 @@ export type SectionUpdateInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -466,6 +496,8 @@ export type SectionUncheckedUpdateInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -486,6 +518,8 @@ export type SectionCreateManyInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
 }
 
 export type SectionUpdateManyMutationInput = {
@@ -500,6 +534,8 @@ export type SectionUpdateManyMutationInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
 }
 
 export type SectionUncheckedUpdateManyInput = {
@@ -517,6 +553,8 @@ export type SectionUncheckedUpdateManyInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
 }
 
 export type SectionListRelationFilter = {
@@ -549,6 +587,8 @@ export type SectionCountOrderByAggregateInput = {
   videoMimeType?: Prisma.SortOrder
   videoSize?: Prisma.SortOrder
   videoFileName?: Prisma.SortOrder
+  cloudflareStreamUid?: Prisma.SortOrder
+  videoStatus?: Prisma.SortOrder
 }
 
 export type SectionAvgOrderByAggregateInput = {
@@ -571,6 +611,8 @@ export type SectionMaxOrderByAggregateInput = {
   videoMimeType?: Prisma.SortOrder
   videoSize?: Prisma.SortOrder
   videoFileName?: Prisma.SortOrder
+  cloudflareStreamUid?: Prisma.SortOrder
+  videoStatus?: Prisma.SortOrder
 }
 
 export type SectionMinOrderByAggregateInput = {
@@ -588,6 +630,8 @@ export type SectionMinOrderByAggregateInput = {
   videoMimeType?: Prisma.SortOrder
   videoSize?: Prisma.SortOrder
   videoFileName?: Prisma.SortOrder
+  cloudflareStreamUid?: Prisma.SortOrder
+  videoStatus?: Prisma.SortOrder
 }
 
 export type SectionSumOrderByAggregateInput = {
@@ -712,6 +756,10 @@ export type EnumVideoSourceTypeFieldUpdateOperationsInput = {
   set?: $Enums.VideoSourceType
 }
 
+export type NullableEnumVideoStatusFieldUpdateOperationsInput = {
+  set?: $Enums.VideoStatus | null
+}
+
 export type SectionUpdateOneWithoutUnlockedSectionsNestedInput = {
   create?: Prisma.XOR<Prisma.SectionCreateWithoutUnlockedSectionsInput, Prisma.SectionUncheckedCreateWithoutUnlockedSectionsInput>
   connectOrCreate?: Prisma.SectionCreateOrConnectWithoutUnlockedSectionsInput
@@ -790,6 +838,8 @@ export type SectionCreateWithoutTenantInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -811,6 +861,8 @@ export type SectionUncheckedCreateWithoutTenantInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -860,6 +912,8 @@ export type SectionScalarWhereInput = {
   videoMimeType?: Prisma.StringNullableFilter<"Section"> | string | null
   videoSize?: Prisma.IntNullableFilter<"Section"> | number | null
   videoFileName?: Prisma.StringNullableFilter<"Section"> | string | null
+  cloudflareStreamUid?: Prisma.StringNullableFilter<"Section"> | string | null
+  videoStatus?: Prisma.EnumVideoStatusNullableFilter<"Section"> | $Enums.VideoStatus | null
 }
 
 export type SectionCreateWithoutModuleInput = {
@@ -874,6 +928,8 @@ export type SectionCreateWithoutModuleInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -895,6 +951,8 @@ export type SectionUncheckedCreateWithoutModuleInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -938,6 +996,8 @@ export type SectionCreateWithoutUnlockedSectionsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -960,6 +1020,8 @@ export type SectionUncheckedCreateWithoutUnlockedSectionsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -981,6 +1043,8 @@ export type SectionCreateWithoutUnlockAfterSectionInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockedSections?: Prisma.SectionCreateNestedManyWithoutUnlockAfterSectionInput
@@ -1002,6 +1066,8 @@ export type SectionUncheckedCreateWithoutUnlockAfterSectionInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
@@ -1040,6 +1106,8 @@ export type SectionUpdateWithoutUnlockedSectionsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -1062,6 +1130,8 @@ export type SectionUncheckedUpdateWithoutUnlockedSectionsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -1094,6 +1164,8 @@ export type SectionCreateWithoutCompletionsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -1116,6 +1188,8 @@ export type SectionUncheckedCreateWithoutCompletionsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -1148,6 +1222,8 @@ export type SectionUpdateWithoutCompletionsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -1170,6 +1246,8 @@ export type SectionUncheckedUpdateWithoutCompletionsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -1186,6 +1264,8 @@ export type SectionCreateWithoutAttachmentsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   module: Prisma.ModuleCreateNestedOneWithoutSectionsInput
   tenant: Prisma.TenantCreateNestedOneWithoutSectionsInput
   unlockAfterSection?: Prisma.SectionCreateNestedOneWithoutUnlockedSectionsInput
@@ -1208,6 +1288,8 @@ export type SectionUncheckedCreateWithoutAttachmentsInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedCreateNestedManyWithoutUnlockAfterSectionInput
   completions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -1240,6 +1322,8 @@ export type SectionUpdateWithoutAttachmentsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
@@ -1262,6 +1346,8 @@ export type SectionUncheckedUpdateWithoutAttachmentsInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -1280,6 +1366,8 @@ export type SectionCreateManyTenantInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
 }
 
 export type SectionUpdateWithoutTenantInput = {
@@ -1294,6 +1382,8 @@ export type SectionUpdateWithoutTenantInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1315,6 +1405,8 @@ export type SectionUncheckedUpdateWithoutTenantInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1334,6 +1426,8 @@ export type SectionUncheckedUpdateManyWithoutTenantInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
 }
 
 export type SectionCreateManyModuleInput = {
@@ -1350,6 +1444,8 @@ export type SectionCreateManyModuleInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
 }
 
 export type SectionUpdateWithoutModuleInput = {
@@ -1364,6 +1460,8 @@ export type SectionUpdateWithoutModuleInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockAfterSection?: Prisma.SectionUpdateOneWithoutUnlockedSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1385,6 +1483,8 @@ export type SectionUncheckedUpdateWithoutModuleInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1404,6 +1504,8 @@ export type SectionUncheckedUpdateManyWithoutModuleInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
 }
 
 export type SectionCreateManyUnlockAfterSectionInput = {
@@ -1420,6 +1522,8 @@ export type SectionCreateManyUnlockAfterSectionInput = {
   videoMimeType?: string | null
   videoSize?: number | null
   videoFileName?: string | null
+  cloudflareStreamUid?: string | null
+  videoStatus?: $Enums.VideoStatus | null
 }
 
 export type SectionUpdateWithoutUnlockAfterSectionInput = {
@@ -1434,6 +1538,8 @@ export type SectionUpdateWithoutUnlockAfterSectionInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   module?: Prisma.ModuleUpdateOneRequiredWithoutSectionsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSectionsNestedInput
   unlockedSections?: Prisma.SectionUpdateManyWithoutUnlockAfterSectionNestedInput
@@ -1455,6 +1561,8 @@ export type SectionUncheckedUpdateWithoutUnlockAfterSectionInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
   unlockedSections?: Prisma.SectionUncheckedUpdateManyWithoutUnlockAfterSectionNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutSectionNestedInput
   completions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutSectionNestedInput
@@ -1474,6 +1582,8 @@ export type SectionUncheckedUpdateManyWithoutUnlockAfterSectionInput = {
   videoMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   videoFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cloudflareStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoStatus?: Prisma.NullableEnumVideoStatusFieldUpdateOperationsInput | $Enums.VideoStatus | null
 }
 
 
@@ -1540,6 +1650,8 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   videoMimeType?: boolean
   videoSize?: boolean
   videoFileName?: boolean
+  cloudflareStreamUid?: boolean
+  videoStatus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1564,6 +1676,8 @@ export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   videoMimeType?: boolean
   videoSize?: boolean
   videoFileName?: boolean
+  cloudflareStreamUid?: boolean
+  videoStatus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1584,6 +1698,8 @@ export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   videoMimeType?: boolean
   videoSize?: boolean
   videoFileName?: boolean
+  cloudflareStreamUid?: boolean
+  videoStatus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unlockAfterSection?: boolean | Prisma.Section$unlockAfterSectionArgs<ExtArgs>
@@ -1604,9 +1720,11 @@ export type SectionSelectScalar = {
   videoMimeType?: boolean
   videoSize?: boolean
   videoFileName?: boolean
+  cloudflareStreamUid?: boolean
+  videoStatus?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleId" | "tenantId" | "title" | "content" | "sortOrder" | "type" | "unlockAfterSectionId" | "videoSourceType" | "videoBlobUrl" | "videoBlobPathname" | "videoMimeType" | "videoSize" | "videoFileName", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleId" | "tenantId" | "title" | "content" | "sortOrder" | "type" | "unlockAfterSectionId" | "videoSourceType" | "videoBlobUrl" | "videoBlobPathname" | "videoMimeType" | "videoSize" | "videoFileName" | "cloudflareStreamUid" | "videoStatus", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1652,6 +1770,8 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     videoMimeType: string | null
     videoSize: number | null
     videoFileName: string | null
+    cloudflareStreamUid: string | null
+    videoStatus: $Enums.VideoStatus | null
   }, ExtArgs["result"]["section"]>
   composites: {}
 }
@@ -2095,6 +2215,8 @@ export interface SectionFieldRefs {
   readonly videoMimeType: Prisma.FieldRef<"Section", 'String'>
   readonly videoSize: Prisma.FieldRef<"Section", 'Int'>
   readonly videoFileName: Prisma.FieldRef<"Section", 'String'>
+  readonly cloudflareStreamUid: Prisma.FieldRef<"Section", 'String'>
+  readonly videoStatus: Prisma.FieldRef<"Section", 'VideoStatus'>
 }
     
 

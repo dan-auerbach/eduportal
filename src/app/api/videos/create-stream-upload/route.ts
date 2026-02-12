@@ -1,28 +1,9 @@
-/**
- * Video upload token handler.
- *
- * POST — generates a client token for direct browser-to-Blob upload.
- * This avoids the 4.5MB serverless function payload limit entirely.
- *
- * Flow:
- *   1. Client POSTs { sectionId } to get a scoped upload token
- *   2. Client uses put() from @vercel/blob/client with that token
- *   3. Client calls saveVideoMetadata server action with the result
- */
 import { NextRequest, NextResponse } from "next/server";
-import { generateClientTokenFromReadWriteToken } from "@vercel/blob/client";
 import { getCurrentUser } from "@/lib/auth";
 import { getTenantContext } from "@/lib/tenant";
 import { hasPermission } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
-
-const MAX_VIDEO_SIZE = 10 * 1024 * 1024; // 10 MB (temporarily limited)
-const ALLOWED_VIDEO_TYPES = [
-  "video/mp4",
-  "video/webm",
-  "video/ogg",
-  "video/quicktime",
-];
+import { createDirectUpload } from "@/lib/cloudflare-stream";
 
 export async function POST(request: NextRequest) {
   try {
@@ -57,32 +38,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // Generate scoped client token
-    const token = process.env.BLOB_READ_WRITE_TOKEN;
-    if (!token) {
-      return NextResponse.json({ error: "Blob storage not configured" }, { status: 500 });
-    }
-
-    // Sanitize filename and build pathname
+    // Create Cloudflare Stream direct upload
     const safeName = (fileName || "video")
       .replace(/[^a-zA-Z0-9._-]/g, "_")
       .slice(0, 100);
-    const pathname = `videos/${ctx.tenantId}/${sectionId}/${Date.now()}-${safeName}`;
 
-    const clientToken = await generateClientTokenFromReadWriteToken({
-      token,
-      pathname,
-      allowedContentTypes: ALLOWED_VIDEO_TYPES,
-      maximumSizeInBytes: MAX_VIDEO_SIZE,
-      validUntil: Date.now() + 30 * 60 * 1000, // 30 minutes
-      addRandomSuffix: true,
+    const { uploadUrl, uid } = await createDirectUpload(safeName);
+
+    // Save UID to DB immediately so we can track this upload
+    await prisma.section.update({
+      where: { id: sectionId },
+      data: {
+        videoSourceType: "CLOUDFLARE_STREAM",
+        cloudflareStreamUid: uid,
+        videoStatus: "PENDING",
+      },
     });
 
-    return NextResponse.json({ clientToken, pathname });
+    return NextResponse.json({ uploadUrl, uid });
   } catch (error) {
-    console.error("Video upload token error:", error);
+    console.error("CF Stream upload creation error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to generate upload token" },
+      { error: error instanceof Error ? error.message : "Failed to create upload" },
       { status: 500 }
     );
   }

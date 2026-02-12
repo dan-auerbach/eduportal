@@ -78,11 +78,13 @@ interface SectionData {
   type: SectionType;
   sortOrder: number;
   unlockAfterSectionId: string | null;
-  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "TARGETVIDEO";
+  videoSourceType: "YOUTUBE_VIMEO_URL" | "UPLOAD" | "CLOUDFLARE_STREAM" | "TARGETVIDEO";
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
   videoMimeType: string | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
 }
 
 interface SectionEditorSheetProps {
@@ -364,6 +366,8 @@ export function SectionEditorSheet({
                 videoBlobUrl={section?.videoBlobUrl ?? null}
                 videoFileName={section?.videoFileName ?? null}
                 videoSize={section?.videoSize ?? null}
+                cloudflareStreamUid={section?.cloudflareStreamUid ?? null}
+                videoStatus={section?.videoStatus ?? null}
                 onVideoUploaded={() => {
                   setSaveStatus("saved");
                   router.refresh();
@@ -487,6 +491,8 @@ function TypeSpecificEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  cloudflareStreamUid,
+  videoStatus,
   onVideoUploaded,
 }: {
   type: SectionType;
@@ -498,6 +504,8 @@ function TypeSpecificEditor({
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
   onVideoUploaded?: () => void;
 }) {
   switch (type) {
@@ -514,6 +522,8 @@ function TypeSpecificEditor({
           videoBlobUrl={videoBlobUrl}
           videoFileName={videoFileName}
           videoSize={videoSize}
+          cloudflareStreamUid={cloudflareStreamUid}
+          videoStatus={videoStatus}
           onVideoUploaded={onVideoUploaded}
         />
       );
@@ -530,6 +540,8 @@ function TypeSpecificEditor({
           videoBlobUrl={videoBlobUrl}
           videoFileName={videoFileName}
           videoSize={videoSize}
+          cloudflareStreamUid={cloudflareStreamUid}
+          videoStatus={videoStatus}
           onVideoUploaded={onVideoUploaded}
         />
       );
@@ -582,6 +594,8 @@ function VideoEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  cloudflareStreamUid,
+  videoStatus,
   onVideoUploaded,
 }: {
   content: string;
@@ -593,23 +607,62 @@ function VideoEditor({
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
 }) {
   const videoId = useMemo(() => extractYouTubeId(content), [content]);
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Local state to show newly uploaded video immediately
   const [localBlobUrl, setLocalBlobUrl] = useState<string | null>(null);
   const [localFileName, setLocalFileName] = useState<string | null>(null);
   const [localFileSize, setLocalFileSize] = useState<number | null>(null);
+  // CF Stream local state
+  const [localCfUid, setLocalCfUid] = useState<string | null>(null);
+  const [localVideoStatus, setLocalVideoStatus] = useState<"PENDING" | "READY" | "ERROR" | null>(null);
+  const statusPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Sync local state with props
   useEffect(() => {
     setLocalBlobUrl(videoBlobUrl);
     setLocalFileName(videoFileName);
     setLocalFileSize(videoSize);
-  }, [videoBlobUrl, videoFileName, videoSize]);
+    setLocalCfUid(cloudflareStreamUid);
+    setLocalVideoStatus(videoStatus);
+  }, [videoBlobUrl, videoFileName, videoSize, cloudflareStreamUid, videoStatus]);
 
-  const handleFileUpload = useCallback(async (file: File) => {
+  // Clean up status polling on unmount
+  useEffect(() => {
+    return () => {
+      if (statusPollRef.current) clearInterval(statusPollRef.current);
+    };
+  }, []);
+
+  // Start polling for CF Stream video status
+  const startStatusPolling = useCallback((sid: string) => {
+    if (statusPollRef.current) clearInterval(statusPollRef.current);
+    statusPollRef.current = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/videos/status?sectionId=${sid}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.status === "READY") {
+          setLocalVideoStatus("READY");
+          if (statusPollRef.current) clearInterval(statusPollRef.current);
+          onVideoUploaded?.();
+        } else if (data.status === "ERROR") {
+          setLocalVideoStatus("ERROR");
+          if (statusPollRef.current) clearInterval(statusPollRef.current);
+          toast.error(t("admin.sectionEditor.videoError"));
+        }
+      } catch {
+        // Ignore polling errors
+      }
+    }, 3000);
+  }, [onVideoUploaded]);
+
+  const handleCloudflareUpload = useCallback(async (file: File) => {
     if (!sectionId) {
       toast.error(t("admin.sectionEditor.videoSaveFirst"));
       return;
@@ -621,52 +674,68 @@ function VideoEditor({
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
+    if (file.size > 600 * 1024 * 1024) {
       toast.error(t("admin.sectionEditor.videoTooLarge"));
       return;
     }
 
     setUploading(true);
+    setUploadProgress(0);
 
     try {
-      // Step 1: Get a scoped client token + pathname from our API
-      const tokenRes = await fetch("/api/videos/upload", {
+      // Step 1: Get TUS upload URL from our API
+      const createRes = await fetch("/api/videos/create-stream-upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sectionId, fileName: file.name }),
       });
 
-      if (!tokenRes.ok) {
-        const errData = await tokenRes.json().catch(() => null);
+      if (!createRes.ok) {
+        const errData = await createRes.json().catch(() => null);
         toast.error(errData?.error || t("admin.sectionEditor.videoUploadError"));
         return;
       }
 
-      const { clientToken, pathname } = await tokenRes.json();
+      const { uploadUrl, uid } = await createRes.json();
 
-      // Step 2: Upload directly to Vercel Blob from the browser (no size limit)
-      const { put } = await import("@vercel/blob/client");
+      // Step 2: Upload via TUS protocol directly to Cloudflare
+      const { Upload: TusUpload } = await import("tus-js-client");
 
-      const blob = await put(pathname, file, {
-        access: "public",
-        token: clientToken,
+      await new Promise<void>((resolve, reject) => {
+        const upload = new TusUpload(file, {
+          endpoint: uploadUrl,
+          uploadUrl: uploadUrl,
+          chunkSize: 5 * 1024 * 1024, // 5 MB chunks
+          retryDelays: [0, 1000, 3000, 5000],
+          metadata: {
+            filename: file.name,
+            filetype: file.type,
+          },
+          onProgress: (bytesUploaded: number, bytesTotal: number) => {
+            setUploadProgress(Math.round((bytesUploaded / bytesTotal) * 100));
+          },
+          onSuccess: () => resolve(),
+          onError: (err: Error) => reject(err),
+        });
+        upload.start();
       });
 
       // Step 3: Save metadata via server action
       const result = await saveVideoMetadata(sectionId, {
-        videoBlobUrl: blob.url,
-        videoBlobPathname: blob.pathname,
-        videoMimeType: blob.contentType,
-        videoSize: file.size,
+        cloudflareStreamUid: uid,
         videoFileName: file.name,
+        videoSize: file.size,
+        videoMimeType: file.type,
       });
 
       if (result.success) {
-        setLocalBlobUrl(blob.url);
+        setLocalCfUid(uid);
         setLocalFileName(file.name);
         setLocalFileSize(file.size);
+        setLocalVideoStatus("PENDING");
         toast.success(t("admin.sectionEditor.videoUploaded"));
-        onVideoUploaded?.();
+        // Start polling for readyToStream
+        startStatusPolling(sectionId);
       } else {
         toast.error(result.error || t("admin.sectionEditor.videoUploadError"));
       }
@@ -676,17 +745,11 @@ function VideoEditor({
       toast.error(msg || t("admin.sectionEditor.videoUploadError"));
     } finally {
       setUploading(false);
+      setUploadProgress(0);
     }
-  }, [sectionId]);
+  }, [sectionId, startStatusPolling]);
 
-  const handleRemoveVideo = useCallback(async () => {
-    if (!sectionId) return;
-
-    setLocalBlobUrl(null);
-    setLocalFileName(null);
-    setLocalFileSize(null);
-    onChange("");
-  }, [sectionId, onChange]);
+  const cfStreamSubdomain = process.env.NEXT_PUBLIC_CF_STREAM_SUBDOMAIN;
 
   return (
     <div className="space-y-4">
@@ -711,8 +774,8 @@ function VideoEditor({
             <SelectItem value="YOUTUBE_VIMEO_URL">
               {t("admin.sectionEditor.videoSourceUrl")}
             </SelectItem>
-            <SelectItem value="UPLOAD">
-              {t("admin.sectionEditor.videoSourceUpload")}
+            <SelectItem value="CLOUDFLARE_STREAM">
+              {t("admin.sectionEditor.videoSourceCloudflare")}
             </SelectItem>
             <SelectItem value="TARGETVIDEO">
               {t("admin.sectionEditor.videoSourceTargetVideo")}
@@ -754,25 +817,41 @@ function VideoEditor({
         </>
       )}
 
-      {/* Upload mode */}
-      {videoSourceType === "UPLOAD" && (
+      {/* Cloudflare Stream upload mode */}
+      {videoSourceType === "CLOUDFLARE_STREAM" && (
         <>
-          {localBlobUrl ? (
+          {localCfUid ? (
             <div className="space-y-3">
-              {/* Video preview */}
-              <div className="space-y-2">
-                <Label className="text-muted-foreground">
-                  {t("admin.sectionEditor.videoPreview")}
-                </Label>
-                <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
-                  <video
-                    src={localBlobUrl}
-                    controls
-                    className="h-full w-full"
-                    preload="metadata"
-                  />
+              {/* Video preview or processing state */}
+              {localVideoStatus === "READY" && cfStreamSubdomain ? (
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    {t("admin.sectionEditor.videoPreview")}
+                  </Label>
+                  <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
+                    <iframe
+                      src={`https://${cfStreamSubdomain}/${localCfUid}/iframe`}
+                      className="h-full w-full border-0"
+                      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : localVideoStatus === "ERROR" ? (
+                <div className="flex flex-col items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-6 py-8">
+                  <AlertTriangle className="h-8 w-8 text-destructive mb-2" />
+                  <p className="text-sm font-medium text-destructive">
+                    {t("admin.sectionEditor.videoError")}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center rounded-md border px-6 py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+                  <p className="text-sm font-medium">
+                    {t("admin.sectionEditor.videoProcessing")}
+                  </p>
+                </div>
+              )}
 
               {/* File info + actions */}
               <div className="flex items-center gap-3 rounded-md border px-3 py-2">
@@ -806,18 +885,29 @@ function VideoEditor({
               className="flex flex-col items-center justify-center rounded-md border-2 border-dashed px-6 py-8 transition-colors cursor-pointer border-muted-foreground/25 hover:border-muted-foreground/50"
             >
               {uploading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+                <>
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+                  <p className="text-sm font-medium">
+                    {t("admin.sectionEditor.videoUploading")} {uploadProgress}%
+                  </p>
+                  <div className="w-full max-w-xs mt-2 h-2 bg-muted rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary transition-all duration-300"
+                      style={{ width: `${uploadProgress}%` }}
+                    />
+                  </div>
+                </>
               ) : (
-                <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                <>
+                  <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                  <p className="text-sm font-medium">
+                    {t("admin.sectionEditor.videoDropHint")}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    MP4, WebM, OGG, MOV (max 600 MB)
+                  </p>
+                </>
               )}
-              <p className="text-sm font-medium">
-                {uploading
-                  ? t("admin.sectionEditor.videoUploading")
-                  : t("admin.sectionEditor.videoDropHint")}
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                {t("admin.sectionEditor.videoFormatHint")}
-              </p>
             </div>
           )}
 
@@ -828,10 +918,51 @@ function VideoEditor({
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0];
-              if (file) handleFileUpload(file);
+              if (file) handleCloudflareUpload(file);
               if (fileInputRef.current) fileInputRef.current.value = "";
             }}
           />
+        </>
+      )}
+
+      {/* Legacy Upload mode (for existing blob videos) */}
+      {videoSourceType === "UPLOAD" && (
+        <>
+          {localBlobUrl ? (
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">
+                  {t("admin.sectionEditor.videoPreview")}
+                </Label>
+                <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
+                  <video
+                    src={localBlobUrl}
+                    controls
+                    className="h-full w-full"
+                    preload="metadata"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-3 rounded-md border px-3 py-2">
+                <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="flex-1 text-sm truncate">
+                  {localFileName || t("admin.sectionEditor.videoFile")}
+                </span>
+                {localFileSize && (
+                  <span className="text-xs text-muted-foreground shrink-0">
+                    {formatFileSize(localFileSize)}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {t("admin.sectionEditor.videoLegacyHint")}
+              </p>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              {t("admin.sectionEditor.videoLegacyHint")}
+            </p>
+          )}
         </>
       )}
 
@@ -1057,6 +1188,8 @@ function MixedEditor({
   videoBlobUrl,
   videoFileName,
   videoSize,
+  cloudflareStreamUid,
+  videoStatus,
   onVideoUploaded,
 }: {
   content: string;
@@ -1067,6 +1200,8 @@ function MixedEditor({
   videoBlobUrl: string | null;
   videoFileName: string | null;
   videoSize: number | null;
+  cloudflareStreamUid: string | null;
+  videoStatus: "PENDING" | "READY" | "ERROR" | null;
   onVideoUploaded?: () => void;
 }) {
   const mixed = useMemo(() => parseMixedContent(content), [content]);
@@ -1092,6 +1227,8 @@ function MixedEditor({
         videoBlobUrl={videoBlobUrl}
         videoFileName={videoFileName}
         videoSize={videoSize}
+        cloudflareStreamUid={cloudflareStreamUid}
+        videoStatus={videoStatus}
         onVideoUploaded={onVideoUploaded}
       />
       <Separator />

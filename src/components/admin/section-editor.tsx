@@ -706,9 +706,9 @@ function VideoEditor({
           uploadUrl: uploadUrl,
           chunkSize: 50 * 1024 * 1024, // 50 MB chunks
           retryDelays: [0, 1000, 3000, 5000],
-          // Disable fingerprinting to prevent resume HEAD requests
           removeFingerprintOnSuccess: true,
-          urlStorage: new tus.NoopUrlStorage(),
+          // Return null fingerprint to skip resume lookup (prevents HEAD requests)
+          fingerprint: () => Promise.resolve(null),
           metadata: {
             filename: file.name,
             filetype: file.type,

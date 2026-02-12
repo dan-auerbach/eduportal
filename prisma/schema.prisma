@@ -338,7 +338,7 @@ model Section {
   type                 SectionType       @default(TEXT)
   unlockAfterSectionId String?
   // Video upload fields
-  videoSourceType      VideoSourceType   @default(TARGETVIDEO)
+  videoSourceType      VideoSourceType   @default(CLOUDFLARE_STREAM)
   videoBlobUrl         String?
   videoBlobPathname    String?
   videoMimeType        String?

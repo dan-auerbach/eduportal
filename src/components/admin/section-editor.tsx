@@ -107,7 +107,7 @@ export function SectionEditorSheet({
   const [localContent, setLocalContent] = useState("");
   const [localType, setLocalType] = useState<SectionType>("TEXT");
   const [localUnlockAfter, setLocalUnlockAfter] = useState("none");
-  const [localVideoSourceType, setLocalVideoSourceType] = useState<VideoSourceType>("TARGETVIDEO");
+  const [localVideoSourceType, setLocalVideoSourceType] = useState<VideoSourceType>("CLOUDFLARE_STREAM");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("saved");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -117,7 +117,7 @@ export function SectionEditorSheet({
     content: "",
     type: "TEXT" as SectionType,
     unlockAfter: "none",
-    videoSourceType: "TARGETVIDEO" as VideoSourceType,
+    videoSourceType: "CLOUDFLARE_STREAM" as VideoSourceType,
   });
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionIdRef = useRef<string | null>(null);
@@ -129,14 +129,14 @@ export function SectionEditorSheet({
       setLocalContent(section.content);
       setLocalType(section.type);
       setLocalUnlockAfter(section.unlockAfterSectionId || "none");
-      setLocalVideoSourceType(section.videoSourceType || "TARGETVIDEO");
+      setLocalVideoSourceType(section.videoSourceType || "CLOUDFLARE_STREAM");
       setSaveStatus("saved");
       savedValuesRef.current = {
         title: section.title,
         content: section.content,
         type: section.type,
         unlockAfter: section.unlockAfterSectionId || "none",
-        videoSourceType: section.videoSourceType || "TARGETVIDEO",
+        videoSourceType: section.videoSourceType || "CLOUDFLARE_STREAM",
       };
       sectionIdRef.current = section.id;
     }

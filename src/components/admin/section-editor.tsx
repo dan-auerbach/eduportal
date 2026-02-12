@@ -683,35 +683,30 @@ function VideoEditor({
     setUploadProgress(0);
 
     try {
-      // Step 1: Get TUS upload URL from our API
-      const createRes = await fetch("/api/videos/create-stream-upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sectionId, fileName: file.name }),
-      });
-
-      if (!createRes.ok) {
-        const errData = await createRes.json().catch(() => null);
-        toast.error(errData?.error || t("admin.sectionEditor.videoUploadError"));
-        return;
-      }
-
-      const { uploadUrl, uid } = await createRes.json();
-
-      // Step 2: Upload via TUS protocol directly to Cloudflare
+      // Upload via TUS protocol through our proxy endpoint.
+      // Our proxy creates the upload on Cloudflare and returns the CF upload URL
+      // in the Location header. tus-js-client then sends PATCH requests directly
+      // to Cloudflare — no HEAD request needed (which avoids CORS issues).
       const tus = await import("tus-js-client");
+
+      let streamUid = "";
 
       await new Promise<void>((resolve, reject) => {
         const upload = new tus.Upload(file, {
-          uploadUrl: uploadUrl,
+          endpoint: `/api/videos/tus-upload?sectionId=${sectionId}`,
           chunkSize: 50 * 1024 * 1024, // 50 MB chunks
           retryDelays: [0, 1000, 3000, 5000],
           removeFingerprintOnSuccess: true,
-          // Unique fingerprint each time to prevent resume HEAD requests
-          fingerprint: () => Promise.resolve(`cf-${uid}-${Date.now()}`),
           metadata: {
             filename: file.name,
             filetype: file.type,
+          },
+          onAfterResponse: (_req: unknown, res: { getHeader: (name: string) => string | undefined }) => {
+            // Capture the stream-media-id from our proxy's 201 response
+            const mediaId = res.getHeader("Stream-Media-Id");
+            if (mediaId) {
+              streamUid = mediaId;
+            }
           },
           onProgress: (bytesUploaded: number, bytesTotal: number) => {
             setUploadProgress(Math.round((bytesUploaded / bytesTotal) * 100));
@@ -722,16 +717,22 @@ function VideoEditor({
         upload.start();
       });
 
-      // Step 3: Save metadata via server action
+      if (!streamUid) {
+        toast.error(t("admin.sectionEditor.videoUploadError"));
+        return;
+      }
+
+      // Save metadata via server action (DB already has UID from proxy,
+      // this updates file info and handles old video cleanup)
       const result = await saveVideoMetadata(sectionId, {
-        cloudflareStreamUid: uid,
+        cloudflareStreamUid: streamUid,
         videoFileName: file.name,
         videoSize: file.size,
         videoMimeType: file.type,
       });
 
       if (result.success) {
-        setLocalCfUid(uid);
+        setLocalCfUid(streamUid);
         setLocalFileName(file.name);
         setLocalFileSize(file.size);
         setLocalVideoStatus("PENDING");

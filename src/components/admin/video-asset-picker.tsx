@@ -265,7 +265,7 @@ export function VideoAssetPicker({
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="overflow-hidden">
           <DialogHeader>
             <DialogTitle>{t("media.pickerTitle")}</DialogTitle>
           </DialogHeader>

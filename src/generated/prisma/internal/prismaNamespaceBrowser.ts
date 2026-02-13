@@ -693,6 +693,8 @@ export const MediaAssetScalarFieldEnum = {
   sizeBytes: 'sizeBytes',
   durationSeconds: 'durationSeconds',
   lastError: 'lastError',
+  blobUrl: 'blobUrl',
+  extractedText: 'extractedText',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

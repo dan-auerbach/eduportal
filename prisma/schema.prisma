@@ -1143,6 +1143,7 @@ model AiModuleBuild {
 
 enum MediaAssetType {
   VIDEO
+  DOCUMENT
 }
 
 enum MediaAssetStatus {
@@ -1153,6 +1154,7 @@ enum MediaAssetStatus {
 
 enum MediaProvider {
   CLOUDFLARE_STREAM
+  VERCEL_BLOB
 }
 
 model MediaAsset {
@@ -1168,6 +1170,8 @@ model MediaAsset {
   sizeBytes       BigInt?
   durationSeconds Int?
   lastError       String?          @db.Text
+  blobUrl         String?          // Vercel Blob URL (for DOCUMENT type)
+  extractedText   String?          @db.Text // Extracted text from document (cache)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 

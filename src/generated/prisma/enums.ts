@@ -230,7 +230,8 @@ export type EmailTokenType = (typeof EmailTokenType)[keyof typeof EmailTokenType
 
 
 export const MediaAssetType = {
-  VIDEO: 'VIDEO'
+  VIDEO: 'VIDEO',
+  DOCUMENT: 'DOCUMENT'
 } as const
 
 export type MediaAssetType = (typeof MediaAssetType)[keyof typeof MediaAssetType]
@@ -246,7 +247,8 @@ export type MediaAssetStatus = (typeof MediaAssetStatus)[keyof typeof MediaAsset
 
 
 export const MediaProvider = {
-  CLOUDFLARE_STREAM: 'CLOUDFLARE_STREAM'
+  CLOUDFLARE_STREAM: 'CLOUDFLARE_STREAM',
+  VERCEL_BLOB: 'VERCEL_BLOB'
 } as const
 
 export type MediaProvider = (typeof MediaProvider)[keyof typeof MediaProvider]

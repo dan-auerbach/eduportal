@@ -1379,7 +1379,7 @@ export const en = {
   // ── AI Builder ──────────────────────────────────────────────────────
   aiBuilder: {
     title: "AI Knowledge",
-    subtitle: "Create knowledge from video or text using artificial intelligence.",
+    subtitle: "Create knowledge from video, text, or document using artificial intelligence.",
     sourceTitle: "Content source",
     sourceVideo: "Video",
     sourceText: "Text",
@@ -1403,6 +1403,17 @@ export const en = {
     recentBuilds: "Recent generations",
     notes: "Notes / context",
     notesPlaceholder: "Describe at least 3 key topics or goals that AI should use when generating knowledge...",
+    sourceFile: "File",
+    uploadFile: "Upload a PDF or Word document",
+    uploadFileDrag: "Drag file here or click to browse",
+    supportedFormats: "PDF, DOC, DOCX (max 20 MB)",
+    fileUploaded: "File uploaded",
+    statusExtracting: "Reading document content...",
+    fileTooLarge: "File too large (max 20 MB).",
+    unsupportedFormat: "Unsupported format. Use PDF, DOC, or DOCX.",
+    emptyDocument: "Document contains no readable text.",
+    fileUploadError: "Error uploading file.",
+    removeFile: "Remove",
   },
 
   // ── Email Templates (tenant settings) ─────────────────────────────

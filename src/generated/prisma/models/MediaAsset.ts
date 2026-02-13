@@ -49,6 +49,8 @@ export type MediaAssetMinAggregateOutputType = {
   sizeBytes: bigint | null
   durationSeconds: number | null
   lastError: string | null
+  blobUrl: string | null
+  extractedText: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +68,8 @@ export type MediaAssetMaxAggregateOutputType = {
   sizeBytes: bigint | null
   durationSeconds: number | null
   lastError: string | null
+  blobUrl: string | null
+  extractedText: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -83,6 +87,8 @@ export type MediaAssetCountAggregateOutputType = {
   sizeBytes: number
   durationSeconds: number
   lastError: number
+  blobUrl: number
+  extractedText: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -112,6 +118,8 @@ export type MediaAssetMinAggregateInputType = {
   sizeBytes?: true
   durationSeconds?: true
   lastError?: true
+  blobUrl?: true
+  extractedText?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -129,6 +137,8 @@ export type MediaAssetMaxAggregateInputType = {
   sizeBytes?: true
   durationSeconds?: true
   lastError?: true
+  blobUrl?: true
+  extractedText?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -146,6 +156,8 @@ export type MediaAssetCountAggregateInputType = {
   sizeBytes?: true
   durationSeconds?: true
   lastError?: true
+  blobUrl?: true
+  extractedText?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -250,6 +262,8 @@ export type MediaAssetGroupByOutputType = {
   sizeBytes: bigint | null
   durationSeconds: number | null
   lastError: string | null
+  blobUrl: string | null
+  extractedText: string | null
   createdAt: Date
   updatedAt: Date
   _count: MediaAssetCountAggregateOutputType | null
@@ -290,6 +304,8 @@ export type MediaAssetWhereInput = {
   sizeBytes?: Prisma.BigIntNullableFilter<"MediaAsset"> | bigint | number | null
   durationSeconds?: Prisma.IntNullableFilter<"MediaAsset"> | number | null
   lastError?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  blobUrl?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -310,6 +326,8 @@ export type MediaAssetOrderByWithRelationInput = {
   sizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
   durationSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   lastError?: Prisma.SortOrderInput | Prisma.SortOrder
+  blobUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -334,6 +352,8 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   sizeBytes?: Prisma.BigIntNullableFilter<"MediaAsset"> | bigint | number | null
   durationSeconds?: Prisma.IntNullableFilter<"MediaAsset"> | number | null
   lastError?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  blobUrl?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -354,6 +374,8 @@ export type MediaAssetOrderByWithAggregationInput = {
   sizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
   durationSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   lastError?: Prisma.SortOrderInput | Prisma.SortOrder
+  blobUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  extractedText?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MediaAssetCountOrderByAggregateInput
@@ -379,6 +401,8 @@ export type MediaAssetScalarWhereWithAggregatesInput = {
   sizeBytes?: Prisma.BigIntNullableWithAggregatesFilter<"MediaAsset"> | bigint | number | null
   durationSeconds?: Prisma.IntNullableWithAggregatesFilter<"MediaAsset"> | number | null
   lastError?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  blobUrl?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  extractedText?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MediaAsset"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MediaAsset"> | Date | string
 }
@@ -394,6 +418,8 @@ export type MediaAssetCreateInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
@@ -414,6 +440,8 @@ export type MediaAssetUncheckedCreateInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
@@ -430,6 +458,8 @@ export type MediaAssetUpdateInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
@@ -450,6 +480,8 @@ export type MediaAssetUncheckedUpdateInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
@@ -468,6 +500,8 @@ export type MediaAssetCreateManyInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -483,6 +517,8 @@ export type MediaAssetUpdateManyMutationInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -500,6 +536,8 @@ export type MediaAssetUncheckedUpdateManyInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -537,6 +575,8 @@ export type MediaAssetCountOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
   durationSeconds?: Prisma.SortOrder
   lastError?: Prisma.SortOrder
+  blobUrl?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -559,6 +599,8 @@ export type MediaAssetMaxOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
   durationSeconds?: Prisma.SortOrder
   lastError?: Prisma.SortOrder
+  blobUrl?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -576,6 +618,8 @@ export type MediaAssetMinOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
   durationSeconds?: Prisma.SortOrder
   lastError?: Prisma.SortOrder
+  blobUrl?: Prisma.SortOrder
+  extractedText?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -716,6 +760,8 @@ export type MediaAssetCreateWithoutTenantInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutMediaAssetsInput
@@ -734,6 +780,8 @@ export type MediaAssetUncheckedCreateWithoutTenantInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
@@ -781,6 +829,8 @@ export type MediaAssetScalarWhereInput = {
   sizeBytes?: Prisma.BigIntNullableFilter<"MediaAsset"> | bigint | number | null
   durationSeconds?: Prisma.IntNullableFilter<"MediaAsset"> | number | null
   lastError?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  blobUrl?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  extractedText?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
 }
@@ -796,6 +846,8 @@ export type MediaAssetCreateWithoutCreatedByInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
@@ -814,6 +866,8 @@ export type MediaAssetUncheckedCreateWithoutCreatedByInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
@@ -856,6 +910,8 @@ export type MediaAssetCreateWithoutSectionsInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
@@ -875,6 +931,8 @@ export type MediaAssetUncheckedCreateWithoutSectionsInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -906,6 +964,8 @@ export type MediaAssetUpdateWithoutSectionsInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
@@ -925,6 +985,8 @@ export type MediaAssetUncheckedUpdateWithoutSectionsInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -941,6 +1003,8 @@ export type MediaAssetCreateManyTenantInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -956,6 +1020,8 @@ export type MediaAssetUpdateWithoutTenantInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutMediaAssetsNestedInput
@@ -974,6 +1040,8 @@ export type MediaAssetUncheckedUpdateWithoutTenantInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
@@ -991,6 +1059,8 @@ export type MediaAssetUncheckedUpdateManyWithoutTenantInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1007,6 +1077,8 @@ export type MediaAssetCreateManyCreatedByInput = {
   sizeBytes?: bigint | number | null
   durationSeconds?: number | null
   lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1022,6 +1094,8 @@ export type MediaAssetUpdateWithoutCreatedByInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
@@ -1040,6 +1114,8 @@ export type MediaAssetUncheckedUpdateWithoutCreatedByInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
@@ -1057,6 +1133,8 @@ export type MediaAssetUncheckedUpdateManyWithoutCreatedByInput = {
   sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1105,6 +1183,8 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   sizeBytes?: boolean
   durationSeconds?: boolean
   lastError?: boolean
+  blobUrl?: boolean
+  extractedText?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1126,6 +1206,8 @@ export type MediaAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   sizeBytes?: boolean
   durationSeconds?: boolean
   lastError?: boolean
+  blobUrl?: boolean
+  extractedText?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1145,6 +1227,8 @@ export type MediaAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   sizeBytes?: boolean
   durationSeconds?: boolean
   lastError?: boolean
+  blobUrl?: boolean
+  extractedText?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1164,11 +1248,13 @@ export type MediaAssetSelectScalar = {
   sizeBytes?: boolean
   durationSeconds?: boolean
   lastError?: boolean
+  blobUrl?: boolean
+  extractedText?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "createdById" | "type" | "status" | "provider" | "title" | "cfStreamUid" | "mimeType" | "sizeBytes" | "durationSeconds" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["mediaAsset"]>
+export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "createdById" | "type" | "status" | "provider" | "title" | "cfStreamUid" | "mimeType" | "sizeBytes" | "durationSeconds" | "lastError" | "blobUrl" | "extractedText" | "createdAt" | "updatedAt", ExtArgs["result"]["mediaAsset"]>
 export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1204,6 +1290,8 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     sizeBytes: bigint | null
     durationSeconds: number | null
     lastError: string | null
+    blobUrl: string | null
+    extractedText: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["mediaAsset"]>
@@ -1644,6 +1732,8 @@ export interface MediaAssetFieldRefs {
   readonly sizeBytes: Prisma.FieldRef<"MediaAsset", 'BigInt'>
   readonly durationSeconds: Prisma.FieldRef<"MediaAsset", 'Int'>
   readonly lastError: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly blobUrl: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly extractedText: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly createdAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
 }

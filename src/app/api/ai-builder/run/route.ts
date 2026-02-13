@@ -12,6 +12,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { getAudioDownloadUrl } from "@/lib/cloudflare-stream";
 import { transcribeAudio } from "@/lib/soniox";
 import { generateModuleDraft } from "@/lib/ai/generate-module-draft";
+import { extractTextFromDocument } from "@/lib/document-extract";
 import { sanitizeHtml } from "@/lib/sanitize";
 import type { Prisma } from "@/generated/prisma/client";
 
@@ -83,6 +84,35 @@ export async function POST(request: NextRequest) {
       console.log(`[ai-builder] Transcript ready: ${transcript.length} chars`);
 
       // Save transcript
+      await updateBuild(buildId, { sourceText: transcript });
+    }
+
+    // ── Step A2: Extract text from document (if file source) ──────────
+    if (build.sourceType === "FILE" && build.mediaAssetId) {
+      await updateBuild(buildId, { status: "EXTRACTING" });
+
+      const docAsset = await prisma.mediaAsset.findUnique({
+        where: { id: build.mediaAssetId },
+        select: { blobUrl: true, mimeType: true },
+      });
+
+      if (!docAsset?.blobUrl || !docAsset.mimeType) {
+        throw new Error("Document asset is missing blob URL or MIME type");
+      }
+
+      console.log(`[ai-builder] Extracting text from document: ${docAsset.mimeType}`);
+      transcript = await extractTextFromDocument(docAsset.blobUrl, docAsset.mimeType);
+      console.log(`[ai-builder] Extracted text: ${transcript.length} chars`);
+
+      if (transcript.trim().length < 50) {
+        throw new Error("Premalo vsebine za generacijo znanja (manj kot 50 znakov).");
+      }
+
+      // Cache extracted text on the asset + save to build
+      await prisma.mediaAsset.update({
+        where: { id: build.mediaAssetId },
+        data: { extractedText: transcript },
+      });
       await updateBuild(buildId, { sourceText: transcript });
     }
 

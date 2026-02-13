@@ -11,7 +11,7 @@ import type { ActionResult } from "@/types";
 // startAiBuild - create a build record and fire off the async pipeline
 // ---------------------------------------------------------------------------
 export async function startAiBuild(params: {
-  sourceType: "CF_STREAM_VIDEO" | "TEXT";
+  sourceType: "CF_STREAM_VIDEO" | "TEXT" | "FILE";
   mediaAssetId?: string;
   sourceText?: string;
   notes?: string;
@@ -50,6 +50,26 @@ export async function startAiBuild(params: {
       }
 
       cfVideoUid = asset.cfStreamUid;
+      mediaAssetId = params.mediaAssetId;
+    } else if (params.sourceType === "FILE") {
+      if (!params.mediaAssetId) {
+        return { success: false, error: "Datoteka je obvezna za ta vir." };
+      }
+
+      // Validate document asset exists and is ready
+      const docAsset = await prisma.mediaAsset.findUnique({
+        where: { id: params.mediaAssetId, tenantId: ctx.tenantId },
+        select: { type: true, status: true, blobUrl: true },
+      });
+
+      if (!docAsset || docAsset.type !== "DOCUMENT") {
+        return { success: false, error: "Dokument ni bil najden." };
+      }
+
+      if (docAsset.status !== "READY" || !docAsset.blobUrl) {
+        return { success: false, error: "Dokument ni pripravljen." };
+      }
+
       mediaAssetId = params.mediaAssetId;
     } else if (params.sourceType === "TEXT") {
       if (!params.sourceText?.trim()) {

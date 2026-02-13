@@ -1393,7 +1393,7 @@ export const sl = {
   // ── AI Builder ──────────────────────────────────────────────────────
   aiBuilder: {
     title: "AI znanje",
-    subtitle: "Ustvari znanje iz videa ali besedila s pomočjo umetne inteligence.",
+    subtitle: "Ustvari znanje iz videa, besedila ali dokumenta s pomočjo umetne inteligence.",
     sourceTitle: "Vir vsebine",
     sourceVideo: "Video",
     sourceText: "Besedilo",
@@ -1417,6 +1417,17 @@ export const sl = {
     recentBuilds: "Zadnje generacije",
     notes: "Opombe / kontekst",
     notesPlaceholder: "Opišite vsaj 3 ključne teme ali cilje, ki naj jih AI uporabi pri generiranju znanja...",
+    sourceFile: "Datoteka",
+    uploadFile: "Naložite PDF ali Word dokument",
+    uploadFileDrag: "Povlecite datoteko sem ali kliknite za izbiro",
+    supportedFormats: "PDF, DOC, DOCX (max 20 MB)",
+    fileUploaded: "Datoteka naložena",
+    statusExtracting: "Berem vsebino dokumenta...",
+    fileTooLarge: "Datoteka je prevelika (max 20 MB).",
+    unsupportedFormat: "Nepodprt format. Uporabite PDF, DOC ali DOCX.",
+    emptyDocument: "Dokument ne vsebuje berljivega besedila.",
+    fileUploadError: "Napaka pri nalaganju datoteke.",
+    removeFile: "Odstrani",
   },
 
   // ── Email Templates (tenant settings) ─────────────────────────────

@@ -137,7 +137,6 @@ export const en = {
     mentorLive: "#mentor live",
     mentorLiveNoEvents: "No scheduled events",
     radar: "Radar",
-    media: "Video Library",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1361,6 +1360,17 @@ export const en = {
     renameSave: "Save",
     uploadHint: "Select a video file to upload.",
     uploadProgress: "Uploading...",
+    // Picker
+    searchPlaceholder: "Search videos...",
+    pickVideo: "Select video",
+    uploadNew: "Upload new video",
+    titleLabel: "Video title",
+    titlePlaceholder: "Enter title...",
+    selected: "Selected",
+    notReady: "Video is still processing",
+    replaceVideo: "Replace video",
+    pickerTitle: "Select a video from library",
+    orUpload: "or upload a new one",
   },
 
   // ── AI Builder ──────────────────────────────────────────────────────

@@ -93,6 +93,28 @@ export default async function AdminModuleEditPage({
     orderBy: { sortOrder: "asc" },
   });
 
+  // Get all video assets for the VideoAssetPicker (used in section editor)
+  const rawVideoAssets = await prisma.mediaAsset.findMany({
+    where: { tenantId: ctx.tenantId, type: "VIDEO" },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      cfStreamUid: true,
+      durationSeconds: true,
+      _count: { select: { sections: true } },
+    },
+  });
+  const videoAssets = rawVideoAssets.map((a) => ({
+    id: a.id,
+    title: a.title,
+    status: a.status,
+    cfStreamUid: a.cfStreamUid,
+    durationSeconds: a.durationSeconds,
+    usageCount: a._count.sections,
+  }));
+
   // Get all mentor candidates (active users with membership in this tenant)
   const mentorCandidatesRaw = await prisma.membership.findMany({
     where: { tenantId: ctx.tenantId },
@@ -183,6 +205,7 @@ export default async function AdminModuleEditPage({
           email: m.user.email,
         }))}
         allMentorCandidates={allMentorCandidates}
+        videoAssets={videoAssets}
       />
     </div>
   );

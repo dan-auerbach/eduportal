@@ -23,7 +23,6 @@ import {
   Star,
   Radio,
   Radar,
-  Film,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -43,7 +42,6 @@ const employeeNav: NavItem[] = [
 const adminNav: NavItem[] = [
   { href: "/admin", labelKey: "nav.overview", icon: LayoutDashboard },
   { href: "/admin/modules", labelKey: "nav.modules", icon: BookOpen },
-  { href: "/admin/media", labelKey: "nav.media", icon: Film },
   { href: "/admin/users", labelKey: "nav.users", icon: Users, minRole: "SUPER_ADMIN" },
   { href: "/admin/groups", labelKey: "nav.groups", icon: FolderOpen },
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },

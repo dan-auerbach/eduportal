@@ -52,6 +52,7 @@ import { CategoryManager } from "./category-manager";
 import { CoverImageUpload } from "./cover-image-upload";
 import type { Difficulty, ModuleStatus, SectionType } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
+import type { VideoAsset } from "@/components/admin/video-asset-picker";
 
 interface SectionData {
   id: string;
@@ -124,6 +125,7 @@ interface ModuleEditorProps {
   quizzes?: QuizData[];
   mentors?: { userId: string; firstName: string; lastName: string; email: string }[];
   allMentorCandidates?: { id: string; firstName: string; lastName: string; email: string }[];
+  videoAssets?: VideoAsset[];
 }
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -139,6 +141,7 @@ export function ModuleEditor({
   quizzes = [],
   mentors = [],
   allMentorCandidates = [],
+  videoAssets = [],
 }: ModuleEditorProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
@@ -583,6 +586,7 @@ export function ModuleEditor({
         allSections={allSectionRefs}
         moduleId={moduleId}
         onClose={() => setSelectedSection(null)}
+        videoAssets={videoAssets}
       />
 
       {/* Quizzes */}

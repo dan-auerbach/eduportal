@@ -1381,6 +1381,67 @@ export async function saveVideoMetadata(
 }
 
 // ---------------------------------------------------------------------------
+// linkMediaAssetToSection - link a MediaAsset to a section (for VideoAssetPicker)
+// ---------------------------------------------------------------------------
+export async function linkMediaAssetToSection(
+  sectionId: string,
+  assetId: string
+): Promise<ActionResult<void>> {
+  try {
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
+
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId, tenantId: ctx.tenantId },
+      include: { module: { select: { createdById: true } } },
+    });
+    if (!section) {
+      return { success: false, error: "Sekcija ne obstaja" };
+    }
+
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    if (!canManageAll) {
+      if (section.module.createdById !== currentUser.id) {
+        throw new ForbiddenError("Nimate pravic za urejanje tega modula");
+      }
+      await requirePermission(currentUser, "MANAGE_OWN_MODULES");
+    }
+
+    // Validate asset belongs to same tenant and is READY
+    const asset = await prisma.mediaAsset.findUnique({
+      where: { id: assetId, tenantId: ctx.tenantId },
+      select: { cfStreamUid: true, status: true },
+    });
+    if (!asset) {
+      return { success: false, error: "Video ne obstaja" };
+    }
+    if (asset.status !== "READY") {
+      return { success: false, error: "Video se še obdeluje" };
+    }
+    if (!asset.cfStreamUid) {
+      return { success: false, error: "Video nima CF Stream UID" };
+    }
+
+    await prisma.section.update({
+      where: { id: sectionId },
+      data: {
+        mediaAssetId: assetId,
+        cloudflareStreamUid: asset.cfStreamUid,
+        videoSourceType: "CLOUDFLARE_STREAM",
+        videoStatus: "READY",
+      },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof ForbiddenError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri povezovanju videa s sekcijo" };
+  }
+}
+
+// ---------------------------------------------------------------------------
 // updateModuleMentors - set mentors for a module (replace all)
 // ---------------------------------------------------------------------------
 export async function updateModuleMentors(

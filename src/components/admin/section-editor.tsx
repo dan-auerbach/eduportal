@@ -8,6 +8,7 @@ import {
   deleteSection,
   duplicateSection,
   saveVideoMetadata,
+  linkMediaAssetToSection,
 } from "@/actions/modules";
 import { toast } from "sonner";
 import {
@@ -64,6 +65,8 @@ import {
   FileText,
 } from "lucide-react";
 import { RichTextEditor } from "./rich-text-editor";
+import { VideoAssetPicker } from "./video-asset-picker";
+import type { VideoAsset, SelectedAsset } from "./video-asset-picker";
 import type { SectionType, VideoSourceType } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
 
@@ -92,6 +95,7 @@ interface SectionEditorSheetProps {
   allSections: { id: string; title: string }[];
   moduleId: string;
   onClose: () => void;
+  videoAssets?: VideoAsset[];
 }
 
 type SaveStatus = "saved" | "saving" | "unsaved";
@@ -101,6 +105,7 @@ export function SectionEditorSheet({
   allSections,
   moduleId,
   onClose,
+  videoAssets = [],
 }: SectionEditorSheetProps) {
   const router = useRouter();
   const [localTitle, setLocalTitle] = useState("");
@@ -368,6 +373,7 @@ export function SectionEditorSheet({
                 videoSize={section?.videoSize ?? null}
                 cloudflareStreamUid={section?.cloudflareStreamUid ?? null}
                 videoStatus={section?.videoStatus ?? null}
+                videoAssets={videoAssets}
                 onVideoUploaded={() => {
                   setSaveStatus("saved");
                   router.refresh();
@@ -493,6 +499,7 @@ function TypeSpecificEditor({
   videoSize,
   cloudflareStreamUid,
   videoStatus,
+  videoAssets,
   onVideoUploaded,
 }: {
   type: SectionType;
@@ -506,6 +513,7 @@ function TypeSpecificEditor({
   videoSize: number | null;
   cloudflareStreamUid: string | null;
   videoStatus: "PENDING" | "READY" | "ERROR" | null;
+  videoAssets?: VideoAsset[];
   onVideoUploaded?: () => void;
 }) {
   switch (type) {
@@ -524,6 +532,7 @@ function TypeSpecificEditor({
           videoSize={videoSize}
           cloudflareStreamUid={cloudflareStreamUid}
           videoStatus={videoStatus}
+          videoAssets={videoAssets}
           onVideoUploaded={onVideoUploaded}
         />
       );
@@ -542,6 +551,7 @@ function TypeSpecificEditor({
           videoSize={videoSize}
           cloudflareStreamUid={cloudflareStreamUid}
           videoStatus={videoStatus}
+          videoAssets={videoAssets}
           onVideoUploaded={onVideoUploaded}
         />
       );
@@ -596,6 +606,7 @@ function VideoEditor({
   videoSize,
   cloudflareStreamUid,
   videoStatus,
+  videoAssets,
   onVideoUploaded,
 }: {
   content: string;
@@ -609,6 +620,7 @@ function VideoEditor({
   videoSize: number | null;
   cloudflareStreamUid: string | null;
   videoStatus: "PENDING" | "READY" | "ERROR" | null;
+  videoAssets?: VideoAsset[];
 }) {
   const videoId = useMemo(() => extractYouTubeId(content), [content]);
   const [uploading, setUploading] = useState(false);
@@ -622,6 +634,9 @@ function VideoEditor({
   const [localCfUid, setLocalCfUid] = useState<string | null>(null);
   const [localVideoStatus, setLocalVideoStatus] = useState<"PENDING" | "READY" | "ERROR" | null>(null);
   const statusPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // Asset picker state
+  const [selectedAssetId, setSelectedAssetId] = useState<string | null>(null);
+  const [linking, setLinking] = useState(false);
 
   // Sync local state with props
   useEffect(() => {
@@ -752,6 +767,26 @@ function VideoEditor({
     }
   }, [sectionId, startStatusPolling]);
 
+  // Handle asset selection from picker (link to section)
+  const handleAssetSelect = useCallback(async (asset: SelectedAsset) => {
+    if (!sectionId) {
+      toast.error(t("admin.sectionEditor.videoSaveFirst"));
+      return;
+    }
+    setLinking(true);
+    const result = await linkMediaAssetToSection(sectionId, asset.id);
+    if (result.success) {
+      setLocalCfUid(asset.cfStreamUid);
+      setLocalVideoStatus("READY");
+      setSelectedAssetId(asset.id);
+      toast.success(t("media.selected"));
+      onVideoUploaded?.();
+    } else {
+      toast.error(result.error);
+    }
+    setLinking(false);
+  }, [sectionId, onVideoUploaded]);
+
   const cfStreamSubdomain = process.env.NEXT_PUBLIC_CF_STREAM_SUBDOMAIN;
 
   return (
@@ -820,100 +855,78 @@ function VideoEditor({
         </>
       )}
 
-      {/* Cloudflare Stream upload mode */}
+      {/* Cloudflare Stream — VideoAssetPicker mode */}
       {videoSourceType === "CLOUDFLARE_STREAM" && (
         <>
-          {localCfUid ? (
+          {/* Show preview if video is already linked */}
+          {localCfUid && localVideoStatus === "READY" && cfStreamSubdomain ? (
             <div className="space-y-3">
-              {/* Video preview or processing state */}
-              {localVideoStatus === "READY" && cfStreamSubdomain ? (
-                <div className="space-y-2">
-                  <Label className="text-muted-foreground">
-                    {t("admin.sectionEditor.videoPreview")}
-                  </Label>
-                  <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
-                    <iframe
-                      src={`https://${cfStreamSubdomain}/${localCfUid}/iframe`}
-                      className="h-full w-full border-0"
-                      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">
+                  {t("admin.sectionEditor.videoPreview")}
+                </Label>
+                <div className="aspect-video w-full overflow-hidden rounded-md border bg-black">
+                  <iframe
+                    src={`https://${cfStreamSubdomain}/${localCfUid}/iframe`}
+                    className="h-full w-full border-0"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                  />
                 </div>
-              ) : localVideoStatus === "ERROR" ? (
-                <div className="flex flex-col items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-6 py-8">
-                  <AlertTriangle className="h-8 w-8 text-destructive mb-2" />
-                  <p className="text-sm font-medium text-destructive">
-                    {t("admin.sectionEditor.videoError")}
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center rounded-md border px-6 py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
-                  <p className="text-sm font-medium">
-                    {t("admin.sectionEditor.videoProcessing")}
-                  </p>
-                </div>
-              )}
-
-              {/* File info + actions */}
-              <div className="flex items-center gap-3 rounded-md border px-3 py-2">
-                <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
-                <span className="flex-1 text-sm truncate">
-                  {localFileName || t("admin.sectionEditor.videoFile")}
-                </span>
-                {localFileSize && (
-                  <span className="text-xs text-muted-foreground shrink-0">
-                    {formatFileSize(localFileSize)}
-                  </span>
-                )}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
-                >
-                  {t("admin.sectionEditor.videoReplace")}
-                </Button>
+              </div>
+              {/* Replace video button — shows the picker */}
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">{t("media.replaceVideo")}</Label>
+                <VideoAssetPicker
+                  selectedAssetId={selectedAssetId}
+                  onSelect={handleAssetSelect}
+                  initialAssets={videoAssets ?? []}
+                />
+              </div>
+            </div>
+          ) : localCfUid && localVideoStatus === "ERROR" ? (
+            <div className="space-y-3">
+              <div className="flex flex-col items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-6 py-8">
+                <AlertTriangle className="h-8 w-8 text-destructive mb-2" />
+                <p className="text-sm font-medium text-destructive">
+                  {t("admin.sectionEditor.videoError")}
+                </p>
+              </div>
+              <VideoAssetPicker
+                selectedAssetId={selectedAssetId}
+                onSelect={handleAssetSelect}
+                initialAssets={videoAssets ?? []}
+              />
+            </div>
+          ) : localCfUid && localVideoStatus === "PENDING" ? (
+            <div className="space-y-3">
+              <div className="flex flex-col items-center justify-center rounded-md border px-6 py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+                <p className="text-sm font-medium">
+                  {t("admin.sectionEditor.videoProcessing")}
+                </p>
               </div>
             </div>
           ) : (
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => fileInputRef.current?.click()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") fileInputRef.current?.click();
-              }}
-              className="flex flex-col items-center justify-center rounded-md border-2 border-dashed px-6 py-8 transition-colors cursor-pointer border-muted-foreground/25 hover:border-muted-foreground/50"
-            >
-              {uploading ? (
-                <>
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
-                  <p className="text-sm font-medium">
-                    {t("admin.sectionEditor.videoUploading")} {uploadProgress}%
-                  </p>
-                  <div className="w-full max-w-xs mt-2 h-2 bg-muted rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Upload className="h-8 w-8 text-muted-foreground mb-2" />
-                  <p className="text-sm font-medium">
-                    {t("admin.sectionEditor.videoDropHint")}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    MP4, WebM, OGG, MOV (max 600 MB)
-                  </p>
-                </>
-              )}
+            /* No video linked yet — show picker */
+            <div className="space-y-2">
+              <Label>{t("media.pickVideo")}</Label>
+              <VideoAssetPicker
+                selectedAssetId={selectedAssetId}
+                onSelect={handleAssetSelect}
+                initialAssets={videoAssets ?? []}
+              />
             </div>
           )}
 
+          {linking && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {t("common.saving")}
+            </div>
+          )}
+
+          {/* Hidden file input kept for legacy direct upload path (if no videoAssets available) */}
           <input
             ref={fileInputRef}
             type="file"
@@ -1193,6 +1206,7 @@ function MixedEditor({
   videoSize,
   cloudflareStreamUid,
   videoStatus,
+  videoAssets,
   onVideoUploaded,
 }: {
   content: string;
@@ -1205,6 +1219,7 @@ function MixedEditor({
   videoSize: number | null;
   cloudflareStreamUid: string | null;
   videoStatus: "PENDING" | "READY" | "ERROR" | null;
+  videoAssets?: VideoAsset[];
   onVideoUploaded?: () => void;
 }) {
   const mixed = useMemo(() => parseMixedContent(content), [content]);
@@ -1232,6 +1247,7 @@ function MixedEditor({
         videoSize={videoSize}
         cloudflareStreamUid={cloudflareStreamUid}
         videoStatus={videoStatus}
+        videoAssets={videoAssets}
         onVideoUploaded={onVideoUploaded}
       />
       <Separator />

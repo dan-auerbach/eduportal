@@ -5,23 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Sparkles, Video, FileText, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import { Loader2, Sparkles, Video, FileText, CheckCircle2, XCircle, ExternalLink, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { startAiBuild } from "@/actions/ai-builder";
 import { t } from "@/lib/i18n";
-
-interface VideoOption {
-  id: string;
-  label: string;
-}
+import { VideoAssetPicker } from "@/components/admin/video-asset-picker";
+import type { VideoAsset, SelectedAsset } from "@/components/admin/video-asset-picker";
 
 interface RecentBuild {
   id: string;
@@ -34,7 +24,7 @@ interface RecentBuild {
 }
 
 interface AiBuilderFormProps {
-  videos: VideoOption[];
+  videoAssets: VideoAsset[];
   recentBuilds: RecentBuild[];
 }
 
@@ -54,11 +44,12 @@ const STATUS_BADGE: Record<string, string> = {
   FAILED: "bg-red-100 text-red-800 border-red-200",
 };
 
-export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
+export function AiBuilderForm({ videoAssets, recentBuilds }: AiBuilderFormProps) {
   const [sourceType, setSourceType] = useState<"CF_STREAM_VIDEO" | "TEXT">(
-    videos.length > 0 ? "CF_STREAM_VIDEO" : "TEXT",
+    videoAssets.length > 0 ? "CF_STREAM_VIDEO" : "TEXT",
   );
-  const [selectedVideo, setSelectedVideo] = useState<string>("");
+  const [selectedAssetId, setSelectedAssetId] = useState<string | null>(null);
+  const [selectedAssetStatus, setSelectedAssetStatus] = useState<string | null>(null);
   const [sourceText, setSourceText] = useState("");
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -109,6 +100,11 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
     };
   }, []);
 
+  const handleAssetSelect = useCallback((asset: SelectedAsset) => {
+    setSelectedAssetId(asset.id);
+    setSelectedAssetStatus(asset.status);
+  }, []);
+
   const handleSubmit = async () => {
     setError(null);
     setBuildError(null);
@@ -119,7 +115,7 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
     try {
       const result = await startAiBuild({
         sourceType,
-        mediaAssetId: sourceType === "CF_STREAM_VIDEO" ? selectedVideo : undefined,
+        mediaAssetId: sourceType === "CF_STREAM_VIDEO" ? (selectedAssetId ?? undefined) : undefined,
         sourceText: sourceType === "TEXT" ? sourceText : undefined,
         notes: notes.trim() || undefined,
       });
@@ -159,10 +155,11 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
     buildStatus !== "DONE" &&
     buildStatus !== "FAILED";
 
+  const videoReady = selectedAssetId && selectedAssetStatus === "READY";
   const canSubmit =
     !isSubmitting &&
     !isProcessing &&
-    (sourceType === "CF_STREAM_VIDEO" ? !!selectedVideo : sourceText.trim().length > 50);
+    (sourceType === "CF_STREAM_VIDEO" ? !!videoReady : sourceText.trim().length > 50);
 
   return (
     <div className="space-y-6">
@@ -178,7 +175,6 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
               variant={sourceType === "CF_STREAM_VIDEO" ? "default" : "outline"}
               size="sm"
               onClick={() => setSourceType("CF_STREAM_VIDEO")}
-              disabled={videos.length === 0}
             >
               <Video className="mr-2 h-4 w-4" />
               {t("aiBuilder.sourceVideo")}
@@ -197,26 +193,16 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
           {sourceType === "CF_STREAM_VIDEO" && (
             <div className="space-y-2">
               <Label>{t("aiBuilder.selectVideo")}</Label>
-              {videos.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  {t("aiBuilder.noVideos")}
+              <VideoAssetPicker
+                selectedAssetId={selectedAssetId}
+                onSelect={handleAssetSelect}
+                initialAssets={videoAssets}
+              />
+              {selectedAssetId && selectedAssetStatus === "PROCESSING" && (
+                <p className="text-sm text-amber-600 flex items-center gap-1.5">
+                  <AlertTriangle className="h-3.5 w-3.5" />
+                  {t("media.notReady")}
                 </p>
-              ) : (
-                <Select
-                  value={selectedVideo}
-                  onValueChange={setSelectedVideo}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={t("aiBuilder.selectVideoPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {videos.map((v) => (
-                      <SelectItem key={v.id} value={v.id}>
-                        {v.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               )}
             </div>
           )}
@@ -239,7 +225,7 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
           )}
 
           {/* Notes / context (optional, for VIDEO source) */}
-          {sourceType === "CF_STREAM_VIDEO" && selectedVideo && (
+          {sourceType === "CF_STREAM_VIDEO" && selectedAssetId && (
             <div className="space-y-2">
               <Label>{t("aiBuilder.notes")}</Label>
               <Textarea

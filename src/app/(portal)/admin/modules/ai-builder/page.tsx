@@ -8,27 +8,31 @@ export default async function AiBuilderPage() {
   const ctx = await getTenantContext();
   await requirePermission(ctx.user, "MANAGE_OWN_MODULES");
 
-  // Get all READY video assets from Media Library
+  // Get ALL video assets (including PROCESSING) for the picker
   const videoAssets = await prisma.mediaAsset.findMany({
     where: {
       tenantId: ctx.tenantId,
       type: "VIDEO",
-      status: "READY",
     },
     orderBy: { createdAt: "desc" },
     select: {
       id: true,
       title: true,
+      status: true,
       cfStreamUid: true,
+      durationSeconds: true,
+      _count: { select: { sections: true } },
     },
   });
 
-  const videos = videoAssets
-    .filter((a) => a.cfStreamUid)
-    .map((a) => ({
-      id: a.id,
-      label: a.title,
-    }));
+  const videos = videoAssets.map((a) => ({
+    id: a.id,
+    title: a.title,
+    status: a.status,
+    cfStreamUid: a.cfStreamUid,
+    durationSeconds: a.durationSeconds,
+    usageCount: a._count.sections,
+  }));
 
   // Get recent builds
   const recentBuilds = await prisma.aiModuleBuild.findMany({
@@ -80,7 +84,7 @@ export default async function AiBuilderPage() {
         <p className="text-muted-foreground">{t("aiBuilder.subtitle")}</p>
       </div>
 
-      <AiBuilderForm videos={videos} recentBuilds={buildsWithTitles} />
+      <AiBuilderForm videoAssets={videos} recentBuilds={buildsWithTitles} />
     </div>
   );
 }

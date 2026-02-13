@@ -137,7 +137,6 @@ export const sl = {
     mentorLive: "#mentor v živo",
     mentorLiveNoEvents: "Ni razpisanih terminov",
     radar: "Radar",
-    media: "Video knjižnica",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1375,6 +1374,17 @@ export const sl = {
     renameSave: "Shrani",
     uploadHint: "Izberite video datoteko za nalaganje.",
     uploadProgress: "Nalagam...",
+    // Picker
+    searchPlaceholder: "Išči video...",
+    pickVideo: "Izberite video",
+    uploadNew: "Naloži nov video",
+    titleLabel: "Naslov videa",
+    titlePlaceholder: "Vnesite naslov...",
+    selected: "Izbran",
+    notReady: "Video se še obdeluje",
+    replaceVideo: "Zamenjaj video",
+    pickerTitle: "Izberite video iz knjižnice",
+    orUpload: "ali naložite novega",
   },
 
   // ── AI Builder ──────────────────────────────────────────────────────

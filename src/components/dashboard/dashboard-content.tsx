@@ -232,7 +232,7 @@ export async function DashboardContent({ userId, tenantId, effectiveRole }: Dash
   modulesWithProgress = sortModules(modulesWithProgress, "recommended", companyPinSet, userPinSet);
 
   // Fetch group activity (social feed)
-  const groupActivity = await getRecentGroupCompletions(userId, tenantId);
+  const groupActivity = await getRecentGroupCompletions(userId, tenantId, 5);
 
   // Stats
   const totalModules = modulesWithProgress.length;

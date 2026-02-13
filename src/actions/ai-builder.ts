@@ -53,21 +53,7 @@ export async function startAiBuild(params: {
       },
     });
 
-    // Fire-and-forget: trigger the async pipeline via internal API
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL
-      ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
-    const secret = process.env.CRON_SECRET ?? "";
-
-    void fetch(`${baseUrl}/api/ai-builder/run?buildId=${build.id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${secret}`,
-      },
-    }).catch((err) => {
-      console.error("[ai-builder] Failed to trigger pipeline:", err);
-    });
-
+    // Return buildId — the client will trigger the pipeline via fetch
     return { success: true, data: { buildId: build.id } };
   } catch (e) {
     if (e instanceof ForbiddenError) {

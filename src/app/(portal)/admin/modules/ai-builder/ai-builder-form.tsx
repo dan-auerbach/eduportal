@@ -132,15 +132,20 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
         return;
       }
 
-      // Start polling
+      // Trigger the pipeline from the browser (fire-and-forget POST)
+      // The route handler runs for up to 5 min on Vercel
       const buildId = result.data.buildId;
       setActiveBuildId(buildId);
       setBuildStatus("QUEUED");
       setIsSubmitting(false);
 
-      // Poll immediately, then every 2s
+      fetch(`/api/ai-builder/run?buildId=${buildId}`, { method: "POST" }).catch(
+        () => {}, // ignore — we poll status separately
+      );
+
+      // Poll status every 3s
       pollStatus(buildId);
-      pollingRef.current = setInterval(() => pollStatus(buildId), 2000);
+      pollingRef.current = setInterval(() => pollStatus(buildId), 3000);
     } catch {
       setError(t("aiBuilder.unexpectedError"));
       setIsSubmitting(false);

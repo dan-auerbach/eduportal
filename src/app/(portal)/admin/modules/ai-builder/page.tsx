@@ -8,35 +8,26 @@ export default async function AiBuilderPage() {
   const ctx = await getTenantContext();
   await requirePermission(ctx.user, "MANAGE_OWN_MODULES");
 
-  // Get all sections that have a ready CF Stream video (distinct by cfVideoUid)
-  const videoSections = await prisma.section.findMany({
+  // Get all READY video assets from Media Library
+  const videoAssets = await prisma.mediaAsset.findMany({
     where: {
       tenantId: ctx.tenantId,
-      cloudflareStreamUid: { not: null },
-      videoStatus: "READY",
+      type: "VIDEO",
+      status: "READY",
     },
-    orderBy: { sortOrder: "desc" },
+    orderBy: { createdAt: "desc" },
     select: {
       id: true,
       title: true,
-      cloudflareStreamUid: true,
-      module: {
-        select: { id: true, title: true },
-      },
+      cfStreamUid: true,
     },
   });
 
-  // Deduplicate by cloudflareStreamUid
-  const seen = new Set<string>();
-  const videos = videoSections
-    .filter((s) => {
-      if (!s.cloudflareStreamUid || seen.has(s.cloudflareStreamUid)) return false;
-      seen.add(s.cloudflareStreamUid);
-      return true;
-    })
-    .map((s) => ({
-      uid: s.cloudflareStreamUid!,
-      label: `${s.module.title} → ${s.title}`,
+  const videos = videoAssets
+    .filter((a) => a.cfStreamUid)
+    .map((a) => ({
+      id: a.id,
+      label: a.title,
     }));
 
   // Get recent builds

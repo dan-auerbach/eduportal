@@ -19,7 +19,7 @@ import { startAiBuild } from "@/actions/ai-builder";
 import { t } from "@/lib/i18n";
 
 interface VideoOption {
-  uid: string;
+  id: string;
   label: string;
 }
 
@@ -60,6 +60,7 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
   );
   const [selectedVideo, setSelectedVideo] = useState<string>("");
   const [sourceText, setSourceText] = useState("");
+  const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -118,8 +119,9 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
     try {
       const result = await startAiBuild({
         sourceType,
-        cfVideoUid: sourceType === "CF_STREAM_VIDEO" ? selectedVideo : undefined,
+        mediaAssetId: sourceType === "CF_STREAM_VIDEO" ? selectedVideo : undefined,
         sourceText: sourceType === "TEXT" ? sourceText : undefined,
+        notes: notes.trim() || undefined,
       });
 
       if (!result.success) {
@@ -209,7 +211,7 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {videos.map((v) => (
-                      <SelectItem key={v.uid} value={v.uid}>
+                      <SelectItem key={v.id} value={v.id}>
                         {v.label}
                       </SelectItem>
                     ))}
@@ -233,6 +235,19 @@ export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
               <p className="text-xs text-muted-foreground">
                 {sourceText.length > 0 && `${sourceText.length} ${t("aiBuilder.chars")}`}
               </p>
+            </div>
+          )}
+
+          {/* Notes / context (optional, for VIDEO source) */}
+          {sourceType === "CF_STREAM_VIDEO" && selectedVideo && (
+            <div className="space-y-2">
+              <Label>{t("aiBuilder.notes")}</Label>
+              <Textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder={t("aiBuilder.notesPlaceholder")}
+                rows={3}
+              />
             </div>
           )}
 

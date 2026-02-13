@@ -7,19 +7,22 @@ import { prisma } from "@/lib/prisma";
 /**
  * TUS-compatible proxy endpoint for Cloudflare Stream direct creator uploads.
  *
+ * Supports two modes:
+ * - sectionId: legacy flow (upload to a section)
+ * - mediaAssetId: Media Library flow (upload to a MediaAsset)
+ *
  * tus-js-client sends a POST here with TUS headers (Upload-Length, Upload-Metadata,
  * Tus-Resumable). We proxy that to Cloudflare's API and return the CF upload URL
  * in the Location header. After that, tus-js-client sends PATCH requests directly
  * to Cloudflare — no further requests hit our server.
- *
- * This avoids the CORS issue where tus-js-client sends a HEAD request to the
- * uploadUrl (which Cloudflare doesn't support from browsers).
  */
 export async function POST(request: NextRequest) {
   try {
     const sectionId = request.nextUrl.searchParams.get("sectionId");
-    if (!sectionId) {
-      return new NextResponse("Missing sectionId", { status: 400 });
+    const mediaAssetId = request.nextUrl.searchParams.get("mediaAssetId");
+
+    if (!sectionId && !mediaAssetId) {
+      return new NextResponse("Missing sectionId or mediaAssetId", { status: 400 });
     }
 
     // Authenticate
@@ -29,22 +32,35 @@ export async function POST(request: NextRequest) {
     // Authorize
     const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
     const canManageOwn = await hasPermission(currentUser, "MANAGE_OWN_MODULES");
-    if (!canManageAll && !canManageOwn) {
+    const isAdmin = ["OWNER", "SUPER_ADMIN", "ADMIN"].includes(currentUser.role);
+    if (!canManageAll && !canManageOwn && !isAdmin) {
       return new NextResponse("Forbidden", { status: 403 });
     }
 
-    // Validate section exists & belongs to tenant
-    const section = await prisma.section.findUnique({
-      where: { id: sectionId, tenantId: ctx.tenantId },
-      include: { module: { select: { createdById: true } } },
-    });
+    // Validate targets exist & belong to tenant
+    if (sectionId) {
+      const section = await prisma.section.findUnique({
+        where: { id: sectionId, tenantId: ctx.tenantId },
+        include: { module: { select: { createdById: true } } },
+      });
 
-    if (!section) {
-      return new NextResponse("Section not found", { status: 404 });
+      if (!section) {
+        return new NextResponse("Section not found", { status: 404 });
+      }
+
+      if (!canManageAll && !isAdmin && section.module.createdById !== currentUser.id) {
+        return new NextResponse("Forbidden", { status: 403 });
+      }
     }
 
-    if (!canManageAll && section.module.createdById !== currentUser.id) {
-      return new NextResponse("Forbidden", { status: 403 });
+    if (mediaAssetId) {
+      const asset = await prisma.mediaAsset.findUnique({
+        where: { id: mediaAssetId, tenantId: ctx.tenantId },
+      });
+
+      if (!asset) {
+        return new NextResponse("MediaAsset not found", { status: 404 });
+      }
     }
 
     // Read TUS headers from the client
@@ -90,15 +106,27 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Invalid Cloudflare response", { status: 502 });
     }
 
-    // Save UID to DB so we can track this upload
-    await prisma.section.update({
-      where: { id: sectionId },
-      data: {
-        videoSourceType: "CLOUDFLARE_STREAM",
-        cloudflareStreamUid: uid,
-        videoStatus: "PENDING",
-      },
-    });
+    // Save UID to DB — update MediaAsset and/or Section
+    if (mediaAssetId) {
+      await prisma.mediaAsset.update({
+        where: { id: mediaAssetId },
+        data: {
+          cfStreamUid: uid,
+          status: "PROCESSING",
+        },
+      });
+    }
+
+    if (sectionId) {
+      await prisma.section.update({
+        where: { id: sectionId },
+        data: {
+          videoSourceType: "CLOUDFLARE_STREAM",
+          cloudflareStreamUid: uid,
+          videoStatus: "PENDING",
+        },
+      });
+    }
 
     // Return 201 with Location header — tus-js-client reads the Location
     // and sends subsequent PATCH requests directly to Cloudflare

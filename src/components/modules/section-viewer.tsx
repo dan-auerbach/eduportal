@@ -53,6 +53,7 @@ type SectionData = {
   videoMimeType: string | null;
   cloudflareStreamUid: string | null;
   videoStatus: "PENDING" | "READY" | "ERROR" | null;
+  mediaAssetCfStreamUid: string | null;
   attachments: {
     id: string;
     fileName: string;
@@ -713,8 +714,9 @@ export function SectionViewer({
                       return null;
                     }
 
-                    // Cloudflare Stream video
-                    if (activeSection.videoSourceType === "CLOUDFLARE_STREAM" && activeSection.cloudflareStreamUid) {
+                    // Cloudflare Stream video (prefer MediaAsset, fallback to legacy)
+                    const cfUid = activeSection.mediaAssetCfStreamUid ?? activeSection.cloudflareStreamUid;
+                    if (activeSection.videoSourceType === "CLOUDFLARE_STREAM" && cfUid) {
                       if (activeSection.videoStatus !== "READY") {
                         return (
                           <CfStreamPendingPlayer sectionId={activeSection.id} />
@@ -724,7 +726,7 @@ export function SectionViewer({
                       return (
                         <div className="aspect-video w-full max-h-[45vh] rounded-lg overflow-hidden bg-black">
                           <iframe
-                            src={`https://${subdomain}/${activeSection.cloudflareStreamUid}/iframe`}
+                            src={`https://${subdomain}/${cfUid}/iframe`}
                             title={activeSection.title}
                             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
                             allowFullScreen

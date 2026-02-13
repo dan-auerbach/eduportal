@@ -53,16 +53,28 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Build already started" }, { status: 409 });
   }
 
-  // Run the pipeline (don't await in response — but Vercel will keep function alive for maxDuration)
+  // Resolve cfStreamUid: prefer MediaAsset, fallback to legacy cfVideoUid
+  let cfStreamUid = build.cfVideoUid;
+  if (build.mediaAssetId) {
+    const asset = await prisma.mediaAsset.findUnique({
+      where: { id: build.mediaAssetId },
+      select: { cfStreamUid: true },
+    });
+    if (asset?.cfStreamUid) {
+      cfStreamUid = asset.cfStreamUid;
+    }
+  }
+
+  // Run the pipeline
   try {
     let transcript = build.sourceText ?? "";
 
     // ── Step A: Get audio from CF Stream (if video source) ──────────
-    if (build.sourceType === "CF_STREAM_VIDEO" && build.cfVideoUid) {
+    if (build.sourceType === "CF_STREAM_VIDEO" && cfStreamUid) {
       await updateBuild(buildId, { status: "TRANSCRIBING" });
 
-      console.log(`[ai-builder] Getting audio download URL for ${build.cfVideoUid}`);
-      const audioUrl = await getAudioDownloadUrl(build.cfVideoUid);
+      console.log(`[ai-builder] Getting audio download URL for ${cfStreamUid}`);
+      const audioUrl = await getAudioDownloadUrl(cfStreamUid);
       console.log(`[ai-builder] Audio URL ready: ${audioUrl.slice(0, 80)}...`);
 
       // ── Step B: Transcribe with Soniox ──────────────────────────────
@@ -105,8 +117,27 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 2. Create sections
-      // First section: Key Takeaways
+      let sortOrder = 0;
+
+      // 2. If video source, create VIDEO section with mediaAssetId (first section)
+      if (build.sourceType === "CF_STREAM_VIDEO" && cfStreamUid) {
+        await tx.section.create({
+          data: {
+            moduleId: module.id,
+            tenantId: build.tenantId,
+            title: build.language === "sl" ? "Video" : "Video",
+            content: "",
+            type: "VIDEO",
+            sortOrder: sortOrder++,
+            videoSourceType: "CLOUDFLARE_STREAM",
+            cloudflareStreamUid: cfStreamUid,
+            videoStatus: "READY",
+            mediaAssetId: build.mediaAssetId ?? undefined,
+          },
+        });
+      }
+
+      // 3. Key Takeaways section
       const takeawaysHtml = `<h3>${build.language === "sl" ? "Ključne ugotovitve" : "Key Takeaways"}</h3><ul>${aiOutput.keyTakeaways.map((t) => `<li>${sanitizeHtml(t)}</li>`).join("")}</ul>`;
 
       await tx.section.create({
@@ -116,11 +147,11 @@ export async function POST(request: NextRequest) {
           title: build.language === "sl" ? "Ključne ugotovitve" : "Key Takeaways",
           content: takeawaysHtml,
           type: "TEXT",
-          sortOrder: 0,
+          sortOrder: sortOrder++,
         },
       });
 
-      // Content sections
+      // 4. Content sections
       for (let i = 0; i < aiOutput.sections.length; i++) {
         const section = aiOutput.sections[i];
         await tx.section.create({
@@ -130,12 +161,12 @@ export async function POST(request: NextRequest) {
             title: section.title,
             content: sanitizeHtml(section.content),
             type: "TEXT",
-            sortOrder: i + 1,
+            sortOrder: sortOrder++,
           },
         });
       }
 
-      // 3. Create quiz
+      // 5. Create quiz
       const quiz = await tx.quiz.create({
         data: {
           moduleId: module.id,
@@ -147,7 +178,7 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 4. Create quiz questions
+      // 6. Create quiz questions
       for (let i = 0; i < aiOutput.quiz.questions.length; i++) {
         const q = aiOutput.quiz.questions[i];
         const correctCount = q.options.filter((o) => o.isCorrect).length;

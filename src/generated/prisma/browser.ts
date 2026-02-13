@@ -227,3 +227,8 @@ export type EmailPreference = Prisma.EmailPreferenceModel
  * 
  */
 export type AiModuleBuild = Prisma.AiModuleBuildModel
+/**
+ * Model MediaAsset
+ * 
+ */
+export type MediaAsset = Prisma.MediaAssetModel

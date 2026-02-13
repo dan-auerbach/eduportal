@@ -59,6 +59,7 @@ model Tenant {
   radarPosts           MentorRadarPost[]
   radarSeen            RadarSeen[]
   aiModuleBuilds       AiModuleBuild[]
+  mediaAssets          MediaAsset[]
 
   // Email templates (owner-configurable, plain text with {placeholder} vars)
   emailInviteSubject   String?
@@ -153,6 +154,7 @@ model User {
   emailTokens        EmailToken[]
   emailPreferences   EmailPreference[]
   aiModuleBuilds     AiModuleBuild[]    @relation("AiBuildCreator")
+  mediaAssets        MediaAsset[]       @relation("MediaAssetCreator")
 
   @@index([role, isActive])
 }
@@ -349,9 +351,12 @@ model Section {
   // Cloudflare Stream fields
   cloudflareStreamUid  String?
   videoStatus          VideoStatus?
+  // Media Library reference
+  mediaAssetId         String?
 
   module             Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  mediaAsset         MediaAsset?         @relation(fields: [mediaAssetId], references: [id])
   unlockAfterSection Section?            @relation("SectionUnlock", fields: [unlockAfterSectionId], references: [id])
   unlockedSections   Section[]           @relation("SectionUnlock")
   attachments        Attachment[]
@@ -359,6 +364,7 @@ model Section {
 
   @@index([moduleId, sortOrder])
   @@index([tenantId])
+  @@index([mediaAssetId])
 }
 
 enum VideoSourceType {
@@ -900,6 +906,7 @@ enum AuditAction {
   PASSWORD_RESET_COMPLETED
   INVITE_SENT
   INVITE_ACCEPTED
+  MEDIA_DELETED
 }
 
 // ============================================
@@ -1111,7 +1118,8 @@ model AiModuleBuild {
   tenantId        String
   createdById     String
   sourceType      String   // "CF_STREAM_VIDEO" | "TEXT"
-  cfVideoUid      String?  // Cloudflare Stream UID
+  cfVideoUid      String?  // Cloudflare Stream UID (legacy)
+  mediaAssetId    String?  // MediaAsset reference
   sourceText      String?  @db.Text  // transcript or pasted text
   language        String   @default("sl")
   status          String   @default("QUEUED") // QUEUED | TRANSCRIBING | GENERATING | DONE | FAILED
@@ -1126,5 +1134,48 @@ model AiModuleBuild {
   createdBy User   @relation("AiBuildCreator", fields: [createdById], references: [id])
 
   @@index([tenantId, createdAt])
+  @@index([createdById])
+}
+
+// ============================================
+// MEDIA LIBRARY
+// ============================================
+
+enum MediaAssetType {
+  VIDEO
+}
+
+enum MediaAssetStatus {
+  PROCESSING
+  READY
+  FAILED
+}
+
+enum MediaProvider {
+  CLOUDFLARE_STREAM
+}
+
+model MediaAsset {
+  id              String           @id @default(cuid())
+  tenantId        String
+  createdById     String
+  type            MediaAssetType   @default(VIDEO)
+  status          MediaAssetStatus @default(PROCESSING)
+  provider        MediaProvider    @default(CLOUDFLARE_STREAM)
+  title           String           @default("Video")
+  cfStreamUid     String?
+  mimeType        String?
+  sizeBytes       BigInt?
+  durationSeconds Int?
+  lastError       String?          @db.Text
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy User     @relation("MediaAssetCreator", fields: [createdById], references: [id])
+  sections  Section[]
+
+  @@unique([tenantId, cfStreamUid])
+  @@index([tenantId, type, status])
   @@index([createdById])
 }

@@ -52,6 +52,11 @@ export default async function ModuleViewerPage({
               mimeType: true,
             },
           },
+          mediaAsset: {
+            select: {
+              cfStreamUid: true,
+            },
+          },
         },
       },
       mentors: {
@@ -125,6 +130,7 @@ export default async function ModuleViewerPage({
     cloudflareStreamUid: s.cloudflareStreamUid,
     videoStatus: s.videoStatus,
     attachments: s.attachments,
+    mediaAssetCfStreamUid: s.mediaAsset?.cfStreamUid ?? null,
   }));
 
   // Load quiz data for sidebar (only quizzes that have questions)

@@ -425,7 +425,8 @@ export const ModelName = {
   RadarSave: 'RadarSave',
   EmailToken: 'EmailToken',
   EmailPreference: 'EmailPreference',
-  AiModuleBuild: 'AiModuleBuild'
+  AiModuleBuild: 'AiModuleBuild',
+  MediaAsset: 'MediaAsset'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -441,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference" | "aiModuleBuild"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference" | "aiModuleBuild" | "mediaAsset"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3553,6 +3554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MediaAsset: {
+      payload: Prisma.$MediaAssetPayload<ExtArgs>
+      fields: Prisma.MediaAssetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MediaAssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MediaAssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findFirst: {
+          args: Prisma.MediaAssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MediaAssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findMany: {
+          args: Prisma.MediaAssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        create: {
+          args: Prisma.MediaAssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        createMany: {
+          args: Prisma.MediaAssetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MediaAssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        delete: {
+          args: Prisma.MediaAssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        update: {
+          args: Prisma.MediaAssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        deleteMany: {
+          args: Prisma.MediaAssetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MediaAssetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MediaAssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        upsert: {
+          args: Prisma.MediaAssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        aggregate: {
+          args: Prisma.MediaAssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMediaAsset>
+        }
+        groupBy: {
+          args: Prisma.MediaAssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MediaAssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3735,7 +3810,8 @@ export const SectionScalarFieldEnum = {
   videoSize: 'videoSize',
   videoFileName: 'videoFileName',
   cloudflareStreamUid: 'cloudflareStreamUid',
-  videoStatus: 'videoStatus'
+  videoStatus: 'videoStatus',
+  mediaAssetId: 'mediaAssetId'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -4144,6 +4220,7 @@ export const AiModuleBuildScalarFieldEnum = {
   createdById: 'createdById',
   sourceType: 'sourceType',
   cfVideoUid: 'cfVideoUid',
+  mediaAssetId: 'mediaAssetId',
   sourceText: 'sourceText',
   language: 'language',
   status: 'status',
@@ -4156,6 +4233,26 @@ export const AiModuleBuildScalarFieldEnum = {
 } as const
 
 export type AiModuleBuildScalarFieldEnum = (typeof AiModuleBuildScalarFieldEnum)[keyof typeof AiModuleBuildScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  createdById: 'createdById',
+  type: 'type',
+  status: 'status',
+  provider: 'provider',
+  title: 'title',
+  cfStreamUid: 'cfStreamUid',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationSeconds: 'durationSeconds',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -4526,6 +4623,62 @@ export type EnumEmailTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumEmailTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmailTokenType[]'>
     
 
+
+/**
+ * Reference to a field of type 'MediaAssetType'
+ */
+export type EnumMediaAssetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaAssetType'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaAssetType[]'
+ */
+export type ListEnumMediaAssetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaAssetType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaAssetStatus'
+ */
+export type EnumMediaAssetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaAssetStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaAssetStatus[]'
+ */
+export type ListEnumMediaAssetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaAssetStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaProvider'
+ */
+export type EnumMediaProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'MediaProvider[]'
+ */
+export type ListEnumMediaProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaProvider[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4663,6 +4816,7 @@ export type GlobalOmitConfig = {
   emailToken?: Prisma.EmailTokenOmit
   emailPreference?: Prisma.EmailPreferenceOmit
   aiModuleBuild?: Prisma.AiModuleBuildOmit
+  mediaAsset?: Prisma.MediaAssetOmit
 }
 
 /* Types for Logging */

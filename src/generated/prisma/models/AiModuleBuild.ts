@@ -30,6 +30,7 @@ export type AiModuleBuildMinAggregateOutputType = {
   createdById: string | null
   sourceType: string | null
   cfVideoUid: string | null
+  mediaAssetId: string | null
   sourceText: string | null
   language: string | null
   status: string | null
@@ -46,6 +47,7 @@ export type AiModuleBuildMaxAggregateOutputType = {
   createdById: string | null
   sourceType: string | null
   cfVideoUid: string | null
+  mediaAssetId: string | null
   sourceText: string | null
   language: string | null
   status: string | null
@@ -62,6 +64,7 @@ export type AiModuleBuildCountAggregateOutputType = {
   createdById: number
   sourceType: number
   cfVideoUid: number
+  mediaAssetId: number
   sourceText: number
   language: number
   status: number
@@ -81,6 +84,7 @@ export type AiModuleBuildMinAggregateInputType = {
   createdById?: true
   sourceType?: true
   cfVideoUid?: true
+  mediaAssetId?: true
   sourceText?: true
   language?: true
   status?: true
@@ -97,6 +101,7 @@ export type AiModuleBuildMaxAggregateInputType = {
   createdById?: true
   sourceType?: true
   cfVideoUid?: true
+  mediaAssetId?: true
   sourceText?: true
   language?: true
   status?: true
@@ -113,6 +118,7 @@ export type AiModuleBuildCountAggregateInputType = {
   createdById?: true
   sourceType?: true
   cfVideoUid?: true
+  mediaAssetId?: true
   sourceText?: true
   language?: true
   status?: true
@@ -203,6 +209,7 @@ export type AiModuleBuildGroupByOutputType = {
   createdById: string
   sourceType: string
   cfVideoUid: string | null
+  mediaAssetId: string | null
   sourceText: string | null
   language: string
   status: string
@@ -241,6 +248,7 @@ export type AiModuleBuildWhereInput = {
   createdById?: Prisma.StringFilter<"AiModuleBuild"> | string
   sourceType?: Prisma.StringFilter<"AiModuleBuild"> | string
   cfVideoUid?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
+  mediaAssetId?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   sourceText?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   language?: Prisma.StringFilter<"AiModuleBuild"> | string
   status?: Prisma.StringFilter<"AiModuleBuild"> | string
@@ -260,6 +268,7 @@ export type AiModuleBuildOrderByWithRelationInput = {
   createdById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   cfVideoUid?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceText?: Prisma.SortOrderInput | Prisma.SortOrder
   language?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -282,6 +291,7 @@ export type AiModuleBuildWhereUniqueInput = Prisma.AtLeast<{
   createdById?: Prisma.StringFilter<"AiModuleBuild"> | string
   sourceType?: Prisma.StringFilter<"AiModuleBuild"> | string
   cfVideoUid?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
+  mediaAssetId?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   sourceText?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   language?: Prisma.StringFilter<"AiModuleBuild"> | string
   status?: Prisma.StringFilter<"AiModuleBuild"> | string
@@ -301,6 +311,7 @@ export type AiModuleBuildOrderByWithAggregationInput = {
   createdById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   cfVideoUid?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceText?: Prisma.SortOrderInput | Prisma.SortOrder
   language?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -324,6 +335,7 @@ export type AiModuleBuildScalarWhereWithAggregatesInput = {
   createdById?: Prisma.StringWithAggregatesFilter<"AiModuleBuild"> | string
   sourceType?: Prisma.StringWithAggregatesFilter<"AiModuleBuild"> | string
   cfVideoUid?: Prisma.StringNullableWithAggregatesFilter<"AiModuleBuild"> | string | null
+  mediaAssetId?: Prisma.StringNullableWithAggregatesFilter<"AiModuleBuild"> | string | null
   sourceText?: Prisma.StringNullableWithAggregatesFilter<"AiModuleBuild"> | string | null
   language?: Prisma.StringWithAggregatesFilter<"AiModuleBuild"> | string
   status?: Prisma.StringWithAggregatesFilter<"AiModuleBuild"> | string
@@ -339,6 +351,7 @@ export type AiModuleBuildCreateInput = {
   id?: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -358,6 +371,7 @@ export type AiModuleBuildUncheckedCreateInput = {
   createdById: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -373,6 +387,7 @@ export type AiModuleBuildUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -392,6 +407,7 @@ export type AiModuleBuildUncheckedUpdateInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -409,6 +425,7 @@ export type AiModuleBuildCreateManyInput = {
   createdById: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -424,6 +441,7 @@ export type AiModuleBuildUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -441,6 +459,7 @@ export type AiModuleBuildUncheckedUpdateManyInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -468,6 +487,7 @@ export type AiModuleBuildCountOrderByAggregateInput = {
   createdById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   cfVideoUid?: Prisma.SortOrder
+  mediaAssetId?: Prisma.SortOrder
   sourceText?: Prisma.SortOrder
   language?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -485,6 +505,7 @@ export type AiModuleBuildMaxOrderByAggregateInput = {
   createdById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   cfVideoUid?: Prisma.SortOrder
+  mediaAssetId?: Prisma.SortOrder
   sourceText?: Prisma.SortOrder
   language?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -501,6 +522,7 @@ export type AiModuleBuildMinOrderByAggregateInput = {
   createdById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   cfVideoUid?: Prisma.SortOrder
+  mediaAssetId?: Prisma.SortOrder
   sourceText?: Prisma.SortOrder
   language?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -599,6 +621,7 @@ export type AiModuleBuildCreateWithoutTenantInput = {
   id?: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -616,6 +639,7 @@ export type AiModuleBuildUncheckedCreateWithoutTenantInput = {
   createdById: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -662,6 +686,7 @@ export type AiModuleBuildScalarWhereInput = {
   createdById?: Prisma.StringFilter<"AiModuleBuild"> | string
   sourceType?: Prisma.StringFilter<"AiModuleBuild"> | string
   cfVideoUid?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
+  mediaAssetId?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   sourceText?: Prisma.StringNullableFilter<"AiModuleBuild"> | string | null
   language?: Prisma.StringFilter<"AiModuleBuild"> | string
   status?: Prisma.StringFilter<"AiModuleBuild"> | string
@@ -677,6 +702,7 @@ export type AiModuleBuildCreateWithoutCreatedByInput = {
   id?: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -694,6 +720,7 @@ export type AiModuleBuildUncheckedCreateWithoutCreatedByInput = {
   tenantId: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -736,6 +763,7 @@ export type AiModuleBuildCreateManyTenantInput = {
   createdById: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -751,6 +779,7 @@ export type AiModuleBuildUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -768,6 +797,7 @@ export type AiModuleBuildUncheckedUpdateWithoutTenantInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -784,6 +814,7 @@ export type AiModuleBuildUncheckedUpdateManyWithoutTenantInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -800,6 +831,7 @@ export type AiModuleBuildCreateManyCreatedByInput = {
   tenantId: string
   sourceType: string
   cfVideoUid?: string | null
+  mediaAssetId?: string | null
   sourceText?: string | null
   language?: string
   status?: string
@@ -815,6 +847,7 @@ export type AiModuleBuildUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -832,6 +865,7 @@ export type AiModuleBuildUncheckedUpdateWithoutCreatedByInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -848,6 +882,7 @@ export type AiModuleBuildUncheckedUpdateManyWithoutCreatedByInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.StringFieldUpdateOperationsInput | string
   cfVideoUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -867,6 +902,7 @@ export type AiModuleBuildSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdById?: boolean
   sourceType?: boolean
   cfVideoUid?: boolean
+  mediaAssetId?: boolean
   sourceText?: boolean
   language?: boolean
   status?: boolean
@@ -886,6 +922,7 @@ export type AiModuleBuildSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdById?: boolean
   sourceType?: boolean
   cfVideoUid?: boolean
+  mediaAssetId?: boolean
   sourceText?: boolean
   language?: boolean
   status?: boolean
@@ -905,6 +942,7 @@ export type AiModuleBuildSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdById?: boolean
   sourceType?: boolean
   cfVideoUid?: boolean
+  mediaAssetId?: boolean
   sourceText?: boolean
   language?: boolean
   status?: boolean
@@ -924,6 +962,7 @@ export type AiModuleBuildSelectScalar = {
   createdById?: boolean
   sourceType?: boolean
   cfVideoUid?: boolean
+  mediaAssetId?: boolean
   sourceText?: boolean
   language?: boolean
   status?: boolean
@@ -935,7 +974,7 @@ export type AiModuleBuildSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AiModuleBuildOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "createdById" | "sourceType" | "cfVideoUid" | "sourceText" | "language" | "status" | "error" | "aiStructured" | "sonioxJobId" | "createdModuleId" | "createdAt" | "updatedAt", ExtArgs["result"]["aiModuleBuild"]>
+export type AiModuleBuildOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "createdById" | "sourceType" | "cfVideoUid" | "mediaAssetId" | "sourceText" | "language" | "status" | "error" | "aiStructured" | "sonioxJobId" | "createdModuleId" | "createdAt" | "updatedAt", ExtArgs["result"]["aiModuleBuild"]>
 export type AiModuleBuildInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -961,6 +1000,7 @@ export type $AiModuleBuildPayload<ExtArgs extends runtime.Types.Extensions.Inter
     createdById: string
     sourceType: string
     cfVideoUid: string | null
+    mediaAssetId: string | null
     sourceText: string | null
     language: string
     status: string
@@ -1400,6 +1440,7 @@ export interface AiModuleBuildFieldRefs {
   readonly createdById: Prisma.FieldRef<"AiModuleBuild", 'String'>
   readonly sourceType: Prisma.FieldRef<"AiModuleBuild", 'String'>
   readonly cfVideoUid: Prisma.FieldRef<"AiModuleBuild", 'String'>
+  readonly mediaAssetId: Prisma.FieldRef<"AiModuleBuild", 'String'>
   readonly sourceText: Prisma.FieldRef<"AiModuleBuild", 'String'>
   readonly language: Prisma.FieldRef<"AiModuleBuild", 'String'>
   readonly status: Prisma.FieldRef<"AiModuleBuild", 'String'>

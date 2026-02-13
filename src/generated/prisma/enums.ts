@@ -194,7 +194,8 @@ export const AuditAction = {
   PASSWORD_RESET_REQUESTED: 'PASSWORD_RESET_REQUESTED',
   PASSWORD_RESET_COMPLETED: 'PASSWORD_RESET_COMPLETED',
   INVITE_SENT: 'INVITE_SENT',
-  INVITE_ACCEPTED: 'INVITE_ACCEPTED'
+  INVITE_ACCEPTED: 'INVITE_ACCEPTED',
+  MEDIA_DELETED: 'MEDIA_DELETED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -226,3 +227,26 @@ export const EmailTokenType = {
 } as const
 
 export type EmailTokenType = (typeof EmailTokenType)[keyof typeof EmailTokenType]
+
+
+export const MediaAssetType = {
+  VIDEO: 'VIDEO'
+} as const
+
+export type MediaAssetType = (typeof MediaAssetType)[keyof typeof MediaAssetType]
+
+
+export const MediaAssetStatus = {
+  PROCESSING: 'PROCESSING',
+  READY: 'READY',
+  FAILED: 'FAILED'
+} as const
+
+export type MediaAssetStatus = (typeof MediaAssetStatus)[keyof typeof MediaAssetStatus]
+
+
+export const MediaProvider = {
+  CLOUDFLARE_STREAM: 'CLOUDFLARE_STREAM'
+} as const
+
+export type MediaProvider = (typeof MediaProvider)[keyof typeof MediaProvider]

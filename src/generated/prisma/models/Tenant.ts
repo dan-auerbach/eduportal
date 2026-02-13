@@ -290,6 +290,7 @@ export type TenantWhereInput = {
   radarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
   aiModuleBuilds?: Prisma.AiModuleBuildListRelationFilter
+  mediaAssets?: Prisma.MediaAssetListRelationFilter
   emailTokens?: Prisma.EmailTokenListRelationFilter
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }
@@ -345,6 +346,7 @@ export type TenantOrderByWithRelationInput = {
   radarPosts?: Prisma.MentorRadarPostOrderByRelationAggregateInput
   radarSeen?: Prisma.RadarSeenOrderByRelationAggregateInput
   aiModuleBuilds?: Prisma.AiModuleBuildOrderByRelationAggregateInput
+  mediaAssets?: Prisma.MediaAssetOrderByRelationAggregateInput
   emailTokens?: Prisma.EmailTokenOrderByRelationAggregateInput
   emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
 }
@@ -403,6 +405,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   radarPosts?: Prisma.MentorRadarPostListRelationFilter
   radarSeen?: Prisma.RadarSeenListRelationFilter
   aiModuleBuilds?: Prisma.AiModuleBuildListRelationFilter
+  mediaAssets?: Prisma.MediaAssetListRelationFilter
   emailTokens?: Prisma.EmailTokenListRelationFilter
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }, "id" | "slug">
@@ -498,6 +501,7 @@ export type TenantCreateInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -553,6 +557,7 @@ export type TenantUncheckedCreateInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -608,6 +613,7 @@ export type TenantUpdateInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -663,6 +669,7 @@ export type TenantUncheckedUpdateInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -1341,6 +1348,20 @@ export type TenantUpdateOneRequiredWithoutAiModuleBuildsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutAiModuleBuildsInput, Prisma.TenantUpdateWithoutAiModuleBuildsInput>, Prisma.TenantUncheckedUpdateWithoutAiModuleBuildsInput>
 }
 
+export type TenantCreateNestedOneWithoutMediaAssetsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutMediaAssetsInput, Prisma.TenantUncheckedCreateWithoutMediaAssetsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutMediaAssetsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutMediaAssetsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutMediaAssetsInput, Prisma.TenantUncheckedCreateWithoutMediaAssetsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutMediaAssetsInput
+  upsert?: Prisma.TenantUpsertWithoutMediaAssetsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutMediaAssetsInput, Prisma.TenantUpdateWithoutMediaAssetsInput>, Prisma.TenantUncheckedUpdateWithoutMediaAssetsInput>
+}
+
 export type TenantCreateWithoutMembershipsInput = {
   id?: string
   name: string
@@ -1391,6 +1412,7 @@ export type TenantCreateWithoutMembershipsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -1445,6 +1467,7 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -1515,6 +1538,7 @@ export type TenantUpdateWithoutMembershipsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -1569,6 +1593,7 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -1623,6 +1648,7 @@ export type TenantCreateWithoutUserPermissionsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -1677,6 +1703,7 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -1747,6 +1774,7 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -1801,6 +1829,7 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -1855,6 +1884,7 @@ export type TenantCreateWithoutGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -1909,6 +1939,7 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -1979,6 +2010,7 @@ export type TenantUpdateWithoutGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2033,6 +2065,7 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2087,6 +2120,7 @@ export type TenantCreateWithoutUserGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2141,6 +2175,7 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2211,6 +2246,7 @@ export type TenantUpdateWithoutUserGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2265,6 +2301,7 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2319,6 +2356,7 @@ export type TenantCreateWithoutModulesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2373,6 +2411,7 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2443,6 +2482,7 @@ export type TenantUpdateWithoutModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2497,6 +2537,7 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2551,6 +2592,7 @@ export type TenantCreateWithoutModuleGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2605,6 +2647,7 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2675,6 +2718,7 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2729,6 +2773,7 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2783,6 +2828,7 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2837,6 +2883,7 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2907,6 +2954,7 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2961,6 +3009,7 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3015,6 +3064,7 @@ export type TenantCreateWithoutSectionsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3069,6 +3119,7 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3139,6 +3190,7 @@ export type TenantUpdateWithoutSectionsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3193,6 +3245,7 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3247,6 +3300,7 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3301,6 +3355,7 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3371,6 +3426,7 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3425,6 +3481,7 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3479,6 +3536,7 @@ export type TenantCreateWithoutModuleAccessesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3533,6 +3591,7 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3603,6 +3662,7 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3657,6 +3717,7 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3711,6 +3772,7 @@ export type TenantCreateWithoutAttachmentsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3765,6 +3827,7 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3835,6 +3898,7 @@ export type TenantUpdateWithoutAttachmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3889,6 +3953,7 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3943,6 +4008,7 @@ export type TenantCreateWithoutQuizzesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3997,6 +4063,7 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4067,6 +4134,7 @@ export type TenantUpdateWithoutQuizzesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4121,6 +4189,7 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4175,6 +4244,7 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4229,6 +4299,7 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4299,6 +4370,7 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4353,6 +4425,7 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4407,6 +4480,7 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4461,6 +4535,7 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4531,6 +4606,7 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4585,6 +4661,7 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4639,6 +4716,7 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4693,6 +4771,7 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4763,6 +4842,7 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4817,6 +4897,7 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4871,6 +4952,7 @@ export type TenantCreateWithoutProgressOverridesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4925,6 +5007,7 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4995,6 +5078,7 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5049,6 +5133,7 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5103,6 +5188,7 @@ export type TenantCreateWithoutCertificatesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5157,6 +5243,7 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5227,6 +5314,7 @@ export type TenantUpdateWithoutCertificatesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5281,6 +5369,7 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5335,6 +5424,7 @@ export type TenantCreateWithoutCommentsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5389,6 +5479,7 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5459,6 +5550,7 @@ export type TenantUpdateWithoutCommentsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5513,6 +5605,7 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5567,6 +5660,7 @@ export type TenantCreateWithoutNotificationsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5621,6 +5715,7 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5691,6 +5786,7 @@ export type TenantUpdateWithoutNotificationsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5745,6 +5841,7 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5799,6 +5896,7 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5853,6 +5951,7 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5923,6 +6022,7 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5977,6 +6077,7 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6031,6 +6132,7 @@ export type TenantCreateWithoutCategoriesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6085,6 +6187,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6155,6 +6258,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6209,6 +6313,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6263,6 +6368,7 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6317,6 +6423,7 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6387,6 +6494,7 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6441,6 +6549,7 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6495,6 +6604,7 @@ export type TenantCreateWithoutTagsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6549,6 +6659,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6619,6 +6730,7 @@ export type TenantUpdateWithoutTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6673,6 +6785,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6727,6 +6840,7 @@ export type TenantCreateWithoutModuleTagsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6781,6 +6895,7 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6851,6 +6966,7 @@ export type TenantUpdateWithoutModuleTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6905,6 +7021,7 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6959,6 +7076,7 @@ export type TenantCreateWithoutModuleMentorsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7013,6 +7131,7 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7083,6 +7202,7 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7137,6 +7257,7 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7191,6 +7312,7 @@ export type TenantCreateWithoutChangeLogsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7245,6 +7367,7 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7315,6 +7438,7 @@ export type TenantUpdateWithoutChangeLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7369,6 +7493,7 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7423,6 +7548,7 @@ export type TenantCreateWithoutModuleReviewsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7477,6 +7603,7 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7547,6 +7674,7 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7601,6 +7729,7 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7655,6 +7784,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7709,6 +7839,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7779,6 +7910,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7833,6 +7965,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7887,6 +8020,7 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7941,6 +8075,7 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8011,6 +8146,7 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8065,6 +8201,7 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8119,6 +8256,7 @@ export type TenantCreateWithoutChatMessagesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8173,6 +8311,7 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8243,6 +8382,7 @@ export type TenantUpdateWithoutChatMessagesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8297,6 +8437,7 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8351,6 +8492,7 @@ export type TenantCreateWithoutLiveEventsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8405,6 +8547,7 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8475,6 +8618,7 @@ export type TenantUpdateWithoutLiveEventsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8529,6 +8673,7 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8583,6 +8728,7 @@ export type TenantCreateWithoutLiveEventGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8637,6 +8783,7 @@ export type TenantUncheckedCreateWithoutLiveEventGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8707,6 +8854,7 @@ export type TenantUpdateWithoutLiveEventGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8761,6 +8909,7 @@ export type TenantUncheckedUpdateWithoutLiveEventGroupsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8815,6 +8964,7 @@ export type TenantCreateWithoutSessionsInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8869,6 +9019,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8939,6 +9090,7 @@ export type TenantUpdateWithoutSessionsInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8993,6 +9145,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9047,6 +9200,7 @@ export type TenantCreateWithoutRadarPostsInput = {
   liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9101,6 +9255,7 @@ export type TenantUncheckedCreateWithoutRadarPostsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9171,6 +9326,7 @@ export type TenantUpdateWithoutRadarPostsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9225,6 +9381,7 @@ export type TenantUncheckedUpdateWithoutRadarPostsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9279,6 +9436,7 @@ export type TenantCreateWithoutRadarSeenInput = {
   liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9333,6 +9491,7 @@ export type TenantUncheckedCreateWithoutRadarSeenInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9403,6 +9562,7 @@ export type TenantUpdateWithoutRadarSeenInput = {
   liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9457,6 +9617,7 @@ export type TenantUncheckedUpdateWithoutRadarSeenInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9512,6 +9673,7 @@ export type TenantCreateWithoutEmailTokensInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
@@ -9566,6 +9728,7 @@ export type TenantUncheckedCreateWithoutEmailTokensInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -9636,6 +9799,7 @@ export type TenantUpdateWithoutEmailTokensInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
@@ -9690,6 +9854,7 @@ export type TenantUncheckedUpdateWithoutEmailTokensInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
@@ -9744,6 +9909,7 @@ export type TenantCreateWithoutEmailPreferencesInput = {
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
 }
 
@@ -9798,6 +9964,7 @@ export type TenantUncheckedCreateWithoutEmailPreferencesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -9868,6 +10035,7 @@ export type TenantUpdateWithoutEmailPreferencesInput = {
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
 }
 
@@ -9922,6 +10090,7 @@ export type TenantUncheckedUpdateWithoutEmailPreferencesInput = {
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
 }
 
@@ -9975,6 +10144,7 @@ export type TenantCreateWithoutAiModuleBuildsInput = {
   liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -10029,6 +10199,7 @@ export type TenantUncheckedCreateWithoutAiModuleBuildsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
   radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
   radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -10099,6 +10270,7 @@ export type TenantUpdateWithoutAiModuleBuildsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -10153,6 +10325,243 @@ export type TenantUncheckedUpdateWithoutAiModuleBuildsInput = {
   liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
   radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
   radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutMediaAssetsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutMediaAssetsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutMediaAssetsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutMediaAssetsInput, Prisma.TenantUncheckedCreateWithoutMediaAssetsInput>
+}
+
+export type TenantUpsertWithoutMediaAssetsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutMediaAssetsInput, Prisma.TenantUncheckedUpdateWithoutMediaAssetsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutMediaAssetsInput, Prisma.TenantUncheckedCreateWithoutMediaAssetsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutMediaAssetsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutMediaAssetsInput, Prisma.TenantUncheckedUpdateWithoutMediaAssetsInput>
+}
+
+export type TenantUpdateWithoutMediaAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutMediaAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -10199,6 +10608,7 @@ export type TenantCountOutputType = {
   radarPosts: number
   radarSeen: number
   aiModuleBuilds: number
+  mediaAssets: number
   emailTokens: number
   emailPreferences: number
 }
@@ -10240,6 +10650,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   radarPosts?: boolean | TenantCountOutputTypeCountRadarPostsArgs
   radarSeen?: boolean | TenantCountOutputTypeCountRadarSeenArgs
   aiModuleBuilds?: boolean | TenantCountOutputTypeCountAiModuleBuildsArgs
+  mediaAssets?: boolean | TenantCountOutputTypeCountMediaAssetsArgs
   emailTokens?: boolean | TenantCountOutputTypeCountEmailTokensArgs
   emailPreferences?: boolean | TenantCountOutputTypeCountEmailPreferencesArgs
 }
@@ -10509,6 +10920,13 @@ export type TenantCountOutputTypeCountAiModuleBuildsArgs<ExtArgs extends runtime
 /**
  * TenantCountOutputType without action
  */
+export type TenantCountOutputTypeCountMediaAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MediaAssetWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
 export type TenantCountOutputTypeCountEmailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EmailTokenWhereInput
 }
@@ -10572,6 +10990,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.Tenant$radarSeenArgs<ExtArgs>
   aiModuleBuilds?: boolean | Prisma.Tenant$aiModuleBuildsArgs<ExtArgs>
+  mediaAssets?: boolean | Prisma.Tenant$mediaAssetsArgs<ExtArgs>
   emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
   emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
@@ -10666,6 +11085,7 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   radarPosts?: boolean | Prisma.Tenant$radarPostsArgs<ExtArgs>
   radarSeen?: boolean | Prisma.Tenant$radarSeenArgs<ExtArgs>
   aiModuleBuilds?: boolean | Prisma.Tenant$aiModuleBuildsArgs<ExtArgs>
+  mediaAssets?: boolean | Prisma.Tenant$mediaAssetsArgs<ExtArgs>
   emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
   emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
@@ -10712,6 +11132,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     radarPosts: Prisma.$MentorRadarPostPayload<ExtArgs>[]
     radarSeen: Prisma.$RadarSeenPayload<ExtArgs>[]
     aiModuleBuilds: Prisma.$AiModuleBuildPayload<ExtArgs>[]
+    mediaAssets: Prisma.$MediaAssetPayload<ExtArgs>[]
     emailTokens: Prisma.$EmailTokenPayload<ExtArgs>[]
     emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
   }
@@ -11160,6 +11581,7 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   radarPosts<T extends Prisma.Tenant$radarPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$radarPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorRadarPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   radarSeen<T extends Prisma.Tenant$radarSeenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$radarSeenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RadarSeenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiModuleBuilds<T extends Prisma.Tenant$aiModuleBuildsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$aiModuleBuildsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiModuleBuildPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mediaAssets<T extends Prisma.Tenant$mediaAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$mediaAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailTokens<T extends Prisma.Tenant$emailTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailPreferences<T extends Prisma.Tenant$emailPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -12454,6 +12876,30 @@ export type Tenant$aiModuleBuildsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.AiModuleBuildScalarFieldEnum | Prisma.AiModuleBuildScalarFieldEnum[]
+}
+
+/**
+ * Tenant.mediaAssets
+ */
+export type Tenant$mediaAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
+  orderBy?: Prisma.MediaAssetOrderByWithRelationInput | Prisma.MediaAssetOrderByWithRelationInput[]
+  cursor?: Prisma.MediaAssetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MediaAssetScalarFieldEnum | Prisma.MediaAssetScalarFieldEnum[]
 }
 
 /**

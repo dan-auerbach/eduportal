@@ -92,7 +92,8 @@ export const ModelName = {
   RadarSave: 'RadarSave',
   EmailToken: 'EmailToken',
   EmailPreference: 'EmailPreference',
-  AiModuleBuild: 'AiModuleBuild'
+  AiModuleBuild: 'AiModuleBuild',
+  MediaAsset: 'MediaAsset'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -254,7 +255,8 @@ export const SectionScalarFieldEnum = {
   videoSize: 'videoSize',
   videoFileName: 'videoFileName',
   cloudflareStreamUid: 'cloudflareStreamUid',
-  videoStatus: 'videoStatus'
+  videoStatus: 'videoStatus',
+  mediaAssetId: 'mediaAssetId'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -663,6 +665,7 @@ export const AiModuleBuildScalarFieldEnum = {
   createdById: 'createdById',
   sourceType: 'sourceType',
   cfVideoUid: 'cfVideoUid',
+  mediaAssetId: 'mediaAssetId',
   sourceText: 'sourceText',
   language: 'language',
   status: 'status',
@@ -675,6 +678,26 @@ export const AiModuleBuildScalarFieldEnum = {
 } as const
 
 export type AiModuleBuildScalarFieldEnum = (typeof AiModuleBuildScalarFieldEnum)[keyof typeof AiModuleBuildScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  createdById: 'createdById',
+  type: 'type',
+  status: 'status',
+  provider: 'provider',
+  title: 'title',
+  cfStreamUid: 'cfStreamUid',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationSeconds: 'durationSeconds',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -137,6 +137,7 @@ export const sl = {
     mentorLive: "#mentor v živo",
     mentorLiveNoEvents: "Ni razpisanih terminov",
     radar: "Radar",
+    media: "Video knjižnica",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1343,6 +1344,39 @@ export const sl = {
     muted: "Izključeno",
   },
 
+  // ── Media Library ───────────────────────────────────────────────────
+  media: {
+    title: "Video knjižnica",
+    subtitle: "Upravljajte z videi, ki jih lahko uporabite v znanjih.",
+    uploadVideo: "Naloži video",
+    noVideos: "Še ni videov. Naložite prvi video.",
+    rename: "Preimenuj",
+    preview: "Predogled",
+    delete: "Zbriši",
+    deleteConfirm: "Res želite zbrisati ta video? Tega dejanja ni mogoče razveljaviti.",
+    deleteTitle: "Zbriši video",
+    inUse: "V uporabi v {count} sekcijah",
+    cannotDelete: "Ni mogoče zbrisati videa, ki je v uporabi.",
+    ownerOnly: "Samo lastnik lahko briše videe.",
+    notFound: "Video ni bil najden.",
+    forbidden: "Nimate pravic za to dejanje.",
+    titleRequired: "Naslov je obvezen.",
+    statusProcessing: "Obdelava",
+    statusReady: "Pripravljen",
+    statusFailed: "Napaka",
+    videoTitle: "Naslov",
+    videoStatus: "Status",
+    videoDuration: "Trajanje",
+    videoDate: "Datum",
+    videoAuthor: "Avtor",
+    videoUsage: "V uporabi",
+    renameTitle: "Preimenuj video",
+    renameLabel: "Nov naslov",
+    renameSave: "Shrani",
+    uploadHint: "Izberite video datoteko za nalaganje.",
+    uploadProgress: "Nalagam...",
+  },
+
   // ── AI Builder ──────────────────────────────────────────────────────
   aiBuilder: {
     title: "AI znanje",
@@ -1352,7 +1386,7 @@ export const sl = {
     sourceText: "Besedilo",
     selectVideo: "Izberite video",
     selectVideoPlaceholder: "Izberite video...",
-    noVideos: "Ni naloženih videov. Najprej naložite video v sekcijo znanja.",
+    noVideos: "Ni naloženih videov. Najprej naložite video v knjižnico.",
     pasteText: "Prilepite besedilo",
     pasteTextPlaceholder: "Prilepite transkripcijo, zapiske ali drugo besedilo (najmanj 50 znakov)...",
     chars: "znakov",
@@ -1368,6 +1402,8 @@ export const sl = {
     doneHint: "Vaše znanje je pripravljeno kot osnutek. Preglejte in objavite.",
     editDraft: "Uredi osnutek",
     recentBuilds: "Zadnje generacije",
+    notes: "Opombe / kontekst",
+    notesPlaceholder: "Opišite vsaj 3 ključne teme ali cilje, ki naj jih AI uporabi pri generiranju znanja...",
   },
 
   // ── Email Templates (tenant settings) ─────────────────────────────

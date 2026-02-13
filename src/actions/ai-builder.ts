@@ -12,15 +12,16 @@ import type { ActionResult } from "@/types";
 // ---------------------------------------------------------------------------
 export async function startAiBuild(params: {
   sourceType: "CF_STREAM_VIDEO" | "TEXT";
-  cfVideoUid?: string;
+  mediaAssetId?: string;
   sourceText?: string;
+  notes?: string;
 }): Promise<ActionResult<{ buildId: string }>> {
   try {
     const currentUser = await getCurrentUser();
     const ctx = await getTenantContext();
     await requirePermission(currentUser, "MANAGE_OWN_MODULES");
 
-    // Rate limit: 3 per hour per user
+    // Rate limit
     const rl = await rateLimitAiBuild(currentUser.id);
     if (!rl.success) {
       return {
@@ -29,11 +30,27 @@ export async function startAiBuild(params: {
       };
     }
 
+    let cfVideoUid: string | null = null;
+    let mediaAssetId: string | null = null;
+
     // Validate inputs
     if (params.sourceType === "CF_STREAM_VIDEO") {
-      if (!params.cfVideoUid) {
+      if (!params.mediaAssetId) {
         return { success: false, error: "Video je obvezen za ta vir." };
       }
+
+      // Lookup cfStreamUid from MediaAsset
+      const asset = await prisma.mediaAsset.findUnique({
+        where: { id: params.mediaAssetId, tenantId: ctx.tenantId },
+        select: { cfStreamUid: true },
+      });
+
+      if (!asset?.cfStreamUid) {
+        return { success: false, error: "Video ni bil najden ali ni pripravljen." };
+      }
+
+      cfVideoUid = asset.cfStreamUid;
+      mediaAssetId = params.mediaAssetId;
     } else if (params.sourceType === "TEXT") {
       if (!params.sourceText?.trim()) {
         return { success: false, error: "Besedilo je obvezno za ta vir." };
@@ -46,7 +63,8 @@ export async function startAiBuild(params: {
         tenantId: ctx.tenantId,
         createdById: currentUser.id,
         sourceType: params.sourceType,
-        cfVideoUid: params.cfVideoUid ?? null,
+        cfVideoUid,
+        mediaAssetId,
         sourceText: params.sourceType === "TEXT" ? params.sourceText ?? null : null,
         language: ctx.tenantLocale ?? "sl",
         status: "QUEUED",

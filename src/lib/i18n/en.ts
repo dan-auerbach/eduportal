@@ -137,6 +137,7 @@ export const en = {
     mentorLive: "#mentor live",
     mentorLiveNoEvents: "No scheduled events",
     radar: "Radar",
+    media: "Video Library",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1329,6 +1330,39 @@ export const en = {
     muted: "Off",
   },
 
+  // ── Media Library ───────────────────────────────────────────────────
+  media: {
+    title: "Video Library",
+    subtitle: "Manage videos that can be used in knowledge modules.",
+    uploadVideo: "Upload video",
+    noVideos: "No videos yet. Upload your first video.",
+    rename: "Rename",
+    preview: "Preview",
+    delete: "Delete",
+    deleteConfirm: "Are you sure you want to delete this video? This action cannot be undone.",
+    deleteTitle: "Delete video",
+    inUse: "In use in {count} sections",
+    cannotDelete: "Cannot delete a video that is in use.",
+    ownerOnly: "Only the owner can delete videos.",
+    notFound: "Video not found.",
+    forbidden: "You do not have permission for this action.",
+    titleRequired: "Title is required.",
+    statusProcessing: "Processing",
+    statusReady: "Ready",
+    statusFailed: "Failed",
+    videoTitle: "Title",
+    videoStatus: "Status",
+    videoDuration: "Duration",
+    videoDate: "Date",
+    videoAuthor: "Author",
+    videoUsage: "In use",
+    renameTitle: "Rename video",
+    renameLabel: "New title",
+    renameSave: "Save",
+    uploadHint: "Select a video file to upload.",
+    uploadProgress: "Uploading...",
+  },
+
   // ── AI Builder ──────────────────────────────────────────────────────
   aiBuilder: {
     title: "AI Knowledge",
@@ -1338,7 +1372,7 @@ export const en = {
     sourceText: "Text",
     selectVideo: "Select video",
     selectVideoPlaceholder: "Select a video...",
-    noVideos: "No uploaded videos. First upload a video to a knowledge section.",
+    noVideos: "No uploaded videos. First upload a video to the library.",
     pasteText: "Paste text",
     pasteTextPlaceholder: "Paste a transcript, notes, or other text (minimum 50 characters)...",
     chars: "characters",
@@ -1354,6 +1388,8 @@ export const en = {
     doneHint: "Your knowledge is ready as a draft. Review and publish it.",
     editDraft: "Edit draft",
     recentBuilds: "Recent generations",
+    notes: "Notes / context",
+    notesPlaceholder: "Describe at least 3 key topics or goals that AI should use when generating knowledge...",
   },
 
   // ── Email Templates (tenant settings) ─────────────────────────────

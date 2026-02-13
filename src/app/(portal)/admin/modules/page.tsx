@@ -13,7 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus } from "lucide-react";
+import { Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
@@ -98,21 +98,37 @@ export default async function AdminModulesPage({
         </div>
         {moduleLimitReached ? (
           <div className="flex flex-col items-end gap-1">
-            <Button disabled>
-              <Plus className="mr-2 h-4 w-4" />
-              {t("admin.modules.createModule")}
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" asChild>
+                <Link href="/admin/modules/ai-builder">
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  {t("admin.modules.aiModule")}
+                </Link>
+              </Button>
+              <Button disabled>
+                <Plus className="mr-2 h-4 w-4" />
+                {t("admin.modules.createModule")}
+              </Button>
+            </div>
             <p className="text-xs text-muted-foreground max-w-[250px] text-right">
               {t("limit.modules")}
             </p>
           </div>
         ) : (
-          <Button asChild>
-            <Link href="/admin/modules/new/edit">
-              <Plus className="mr-2 h-4 w-4" />
-              {t("admin.modules.createModule")}
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <Link href="/admin/modules/ai-builder">
+                <Sparkles className="mr-2 h-4 w-4" />
+                {t("admin.modules.aiModule")}
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link href="/admin/modules/new/edit">
+                <Plus className="mr-2 h-4 w-4" />
+                {t("admin.modules.createModule")}
+              </Link>
+            </Button>
+          </div>
         )}
       </div>
       {moduleLimitReached && (

@@ -424,7 +424,8 @@ export const ModelName = {
   RadarSeen: 'RadarSeen',
   RadarSave: 'RadarSave',
   EmailToken: 'EmailToken',
-  EmailPreference: 'EmailPreference'
+  EmailPreference: 'EmailPreference',
+  AiModuleBuild: 'AiModuleBuild'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -440,7 +441,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference" | "aiModuleBuild"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3478,6 +3479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AiModuleBuild: {
+      payload: Prisma.$AiModuleBuildPayload<ExtArgs>
+      fields: Prisma.AiModuleBuildFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AiModuleBuildFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AiModuleBuildFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        findFirst: {
+          args: Prisma.AiModuleBuildFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AiModuleBuildFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        findMany: {
+          args: Prisma.AiModuleBuildFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>[]
+        }
+        create: {
+          args: Prisma.AiModuleBuildCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        createMany: {
+          args: Prisma.AiModuleBuildCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AiModuleBuildCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>[]
+        }
+        delete: {
+          args: Prisma.AiModuleBuildDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        update: {
+          args: Prisma.AiModuleBuildUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        deleteMany: {
+          args: Prisma.AiModuleBuildDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AiModuleBuildUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AiModuleBuildUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>[]
+        }
+        upsert: {
+          args: Prisma.AiModuleBuildUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiModuleBuildPayload>
+        }
+        aggregate: {
+          args: Prisma.AiModuleBuildAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAiModuleBuild>
+        }
+        groupBy: {
+          args: Prisma.AiModuleBuildGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiModuleBuildGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AiModuleBuildCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiModuleBuildCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4063,6 +4138,26 @@ export const EmailPreferenceScalarFieldEnum = {
 export type EmailPreferenceScalarFieldEnum = (typeof EmailPreferenceScalarFieldEnum)[keyof typeof EmailPreferenceScalarFieldEnum]
 
 
+export const AiModuleBuildScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  createdById: 'createdById',
+  sourceType: 'sourceType',
+  cfVideoUid: 'cfVideoUid',
+  sourceText: 'sourceText',
+  language: 'language',
+  status: 'status',
+  error: 'error',
+  aiStructured: 'aiStructured',
+  sonioxJobId: 'sonioxJobId',
+  createdModuleId: 'createdModuleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiModuleBuildScalarFieldEnum = (typeof AiModuleBuildScalarFieldEnum)[keyof typeof AiModuleBuildScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4567,6 +4662,7 @@ export type GlobalOmitConfig = {
   radarSave?: Prisma.RadarSaveOmit
   emailToken?: Prisma.EmailTokenOmit
   emailPreference?: Prisma.EmailPreferenceOmit
+  aiModuleBuild?: Prisma.AiModuleBuildOmit
 }
 
 /* Types for Logging */

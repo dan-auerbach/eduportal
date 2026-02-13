@@ -222,3 +222,8 @@ export type EmailToken = Prisma.EmailTokenModel
  * 
  */
 export type EmailPreference = Prisma.EmailPreferenceModel
+/**
+ * Model AiModuleBuild
+ * 
+ */
+export type AiModuleBuild = Prisma.AiModuleBuildModel

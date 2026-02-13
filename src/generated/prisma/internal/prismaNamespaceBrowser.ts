@@ -91,7 +91,8 @@ export const ModelName = {
   RadarSeen: 'RadarSeen',
   RadarSave: 'RadarSave',
   EmailToken: 'EmailToken',
-  EmailPreference: 'EmailPreference'
+  EmailPreference: 'EmailPreference',
+  AiModuleBuild: 'AiModuleBuild'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -654,6 +655,26 @@ export const EmailPreferenceScalarFieldEnum = {
 } as const
 
 export type EmailPreferenceScalarFieldEnum = (typeof EmailPreferenceScalarFieldEnum)[keyof typeof EmailPreferenceScalarFieldEnum]
+
+
+export const AiModuleBuildScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  createdById: 'createdById',
+  sourceType: 'sourceType',
+  cfVideoUid: 'cfVideoUid',
+  sourceText: 'sourceText',
+  language: 'language',
+  status: 'status',
+  error: 'error',
+  aiStructured: 'aiStructured',
+  sonioxJobId: 'sonioxJobId',
+  createdModuleId: 'createdModuleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiModuleBuildScalarFieldEnum = (typeof AiModuleBuildScalarFieldEnum)[keyof typeof AiModuleBuildScalarFieldEnum]
 
 
 export const SortOrder = {

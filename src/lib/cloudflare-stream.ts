@@ -86,6 +86,47 @@ export async function getStreamVideoStatus(
 }
 
 /**
+ * Get a public audio-only (M4A) download URL for a Cloudflare Stream video.
+ * Triggers generation if not already available, then polls until ready.
+ */
+export async function getAudioDownloadUrl(uid: string): Promise<string> {
+  const accountId = getAccountId();
+  const token = getApiToken();
+  const headers = { Authorization: `Bearer ${token}` };
+
+  // Trigger audio download generation (409 if already exists — fine)
+  await fetch(`${CF_API_BASE}/${accountId}/stream/${uid}/downloads/audio`, {
+    method: "POST",
+    headers,
+  });
+
+  // Poll for ready URL (max 2 minutes)
+  const deadline = Date.now() + 120_000;
+
+  while (Date.now() < deadline) {
+    const res = await fetch(
+      `${CF_API_BASE}/${accountId}/stream/${uid}/downloads`,
+      { headers },
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const downloads: any[] = data.result ?? [];
+      for (const dl of downloads) {
+        if (dl.format === "m4a" && dl.status === "ready" && dl.url) {
+          return dl.url as string;
+        }
+      }
+    }
+
+    await new Promise((r) => setTimeout(r, 3_000));
+  }
+
+  throw new Error("Audio download URL not ready within timeout");
+}
+
+/**
  * Delete a video from Cloudflare Stream.
  */
 export async function deleteCloudflareStreamVideo(uid: string): Promise<void> {

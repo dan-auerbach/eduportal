@@ -1,0 +1,362 @@
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Loader2, Sparkles, Video, FileText, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { startAiBuild } from "@/actions/ai-builder";
+import { t } from "@/lib/i18n";
+
+interface VideoOption {
+  uid: string;
+  label: string;
+}
+
+interface RecentBuild {
+  id: string;
+  sourceType: string;
+  status: string;
+  error: string | null;
+  createdModuleId: string | null;
+  createdAt: string;
+  moduleTitle: string | null;
+}
+
+interface AiBuilderFormProps {
+  videos: VideoOption[];
+  recentBuilds: RecentBuild[];
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  QUEUED: "aiBuilder.statusQueued",
+  TRANSCRIBING: "aiBuilder.statusTranscribing",
+  GENERATING: "aiBuilder.statusGenerating",
+  DONE: "aiBuilder.statusDone",
+  FAILED: "aiBuilder.statusFailed",
+};
+
+const STATUS_BADGE: Record<string, string> = {
+  QUEUED: "bg-blue-100 text-blue-800 border-blue-200",
+  TRANSCRIBING: "bg-blue-100 text-blue-800 border-blue-200",
+  GENERATING: "bg-purple-100 text-purple-800 border-purple-200",
+  DONE: "bg-green-100 text-green-800 border-green-200",
+  FAILED: "bg-red-100 text-red-800 border-red-200",
+};
+
+export function AiBuilderForm({ videos, recentBuilds }: AiBuilderFormProps) {
+  const [sourceType, setSourceType] = useState<"CF_STREAM_VIDEO" | "TEXT">(
+    videos.length > 0 ? "CF_STREAM_VIDEO" : "TEXT",
+  );
+  const [selectedVideo, setSelectedVideo] = useState<string>("");
+  const [sourceText, setSourceText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Active build polling
+  const [activeBuildId, setActiveBuildId] = useState<string | null>(null);
+  const [buildStatus, setBuildStatus] = useState<string | null>(null);
+  const [buildModuleId, setBuildModuleId] = useState<string | null>(null);
+  const [buildError, setBuildError] = useState<string | null>(null);
+  const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Poll for build status
+  const pollStatus = useCallback(async (buildId: string) => {
+    try {
+      const res = await fetch(`/api/ai-builder/status?buildId=${buildId}`);
+      if (!res.ok) return;
+
+      const data = await res.json();
+      setBuildStatus(data.status);
+
+      if (data.status === "DONE") {
+        setBuildModuleId(data.createdModuleId);
+        if (pollingRef.current) {
+          clearInterval(pollingRef.current);
+          pollingRef.current = null;
+        }
+      }
+
+      if (data.status === "FAILED") {
+        setBuildError(data.error);
+        if (pollingRef.current) {
+          clearInterval(pollingRef.current);
+          pollingRef.current = null;
+        }
+      }
+    } catch {
+      // ignore polling errors
+    }
+  }, []);
+
+  // Clean up polling on unmount
+  useEffect(() => {
+    return () => {
+      if (pollingRef.current) {
+        clearInterval(pollingRef.current);
+      }
+    };
+  }, []);
+
+  const handleSubmit = async () => {
+    setError(null);
+    setBuildError(null);
+    setBuildModuleId(null);
+    setBuildStatus(null);
+    setIsSubmitting(true);
+
+    try {
+      const result = await startAiBuild({
+        sourceType,
+        cfVideoUid: sourceType === "CF_STREAM_VIDEO" ? selectedVideo : undefined,
+        sourceText: sourceType === "TEXT" ? sourceText : undefined,
+      });
+
+      if (!result.success) {
+        if (result.error === "RATE_LIMIT") {
+          setError(t("aiBuilder.rateLimitError"));
+        } else {
+          setError(result.error);
+        }
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Start polling
+      const buildId = result.data.buildId;
+      setActiveBuildId(buildId);
+      setBuildStatus("QUEUED");
+      setIsSubmitting(false);
+
+      // Poll immediately, then every 2s
+      pollStatus(buildId);
+      pollingRef.current = setInterval(() => pollStatus(buildId), 2000);
+    } catch {
+      setError(t("aiBuilder.unexpectedError"));
+      setIsSubmitting(false);
+    }
+  };
+
+  const isProcessing =
+    buildStatus !== null &&
+    buildStatus !== "DONE" &&
+    buildStatus !== "FAILED";
+
+  const canSubmit =
+    !isSubmitting &&
+    !isProcessing &&
+    (sourceType === "CF_STREAM_VIDEO" ? !!selectedVideo : sourceText.trim().length > 50);
+
+  return (
+    <div className="space-y-6">
+      {/* Source picker */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">{t("aiBuilder.sourceTitle")}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Source type toggle */}
+          <div className="flex gap-2">
+            <Button
+              variant={sourceType === "CF_STREAM_VIDEO" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSourceType("CF_STREAM_VIDEO")}
+              disabled={videos.length === 0}
+            >
+              <Video className="mr-2 h-4 w-4" />
+              {t("aiBuilder.sourceVideo")}
+            </Button>
+            <Button
+              variant={sourceType === "TEXT" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSourceType("TEXT")}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              {t("aiBuilder.sourceText")}
+            </Button>
+          </div>
+
+          {/* Video picker */}
+          {sourceType === "CF_STREAM_VIDEO" && (
+            <div className="space-y-2">
+              <Label>{t("aiBuilder.selectVideo")}</Label>
+              {videos.length === 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  {t("aiBuilder.noVideos")}
+                </p>
+              ) : (
+                <Select
+                  value={selectedVideo}
+                  onValueChange={setSelectedVideo}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={t("aiBuilder.selectVideoPlaceholder")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {videos.map((v) => (
+                      <SelectItem key={v.uid} value={v.uid}>
+                        {v.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
+          )}
+
+          {/* Text input */}
+          {sourceType === "TEXT" && (
+            <div className="space-y-2">
+              <Label>{t("aiBuilder.pasteText")}</Label>
+              <Textarea
+                value={sourceText}
+                onChange={(e) => setSourceText(e.target.value)}
+                placeholder={t("aiBuilder.pasteTextPlaceholder")}
+                rows={8}
+                className="font-mono text-xs"
+              />
+              <p className="text-xs text-muted-foreground">
+                {sourceText.length > 0 && `${sourceText.length} ${t("aiBuilder.chars")}`}
+              </p>
+            </div>
+          )}
+
+          {/* Submit */}
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={handleSubmit}
+              disabled={!canSubmit}
+              size="lg"
+            >
+              {isSubmitting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-2 h-4 w-4" />
+              )}
+              {t("aiBuilder.generate")}
+            </Button>
+
+            {error && (
+              <p className="text-sm text-destructive">{error}</p>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Active build status */}
+      {buildStatus && (
+        <Card>
+          <CardContent className="py-6">
+            <div className="flex flex-col items-center gap-4 text-center">
+              {isProcessing && (
+                <>
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  <div>
+                    <p className="font-semibold">
+                      {t(STATUS_LABELS[buildStatus] ?? "aiBuilder.statusQueued")}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t("aiBuilder.processingHint")}
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {buildStatus === "DONE" && buildModuleId && (
+                <>
+                  <CheckCircle2 className="h-8 w-8 text-green-600" />
+                  <div>
+                    <p className="font-semibold text-green-700">
+                      {t("aiBuilder.statusDone")}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t("aiBuilder.doneHint")}
+                    </p>
+                  </div>
+                  <Button asChild>
+                    <Link href={`/admin/modules/${buildModuleId}/edit`}>
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      {t("aiBuilder.editDraft")}
+                    </Link>
+                  </Button>
+                </>
+              )}
+
+              {buildStatus === "FAILED" && (
+                <>
+                  <XCircle className="h-8 w-8 text-destructive" />
+                  <div>
+                    <p className="font-semibold text-destructive">
+                      {t("aiBuilder.statusFailed")}
+                    </p>
+                    {buildError && (
+                      <p className="text-sm text-muted-foreground mt-1 max-w-md">
+                        {buildError}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Recent builds */}
+      {recentBuilds.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">{t("aiBuilder.recentBuilds")}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {recentBuilds.map((build) => (
+                <div
+                  key={build.id}
+                  className="flex items-center justify-between rounded-md border px-3 py-2 text-sm"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Badge
+                      variant="outline"
+                      className={STATUS_BADGE[build.status] ?? ""}
+                    >
+                      {t(STATUS_LABELS[build.status] ?? "aiBuilder.statusQueued")}
+                    </Badge>
+                    <span className="text-muted-foreground truncate">
+                      {build.moduleTitle ??
+                        (build.sourceType === "CF_STREAM_VIDEO"
+                          ? t("aiBuilder.sourceVideo")
+                          : t("aiBuilder.sourceText"))}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(build.createdAt).toLocaleDateString()}
+                    </span>
+                    {build.status === "DONE" && build.createdModuleId && (
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/admin/modules/${build.createdModuleId}/edit`}>
+                          {t("aiBuilder.editDraft")}
+                        </Link>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}

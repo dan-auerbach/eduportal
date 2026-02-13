@@ -58,6 +58,7 @@ model Tenant {
   liveEventGroups      LiveEventGroup[]
   radarPosts           MentorRadarPost[]
   radarSeen            RadarSeen[]
+  aiModuleBuilds       AiModuleBuild[]
 
   // Email templates (owner-configurable, plain text with {placeholder} vars)
   emailInviteSubject   String?
@@ -151,6 +152,7 @@ model User {
   radarSaves         RadarSave[]
   emailTokens        EmailToken[]
   emailPreferences   EmailPreference[]
+  aiModuleBuilds     AiModuleBuild[]    @relation("AiBuildCreator")
 
   @@index([role, isActive])
 }
@@ -1098,4 +1100,31 @@ model EmailPreference {
 
   @@unique([userId, tenantId])
   @@index([tenantId])
+}
+
+// ============================================
+// AI MODULE BUILDER
+// ============================================
+
+model AiModuleBuild {
+  id              String   @id @default(cuid())
+  tenantId        String
+  createdById     String
+  sourceType      String   // "CF_STREAM_VIDEO" | "TEXT"
+  cfVideoUid      String?  // Cloudflare Stream UID
+  sourceText      String?  @db.Text  // transcript or pasted text
+  language        String   @default("sl")
+  status          String   @default("QUEUED") // QUEUED | TRANSCRIBING | GENERATING | DONE | FAILED
+  error           String?  @db.Text
+  aiStructured    Json?    // validated Claude output
+  sonioxJobId     String?  // Soniox transcription ID
+  createdModuleId String?  // FK to created Module
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tenant    Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy User   @relation("AiBuildCreator", fields: [createdById], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([createdById])
 }

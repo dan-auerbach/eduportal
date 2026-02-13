@@ -156,3 +156,8 @@ export async function rateLimitLogin(email: string): Promise<RateLimitResult> {
 export async function rateLimitRadarPost(userId: string): Promise<RateLimitResult> {
   return rateLimit(`radar:post:${userId}`, 5, 24 * 60 * 60_000);
 }
+
+/** AI module build: 3 per hour per user */
+export async function rateLimitAiBuild(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`ai:build:${userId}`, 3, 60 * 60_000);
+}

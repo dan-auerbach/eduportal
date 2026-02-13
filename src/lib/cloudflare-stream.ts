@@ -101,6 +101,7 @@ export async function getAudioDownloadUrl(uid: string): Promise<string> {
   });
 
   // Poll for ready URL (max 2 minutes)
+  // CF response: { result: { audio: { status, url, percentComplete } } }
   const deadline = Date.now() + 120_000;
 
   while (Date.now() < deadline) {
@@ -111,13 +112,15 @@ export async function getAudioDownloadUrl(uid: string): Promise<string> {
 
     if (res.ok) {
       const data = await res.json();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const downloads: any[] = data.result ?? [];
-      for (const dl of downloads) {
-        if (dl.format === "m4a" && dl.status === "ready" && dl.url) {
-          return dl.url as string;
-        }
+      const result = data.result ?? {};
+
+      // result is an object with keys like "audio", "default" — not an array
+      const audio = result.audio ?? result.default;
+      if (audio && audio.status === "ready" && audio.url) {
+        return audio.url as string;
       }
+
+      console.log(`[cf-stream] Audio download status: ${audio?.status ?? "unknown"}, ${audio?.percentComplete ?? 0}%`);
     }
 
     await new Promise((r) => setTimeout(r, 3_000));

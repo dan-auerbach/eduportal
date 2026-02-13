@@ -82,21 +82,20 @@ export async function transcribeAudio(
     console.log(`[soniox] Status: ${status.status}`);
   }
 
-  // Step 3: Get transcript tokens and join into text
+  // Step 3: Get transcript — use top-level 'text' field (full transcript)
   const transcript = await sonioxFetch(
     `/transcriptions/${transcriptionId}/transcript`,
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const tokens: any[] = transcript.tokens ?? [];
-  const text = tokens.map((t) => t.text ?? "").join("");
+  // Soniox returns { id, text, tokens[] } — use 'text' directly
+  const text: string = transcript.text ?? "";
 
   if (!text.trim()) {
     throw new Error("Soniox returned empty transcript");
   }
 
   console.log(
-    `[soniox] Transcription complete: ${text.length} chars, ${tokens.length} tokens`,
+    `[soniox] Transcription complete: ${text.length} chars`,
   );
 
   return text.trim();

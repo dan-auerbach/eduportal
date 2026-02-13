@@ -119,6 +119,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ skipped: true, reason: "no new commits" });
   }
 
+  // ── Determine language from primary tenant ─────────────────────────────────
+  const primaryTenant = await prisma.tenant.findFirst({
+    where: { archivedAt: null },
+    orderBy: { createdAt: "asc" },
+    select: { locale: true },
+  });
+  const locale = primaryTenant?.locale ?? "en";
+  const langName = locale === "sl" ? "Slovenian" : "English";
+
   // ── Generate changelog via Claude ──────────────────────────────────────────
   const anthropicKey = (process.env.ANTHROPIC_API_KEY ?? "").trim();
   if (!anthropicKey) {
@@ -137,12 +146,13 @@ export async function POST(req: NextRequest) {
         role: "user",
         content: `You are generating a changelog entry for "Mentor", an LMS (Learning Management System) web platform.
 
-Given these recent git commits, write a user-facing changelog entry in English.
+Given these recent git commits, write a user-facing changelog entry in ${langName}.
 
 Rules:
 - Respond with EXACTLY two lines: first line is the title, second line is the summary
 - Title: short, max 10 words, describes the main theme of changes
 - Summary: 1-3 sentences, written for end-users (not developers), plain language
+- Write EVERYTHING in ${langName}
 - Ignore commits about internal refactoring, CI/CD, code cleanup, dependencies
 - Focus on features, improvements, and bug fixes users would notice
 - If ALL commits are purely internal/non-user-facing, respond with exactly: SKIP

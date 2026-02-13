@@ -3,11 +3,10 @@ import { getTenantContext } from "@/lib/tenant";
 import { t } from "@/lib/i18n";
 import { format } from "date-fns";
 import { getDateLocale } from "@/lib/i18n/date-locale";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Megaphone } from "lucide-react";
 import { AddUpdateForm } from "./add-update-form";
-import { DeleteUpdateButton } from "./delete-update-button";
+import { UpdatesList, type DayGroup, type UpdateEntry } from "./updates-list";
 
 export default async function UpdatesPage() {
   const ctx = await getTenantContext();
@@ -27,8 +26,42 @@ export default async function UpdatesPage() {
     },
   });
 
-  const currentEntry = entries.find((e) => e.isCurrent);
-  const previousEntries = entries.filter((e) => !e.isCurrent);
+  // Group entries by local date (Europe/Ljubljana)
+  const dateLocale = getDateLocale();
+  const groupMap = new Map<string, DayGroup>();
+
+  for (const entry of entries) {
+    const d = new Date(entry.createdAt);
+    const dateKey = format(d, "yyyy-MM-dd", { locale: dateLocale });
+
+    if (!groupMap.has(dateKey)) {
+      groupMap.set(dateKey, {
+        date: dateKey,
+        formattedDate: format(d, "d. MMMM yyyy", { locale: dateLocale }),
+        entries: [],
+        hasCurrentEntry: false,
+      });
+    }
+
+    const group = groupMap.get(dateKey)!;
+
+    const item: UpdateEntry = {
+      id: entry.id,
+      version: entry.version,
+      title: entry.title,
+      summary: entry.summary,
+      isCurrent: entry.isCurrent,
+      time: format(d, "HH:mm", { locale: dateLocale }),
+    };
+
+    group.entries.push(item);
+
+    if (entry.isCurrent) {
+      group.hasCurrentEntry = true;
+    }
+  }
+
+  const groups = Array.from(groupMap.values());
 
   return (
     <div className="space-y-6">
@@ -48,61 +81,7 @@ export default async function UpdatesPage() {
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-6">
-          {/* Current version */}
-          {currentEntry && (
-            <div className="space-y-2">
-              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                {t("updates.currentVersion")}
-              </h2>
-              <div className="rounded-lg border-2 border-primary/20 bg-primary/[0.02] p-4">
-                <div className="flex items-start gap-3">
-                  <Badge className="shrink-0 mt-0.5">{t("updates.currentVersion")}</Badge>
-                  <p className="text-sm flex-1">
-                    <span className="font-mono text-xs text-muted-foreground mr-2">
-                      {format(new Date(currentEntry.createdAt), "yyyy-MM-dd HH:mm", { locale: getDateLocale() })}
-                    </span>
-                    <span className="font-semibold mr-1">{currentEntry.version}</span>
-                    <span className="text-muted-foreground mx-1">—</span>
-                    <span className="font-medium mr-1">{currentEntry.title}</span>
-                    <span className="text-muted-foreground mx-1">—</span>
-                    <span>{currentEntry.summary}</span>
-                  </p>
-                  {isOwner && <DeleteUpdateButton entryId={currentEntry.id} />}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Previous updates */}
-          {previousEntries.length > 0 && (
-            <div className="space-y-2">
-              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                {t("updates.previousUpdates")}
-              </h2>
-              <div className="space-y-1">
-                {previousEntries.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="rounded-md border px-4 py-3 text-sm flex items-start gap-3"
-                  >
-                    <p className="flex-1">
-                      <span className="font-mono text-xs text-muted-foreground mr-2">
-                        {format(new Date(entry.createdAt), "yyyy-MM-dd HH:mm", { locale: getDateLocale() })}
-                      </span>
-                      <span className="font-semibold mr-1">{entry.version}</span>
-                      <span className="text-muted-foreground mx-1">—</span>
-                      <span className="font-medium mr-1">{entry.title}</span>
-                      <span className="text-muted-foreground mx-1">—</span>
-                      <span className="text-muted-foreground">{entry.summary}</span>
-                    </p>
-                    {isOwner && <DeleteUpdateButton entryId={entry.id} />}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <UpdatesList groups={groups} isOwner={isOwner} />
       )}
     </div>
   );

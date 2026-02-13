@@ -375,44 +375,37 @@ export function VideoAssetPicker({
                             setOpen(false);
                           }
                         }}
-                        className={`w-full flex items-center gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors
+                        className={`w-full rounded-md px-3 py-2 text-left text-sm transition-colors
                           ${isSelected ? "bg-primary/10 border border-primary/20" : "hover:bg-muted/50"}
                           ${!isReady ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
                       >
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium truncate">
-                              {asset.title}
-                            </span>
-                            {isSelected && (
-                              <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            {formatDuration(asset.durationSeconds) && (
-                              <span className="text-xs text-muted-foreground">
-                                {formatDuration(asset.durationSeconds)}
-                              </span>
-                            )}
-                            {asset.usageCount > 0 && (
-                              <span className="text-xs text-muted-foreground">
-                                {t("media.inUse").replace(
-                                  "{count}",
-                                  String(asset.usageCount),
-                                )}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <Badge
-                          variant="outline"
-                          className={`shrink-0 text-xs ${STATUS_BADGE[asset.status] ?? ""}`}
-                        >
-                          {asset.status === "PROCESSING" && (
-                            <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="font-medium truncate">
+                            {asset.title}
+                          </span>
+                          {isSelected && (
+                            <Check className="h-3.5 w-3.5 text-primary shrink-0" />
                           )}
-                          {t(STATUS_LABEL[asset.status] ?? "media.statusProcessing")}
-                        </Badge>
+                        </div>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <Badge
+                            variant="outline"
+                            className={`text-xs ${STATUS_BADGE[asset.status] ?? ""}`}
+                          >
+                            {asset.status === "PROCESSING" && (
+                              <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                            )}
+                            {t(STATUS_LABEL[asset.status] ?? "media.statusProcessing")}
+                          </Badge>
+                          {asset.usageCount > 0 && (
+                            <span className="text-xs text-muted-foreground">
+                              {t("media.inUse").replace(
+                                "{count}",
+                                String(asset.usageCount),
+                              )}
+                            </span>
+                          )}
+                        </div>
                       </button>
                     );
                   })}

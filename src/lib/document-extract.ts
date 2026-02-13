@@ -2,7 +2,7 @@
  * Document text extraction for PDF and Word files.
  *
  * Supports:
- *   - PDF → pdf-parse
+ *   - PDF → unpdf (serverless-compatible, no DOM required)
  *   - DOCX / DOC → mammoth
  *
  * Returns plain text. Throws on empty or unreadable documents.
@@ -56,11 +56,10 @@ export async function extractTextFromDocument(
 
 async function extractFromPdf(buffer: Buffer): Promise<string> {
   try {
-    const { PDFParse } = await import("pdf-parse");
-    const parser = new PDFParse({ data: new Uint8Array(buffer) });
-    const result = await parser.getText();
-    await parser.destroy();
-    return result.text ?? "";
+    const { getDocumentProxy, extractText } = await import("unpdf");
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+    const { text } = await extractText(pdf, { mergePages: true });
+    return text ?? "";
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     if (message.toLowerCase().includes("password")) {

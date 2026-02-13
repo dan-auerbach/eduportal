@@ -119,13 +119,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ skipped: true, reason: "no new commits" });
   }
 
-  // ── Determine language from primary tenant ─────────────────────────────────
-  const primaryTenant = await prisma.tenant.findFirst({
+  // ── Determine language from the tenant with the most members ────────────────
+  const tenantByMembers = await prisma.tenant.findFirst({
     where: { archivedAt: null },
-    orderBy: { createdAt: "asc" },
+    orderBy: { memberships: { _count: "desc" } },
     select: { locale: true },
   });
-  const locale = primaryTenant?.locale ?? "en";
+  const locale = tenantByMembers?.locale ?? "en";
   const langName = locale === "sl" ? "Slovenian" : "English";
 
   // ── Generate changelog via Claude ──────────────────────────────────────────

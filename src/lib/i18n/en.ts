@@ -1371,6 +1371,9 @@ export const en = {
     replaceVideo: "Replace video",
     pickerTitle: "Select a video from library",
     orUpload: "or upload a new one",
+    orPickExisting: "or pick an existing one",
+    chooseFile: "Choose file",
+    searchForMore: "Use search to see more videos",
   },
 
   // ── AI Builder ──────────────────────────────────────────────────────

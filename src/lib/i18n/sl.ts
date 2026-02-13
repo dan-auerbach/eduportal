@@ -1385,6 +1385,9 @@ export const sl = {
     replaceVideo: "Zamenjaj video",
     pickerTitle: "Izberite video iz knjižnice",
     orUpload: "ali naložite novega",
+    orPickExisting: "ali izberite obstoječega",
+    chooseFile: "Izberite datoteko",
+    searchForMore: "Uporabite iskanje za prikaz več videov",
   },
 
   // ── AI Builder ──────────────────────────────────────────────────────

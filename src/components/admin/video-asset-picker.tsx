@@ -265,100 +265,15 @@ export function VideoAssetPicker({
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{t("media.pickerTitle")}</DialogTitle>
           </DialogHeader>
 
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t("media.searchPlaceholder")}
-              className="pl-9"
-            />
-          </div>
-
-          {/* Asset list */}
-          <ScrollArea className="max-h-[300px]">
-            {filtered.length === 0 ? (
-              <div className="flex flex-col items-center gap-2 py-8 text-muted-foreground">
-                <Film className="h-8 w-8" />
-                <p className="text-sm">{t("media.noVideos")}</p>
-              </div>
-            ) : (
-              <div className="space-y-1">
-                {filtered.map((asset) => {
-                  const isReady = asset.status === "READY";
-                  const isSelected = asset.id === selectedAssetId;
-
-                  return (
-                    <button
-                      key={asset.id}
-                      type="button"
-                      disabled={!isReady}
-                      onClick={() => {
-                        if (isReady && asset.cfStreamUid) {
-                          onSelect({
-                            id: asset.id,
-                            title: asset.title,
-                            cfStreamUid: asset.cfStreamUid,
-                            status: asset.status,
-                          });
-                          setOpen(false);
-                        }
-                      }}
-                      className={`w-full flex items-center gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors
-                        ${isSelected ? "bg-primary/10 border border-primary/20" : "hover:bg-muted/50"}
-                        ${!isReady ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium truncate">
-                            {asset.title}
-                          </span>
-                          {isSelected && (
-                            <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          {formatDuration(asset.durationSeconds) && (
-                            <span className="text-xs text-muted-foreground">
-                              {formatDuration(asset.durationSeconds)}
-                            </span>
-                          )}
-                          {asset.usageCount > 0 && (
-                            <span className="text-xs text-muted-foreground">
-                              {t("media.inUse").replace(
-                                "{count}",
-                                String(asset.usageCount),
-                              )}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <Badge
-                        variant="outline"
-                        className={`shrink-0 text-xs ${STATUS_BADGE[asset.status] ?? ""}`}
-                      >
-                        {asset.status === "PROCESSING" && (
-                          <Loader2 className="mr-1 h-3 w-3 animate-spin" />
-                        )}
-                        {t(STATUS_LABEL[asset.status] ?? "media.statusProcessing")}
-                      </Badge>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </ScrollArea>
-
-          {/* Upload section */}
-          <div className="border-t pt-4 space-y-3">
-            <p className="text-sm font-medium text-muted-foreground">
-              {t("media.orUpload")}
+          {/* Upload section — first */}
+          <div className="space-y-3">
+            <p className="text-sm font-medium">
+              {t("media.uploadNew")}
             </p>
 
             <div className="space-y-2">
@@ -386,7 +301,7 @@ export function VideoAssetPicker({
                 ) : (
                   <>
                     <Upload className="mr-2 h-4 w-4" />
-                    {t("media.uploadNew")}
+                    {t("media.chooseFile")}
                   </>
                 )}
               </Button>
@@ -412,6 +327,103 @@ export function VideoAssetPicker({
                 e.target.value = "";
               }}
             />
+          </div>
+
+          {/* Existing assets — below upload */}
+          <div className="border-t pt-4 space-y-3">
+            <p className="text-sm font-medium text-muted-foreground">
+              {t("media.orPickExisting")}
+            </p>
+
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder={t("media.searchPlaceholder")}
+                className="pl-9"
+              />
+            </div>
+
+            {/* Asset list — show max 3 unless searching */}
+            <ScrollArea className="max-h-[220px]">
+              {filtered.length === 0 ? (
+                <div className="flex flex-col items-center gap-2 py-6 text-muted-foreground">
+                  <Film className="h-6 w-6" />
+                  <p className="text-sm">{t("media.noVideos")}</p>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  {(search.trim() ? filtered : filtered.slice(0, 3)).map((asset) => {
+                    const isReady = asset.status === "READY";
+                    const isSelected = asset.id === selectedAssetId;
+
+                    return (
+                      <button
+                        key={asset.id}
+                        type="button"
+                        disabled={!isReady}
+                        onClick={() => {
+                          if (isReady && asset.cfStreamUid) {
+                            onSelect({
+                              id: asset.id,
+                              title: asset.title,
+                              cfStreamUid: asset.cfStreamUid,
+                              status: asset.status,
+                            });
+                            setOpen(false);
+                          }
+                        }}
+                        className={`w-full flex items-center gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors
+                          ${isSelected ? "bg-primary/10 border border-primary/20" : "hover:bg-muted/50"}
+                          ${!isReady ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium truncate">
+                              {asset.title}
+                            </span>
+                            {isSelected && (
+                              <Check className="h-3.5 w-3.5 text-primary shrink-0" />
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            {formatDuration(asset.durationSeconds) && (
+                              <span className="text-xs text-muted-foreground">
+                                {formatDuration(asset.durationSeconds)}
+                              </span>
+                            )}
+                            {asset.usageCount > 0 && (
+                              <span className="text-xs text-muted-foreground">
+                                {t("media.inUse").replace(
+                                  "{count}",
+                                  String(asset.usageCount),
+                                )}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <Badge
+                          variant="outline"
+                          className={`shrink-0 text-xs ${STATUS_BADGE[asset.status] ?? ""}`}
+                        >
+                          {asset.status === "PROCESSING" && (
+                            <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                          )}
+                          {t(STATUS_LABEL[asset.status] ?? "media.statusProcessing")}
+                        </Badge>
+                      </button>
+                    );
+                  })}
+                  {!search.trim() && filtered.length > 3 && (
+                    <p className="text-xs text-muted-foreground text-center py-2">
+                      {t("media.searchForMore")}
+                    </p>
+                  )}
+                </div>
+              )}
+            </ScrollArea>
           </div>
         </DialogContent>
       </Dialog>

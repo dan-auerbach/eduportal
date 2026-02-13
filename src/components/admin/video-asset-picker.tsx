@@ -265,7 +265,7 @@ export function VideoAssetPicker({
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-xl">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>{t("media.pickerTitle")}</DialogTitle>
           </DialogHeader>

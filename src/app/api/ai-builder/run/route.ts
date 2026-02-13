@@ -8,7 +8,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/auth";
 import { getAudioDownloadUrl } from "@/lib/cloudflare-stream";
 import { transcribeAudio } from "@/lib/soniox";
 import { generateModuleDraft } from "@/lib/ai/generate-module-draft";
@@ -25,16 +24,11 @@ async function updateBuild(
 }
 
 export async function POST(request: NextRequest) {
-  // Auth check — must be admin+
-  let user;
-  try {
-    user = await getCurrentUser();
-  } catch {
+  // Auth via internal shared secret (same as CRON_SECRET)
+  const expected = `Bearer ${process.env.CRON_SECRET ?? ""}`;
+  const authHeader = request.headers.get("authorization") ?? "";
+  if (!process.env.CRON_SECRET || authHeader !== expected) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  if (!["OWNER", "SUPER_ADMIN", "ADMIN"].includes(user.role)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { searchParams } = new URL(request.url);
@@ -45,7 +39,7 @@ export async function POST(request: NextRequest) {
   }
 
   const build = await prisma.aiModuleBuild.findUnique({ where: { id: buildId } });
-  if (!build || build.createdById !== user.id) {
+  if (!build) {
     return NextResponse.json({ error: "Build not found" }, { status: 404 });
   }
 

@@ -53,19 +53,16 @@ export async function startAiBuild(params: {
       },
     });
 
-    // Fire-and-forget: trigger the async pipeline
-    // We use an absolute URL constructed from headers for server-to-server call
+    // Fire-and-forget: trigger the async pipeline via internal API
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL
       ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
-    const { cookies } = await import("next/headers");
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore.toString();
+    const secret = process.env.CRON_SECRET ?? "";
 
     void fetch(`${baseUrl}/api/ai-builder/run?buildId=${build.id}`, {
       method: "POST",
       headers: {
-        Cookie: cookieHeader,
+        Authorization: `Bearer ${secret}`,
       },
     }).catch((err) => {
       console.error("[ai-builder] Failed to trigger pipeline:", err);

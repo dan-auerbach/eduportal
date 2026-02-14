@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ImagePlus, X, Upload, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,11 @@ export function CoverImageUpload({
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentImage);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync preview when parent updates currentImage (e.g. after AI generation)
+  useEffect(() => {
+    setPreviewUrl(currentImage);
+  }, [currentImage]);
 
   async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];

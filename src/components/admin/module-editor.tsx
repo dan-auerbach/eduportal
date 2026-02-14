@@ -15,6 +15,7 @@ import {
   saveQuizQuestion,
   deleteQuizQuestion,
   updateModuleMentors,
+  updateModuleTags,
 } from "@/actions/modules";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,11 +46,21 @@ import {
   ClipboardList,
   Settings2,
   GraduationCap,
+  Sparkles,
+  Loader2,
+  Calculator,
 } from "lucide-react";
 import { SectionList } from "./section-list";
 import { SectionEditorSheet } from "./section-editor";
 import { CategoryManager } from "./category-manager";
 import { CoverImageUpload } from "./cover-image-upload";
+import { MentorCombobox } from "./mentor-combobox";
+import {
+  aiGenerateMetadata,
+  aiGenerateTags,
+  aiGenerateQuiz,
+  aiGenerateCoverImage,
+} from "@/actions/ai-editor";
 import type { Difficulty, ModuleStatus, SectionType } from "@/generated/prisma/client";
 import { t } from "@/lib/i18n";
 import type { VideoAsset } from "@/components/admin/video-asset-picker";
@@ -171,11 +182,21 @@ export function ModuleEditor({
   // Quiz state
   const [addingQuiz, setAddingQuiz] = useState(false);
 
+  // Tag persistence state
+  const [tagLoading, setTagLoading] = useState(false);
+
   // Mentor state
   const [mentorIds, setMentorIds] = useState<Set<string>>(
     new Set(mentors.map((m) => m.userId))
   );
   const [mentorLoading, setMentorLoading] = useState(false);
+
+  // AI state
+  const [aiMetaLoading, setAiMetaLoading] = useState(false);
+  const [aiMetaSuggestion, setAiMetaSuggestion] = useState<{ title: string; description: string } | null>(null);
+  const [aiTagsLoading, setAiTagsLoading] = useState(false);
+  const [aiQuizLoading, setAiQuizLoading] = useState(false);
+  const [aiImageLoading, setAiImageLoading] = useState(false);
 
   // Section editor state
   const [selectedSection, setSelectedSection] = useState<SectionData | null>(null);
@@ -225,6 +246,16 @@ export function ModuleEditor({
   }
 
   async function handlePublish() {
+    // Quality check before publish
+    const issues: string[] = [];
+    if (!title.trim()) issues.push(t("admin.editor.publishCheckTitle"));
+    if (!description.trim()) issues.push(t("admin.editor.publishCheckDescription"));
+    if (sections.length === 0) issues.push(t("admin.editor.publishCheckSections"));
+    if (issues.length > 0) {
+      toast.error(issues.join("\n"));
+      return;
+    }
+
     // Save metadata first so title/description/estimatedTime are persisted
     const data = {
       title,
@@ -343,16 +374,40 @@ export function ModuleEditor({
     }
   }
 
-  function handleAddTag() {
+  async function handleAddTag() {
     const trimmed = tagInput.trim();
-    if (trimmed && !currentTags.includes(trimmed)) {
-      setCurrentTags([...currentTags, trimmed]);
-      setTagInput("");
+    if (!trimmed || currentTags.includes(trimmed)) return;
+
+    const newTags = [...currentTags, trimmed];
+    setCurrentTags(newTags);
+    setTagInput("");
+
+    setTagLoading(true);
+    const result = await updateModuleTags(moduleId, newTags);
+    if (result.success) {
+      toast.success(t("admin.editor.tagSaved"));
+    } else {
+      toast.error(result.error || t("admin.editor.tagSaveFailed"));
+      // Revert on error
+      setCurrentTags(currentTags);
     }
+    setTagLoading(false);
   }
 
-  function handleRemoveTag(tag: string) {
-    setCurrentTags(currentTags.filter((tagName) => tagName !== tag));
+  async function handleRemoveTag(tag: string) {
+    const newTags = currentTags.filter((tagName) => tagName !== tag);
+    setCurrentTags(newTags);
+
+    setTagLoading(true);
+    const result = await updateModuleTags(moduleId, newTags);
+    if (result.success) {
+      toast.success(t("admin.editor.tagSaved"));
+    } else {
+      toast.error(result.error || t("admin.editor.tagSaveFailed"));
+      // Revert on error
+      setCurrentTags(currentTags);
+    }
+    setTagLoading(false);
   }
 
   async function handleToggleMentor(userId: string) {
@@ -373,6 +428,124 @@ export function ModuleEditor({
       toast.error(result.error || t("admin.editor.mentorUpdateFailed"));
     }
     setMentorLoading(false);
+  }
+
+  // AI handlers
+  async function handleAiGenerateMetadata() {
+    setAiMetaLoading(true);
+    setAiMetaSuggestion(null);
+    const result = await aiGenerateMetadata({
+      moduleId,
+      currentTitle: title,
+      currentDescription: description,
+      sectionTitles: sections.map((s) => s.title),
+    });
+    if (result.success) {
+      setAiMetaSuggestion(result.data);
+    } else {
+      if (result.error === "AI_RATE_LIMITED") {
+        toast.error(t("admin.editor.aiRateLimited"));
+      } else {
+        toast.error(result.error || t("admin.editor.aiError"));
+      }
+    }
+    setAiMetaLoading(false);
+  }
+
+  function handleApplyAiMetadata() {
+    if (aiMetaSuggestion) {
+      setTitle(aiMetaSuggestion.title);
+      setDescription(aiMetaSuggestion.description);
+      setAiMetaSuggestion(null);
+      toast.success(t("admin.editor.aiSuggestionApply"));
+    }
+  }
+
+  async function handleAiGenerateTags() {
+    setAiTagsLoading(true);
+    const result = await aiGenerateTags({
+      moduleId,
+      title,
+      description,
+      sectionTitles: sections.map((s) => s.title),
+      existingTags: currentTags,
+    });
+    if (result.success) {
+      const newTags = result.data.tags.filter((t) => !currentTags.includes(t));
+      if (newTags.length > 0) {
+        const merged = [...currentTags, ...newTags];
+        setCurrentTags(merged);
+        // Persist immediately
+        const saveResult = await updateModuleTags(moduleId, merged);
+        if (saveResult.success) {
+          toast.success(
+            t("admin.editor.aiTagsGenerated", { count: newTags.length })
+          );
+        } else {
+          toast.error(saveResult.error || t("admin.editor.tagSaveFailed"));
+        }
+      } else {
+        toast.info(t("admin.editor.aiTagsGenerated", { count: 0 }));
+      }
+    } else {
+      if (result.error === "AI_RATE_LIMITED") {
+        toast.error(t("admin.editor.aiRateLimited"));
+      } else {
+        toast.error(result.error || t("admin.editor.aiError"));
+      }
+    }
+    setAiTagsLoading(false);
+  }
+
+  async function handleAiGenerateQuiz() {
+    setAiQuizLoading(true);
+    const result = await aiGenerateQuiz({ moduleId });
+    if (result.success) {
+      toast.success(
+        t("admin.editor.aiQuizGenerated", { count: result.data.questionCount })
+      );
+      router.refresh();
+    } else {
+      if (result.error === "AI_RATE_LIMITED") {
+        toast.error(t("admin.editor.aiRateLimited"));
+      } else if (result.error === "AI_QUIZ_NO_CONTENT") {
+        toast.error(t("admin.editor.aiQuizNoContent"));
+      } else {
+        toast.error(result.error || t("admin.editor.aiError"));
+      }
+    }
+    setAiQuizLoading(false);
+  }
+
+  async function handleAiCoverImage() {
+    setAiImageLoading(true);
+    const result = await aiGenerateCoverImage({
+      moduleId,
+      title,
+      description,
+    });
+    if (result.success) {
+      setCoverImage(result.data.coverUrl);
+      toast.success(t("admin.editor.aiImageGenerated"));
+    } else {
+      if (result.error === "AI_RATE_LIMITED") {
+        toast.error(t("admin.editor.aiRateLimited"));
+      } else if (result.error === "AI_IMAGE_NOT_CONFIGURED") {
+        toast.error(t("admin.editor.aiImageNotConfigured"));
+      } else {
+        toast.error(result.error || t("admin.editor.aiError"));
+      }
+    }
+    setAiImageLoading(false);
+  }
+
+  // Reading time estimate
+  function estimateReadingTime(): number {
+    const totalWords = sections.reduce((sum, s) => {
+      const text = s.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+      return sum + text.split(/\s+/).filter(Boolean).length;
+    }, 0);
+    return Math.max(1, Math.ceil(totalWords / 200));
   }
 
   const allSectionRefs = sections.map((s) => ({
@@ -452,6 +625,52 @@ export function ModuleEditor({
                   rows={4}
                 />
               </div>
+
+              {/* AI metadata suggestion */}
+              <div className="space-y-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleAiGenerateMetadata}
+                  disabled={aiMetaLoading}
+                >
+                  {aiMetaLoading ? (
+                    <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="mr-1 h-4 w-4" />
+                  )}
+                  {aiMetaLoading
+                    ? t("admin.editor.aiGenerating")
+                    : t("admin.editor.aiGenerateMetadata")}
+                </Button>
+
+                {/* AI suggestion popover */}
+                {aiMetaSuggestion && (
+                  <div className="rounded-md border border-primary/30 bg-primary/5 p-3 space-y-2">
+                    <p className="text-sm font-medium">{t("admin.editor.aiSuggestionTitle")}</p>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">{t("admin.editor.title")}:</p>
+                      <p className="text-sm">{aiMetaSuggestion.title}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">{t("admin.editor.description")}:</p>
+                      <p className="text-sm">{aiMetaSuggestion.description}</p>
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <Button size="sm" onClick={handleApplyAiMetadata}>
+                        {t("admin.editor.aiSuggestionApply")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setAiMetaSuggestion(null)}
+                      >
+                        {t("admin.editor.aiSuggestionDiscard")}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Right column: Difficulty, Time, Mandatory, Category */}
@@ -475,14 +694,25 @@ export function ModuleEditor({
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="estimatedTime">{t("admin.editor.estimatedTime")}</Label>
-                  <Input
-                    id="estimatedTime"
-                    type="number"
-                    value={estimatedTime}
-                    onChange={(e) => setEstimatedTime(e.target.value)}
-                    min={1}
-                    placeholder={t("admin.editor.estimatedTimePlaceholder")}
-                  />
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="estimatedTime"
+                      type="number"
+                      value={estimatedTime}
+                      onChange={(e) => setEstimatedTime(e.target.value)}
+                      min={1}
+                      placeholder={t("admin.editor.estimatedTimePlaceholder")}
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      type="button"
+                      title={t("admin.editor.estimateTime")}
+                      onClick={() => setEstimatedTime(estimateReadingTime().toString())}
+                    >
+                      <Calculator className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -529,6 +759,8 @@ export function ModuleEditor({
               <CoverImageUpload
                 currentImage={coverImage}
                 onImageChange={setCoverImage}
+                onAiGenerate={handleAiCoverImage}
+                aiGenerating={aiImageLoading}
               />
             </div>
           </div>
@@ -615,14 +847,31 @@ export function ModuleEditor({
           {quizzes.length === 0 && (
             <>
               <Separator />
-              <Button
-                size="sm"
-                onClick={handleAddQuiz}
-                disabled={addingQuiz}
-              >
-                <Plus className="mr-1 h-4 w-4" />
-                {t("admin.quizEditor.addQuiz")}
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  onClick={handleAddQuiz}
+                  disabled={addingQuiz || aiQuizLoading}
+                >
+                  <Plus className="mr-1 h-4 w-4" />
+                  {t("admin.quizEditor.addQuiz")}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleAiGenerateQuiz}
+                  disabled={aiQuizLoading || addingQuiz || sections.length === 0}
+                >
+                  {aiQuizLoading ? (
+                    <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="mr-1 h-4 w-4" />
+                  )}
+                  {aiQuizLoading
+                    ? t("admin.editor.aiQuizGenerating")
+                    : t("admin.editor.aiGenerateQuiz")}
+                </Button>
+              </div>
             </>
           )}
         </CardContent>
@@ -642,36 +891,12 @@ export function ModuleEditor({
               {t("admin.editor.noMentorCandidates")}
             </p>
           ) : (
-            <div className="space-y-2">
-              {allMentorCandidates.map((candidate) => {
-                const isMentor = mentorIds.has(candidate.id);
-
-                return (
-                  <div
-                    key={candidate.id}
-                    className="flex items-center justify-between rounded-md border p-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Checkbox
-                        id={`mentor-${candidate.id}`}
-                        checked={isMentor}
-                        disabled={mentorLoading}
-                        onCheckedChange={() => handleToggleMentor(candidate.id)}
-                      />
-                      <Label
-                        htmlFor={`mentor-${candidate.id}`}
-                        className="cursor-pointer font-medium"
-                      >
-                        {candidate.firstName} {candidate.lastName}
-                      </Label>
-                      <span className="text-xs text-muted-foreground">
-                        {candidate.email}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <MentorCombobox
+              candidates={allMentorCandidates}
+              selectedIds={mentorIds}
+              onToggle={handleToggleMentor}
+              disabled={mentorLoading}
+            />
           )}
           <p className="text-xs text-muted-foreground">
             {t("admin.editor.mentorsDescription")}
@@ -795,10 +1020,26 @@ export function ModuleEditor({
                 }
               }}
               className="max-w-xs"
+              disabled={tagLoading}
             />
-            <Button variant="outline" size="sm" onClick={handleAddTag}>
+            <Button variant="outline" size="sm" onClick={handleAddTag} disabled={tagLoading}>
               <Plus className="mr-1 h-4 w-4" />
               {t("common.add")}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAiGenerateTags}
+              disabled={aiTagsLoading || tagLoading}
+            >
+              {aiTagsLoading ? (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-1 h-4 w-4" />
+              )}
+              {aiTagsLoading
+                ? t("admin.editor.aiTagsGenerating")
+                : t("admin.editor.aiGenerateTags")}
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">

@@ -161,3 +161,8 @@ export async function rateLimitRadarPost(userId: string): Promise<RateLimitResul
 export async function rateLimitAiBuild(userId: string): Promise<RateLimitResult> {
   return rateLimit(`ai:build:${userId}`, 50, 60 * 60_000);
 }
+
+/** AI editor actions (metadata, tags, quiz, image): 30 per hour per user */
+export async function rateLimitAiEditor(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`ai:editor:${userId}`, 30, 60 * 60_000);
+}

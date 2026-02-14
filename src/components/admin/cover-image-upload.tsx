@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { ImagePlus, X, Upload, Loader2 } from "lucide-react";
+import { ImagePlus, X, Upload, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -16,11 +16,15 @@ const MAX_SIZE_BYTES = MAX_SIZE_KB * 1024;
 interface CoverImageUploadProps {
   currentImage: string | null;
   onImageChange: (url: string | null) => void;
+  onAiGenerate?: () => void;
+  aiGenerating?: boolean;
 }
 
 export function CoverImageUpload({
   currentImage,
   onImageChange,
+  onAiGenerate,
+  aiGenerating,
 }: CoverImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentImage);
@@ -138,32 +142,55 @@ export function CoverImageUpload({
           </div>
         </div>
       ) : (
-        /* Empty state — drop zone */
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          disabled={uploading}
-          className={cn(
-            "w-full aspect-[16/9] rounded-lg border-2 border-dashed border-border/60",
-            "flex flex-col items-center justify-center gap-2",
-            "text-muted-foreground hover:border-primary/40 hover:bg-muted/30",
-            "transition-colors cursor-pointer",
-            uploading && "pointer-events-none opacity-60"
+        /* Empty state — drop zone + AI button */
+        <>
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className={cn(
+              "w-full aspect-[16/9] rounded-lg border-2 border-dashed border-border/60",
+              "flex flex-col items-center justify-center gap-2",
+              "text-muted-foreground hover:border-primary/40 hover:bg-muted/30",
+              "transition-colors cursor-pointer",
+              uploading && "pointer-events-none opacity-60"
+            )}
+          >
+            {uploading || aiGenerating ? (
+              <>
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <span className="text-sm font-medium">
+                  {aiGenerating ? t("admin.editor.aiImageGenerating") : t("admin.editor.coverImageUploading")}
+                </span>
+              </>
+            ) : (
+              <>
+                <ImagePlus className="h-8 w-8 opacity-40" />
+                <span className="text-sm font-medium">{t("admin.editor.coverImageUpload")}</span>
+                <span className="text-xs opacity-60">{t("admin.editor.coverImageHint")}</span>
+              </>
+            )}
+          </button>
+          {onAiGenerate && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={onAiGenerate}
+              disabled={aiGenerating || uploading}
+              className="w-full"
+            >
+              {aiGenerating ? (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-1 h-4 w-4" />
+              )}
+              {aiGenerating
+                ? t("admin.editor.aiImageGenerating")
+                : t("admin.editor.aiGenerateImage")}
+            </Button>
           )}
-        >
-          {uploading ? (
-            <>
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <span className="text-sm font-medium">{t("admin.editor.coverImageUploading")}</span>
-            </>
-          ) : (
-            <>
-              <ImagePlus className="h-8 w-8 opacity-40" />
-              <span className="text-sm font-medium">{t("admin.editor.coverImageUpload")}</span>
-              <span className="text-xs opacity-60">{t("admin.editor.coverImageHint")}</span>
-            </>
-          )}
-        </button>
+        </>
       )}
 
       {/* Hidden file input */}

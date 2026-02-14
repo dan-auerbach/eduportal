@@ -1530,6 +1530,80 @@ export async function updateModuleMentors(
 }
 
 // ---------------------------------------------------------------------------
+// updateModuleTags - set tags for a module (find-or-create + replace all)
+// ---------------------------------------------------------------------------
+export async function updateModuleTags(
+  moduleId: string,
+  tagNames: string[]
+): Promise<ActionResult<void>> {
+  try {
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
+
+    const existing = await prisma.module.findUnique({
+      where: { id: moduleId, tenantId: ctx.tenantId },
+    });
+    if (!existing) {
+      return { success: false, error: "Modul ne obstaja" };
+    }
+
+    // Check permissions (same as updateModuleMentors)
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    if (!canManageAll) {
+      if (existing.createdById !== currentUser.id) {
+        throw new ForbiddenError("Nimate pravic za urejanje tega modula");
+      }
+      await requirePermission(currentUser, "MANAGE_OWN_MODULES");
+    }
+
+    // Deduplicate and trim tag names
+    const uniqueNames = [...new Set(tagNames.map((n) => n.trim()).filter(Boolean))];
+
+    // Find-or-create tags, then replace all ModuleTag records
+    const tagRecords = await Promise.all(
+      uniqueNames.map((name) =>
+        prisma.tag.upsert({
+          where: { name_tenantId: { name, tenantId: ctx.tenantId } },
+          create: { name, tenantId: ctx.tenantId },
+          update: {},
+        })
+      )
+    );
+
+    await prisma.$transaction([
+      prisma.moduleTag.deleteMany({ where: { moduleId } }),
+      ...(tagRecords.length > 0
+        ? [
+            prisma.moduleTag.createMany({
+              data: tagRecords.map((tag) => ({
+                moduleId,
+                tagId: tag.id,
+                tenantId: ctx.tenantId,
+              })),
+            }),
+          ]
+        : []),
+    ]);
+
+    await logAudit({
+      actorId: currentUser.id,
+      action: "MODULE_UPDATED",
+      entityType: "Module",
+      entityId: moduleId,
+      tenantId: ctx.tenantId,
+      metadata: { tags: uniqueNames },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof ForbiddenError) {
+      return { success: false, error: e.message };
+    }
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri posodabljanju oznak" };
+  }
+}
+
+// ---------------------------------------------------------------------------
 // hardDeleteModule - permanently delete a module and clean up all assets
 // ---------------------------------------------------------------------------
 export async function hardDeleteModule(

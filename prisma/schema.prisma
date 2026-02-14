@@ -907,6 +907,8 @@ enum AuditAction {
   INVITE_SENT
   INVITE_ACCEPTED
   MEDIA_DELETED
+  MODULE_DELETED
+  ASSET_BULK_DELETED
 }
 
 // ============================================
@@ -1150,6 +1152,8 @@ enum MediaAssetStatus {
   PROCESSING
   READY
   FAILED
+  DELETE_PENDING
+  DELETE_FAILED
 }
 
 enum MediaProvider {

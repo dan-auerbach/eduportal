@@ -29,6 +29,15 @@ const MIGRATIONS: Migration[] = [
       `ALTER TABLE "MediaAsset" ADD COLUMN IF NOT EXISTS "extractedText" TEXT;`,
     ],
   },
+  {
+    name: "20260214120000_add_asset_cleanup_statuses",
+    statements: [
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'DELETE_PENDING' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'MediaAssetStatus')) THEN ALTER TYPE "MediaAssetStatus" ADD VALUE 'DELETE_PENDING'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'DELETE_FAILED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'MediaAssetStatus')) THEN ALTER TYPE "MediaAssetStatus" ADD VALUE 'DELETE_FAILED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'MODULE_DELETED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'MODULE_DELETED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'ASSET_BULK_DELETED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'ASSET_BULK_DELETED'; END IF; END $$;`,
+    ],
+  },
 ];
 
 async function main() {

@@ -137,6 +137,7 @@ export const en = {
     mentorLive: "#mentor live",
     mentorLiveNoEvents: "No scheduled events",
     radar: "Radar",
+    assetAudit: "Assets",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -596,6 +597,15 @@ export const en = {
       moduleUnpublished: "Knowledge unpublished",
       moduleArchived: "Knowledge archived",
       moduleDuplicated: "Knowledge duplicated",
+      // Hard delete
+      hardDelete: "Permanently delete",
+      hardDeleteTitle: "Permanently delete knowledge",
+      hardDeleteWarning: "This will permanently delete \"{title}\" and all its sections, quizzes, progress, certificates and associated files. This action cannot be undone.",
+      hardDeleteConfirmTitle: "Enter the title to confirm",
+      hardDeleteMustArchive: "Module must be archived before permanent deletion.",
+      hardDeleteResult: "Deleted: {sections} sections, {attachments} attachments, {assets} assets.",
+      hardDeleteErrors: "Some files could not be cleaned up:",
+      moduleDeleted: "Knowledge permanently deleted",
       // Company pinning
       tableCategory: "Category",
       pinForCompany: "Pin for company",
@@ -990,6 +1000,8 @@ export const en = {
     RADAR_POST_ARCHIVED: "Radar post archived",
     RADAR_POST_PINNED: "Radar post pinned",
     RADAR_POST_UNPINNED: "Radar post unpinned",
+    MODULE_DELETED: "Knowledge permanently deleted",
+    ASSET_BULK_DELETED: "Assets bulk deleted",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -1089,6 +1101,34 @@ export const en = {
     deleting: "Deleting...",
     avgRating: "Average Knowledge Rating",
     totalRatings: "Total Ratings",
+    // Asset Audit
+    assetAudit: "Asset Audit",
+    assetAuditSubtitle: "Cross-company overview of all media assets.",
+    allTenants: "All companies",
+    filterType: "Type",
+    filterProvider: "Provider",
+    filterOrphaned: "Orphaned only",
+    refresh: "Refresh",
+    totalAssets: "assets",
+    orphaned: "Orphaned",
+    selectAllOrphaned: "Select all orphaned",
+    selected: "selected",
+    bulkDeleteOrphaned: "Delete orphaned",
+    bulkDeleteConfirm: "This will permanently delete {count} unused assets from storage. This action cannot be undone.",
+    bulkDeleteDone: "Deletion complete",
+    deleted: "deleted",
+    failed: "failed",
+    skipped: "skipped",
+    forceDelete: "Force delete",
+    forceDeleteWarning: "This asset is used by {count} section(s). References will be removed.",
+    deleteAssetConfirm: "Are you sure you want to delete this asset?",
+    assetRefreshDone: "Asset list refreshed.",
+    noAssets: "No assets found.",
+    assetTitle: "Title",
+    assetTenant: "Company",
+    assetSize: "Size",
+    usageCount: "Used by",
+    assetDate: "Date",
   },
 
   // ── Plans ──────────────────────────────────────────────────

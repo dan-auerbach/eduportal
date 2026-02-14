@@ -163,6 +163,17 @@ export async function deleteMediaAsset(
       }
     }
 
+    // Delete from Vercel Blob (documents)
+    if (asset.blobUrl) {
+      try {
+        const { del } = await import("@vercel/blob");
+        await del(asset.blobUrl);
+      } catch (err) {
+        console.error("[media] Vercel Blob delete error:", err);
+        // Continue with DB delete even if Blob fails
+      }
+    }
+
     // Delete from DB
     await prisma.mediaAsset.delete({ where: { id: assetId } });
 

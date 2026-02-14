@@ -195,7 +195,9 @@ export const AuditAction = {
   PASSWORD_RESET_COMPLETED: 'PASSWORD_RESET_COMPLETED',
   INVITE_SENT: 'INVITE_SENT',
   INVITE_ACCEPTED: 'INVITE_ACCEPTED',
-  MEDIA_DELETED: 'MEDIA_DELETED'
+  MEDIA_DELETED: 'MEDIA_DELETED',
+  MODULE_DELETED: 'MODULE_DELETED',
+  ASSET_BULK_DELETED: 'ASSET_BULK_DELETED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -240,7 +242,9 @@ export type MediaAssetType = (typeof MediaAssetType)[keyof typeof MediaAssetType
 export const MediaAssetStatus = {
   PROCESSING: 'PROCESSING',
   READY: 'READY',
-  FAILED: 'FAILED'
+  FAILED: 'FAILED',
+  DELETE_PENDING: 'DELETE_PENDING',
+  DELETE_FAILED: 'DELETE_FAILED'
 } as const
 
 export type MediaAssetStatus = (typeof MediaAssetStatus)[keyof typeof MediaAssetStatus]

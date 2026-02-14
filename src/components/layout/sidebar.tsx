@@ -23,6 +23,7 @@ import {
   Star,
   Radio,
   Radar,
+  HardDrive,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -53,6 +54,7 @@ const adminNav: NavItem[] = [
 
 const ownerNav: NavItem[] = [
   { href: "/owner", labelKey: "nav.tenants", icon: Building2 },
+  { href: "/owner/assets", labelKey: "nav.assetAudit", icon: HardDrive },
 ];
 
 // ── Sidebar ──────────────────────────────────────────────────────────────────

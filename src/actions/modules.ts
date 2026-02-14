@@ -15,6 +15,7 @@ import {
   CreateSectionSchema,
   UpdateSectionSchema,
 } from "@/lib/validators";
+import { cleanupSectionAssets, cleanupCoverImage } from "@/lib/asset-cleanup";
 import type { ActionResult } from "@/types";
 import type { ModuleStatus } from "@/generated/prisma/client";
 
@@ -652,7 +653,13 @@ export async function deleteSection(
 
     const existing = await prisma.section.findUnique({
       where: { id, tenantId: ctx.tenantId },
-      include: { module: true },
+      include: {
+        module: true,
+        attachments: { select: { storagePath: true } },
+        mediaAsset: {
+          include: { _count: { select: { sections: true } } },
+        },
+      },
     });
     if (!existing) {
       return { success: false, error: "Sekcija ne obstaja" };
@@ -666,25 +673,26 @@ export async function deleteSection(
       await requirePermission(currentUser, "MANAGE_OWN_MODULES");
     }
 
-    // Clean up Cloudflare Stream video if exists
-    if (existing.cloudflareStreamUid) {
-      try {
-        const { deleteCloudflareStreamVideo } = await import("@/lib/cloudflare-stream");
-        await deleteCloudflareStreamVideo(existing.cloudflareStreamUid);
-      } catch {
-        // Ignore CF deletion errors
-      }
-    }
-
-    // Clean up legacy video blob if exists
-    if (existing.videoBlobUrl) {
-      try {
-        const { del } = await import("@vercel/blob");
-        await del(existing.videoBlobUrl);
-      } catch {
-        // Ignore blob deletion errors
-      }
-    }
+    // Clean up all external files (attachments, media assets, legacy videos)
+    await cleanupSectionAssets(
+      {
+        id: existing.id,
+        cloudflareStreamUid: existing.cloudflareStreamUid,
+        videoBlobUrl: existing.videoBlobUrl,
+        mediaAssetId: existing.mediaAssetId,
+        mediaAsset: existing.mediaAsset
+          ? {
+              id: existing.mediaAsset.id,
+              cfStreamUid: existing.mediaAsset.cfStreamUid,
+              blobUrl: existing.mediaAsset.blobUrl,
+              provider: existing.mediaAsset.provider,
+              _count: existing.mediaAsset._count,
+            }
+          : null,
+        attachments: existing.attachments,
+      },
+      { deleteOrphanedMediaAssets: true },
+    );
 
     // Clear any references to this section in unlockAfterSectionId
     await prisma.section.updateMany({
@@ -1518,5 +1526,137 @@ export async function updateModuleMentors(
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri posodabljanju mentorjev" };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// hardDeleteModule - permanently delete a module and clean up all assets
+// ---------------------------------------------------------------------------
+export async function hardDeleteModule(
+  id: string,
+): Promise<
+  ActionResult<{
+    deletedSections: number;
+    deletedAttachments: number;
+    deletedMediaAssets: number;
+    cleanupErrors: string[];
+  }>
+> {
+  try {
+    const currentUser = await getCurrentUser();
+    const ctx = await getTenantContext();
+
+    // Permission check (same as archiveModule)
+    const existing = await prisma.module.findUnique({
+      where: { id, tenantId: ctx.tenantId },
+      include: {
+        sections: {
+          include: {
+            attachments: { select: { storagePath: true } },
+            mediaAsset: {
+              include: { _count: { select: { sections: true } } },
+            },
+          },
+        },
+      },
+    });
+
+    if (!existing) {
+      return { success: false, error: "Modul ne obstaja" };
+    }
+
+    // Safety: module must be ARCHIVED before hard delete
+    if (existing.status !== "ARCHIVED") {
+      return {
+        success: false,
+        error: t("admin.modules.hardDeleteMustArchive"),
+      };
+    }
+
+    const canManageAll = await hasPermission(currentUser, "MANAGE_ALL_MODULES");
+    if (!canManageAll) {
+      if (existing.createdById !== currentUser.id) {
+        throw new ForbiddenError("Nimate pravic za brisanje tega modula");
+      }
+      await requirePermission(currentUser, "MANAGE_OWN_MODULES");
+    }
+
+    // ── Asset cleanup (before Prisma cascade) ──────────────────────────
+
+    const allErrors: string[] = [];
+    let totalDeletedMediaAssets = 0;
+    let totalDeletedAttachments = 0;
+
+    // 1. Clean up each section's assets
+    for (const section of existing.sections) {
+      const result = await cleanupSectionAssets(
+        {
+          id: section.id,
+          cloudflareStreamUid: section.cloudflareStreamUid,
+          videoBlobUrl: section.videoBlobUrl,
+          mediaAssetId: section.mediaAssetId,
+          mediaAsset: section.mediaAsset
+            ? {
+                id: section.mediaAsset.id,
+                cfStreamUid: section.mediaAsset.cfStreamUid,
+                blobUrl: section.mediaAsset.blobUrl,
+                provider: section.mediaAsset.provider,
+                _count: section.mediaAsset._count,
+              }
+            : null,
+          attachments: section.attachments,
+        },
+        { deleteOrphanedMediaAssets: true },
+      );
+
+      totalDeletedMediaAssets += result.deletedMediaAssets;
+      totalDeletedAttachments += result.deletedAttachmentFiles;
+      allErrors.push(...result.errors);
+    }
+
+    // 2. Cover image cleanup
+    if (existing.coverImage) {
+      const err = await cleanupCoverImage(existing.coverImage, id);
+      if (err) allErrors.push(err);
+    }
+
+    // ── Cascade delete (DB) ────────────────────────────────────────────
+
+    await prisma.module.delete({ where: { id } });
+
+    // ── Audit log ──────────────────────────────────────────────────────
+
+    await logAudit({
+      actorId: currentUser.id,
+      action: "MODULE_DELETED",
+      entityType: "Module",
+      entityId: id,
+      tenantId: ctx.tenantId,
+      metadata: {
+        title: existing.title,
+        deletedSections: existing.sections.length,
+        deletedAttachments: totalDeletedAttachments,
+        deletedMediaAssets: totalDeletedMediaAssets,
+        cleanupErrors: allErrors.length > 0 ? allErrors : undefined,
+      },
+    });
+
+    return {
+      success: true,
+      data: {
+        deletedSections: existing.sections.length,
+        deletedAttachments: totalDeletedAttachments,
+        deletedMediaAssets: totalDeletedMediaAssets,
+        cleanupErrors: allErrors,
+      },
+    };
+  } catch (e) {
+    if (e instanceof ForbiddenError) {
+      return { success: false, error: e.message };
+    }
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "Napaka pri brisanju modula",
+    };
   }
 }

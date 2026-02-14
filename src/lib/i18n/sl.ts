@@ -137,6 +137,7 @@ export const sl = {
     mentorLive: "#mentor v živo",
     mentorLiveNoEvents: "Ni razpisanih terminov",
     radar: "Radar",
+    assetAudit: "Sredstva",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -610,6 +611,15 @@ export const sl = {
       moduleUnpublished: "Znanje skrito",
       moduleArchived: "Znanje arhivirano",
       moduleDuplicated: "Znanje podvojeno",
+      // Hard delete
+      hardDelete: "Trajno izbriši",
+      hardDeleteTitle: "Trajno izbriši znanje",
+      hardDeleteWarning: "To bo trajno izbrisalo \"{title}\" in vse njegove sekcije, kvize, napredek, certifikate in povezane datoteke. Dejanja ni mogoče razveljaviti.",
+      hardDeleteConfirmTitle: "Vnesite naslov za potrditev",
+      hardDeleteMustArchive: "Modul mora biti arhiviran pred trajnim izbrisom.",
+      hardDeleteResult: "Izbrisano: {sections} sekcij, {attachments} prilog, {assets} datotek.",
+      hardDeleteErrors: "Nekaterih datotek ni bilo mogoče počistiti:",
+      moduleDeleted: "Znanje trajno izbrisano",
       // Company pinning
       tableCategory: "Področje",
       pinForCompany: "Pripni za podjetje",
@@ -1004,6 +1014,8 @@ export const sl = {
     RADAR_POST_ARCHIVED: "Radar objava arhivirana",
     RADAR_POST_PINNED: "Radar objava pripeta",
     RADAR_POST_UNPINNED: "Radar objava odpeta",
+    MODULE_DELETED: "Znanje trajno izbrisano",
+    ASSET_BULK_DELETED: "Sredstva množično izbrisana",
   },
 
   // ── Permissions ──────────────────────────────────────────────────
@@ -1103,6 +1115,34 @@ export const sl = {
     deleting: "Brišem...",
     avgRating: "Povprečna ocena znanj",
     totalRatings: "Skupno ocen",
+    // Asset Audit
+    assetAudit: "Pregled sredstev",
+    assetAuditSubtitle: "Pregled vseh medijskih datotek vseh podjetij.",
+    allTenants: "Vsa podjetja",
+    filterType: "Tip",
+    filterProvider: "Ponudnik",
+    filterOrphaned: "Samo osirotela",
+    refresh: "Osveži",
+    totalAssets: "sredstev",
+    orphaned: "Osirotelo",
+    selectAllOrphaned: "Izberi vsa osirotela",
+    selected: "izbranih",
+    bulkDeleteOrphaned: "Izbriši osirotela",
+    bulkDeleteConfirm: "To bo trajno izbrisalo {count} nerabljenih datotek iz shrambe. Dejanja ni mogoče razveljaviti.",
+    bulkDeleteDone: "Brisanje končano",
+    deleted: "izbrisanih",
+    failed: "neuspešnih",
+    skipped: "preskočenih",
+    forceDelete: "Vsili izbris",
+    forceDeleteWarning: "Ta datoteka je v uporabi pri {count} sekcijah. Reference bodo odstranjene.",
+    deleteAssetConfirm: "Ali ste prepričani, da želite izbrisati to datoteko?",
+    assetRefreshDone: "Seznam sredstev osvežen.",
+    noAssets: "Nobena datoteka ni bila najdena.",
+    assetTitle: "Naslov",
+    assetTenant: "Podjetje",
+    assetSize: "Velikost",
+    usageCount: "V uporabi",
+    assetDate: "Datum",
   },
 
   // ── Plans ──────────────────────────────────────────────────

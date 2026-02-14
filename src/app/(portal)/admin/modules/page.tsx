@@ -228,6 +228,7 @@ export default async function AdminModulesPage({
                   <TableCell>
                     <ModuleActions
                       moduleId={module.id}
+                      moduleTitle={module.title}
                       status={module.status}
                       isCompanyPinned={companyPinSet.has(module.id)}
                     />

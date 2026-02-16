@@ -46,6 +46,54 @@ export async function getActiveTenantId(): Promise<string | null> {
  */
 export const getTenantContext = cache(_getTenantContextImpl);
 
+/**
+ * Auto-select a tenant for the user when no valid cookie exists.
+ * Extracted as a helper to allow re-use after stale cookie cleanup.
+ */
+async function _autoSelectTenant(
+  user: SessionUser,
+  isOwner: boolean,
+  cookieStore: Awaited<ReturnType<typeof cookies>>,
+): Promise<string> {
+  const memberships = await prisma.membership.findMany({
+    where: { userId: user.id },
+    include: { tenant: true },
+  });
+  const active = memberships.filter((m) => !m.tenant.archivedAt);
+
+  if (active.length === 1) {
+    const tid = active[0].tenantId;
+    try {
+      cookieStore.set(TENANT_COOKIE, tid, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 365,
+      });
+    } catch {
+      // Server Component read-only context
+    }
+    return tid;
+  }
+
+  if (active.length === 0 && !isOwner) {
+    throw new TenantAccessError("Niste član nobenega podjetja", "NO_MEMBERSHIP");
+  }
+
+  if (isOwner) {
+    const firstTenant = await prisma.tenant.findFirst({
+      where: { archivedAt: null },
+      orderBy: { createdAt: "asc" },
+    });
+    if (firstTenant) return firstTenant.id;
+    throw new TenantAccessError("Ni podjetij v sistemu", "NO_TENANTS");
+  }
+
+  // Multiple memberships — redirect to picker
+  throw new TenantAccessError("Izberite podjetje", "TENANT_PICKER_REQUIRED");
+}
+
 async function _getTenantContextImpl(): Promise<TenantContext> {
   const user = await getCurrentUser();
   const cookieStore = await cookies();
@@ -63,50 +111,23 @@ async function _getTenantContextImpl(): Promise<TenantContext> {
     tenantId = cookieStore.get(TENANT_COOKIE)?.value ?? null;
   }
 
-  // Auto-select if user has exactly 1 membership
+  // Auto-select if user has no tenant cookie
   if (!tenantId) {
-    const memberships = await prisma.membership.findMany({
-      where: { userId: user.id },
-      include: { tenant: true },
-    });
-
-    if (memberships.length === 1) {
-      tenantId = memberships[0].tenantId;
-      // Auto-set the cookie for future requests (may fail in server components — that's OK)
-      try {
-        cookieStore.set(TENANT_COOKIE, tenantId, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-          maxAge: 60 * 60 * 24 * 365,
-        });
-      } catch {
-        // cookies().set() throws in Server Components (read-only context).
-        // The tenant will still be resolved for this request; the cookie
-        // will be set once the user hits a Server Action or Route Handler.
-      }
-    } else if (memberships.length === 0 && !isOwner) {
-      throw new TenantAccessError("Niste član nobenega podjetja", "NO_MEMBERSHIP");
-    } else if (isOwner) {
-      // Owner without impersonation — pick the first tenant
-      const firstTenant = await prisma.tenant.findFirst({
-        where: { archivedAt: null },
-        orderBy: { createdAt: "asc" },
-      });
-      if (firstTenant) {
-        tenantId = firstTenant.id;
-      } else {
-        throw new TenantAccessError("Ni podjetij v sistemu", "NO_TENANTS");
-      }
-    } else {
-      // Multiple memberships — redirect to picker
-      throw new TenantAccessError("Izberite podjetje", "TENANT_PICKER_REQUIRED");
-    }
+    tenantId = await _autoSelectTenant(user, isOwner, cookieStore);
   }
 
-  // Fetch tenant
-  const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+  // Fetch tenant and validate the cookie is still valid.
+  // If the cookie points to a deleted/archived tenant or the user lost membership,
+  // clear the stale cookie and fall back to auto-select to prevent redirect loops.
+  let tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+
+  if ((!tenant || tenant.archivedAt) && !isOwnerImpersonating) {
+    // Stale tenant cookie — clear and retry auto-select
+    try { cookieStore.delete(TENANT_COOKIE); } catch { /* read-only context */ }
+    tenantId = await _autoSelectTenant(user, isOwner, cookieStore);
+    tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+  }
+
   if (!tenant || tenant.archivedAt) {
     throw new TenantAccessError("Podjetje ne obstaja ali je arhivirano", "NOT_FOUND");
   }
@@ -125,9 +146,23 @@ async function _getTenantContextImpl(): Promise<TenantContext> {
       where: { userId_tenantId: { userId: user.id, tenantId } },
     });
     if (!membership) {
-      throw new TenantAccessError("Niste član tega podjetja", "FORBIDDEN");
+      // User lost access to this tenant — clear stale cookie and retry
+      try { cookieStore.delete(TENANT_COOKIE); } catch { /* read-only context */ }
+      tenantId = await _autoSelectTenant(user, isOwner, cookieStore);
+      tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant || tenant.archivedAt) {
+        throw new TenantAccessError("Podjetje ne obstaja ali je arhivirano", "NOT_FOUND");
+      }
+      membership = await prisma.membership.findUnique({
+        where: { userId_tenantId: { userId: user.id, tenantId } },
+      });
+      if (!membership) {
+        throw new TenantAccessError("Niste član tega podjetja", "FORBIDDEN");
+      }
+      effectiveRole = membership.role;
+    } else {
+      effectiveRole = membership.role;
     }
-    effectiveRole = membership.role;
   }
 
   // Validate locale — fallback to "en" if the DB value is not supported

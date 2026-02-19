@@ -267,10 +267,10 @@ export type XpSourceType = (typeof XpSourceType)[keyof typeof XpSourceType]
 
 
 export const ReputationRank = {
-  BRONZE: 'BRONZE',
-  SILVER: 'SILVER',
-  GOLD: 'GOLD',
-  ELITE: 'ELITE'
+  VAJENEC: 'VAJENEC',
+  POMOCNIK: 'POMOCNIK',
+  MOJSTER: 'MOJSTER',
+  MENTOR: 'MENTOR'
 } as const
 
 export type ReputationRank = (typeof ReputationRank)[keyof typeof ReputationRank]

@@ -1203,10 +1203,10 @@ enum XpSourceType {
 }
 
 enum ReputationRank {
-  BRONZE
-  SILVER
-  GOLD
-  ELITE
+  VAJENEC
+  POMOCNIK
+  MOJSTER
+  MENTOR
 }
 
 model XpTransaction {
@@ -1231,7 +1231,7 @@ model UserXpBalance {
   tenantId  String
   userId    String
   totalXp   Int            @default(0)
-  rank      ReputationRank @default(BRONZE)
+  rank      ReputationRank @default(VAJENEC)
   updatedAt DateTime       @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)

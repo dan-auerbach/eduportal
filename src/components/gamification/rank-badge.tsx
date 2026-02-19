@@ -1,39 +1,39 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Shield, Award, Crown, Gem } from "lucide-react";
+import { GraduationCap, Wrench, Award, Star } from "lucide-react";
 import type { ReputationRank } from "@/generated/prisma/client";
 
 // ── Rank config ──────────────────────────────────────────────────────────────
 
 const RANK_CONFIG: Record<
   ReputationRank,
-  { label: string; icon: typeof Shield; color: string; bgColor: string; borderColor: string }
+  { label: string; icon: typeof Award; color: string; bgColor: string; borderColor: string }
 > = {
-  BRONZE: {
-    label: "Bronze",
-    icon: Shield,
+  VAJENEC: {
+    label: "Vajenec",
+    icon: GraduationCap,
     color: "text-amber-700 dark:text-amber-500",
     bgColor: "bg-amber-100 dark:bg-amber-900/30",
     borderColor: "border-amber-300 dark:border-amber-700",
   },
-  SILVER: {
-    label: "Silver",
-    icon: Award,
-    color: "text-slate-500 dark:text-slate-300",
-    bgColor: "bg-slate-100 dark:bg-slate-800/40",
-    borderColor: "border-slate-300 dark:border-slate-600",
+  POMOCNIK: {
+    label: "Pomočnik",
+    icon: Wrench,
+    color: "text-blue-600 dark:text-blue-400",
+    bgColor: "bg-blue-50 dark:bg-blue-900/20",
+    borderColor: "border-blue-300 dark:border-blue-600",
   },
-  GOLD: {
-    label: "Gold",
-    icon: Crown,
+  MOJSTER: {
+    label: "Mojster",
+    icon: Award,
     color: "text-yellow-600 dark:text-yellow-400",
     bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
     borderColor: "border-yellow-400 dark:border-yellow-600",
   },
-  ELITE: {
-    label: "Elite",
-    icon: Gem,
+  MENTOR: {
+    label: "Mentor",
+    icon: Star,
     color: "text-purple-600 dark:text-purple-400",
     bgColor: "bg-purple-50 dark:bg-purple-900/20",
     borderColor: "border-purple-400 dark:border-purple-600",

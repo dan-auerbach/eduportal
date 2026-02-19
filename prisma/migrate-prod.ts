@@ -217,6 +217,35 @@ const MIGRATIONS: Migration[] = [
       `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'KnowledgeSuggestionComment_parentId_fkey') THEN ALTER TABLE "KnowledgeSuggestionComment" ADD CONSTRAINT "KnowledgeSuggestionComment_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "KnowledgeSuggestionComment"("id") ON DELETE SET NULL ON UPDATE CASCADE; END IF; END $$;`,
     ],
   },
+  {
+    name: "20260219120000_rename_reputation_ranks",
+    statements: [
+      // PostgreSQL doesn't support renaming enum values directly.
+      // Strategy: add new values, update data, then recreate without old values.
+
+      // Step 1: Add new enum values
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'VAJENEC' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'ReputationRank')) THEN ALTER TYPE "ReputationRank" ADD VALUE 'VAJENEC'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'POMOCNIK' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'ReputationRank')) THEN ALTER TYPE "ReputationRank" ADD VALUE 'POMOCNIK'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'MOJSTER' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'ReputationRank')) THEN ALTER TYPE "ReputationRank" ADD VALUE 'MOJSTER'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'MENTOR' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'ReputationRank')) THEN ALTER TYPE "ReputationRank" ADD VALUE 'MENTOR'; END IF; END $$;`,
+
+      // Step 2: Migrate existing data from old values to new values
+      `UPDATE "UserXpBalance" SET "rank" = 'VAJENEC' WHERE "rank" = 'BRONZE';`,
+      `UPDATE "UserXpBalance" SET "rank" = 'POMOCNIK' WHERE "rank" = 'SILVER';`,
+      `UPDATE "UserXpBalance" SET "rank" = 'MOJSTER' WHERE "rank" = 'GOLD';`,
+      `UPDATE "UserXpBalance" SET "rank" = 'MENTOR' WHERE "rank" = 'ELITE';`,
+
+      // Step 3: Remove default so we can drop the enum type
+      `ALTER TABLE "UserXpBalance" ALTER COLUMN "rank" DROP DEFAULT;`,
+
+      // Step 4: Convert column to TEXT, drop old enum, recreate with new values only
+      `ALTER TABLE "UserXpBalance" ALTER COLUMN "rank" TYPE TEXT;`,
+      `DROP TYPE "ReputationRank";`,
+      `CREATE TYPE "ReputationRank" AS ENUM ('VAJENEC', 'POMOCNIK', 'MOJSTER', 'MENTOR');`,
+      `ALTER TABLE "UserXpBalance" ALTER COLUMN "rank" TYPE "ReputationRank" USING "rank"::"ReputationRank";`,
+      `ALTER TABLE "UserXpBalance" ALTER COLUMN "rank" SET DEFAULT 'VAJENEC'::"ReputationRank";`,
+    ],
+  },
 ];
 
 async function main() {

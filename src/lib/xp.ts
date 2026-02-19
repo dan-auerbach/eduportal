@@ -20,10 +20,18 @@ export const XP_RULES = {
 } as const;
 
 export const RANK_THRESHOLDS: Record<ReputationRank, number> = {
-  BRONZE: 0,
-  SILVER: 500,
-  GOLD: 2000,
-  ELITE: 5000,
+  VAJENEC: 0,
+  POMOCNIK: 1500,
+  MOJSTER: 3500,
+  MENTOR: 6000,
+} as const;
+
+/** Human-readable rank labels (for notifications and UI) */
+export const RANK_LABELS: Record<ReputationRank, string> = {
+  VAJENEC: "Vajenec",
+  POMOCNIK: "Pomočnik",
+  MOJSTER: "Mojster",
+  MENTOR: "Mentor",
 } as const;
 
 /** Vote count threshold at which a knowledge suggestion awards XP to its author */
@@ -32,22 +40,22 @@ export const SUGGESTION_VOTE_THRESHOLD = 5;
 // ── Rank Computation ─────────────────────────────────────────────────────────
 
 export function computeRank(totalXp: number): ReputationRank {
-  if (totalXp >= RANK_THRESHOLDS.ELITE) return "ELITE";
-  if (totalXp >= RANK_THRESHOLDS.GOLD) return "GOLD";
-  if (totalXp >= RANK_THRESHOLDS.SILVER) return "SILVER";
-  return "BRONZE";
+  if (totalXp >= RANK_THRESHOLDS.MENTOR) return "MENTOR";
+  if (totalXp >= RANK_THRESHOLDS.MOJSTER) return "MOJSTER";
+  if (totalXp >= RANK_THRESHOLDS.POMOCNIK) return "POMOCNIK";
+  return "VAJENEC";
 }
 
-/** XP needed to reach the next rank, or null if already ELITE */
+/** XP needed to reach the next rank, or null if already MENTOR */
 export function xpToNextRank(
   totalXp: number,
 ): { nextRank: ReputationRank; xpNeeded: number } | null {
-  if (totalXp >= RANK_THRESHOLDS.ELITE) return null;
-  if (totalXp >= RANK_THRESHOLDS.GOLD)
-    return { nextRank: "ELITE", xpNeeded: RANK_THRESHOLDS.ELITE - totalXp };
-  if (totalXp >= RANK_THRESHOLDS.SILVER)
-    return { nextRank: "GOLD", xpNeeded: RANK_THRESHOLDS.GOLD - totalXp };
-  return { nextRank: "SILVER", xpNeeded: RANK_THRESHOLDS.SILVER - totalXp };
+  if (totalXp >= RANK_THRESHOLDS.MENTOR) return null;
+  if (totalXp >= RANK_THRESHOLDS.MOJSTER)
+    return { nextRank: "MENTOR", xpNeeded: RANK_THRESHOLDS.MENTOR - totalXp };
+  if (totalXp >= RANK_THRESHOLDS.POMOCNIK)
+    return { nextRank: "MOJSTER", xpNeeded: RANK_THRESHOLDS.MOJSTER - totalXp };
+  return { nextRank: "POMOCNIK", xpNeeded: RANK_THRESHOLDS.POMOCNIK - totalXp };
 }
 
 // ── Award XP ─────────────────────────────────────────────────────────────────
@@ -71,7 +79,7 @@ export async function awardXp(params: {
   const existing = await prisma.userXpBalance.findUnique({
     where: { userId_tenantId: { userId, tenantId } },
   });
-  const oldRank = existing?.rank ?? "BRONZE";
+  const oldRank = existing?.rank ?? "VAJENEC";
   const newTotal = (existing?.totalXp ?? 0) + amount;
   const newRank = computeRank(newTotal);
   const rankChanged = newRank !== oldRank;
@@ -112,8 +120,8 @@ export async function awardXp(params: {
         userId,
         tenantId,
         type: "XP_EARNED",
-        title: `Novi rang: ${newRank}`,
-        message: `Čestitamo! Dosegli ste rang ${newRank} z ${newTotal} XP točkami.`,
+        title: `Novi rang: ${RANK_LABELS[newRank]}`,
+        message: `Čestitamo! Dosegli ste rang ${RANK_LABELS[newRank]} z ${newTotal} XP točkami.`,
         link: "/leaderboard",
       },
     });
@@ -182,5 +190,5 @@ export async function getOrCreateBalance(
     where: { userId_tenantId: { userId, tenantId } },
   });
   if (balance) return { totalXp: balance.totalXp, rank: balance.rank };
-  return { totalXp: 0, rank: "BRONZE" };
+  return { totalXp: 0, rank: "VAJENEC" };
 }

@@ -30,7 +30,8 @@ export default async function RewardsPage() {
         <Card>
           <CardContent className="py-4">
             <XpDisplay
-              totalXp={balance.totalXp}
+              lifetimeXp={balance.lifetimeXp}
+              spendableXp={balance.spendableXp}
               rank={balance.rank}
               nextRank={balance.nextRank}
               variant="full"
@@ -53,7 +54,7 @@ export default async function RewardsPage() {
             </CardContent>
           </Card>
         ) : (
-          <RewardGrid rewards={rewards} currentXp={balance?.totalXp ?? 0} />
+          <RewardGrid rewards={rewards} currentXp={balance?.spendableXp ?? 0} />
         )}
       </div>
 

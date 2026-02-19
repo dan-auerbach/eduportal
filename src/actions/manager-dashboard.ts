@@ -22,7 +22,7 @@ export type TopPerformer = {
   userId: string;
   userName: string;
   avatar: string | null;
-  totalXp: number;
+  lifetimeXp: number;
   rank: ReputationRank;
   xpThisMonth: number;
 };
@@ -113,7 +113,7 @@ export async function getManagerDashboardData(
       // XP balances for top performers
       prisma.userXpBalance.findMany({
         where: { tenantId },
-        orderBy: { totalXp: "desc" },
+        orderBy: { lifetimeXp: "desc" },
         take: 10,
         include: {
           user: {
@@ -220,7 +220,7 @@ export async function getManagerDashboardData(
       userId: b.user.id,
       userName: `${b.user.firstName} ${b.user.lastName}`,
       avatar: b.user.avatar,
-      totalXp: b.totalXp,
+      lifetimeXp: b.lifetimeXp,
       rank: b.rank,
       xpThisMonth: xpMonthMap.get(b.userId) ?? 0,
     }));

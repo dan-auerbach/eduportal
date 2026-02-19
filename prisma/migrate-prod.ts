@@ -246,6 +246,17 @@ const MIGRATIONS: Migration[] = [
       `ALTER TABLE "UserXpBalance" ALTER COLUMN "rank" SET DEFAULT 'VAJENEC'::"ReputationRank";`,
     ],
   },
+  {
+    name: "20260219130000_add_lifetime_xp",
+    statements: [
+      // Add lifetimeXp column (cumulative, never decreases — determines rank)
+      `ALTER TABLE "UserXpBalance" ADD COLUMN IF NOT EXISTS "lifetimeXp" INTEGER NOT NULL DEFAULT 0;`,
+      // Backfill: compute lifetimeXp from sum of positive XP transactions (ignoring deductions)
+      `UPDATE "UserXpBalance" b SET "lifetimeXp" = COALESCE((SELECT SUM(amount) FROM "XpTransaction" t WHERE t."userId" = b."userId" AND t."tenantId" = b."tenantId" AND t.amount > 0), 0) WHERE "lifetimeXp" = 0;`,
+      // Index for leaderboard ordering by lifetime XP
+      `CREATE INDEX IF NOT EXISTS "UserXpBalance_tenantId_lifetimeXp_idx" ON "UserXpBalance"("tenantId", "lifetimeXp");`,
+    ],
+  },
 ];
 
 async function main() {

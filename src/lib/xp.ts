@@ -46,16 +46,16 @@ export function computeRank(totalXp: number): ReputationRank {
   return "VAJENEC";
 }
 
-/** XP needed to reach the next rank, or null if already MENTOR */
+/** XP needed to reach the next rank (based on lifetimeXp), or null if already MENTOR */
 export function xpToNextRank(
-  totalXp: number,
+  lifetimeXp: number,
 ): { nextRank: ReputationRank; xpNeeded: number } | null {
-  if (totalXp >= RANK_THRESHOLDS.MENTOR) return null;
-  if (totalXp >= RANK_THRESHOLDS.MOJSTER)
-    return { nextRank: "MENTOR", xpNeeded: RANK_THRESHOLDS.MENTOR - totalXp };
-  if (totalXp >= RANK_THRESHOLDS.POMOCNIK)
-    return { nextRank: "MOJSTER", xpNeeded: RANK_THRESHOLDS.MOJSTER - totalXp };
-  return { nextRank: "POMOCNIK", xpNeeded: RANK_THRESHOLDS.POMOCNIK - totalXp };
+  if (lifetimeXp >= RANK_THRESHOLDS.MENTOR) return null;
+  if (lifetimeXp >= RANK_THRESHOLDS.MOJSTER)
+    return { nextRank: "MENTOR", xpNeeded: RANK_THRESHOLDS.MENTOR - lifetimeXp };
+  if (lifetimeXp >= RANK_THRESHOLDS.POMOCNIK)
+    return { nextRank: "MOJSTER", xpNeeded: RANK_THRESHOLDS.MOJSTER - lifetimeXp };
+  return { nextRank: "POMOCNIK", xpNeeded: RANK_THRESHOLDS.POMOCNIK - lifetimeXp };
 }
 
 // ── Award XP ─────────────────────────────────────────────────────────────────
@@ -80,8 +80,9 @@ export async function awardXp(params: {
     where: { userId_tenantId: { userId, tenantId } },
   });
   const oldRank = existing?.rank ?? "VAJENEC";
+  const newLifetime = (existing?.lifetimeXp ?? 0) + amount;
   const newTotal = (existing?.totalXp ?? 0) + amount;
-  const newRank = computeRank(newTotal);
+  const newRank = computeRank(newLifetime); // Rank from lifetime, never goes down
   const rankChanged = newRank !== oldRank;
 
   // Atomic: create transaction + upsert balance
@@ -98,8 +99,8 @@ export async function awardXp(params: {
     }),
     prisma.userXpBalance.upsert({
       where: { userId_tenantId: { userId, tenantId } },
-      create: { tenantId, userId, totalXp: amount, rank: newRank },
-      update: { totalXp: newTotal, rank: newRank },
+      create: { tenantId, userId, lifetimeXp: amount, totalXp: amount, rank: newRank },
+      update: { lifetimeXp: newLifetime, totalXp: newTotal, rank: newRank },
     }),
   ]);
 
@@ -110,7 +111,7 @@ export async function awardXp(params: {
     action: "XP_AWARDED",
     entityType: "XpTransaction",
     entityId: userId,
-    metadata: { amount, source, sourceEntityId, newTotal, newRank },
+    metadata: { amount, source, sourceEntityId, newLifetime, newTotal, newRank },
   });
 
   // Notification on rank change
@@ -121,7 +122,7 @@ export async function awardXp(params: {
         tenantId,
         type: "XP_EARNED",
         title: `Novi rang: ${RANK_LABELS[newRank]}`,
-        message: `Čestitamo! Dosegli ste rang ${RANK_LABELS[newRank]} z ${newTotal} XP točkami.`,
+        message: `Čestitamo! Dosegli ste rang ${RANK_LABELS[newRank]} z ${newLifetime} XP točkami.`,
         link: "/leaderboard",
       },
     });
@@ -137,7 +138,7 @@ export async function deductXp(params: {
   tenantId: string;
   amount: number;
   description?: string;
-}): Promise<{ newTotal: number; newRank: ReputationRank }> {
+}): Promise<{ newTotal: number; rank: ReputationRank }> {
   const { userId, tenantId, amount, description } = params;
 
   const existing = await prisma.userXpBalance.findUnique({
@@ -150,7 +151,8 @@ export async function deductXp(params: {
   }
 
   const newTotal = currentTotal - amount;
-  const newRank = computeRank(newTotal);
+  // Rank stays the same — it's based on lifetimeXp, which never decreases
+  const rank = existing?.rank ?? "VAJENEC";
 
   await prisma.$transaction([
     prisma.xpTransaction.create({
@@ -164,7 +166,8 @@ export async function deductXp(params: {
     }),
     prisma.userXpBalance.update({
       where: { userId_tenantId: { userId, tenantId } },
-      data: { totalXp: newTotal, rank: newRank },
+      data: { totalXp: newTotal },
+      // Note: lifetimeXp and rank are NOT changed on deduction
     }),
   ]);
 
@@ -177,7 +180,7 @@ export async function deductXp(params: {
     metadata: { amount, newTotal, description },
   });
 
-  return { newTotal, newRank };
+  return { newTotal, rank };
 }
 
 // ── Get Balance (with lazy init) ─────────────────────────────────────────────
@@ -185,10 +188,10 @@ export async function deductXp(params: {
 export async function getOrCreateBalance(
   userId: string,
   tenantId: string,
-): Promise<{ totalXp: number; rank: ReputationRank }> {
+): Promise<{ lifetimeXp: number; totalXp: number; rank: ReputationRank }> {
   const balance = await prisma.userXpBalance.findUnique({
     where: { userId_tenantId: { userId, tenantId } },
   });
-  if (balance) return { totalXp: balance.totalXp, rank: balance.rank };
-  return { totalXp: 0, rank: "VAJENEC" };
+  if (balance) return { lifetimeXp: balance.lifetimeXp, totalXp: balance.totalXp, rank: balance.rank };
+  return { lifetimeXp: 0, totalXp: 0, rank: "VAJENEC" };
 }

@@ -44,7 +44,8 @@ export default async function LeaderboardPage({
         <Card>
           <CardContent className="py-4">
             <XpDisplay
-              totalXp={myBalance.totalXp}
+              lifetimeXp={myBalance.lifetimeXp}
+              spendableXp={myBalance.spendableXp}
               rank={myBalance.rank}
               nextRank={myBalance.nextRank}
               variant="full"
@@ -112,7 +113,7 @@ export default async function LeaderboardPage({
                   {/* XP */}
                   <div className="flex items-center gap-1 text-sm font-semibold tabular-nums">
                     <Zap className="h-4 w-4 text-yellow-500" />
-                    {entry.totalXp.toLocaleString()}
+                    {entry.lifetimeXp.toLocaleString()}
                   </div>
                 </CardContent>
               </Card>

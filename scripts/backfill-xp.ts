@@ -252,8 +252,9 @@ async function main() {
     const existing = await prisma.userXpBalance.findUnique({
       where: { userId_tenantId: { userId, tenantId: TENANT_ID } },
     });
+    const newLifetime = (existing?.lifetimeXp ?? 0) + totalNewXp;
     const newTotal = (existing?.totalXp ?? 0) + totalNewXp;
-    const newRank = computeRank(newTotal);
+    const newRank = computeRank(newLifetime);
 
     // Atomic: create all transactions + upsert balance
     await prisma.$transaction([
@@ -263,10 +264,11 @@ async function main() {
         create: {
           tenantId: TENANT_ID,
           userId,
+          lifetimeXp: totalNewXp,
           totalXp: totalNewXp,
           rank: computeRank(totalNewXp),
         },
-        update: { totalXp: newTotal, rank: newRank },
+        update: { lifetimeXp: newLifetime, totalXp: newTotal, rank: newRank },
       }),
     ]);
 

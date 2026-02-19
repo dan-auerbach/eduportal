@@ -187,10 +187,10 @@ export async function redeemReward(
     });
     if (!reward) return { success: false, error: "Nagrada ni na voljo" };
 
-    // Check balance
+    // Check spendable balance
     const balance = await getOrCreateBalance(ctx.user.id, ctx.tenantId);
     if (balance.totalXp < reward.costXp) {
-      return { success: false, error: "Premalo XP točk" };
+      return { success: false, error: "Premalo XP točk za porabo" };
     }
 
     // Check monthly limit

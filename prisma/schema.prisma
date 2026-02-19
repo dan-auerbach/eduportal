@@ -1227,17 +1227,19 @@ model XpTransaction {
 }
 
 model UserXpBalance {
-  id        String         @id @default(cuid())
-  tenantId  String
-  userId    String
-  totalXp   Int            @default(0)
-  rank      ReputationRank @default(VAJENEC)
-  updatedAt DateTime       @updatedAt
+  id         String         @id @default(cuid())
+  tenantId   String
+  userId     String
+  lifetimeXp Int            @default(0) /// Cumulative XP earned (never decreases). Determines rank.
+  totalXp    Int            @default(0) /// Spendable XP balance. Decreases when rewards are redeemed.
+  rank       ReputationRank @default(VAJENEC)
+  updatedAt  DateTime       @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, tenantId])
+  @@index([tenantId, lifetimeXp])
   @@index([tenantId, totalXp])
 }
 

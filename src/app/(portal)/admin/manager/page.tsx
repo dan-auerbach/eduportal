@@ -182,7 +182,7 @@ export default async function ManagerDashboardPage({
                       <div className="text-right">
                         <p className="text-sm font-semibold tabular-nums flex items-center gap-0.5">
                           <Zap className="h-3 w-3 text-yellow-500" />
-                          {user.totalXp.toLocaleString()}
+                          {user.lifetimeXp.toLocaleString()}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           +{user.xpThisMonth} {t("manager.thisMonth")}

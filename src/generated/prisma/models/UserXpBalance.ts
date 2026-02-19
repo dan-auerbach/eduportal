@@ -27,10 +27,12 @@ export type AggregateUserXpBalance = {
 }
 
 export type UserXpBalanceAvgAggregateOutputType = {
+  lifetimeXp: number | null
   totalXp: number | null
 }
 
 export type UserXpBalanceSumAggregateOutputType = {
+  lifetimeXp: number | null
   totalXp: number | null
 }
 
@@ -38,6 +40,7 @@ export type UserXpBalanceMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
   userId: string | null
+  lifetimeXp: number | null
   totalXp: number | null
   rank: $Enums.ReputationRank | null
   updatedAt: Date | null
@@ -47,6 +50,7 @@ export type UserXpBalanceMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
   userId: string | null
+  lifetimeXp: number | null
   totalXp: number | null
   rank: $Enums.ReputationRank | null
   updatedAt: Date | null
@@ -56,6 +60,7 @@ export type UserXpBalanceCountAggregateOutputType = {
   id: number
   tenantId: number
   userId: number
+  lifetimeXp: number
   totalXp: number
   rank: number
   updatedAt: number
@@ -64,10 +69,12 @@ export type UserXpBalanceCountAggregateOutputType = {
 
 
 export type UserXpBalanceAvgAggregateInputType = {
+  lifetimeXp?: true
   totalXp?: true
 }
 
 export type UserXpBalanceSumAggregateInputType = {
+  lifetimeXp?: true
   totalXp?: true
 }
 
@@ -75,6 +82,7 @@ export type UserXpBalanceMinAggregateInputType = {
   id?: true
   tenantId?: true
   userId?: true
+  lifetimeXp?: true
   totalXp?: true
   rank?: true
   updatedAt?: true
@@ -84,6 +92,7 @@ export type UserXpBalanceMaxAggregateInputType = {
   id?: true
   tenantId?: true
   userId?: true
+  lifetimeXp?: true
   totalXp?: true
   rank?: true
   updatedAt?: true
@@ -93,6 +102,7 @@ export type UserXpBalanceCountAggregateInputType = {
   id?: true
   tenantId?: true
   userId?: true
+  lifetimeXp?: true
   totalXp?: true
   rank?: true
   updatedAt?: true
@@ -189,6 +199,7 @@ export type UserXpBalanceGroupByOutputType = {
   id: string
   tenantId: string
   userId: string
+  lifetimeXp: number
   totalXp: number
   rank: $Enums.ReputationRank
   updatedAt: Date
@@ -221,6 +232,7 @@ export type UserXpBalanceWhereInput = {
   id?: Prisma.StringFilter<"UserXpBalance"> | string
   tenantId?: Prisma.StringFilter<"UserXpBalance"> | string
   userId?: Prisma.StringFilter<"UserXpBalance"> | string
+  lifetimeXp?: Prisma.IntFilter<"UserXpBalance"> | number
   totalXp?: Prisma.IntFilter<"UserXpBalance"> | number
   rank?: Prisma.EnumReputationRankFilter<"UserXpBalance"> | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFilter<"UserXpBalance"> | Date | string
@@ -232,6 +244,7 @@ export type UserXpBalanceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -247,6 +260,7 @@ export type UserXpBalanceWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserXpBalanceWhereInput | Prisma.UserXpBalanceWhereInput[]
   tenantId?: Prisma.StringFilter<"UserXpBalance"> | string
   userId?: Prisma.StringFilter<"UserXpBalance"> | string
+  lifetimeXp?: Prisma.IntFilter<"UserXpBalance"> | number
   totalXp?: Prisma.IntFilter<"UserXpBalance"> | number
   rank?: Prisma.EnumReputationRankFilter<"UserXpBalance"> | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFilter<"UserXpBalance"> | Date | string
@@ -258,6 +272,7 @@ export type UserXpBalanceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -275,6 +290,7 @@ export type UserXpBalanceScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"UserXpBalance"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"UserXpBalance"> | string
   userId?: Prisma.StringWithAggregatesFilter<"UserXpBalance"> | string
+  lifetimeXp?: Prisma.IntWithAggregatesFilter<"UserXpBalance"> | number
   totalXp?: Prisma.IntWithAggregatesFilter<"UserXpBalance"> | number
   rank?: Prisma.EnumReputationRankWithAggregatesFilter<"UserXpBalance"> | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UserXpBalance"> | Date | string
@@ -282,6 +298,7 @@ export type UserXpBalanceScalarWhereWithAggregatesInput = {
 
 export type UserXpBalanceCreateInput = {
   id?: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -293,6 +310,7 @@ export type UserXpBalanceUncheckedCreateInput = {
   id?: string
   tenantId: string
   userId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -300,6 +318,7 @@ export type UserXpBalanceUncheckedCreateInput = {
 
 export type UserXpBalanceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -311,6 +330,7 @@ export type UserXpBalanceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -320,6 +340,7 @@ export type UserXpBalanceCreateManyInput = {
   id?: string
   tenantId: string
   userId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -327,6 +348,7 @@ export type UserXpBalanceCreateManyInput = {
 
 export type UserXpBalanceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,6 +358,7 @@ export type UserXpBalanceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,12 +383,14 @@ export type UserXpBalanceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UserXpBalanceAvgOrderByAggregateInput = {
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
 }
 
@@ -373,6 +398,7 @@ export type UserXpBalanceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -382,12 +408,14 @@ export type UserXpBalanceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UserXpBalanceSumOrderByAggregateInput = {
+  lifetimeXp?: Prisma.SortOrder
   totalXp?: Prisma.SortOrder
 }
 
@@ -481,6 +509,7 @@ export type EnumReputationRankFieldUpdateOperationsInput = {
 
 export type UserXpBalanceCreateWithoutTenantInput = {
   id?: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -490,6 +519,7 @@ export type UserXpBalanceCreateWithoutTenantInput = {
 export type UserXpBalanceUncheckedCreateWithoutTenantInput = {
   id?: string
   userId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -528,6 +558,7 @@ export type UserXpBalanceScalarWhereInput = {
   id?: Prisma.StringFilter<"UserXpBalance"> | string
   tenantId?: Prisma.StringFilter<"UserXpBalance"> | string
   userId?: Prisma.StringFilter<"UserXpBalance"> | string
+  lifetimeXp?: Prisma.IntFilter<"UserXpBalance"> | number
   totalXp?: Prisma.IntFilter<"UserXpBalance"> | number
   rank?: Prisma.EnumReputationRankFilter<"UserXpBalance"> | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFilter<"UserXpBalance"> | Date | string
@@ -535,6 +566,7 @@ export type UserXpBalanceScalarWhereInput = {
 
 export type UserXpBalanceCreateWithoutUserInput = {
   id?: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -544,6 +576,7 @@ export type UserXpBalanceCreateWithoutUserInput = {
 export type UserXpBalanceUncheckedCreateWithoutUserInput = {
   id?: string
   tenantId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -578,6 +611,7 @@ export type UserXpBalanceUpdateManyWithWhereWithoutUserInput = {
 export type UserXpBalanceCreateManyTenantInput = {
   id?: string
   userId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -585,6 +619,7 @@ export type UserXpBalanceCreateManyTenantInput = {
 
 export type UserXpBalanceUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,6 +629,7 @@ export type UserXpBalanceUpdateWithoutTenantInput = {
 export type UserXpBalanceUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -602,6 +638,7 @@ export type UserXpBalanceUncheckedUpdateWithoutTenantInput = {
 export type UserXpBalanceUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -610,6 +647,7 @@ export type UserXpBalanceUncheckedUpdateManyWithoutTenantInput = {
 export type UserXpBalanceCreateManyUserInput = {
   id?: string
   tenantId: string
+  lifetimeXp?: number
   totalXp?: number
   rank?: $Enums.ReputationRank
   updatedAt?: Date | string
@@ -617,6 +655,7 @@ export type UserXpBalanceCreateManyUserInput = {
 
 export type UserXpBalanceUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -626,6 +665,7 @@ export type UserXpBalanceUpdateWithoutUserInput = {
 export type UserXpBalanceUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -634,6 +674,7 @@ export type UserXpBalanceUncheckedUpdateWithoutUserInput = {
 export type UserXpBalanceUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  lifetimeXp?: Prisma.IntFieldUpdateOperationsInput | number
   totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   rank?: Prisma.EnumReputationRankFieldUpdateOperationsInput | $Enums.ReputationRank
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -645,6 +686,7 @@ export type UserXpBalanceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   tenantId?: boolean
   userId?: boolean
+  lifetimeXp?: boolean
   totalXp?: boolean
   rank?: boolean
   updatedAt?: boolean
@@ -656,6 +698,7 @@ export type UserXpBalanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   tenantId?: boolean
   userId?: boolean
+  lifetimeXp?: boolean
   totalXp?: boolean
   rank?: boolean
   updatedAt?: boolean
@@ -667,6 +710,7 @@ export type UserXpBalanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   tenantId?: boolean
   userId?: boolean
+  lifetimeXp?: boolean
   totalXp?: boolean
   rank?: boolean
   updatedAt?: boolean
@@ -678,12 +722,13 @@ export type UserXpBalanceSelectScalar = {
   id?: boolean
   tenantId?: boolean
   userId?: boolean
+  lifetimeXp?: boolean
   totalXp?: boolean
   rank?: boolean
   updatedAt?: boolean
 }
 
-export type UserXpBalanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "totalXp" | "rank" | "updatedAt", ExtArgs["result"]["userXpBalance"]>
+export type UserXpBalanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "lifetimeXp" | "totalXp" | "rank" | "updatedAt", ExtArgs["result"]["userXpBalance"]>
 export type UserXpBalanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -707,6 +752,13 @@ export type $UserXpBalancePayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     tenantId: string
     userId: string
+    /**
+     * Cumulative XP earned (never decreases). Determines rank.
+     */
+    lifetimeXp: number
+    /**
+     * Spendable XP balance. Decreases when rewards are redeemed.
+     */
     totalXp: number
     rank: $Enums.ReputationRank
     updatedAt: Date
@@ -1138,6 +1190,7 @@ export interface UserXpBalanceFieldRefs {
   readonly id: Prisma.FieldRef<"UserXpBalance", 'String'>
   readonly tenantId: Prisma.FieldRef<"UserXpBalance", 'String'>
   readonly userId: Prisma.FieldRef<"UserXpBalance", 'String'>
+  readonly lifetimeXp: Prisma.FieldRef<"UserXpBalance", 'Int'>
   readonly totalXp: Prisma.FieldRef<"UserXpBalance", 'Int'>
   readonly rank: Prisma.FieldRef<"UserXpBalance", 'ReputationRank'>
   readonly updatedAt: Prisma.FieldRef<"UserXpBalance", 'DateTime'>

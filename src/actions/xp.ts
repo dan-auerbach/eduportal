@@ -16,13 +16,14 @@ export type LeaderboardEntry = {
   firstName: string;
   lastName: string;
   avatar: string | null;
-  totalXp: number;
+  lifetimeXp: number;
   rank: ReputationRank;
   position: number;
 };
 
 export type XpBalanceDTO = {
-  totalXp: number;
+  lifetimeXp: number;
+  spendableXp: number;
   rank: ReputationRank;
   nextRank: { nextRank: ReputationRank; xpNeeded: number } | null;
   recentTransactions: {
@@ -61,7 +62,7 @@ export async function getLeaderboard(
         tenantId: ctx.tenantId,
         ...(userIdFilter ? { userId: { in: userIdFilter } } : {}),
       },
-      orderBy: { totalXp: "desc" },
+      orderBy: { lifetimeXp: "desc" },
       take: limit,
       include: {
         user: { select: { id: true, firstName: true, lastName: true, avatar: true } },
@@ -73,7 +74,7 @@ export async function getLeaderboard(
       firstName: b.user.firstName,
       lastName: b.user.lastName,
       avatar: b.user.avatar,
-      totalXp: b.totalXp,
+      lifetimeXp: b.lifetimeXp,
       rank: b.rank,
       position: i + 1,
     }));
@@ -108,9 +109,10 @@ export async function getMyXpBalance(): Promise<ActionResult<XpBalanceDTO>> {
     return {
       success: true,
       data: {
-        totalXp: balance.totalXp,
+        lifetimeXp: balance.lifetimeXp,
+        spendableXp: balance.totalXp,
         rank: balance.rank,
-        nextRank: xpToNextRank(balance.totalXp),
+        nextRank: xpToNextRank(balance.lifetimeXp),
         recentTransactions: recentTransactions.map((t) => ({
           ...t,
           createdAt: t.createdAt.toISOString(),

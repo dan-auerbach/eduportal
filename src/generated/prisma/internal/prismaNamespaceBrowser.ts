@@ -707,6 +707,7 @@ export const UserXpBalanceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   userId: 'userId',
+  lifetimeXp: 'lifetimeXp',
   totalXp: 'totalXp',
   rank: 'rank',
   updatedAt: 'updatedAt'

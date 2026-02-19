@@ -77,7 +77,7 @@ export default async function AdminRewardsPage() {
                       </span>
                     </div>
                   </div>
-                  <AdminRewardActions mode="edit" rewardId={reward.id} />
+                  <AdminRewardActions mode="edit" reward={reward} />
                 </CardContent>
               </Card>
             ))}

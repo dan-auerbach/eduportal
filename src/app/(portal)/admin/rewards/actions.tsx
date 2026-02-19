@@ -15,27 +15,28 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, Pencil, Loader2 } from "lucide-react";
 import { createReward, updateReward } from "@/actions/rewards";
+import type { RewardDTO } from "@/actions/rewards";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { t } from "@/lib/i18n";
 
 type AdminRewardActionsProps =
-  | { mode: "create"; rewardId?: never }
-  | { mode: "edit"; rewardId: string };
+  | { mode: "create"; reward?: never }
+  | { mode: "edit"; reward: RewardDTO };
 
-export function AdminRewardActions({ mode, rewardId }: AdminRewardActionsProps) {
+export function AdminRewardActions({ mode, reward }: AdminRewardActionsProps) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  // Form state
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [costXp, setCostXp] = useState(100);
-  const [monthlyLimit, setMonthlyLimit] = useState<number | null>(null);
-  const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null);
-  const [approvalRequired, setApprovalRequired] = useState(true);
-  const [active, setActive] = useState(true);
+  // Form state — initialized from existing reward data when editing
+  const [title, setTitle] = useState(reward?.title ?? "");
+  const [description, setDescription] = useState(reward?.description ?? "");
+  const [costXp, setCostXp] = useState(reward?.costXp ?? 100);
+  const [monthlyLimit, setMonthlyLimit] = useState<number | null>(reward?.monthlyLimit ?? null);
+  const [quantityAvailable, setQuantityAvailable] = useState<number | null>(reward?.quantityAvailable ?? null);
+  const [approvalRequired, setApprovalRequired] = useState(reward?.approvalRequired ?? true);
+  const [active, setActive] = useState(reward?.active ?? true);
 
   function handleSubmit() {
     if (!title.trim()) return;
@@ -54,7 +55,7 @@ export function AdminRewardActions({ mode, rewardId }: AdminRewardActionsProps) 
       const result =
         mode === "create"
           ? await createReward(data)
-          : await updateReward(rewardId!, data);
+          : await updateReward(reward.id, data);
 
       if (result.success) {
         toast.success(mode === "create" ? t("rewards.created") : t("rewards.updated"));
@@ -138,21 +139,21 @@ export function AdminRewardActions({ mode, rewardId }: AdminRewardActionsProps) 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Checkbox
-                id="approval"
+                id={`approval-${reward?.id ?? "new"}`}
                 checked={approvalRequired}
                 onCheckedChange={(val) => setApprovalRequired(!!val)}
               />
-              <Label htmlFor="approval" className="text-sm">
+              <Label htmlFor={`approval-${reward?.id ?? "new"}`} className="text-sm">
                 {t("rewards.approvalRequired")}
               </Label>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox
-                id="active"
+                id={`active-${reward?.id ?? "new"}`}
                 checked={active}
                 onCheckedChange={(val) => setActive(!!val)}
               />
-              <Label htmlFor="active" className="text-sm">
+              <Label htmlFor={`active-${reward?.id ?? "new"}`} className="text-sm">
                 {t("rewards.active")}
               </Label>
             </div>

@@ -250,6 +250,41 @@ export type EmailPreference = Prisma.EmailPreferenceModel
  */
 export type AiModuleBuild = Prisma.AiModuleBuildModel
 /**
+ * Model XpTransaction
+ * 
+ */
+export type XpTransaction = Prisma.XpTransactionModel
+/**
+ * Model UserXpBalance
+ * 
+ */
+export type UserXpBalance = Prisma.UserXpBalanceModel
+/**
+ * Model Reward
+ * 
+ */
+export type Reward = Prisma.RewardModel
+/**
+ * Model RewardRedemption
+ * 
+ */
+export type RewardRedemption = Prisma.RewardRedemptionModel
+/**
+ * Model KnowledgeSuggestion
+ * 
+ */
+export type KnowledgeSuggestion = Prisma.KnowledgeSuggestionModel
+/**
+ * Model KnowledgeSuggestionVote
+ * 
+ */
+export type KnowledgeSuggestionVote = Prisma.KnowledgeSuggestionVoteModel
+/**
+ * Model KnowledgeSuggestionComment
+ * 
+ */
+export type KnowledgeSuggestionComment = Prisma.KnowledgeSuggestionCommentModel
+/**
  * Model MediaAsset
  * 
  */

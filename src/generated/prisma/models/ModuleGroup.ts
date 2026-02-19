@@ -28,10 +28,12 @@ export type AggregateModuleGroup = {
 
 export type ModuleGroupAvgAggregateOutputType = {
   deadlineDays: number | null
+  renewalXpBonus: number | null
 }
 
 export type ModuleGroupSumAggregateOutputType = {
   deadlineDays: number | null
+  renewalXpBonus: number | null
 }
 
 export type ModuleGroupMinAggregateOutputType = {
@@ -41,6 +43,7 @@ export type ModuleGroupMinAggregateOutputType = {
   assignedAt: Date | null
   deadlineDays: number | null
   isMandatory: boolean | null
+  renewalXpBonus: number | null
 }
 
 export type ModuleGroupMaxAggregateOutputType = {
@@ -50,6 +53,7 @@ export type ModuleGroupMaxAggregateOutputType = {
   assignedAt: Date | null
   deadlineDays: number | null
   isMandatory: boolean | null
+  renewalXpBonus: number | null
 }
 
 export type ModuleGroupCountAggregateOutputType = {
@@ -59,16 +63,19 @@ export type ModuleGroupCountAggregateOutputType = {
   assignedAt: number
   deadlineDays: number
   isMandatory: number
+  renewalXpBonus: number
   _all: number
 }
 
 
 export type ModuleGroupAvgAggregateInputType = {
   deadlineDays?: true
+  renewalXpBonus?: true
 }
 
 export type ModuleGroupSumAggregateInputType = {
   deadlineDays?: true
+  renewalXpBonus?: true
 }
 
 export type ModuleGroupMinAggregateInputType = {
@@ -78,6 +85,7 @@ export type ModuleGroupMinAggregateInputType = {
   assignedAt?: true
   deadlineDays?: true
   isMandatory?: true
+  renewalXpBonus?: true
 }
 
 export type ModuleGroupMaxAggregateInputType = {
@@ -87,6 +95,7 @@ export type ModuleGroupMaxAggregateInputType = {
   assignedAt?: true
   deadlineDays?: true
   isMandatory?: true
+  renewalXpBonus?: true
 }
 
 export type ModuleGroupCountAggregateInputType = {
@@ -96,6 +105,7 @@ export type ModuleGroupCountAggregateInputType = {
   assignedAt?: true
   deadlineDays?: true
   isMandatory?: true
+  renewalXpBonus?: true
   _all?: true
 }
 
@@ -192,6 +202,7 @@ export type ModuleGroupGroupByOutputType = {
   assignedAt: Date
   deadlineDays: number | null
   isMandatory: boolean
+  renewalXpBonus: number
   _count: ModuleGroupCountAggregateOutputType | null
   _avg: ModuleGroupAvgAggregateOutputType | null
   _sum: ModuleGroupSumAggregateOutputType | null
@@ -224,6 +235,7 @@ export type ModuleGroupWhereInput = {
   assignedAt?: Prisma.DateTimeFilter<"ModuleGroup"> | Date | string
   deadlineDays?: Prisma.IntNullableFilter<"ModuleGroup"> | number | null
   isMandatory?: Prisma.BoolFilter<"ModuleGroup"> | boolean
+  renewalXpBonus?: Prisma.IntFilter<"ModuleGroup"> | number
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -236,6 +248,7 @@ export type ModuleGroupOrderByWithRelationInput = {
   assignedAt?: Prisma.SortOrder
   deadlineDays?: Prisma.SortOrderInput | Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
   module?: Prisma.ModuleOrderByWithRelationInput
   group?: Prisma.GroupOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -252,6 +265,7 @@ export type ModuleGroupWhereUniqueInput = Prisma.AtLeast<{
   assignedAt?: Prisma.DateTimeFilter<"ModuleGroup"> | Date | string
   deadlineDays?: Prisma.IntNullableFilter<"ModuleGroup"> | number | null
   isMandatory?: Prisma.BoolFilter<"ModuleGroup"> | boolean
+  renewalXpBonus?: Prisma.IntFilter<"ModuleGroup"> | number
   module?: Prisma.XOR<Prisma.ModuleScalarRelationFilter, Prisma.ModuleWhereInput>
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -264,6 +278,7 @@ export type ModuleGroupOrderByWithAggregationInput = {
   assignedAt?: Prisma.SortOrder
   deadlineDays?: Prisma.SortOrderInput | Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
   _count?: Prisma.ModuleGroupCountOrderByAggregateInput
   _avg?: Prisma.ModuleGroupAvgOrderByAggregateInput
   _max?: Prisma.ModuleGroupMaxOrderByAggregateInput
@@ -281,12 +296,14 @@ export type ModuleGroupScalarWhereWithAggregatesInput = {
   assignedAt?: Prisma.DateTimeWithAggregatesFilter<"ModuleGroup"> | Date | string
   deadlineDays?: Prisma.IntNullableWithAggregatesFilter<"ModuleGroup"> | number | null
   isMandatory?: Prisma.BoolWithAggregatesFilter<"ModuleGroup"> | boolean
+  renewalXpBonus?: Prisma.IntWithAggregatesFilter<"ModuleGroup"> | number
 }
 
 export type ModuleGroupCreateInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
   module: Prisma.ModuleCreateNestedOneWithoutGroupsInput
   group: Prisma.GroupCreateNestedOneWithoutModulesInput
   tenant: Prisma.TenantCreateNestedOneWithoutModuleGroupsInput
@@ -299,12 +316,14 @@ export type ModuleGroupUncheckedCreateInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupUpdateInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
   module?: Prisma.ModuleUpdateOneRequiredWithoutGroupsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutModulesNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModuleGroupsNestedInput
@@ -317,6 +336,7 @@ export type ModuleGroupUncheckedUpdateInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupCreateManyInput = {
@@ -326,12 +346,14 @@ export type ModuleGroupCreateManyInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupUpdateManyMutationInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupUncheckedUpdateManyInput = {
@@ -341,6 +363,7 @@ export type ModuleGroupUncheckedUpdateManyInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupListRelationFilter = {
@@ -365,10 +388,12 @@ export type ModuleGroupCountOrderByAggregateInput = {
   assignedAt?: Prisma.SortOrder
   deadlineDays?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
 }
 
 export type ModuleGroupAvgOrderByAggregateInput = {
   deadlineDays?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
 }
 
 export type ModuleGroupMaxOrderByAggregateInput = {
@@ -378,6 +403,7 @@ export type ModuleGroupMaxOrderByAggregateInput = {
   assignedAt?: Prisma.SortOrder
   deadlineDays?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
 }
 
 export type ModuleGroupMinOrderByAggregateInput = {
@@ -387,10 +413,12 @@ export type ModuleGroupMinOrderByAggregateInput = {
   assignedAt?: Prisma.SortOrder
   deadlineDays?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
 }
 
 export type ModuleGroupSumOrderByAggregateInput = {
   deadlineDays?: Prisma.SortOrder
+  renewalXpBonus?: Prisma.SortOrder
 }
 
 export type ModuleGroupCreateNestedManyWithoutTenantInput = {
@@ -523,6 +551,7 @@ export type ModuleGroupCreateWithoutTenantInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
   module: Prisma.ModuleCreateNestedOneWithoutGroupsInput
   group: Prisma.GroupCreateNestedOneWithoutModulesInput
 }
@@ -533,6 +562,7 @@ export type ModuleGroupUncheckedCreateWithoutTenantInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupCreateOrConnectWithoutTenantInput = {
@@ -571,12 +601,14 @@ export type ModuleGroupScalarWhereInput = {
   assignedAt?: Prisma.DateTimeFilter<"ModuleGroup"> | Date | string
   deadlineDays?: Prisma.IntNullableFilter<"ModuleGroup"> | number | null
   isMandatory?: Prisma.BoolFilter<"ModuleGroup"> | boolean
+  renewalXpBonus?: Prisma.IntFilter<"ModuleGroup"> | number
 }
 
 export type ModuleGroupCreateWithoutGroupInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
   module: Prisma.ModuleCreateNestedOneWithoutGroupsInput
   tenant: Prisma.TenantCreateNestedOneWithoutModuleGroupsInput
 }
@@ -587,6 +619,7 @@ export type ModuleGroupUncheckedCreateWithoutGroupInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupCreateOrConnectWithoutGroupInput = {
@@ -619,6 +652,7 @@ export type ModuleGroupCreateWithoutModuleInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
   group: Prisma.GroupCreateNestedOneWithoutModulesInput
   tenant: Prisma.TenantCreateNestedOneWithoutModuleGroupsInput
 }
@@ -629,6 +663,7 @@ export type ModuleGroupUncheckedCreateWithoutModuleInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupCreateOrConnectWithoutModuleInput = {
@@ -663,12 +698,14 @@ export type ModuleGroupCreateManyTenantInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupUpdateWithoutTenantInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
   module?: Prisma.ModuleUpdateOneRequiredWithoutGroupsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutModulesNestedInput
 }
@@ -679,6 +716,7 @@ export type ModuleGroupUncheckedUpdateWithoutTenantInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupUncheckedUpdateManyWithoutTenantInput = {
@@ -687,6 +725,7 @@ export type ModuleGroupUncheckedUpdateManyWithoutTenantInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupCreateManyGroupInput = {
@@ -695,12 +734,14 @@ export type ModuleGroupCreateManyGroupInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupUpdateWithoutGroupInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
   module?: Prisma.ModuleUpdateOneRequiredWithoutGroupsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModuleGroupsNestedInput
 }
@@ -711,6 +752,7 @@ export type ModuleGroupUncheckedUpdateWithoutGroupInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupUncheckedUpdateManyWithoutGroupInput = {
@@ -719,6 +761,7 @@ export type ModuleGroupUncheckedUpdateManyWithoutGroupInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupCreateManyModuleInput = {
@@ -727,12 +770,14 @@ export type ModuleGroupCreateManyModuleInput = {
   assignedAt?: Date | string
   deadlineDays?: number | null
   isMandatory?: boolean
+  renewalXpBonus?: number
 }
 
 export type ModuleGroupUpdateWithoutModuleInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
   group?: Prisma.GroupUpdateOneRequiredWithoutModulesNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModuleGroupsNestedInput
 }
@@ -743,6 +788,7 @@ export type ModuleGroupUncheckedUpdateWithoutModuleInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuleGroupUncheckedUpdateManyWithoutModuleInput = {
@@ -751,6 +797,7 @@ export type ModuleGroupUncheckedUpdateManyWithoutModuleInput = {
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadlineDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  renewalXpBonus?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -762,6 +809,7 @@ export type ModuleGroupSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   assignedAt?: boolean
   deadlineDays?: boolean
   isMandatory?: boolean
+  renewalXpBonus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -774,6 +822,7 @@ export type ModuleGroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   assignedAt?: boolean
   deadlineDays?: boolean
   isMandatory?: boolean
+  renewalXpBonus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -786,6 +835,7 @@ export type ModuleGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   assignedAt?: boolean
   deadlineDays?: boolean
   isMandatory?: boolean
+  renewalXpBonus?: boolean
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -798,9 +848,10 @@ export type ModuleGroupSelectScalar = {
   assignedAt?: boolean
   deadlineDays?: boolean
   isMandatory?: boolean
+  renewalXpBonus?: boolean
 }
 
-export type ModuleGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"moduleId" | "groupId" | "tenantId" | "assignedAt" | "deadlineDays" | "isMandatory", ExtArgs["result"]["moduleGroup"]>
+export type ModuleGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"moduleId" | "groupId" | "tenantId" | "assignedAt" | "deadlineDays" | "isMandatory" | "renewalXpBonus", ExtArgs["result"]["moduleGroup"]>
 export type ModuleGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   module?: boolean | Prisma.ModuleDefaultArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
@@ -831,6 +882,7 @@ export type $ModuleGroupPayload<ExtArgs extends runtime.Types.Extensions.Interna
     assignedAt: Date
     deadlineDays: number | null
     isMandatory: boolean
+    renewalXpBonus: number
   }, ExtArgs["result"]["moduleGroup"]>
   composites: {}
 }
@@ -1263,6 +1315,7 @@ export interface ModuleGroupFieldRefs {
   readonly assignedAt: Prisma.FieldRef<"ModuleGroup", 'DateTime'>
   readonly deadlineDays: Prisma.FieldRef<"ModuleGroup", 'Int'>
   readonly isMandatory: Prisma.FieldRef<"ModuleGroup", 'Boolean'>
+  readonly renewalXpBonus: Prisma.FieldRef<"ModuleGroup", 'Int'>
 }
     
 

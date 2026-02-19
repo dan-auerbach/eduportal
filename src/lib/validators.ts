@@ -265,3 +265,41 @@ export function isAllowedExtension(filename: string, mimeType: string): boolean 
   const allowed = MIME_WHITELIST[mimeType];
   return allowed ? allowed.includes(ext) : false;
 }
+
+// ---- Reward forms ----
+export const CreateRewardSchema = z.object({
+  title: z.string().min(1, "Naslov je obvezen").max(200),
+  description: z.string().max(2000).optional(),
+  costXp: z.number().int().positive("Cena mora biti pozitivno število"),
+  monthlyLimit: z.number().int().positive().nullable().optional(),
+  quantityAvailable: z.number().int().positive().nullable().optional(),
+  approvalRequired: z.boolean().default(true),
+  active: z.boolean().default(true),
+});
+
+export const UpdateRewardSchema = z.object({
+  title: z.string().min(1).max(200).optional(),
+  description: z.string().max(2000).nullable().optional(),
+  costXp: z.number().int().positive().optional(),
+  monthlyLimit: z.number().int().positive().nullable().optional(),
+  quantityAvailable: z.number().int().positive().nullable().optional(),
+  approvalRequired: z.boolean().optional(),
+  active: z.boolean().optional(),
+});
+
+// ---- Knowledge suggestion forms ----
+export const CreateSuggestionSchema = z.object({
+  title: z.string().min(1, "Naslov je obvezen").max(200),
+  description: z.string().min(10, "Opis mora vsebovati vsaj 10 znakov").max(2000),
+  link: z
+    .string()
+    .url("Neveljaven URL")
+    .nullable()
+    .optional(),
+  isAnonymous: z.boolean().default(false),
+});
+
+export const SuggestionCommentSchema = z.object({
+  body: z.string().min(1, "Komentar ne sme biti prazen").max(1000),
+  parentId: z.string().cuid().nullable().optional(),
+});

@@ -93,6 +93,13 @@ export const ModelName = {
   EmailToken: 'EmailToken',
   EmailPreference: 'EmailPreference',
   AiModuleBuild: 'AiModuleBuild',
+  XpTransaction: 'XpTransaction',
+  UserXpBalance: 'UserXpBalance',
+  Reward: 'Reward',
+  RewardRedemption: 'RewardRedemption',
+  KnowledgeSuggestion: 'KnowledgeSuggestion',
+  KnowledgeSuggestionVote: 'KnowledgeSuggestionVote',
+  KnowledgeSuggestionComment: 'KnowledgeSuggestionComment',
   MediaAsset: 'MediaAsset'
 } as const
 
@@ -212,7 +219,8 @@ export const ModuleScalarFieldEnum = {
   updatedAt: 'updatedAt',
   publishedAt: 'publishedAt',
   createdById: 'createdById',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  validityMonths: 'validityMonths'
 } as const
 
 export type ModuleScalarFieldEnum = (typeof ModuleScalarFieldEnum)[keyof typeof ModuleScalarFieldEnum]
@@ -224,7 +232,8 @@ export const ModuleGroupScalarFieldEnum = {
   tenantId: 'tenantId',
   assignedAt: 'assignedAt',
   deadlineDays: 'deadlineDays',
-  isMandatory: 'isMandatory'
+  isMandatory: 'isMandatory',
+  renewalXpBonus: 'renewalXpBonus'
 } as const
 
 export type ModuleGroupScalarFieldEnum = (typeof ModuleGroupScalarFieldEnum)[keyof typeof ModuleGroupScalarFieldEnum]
@@ -678,6 +687,111 @@ export const AiModuleBuildScalarFieldEnum = {
 } as const
 
 export type AiModuleBuildScalarFieldEnum = (typeof AiModuleBuildScalarFieldEnum)[keyof typeof AiModuleBuildScalarFieldEnum]
+
+
+export const XpTransactionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  amount: 'amount',
+  source: 'source',
+  sourceEntityId: 'sourceEntityId',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type XpTransactionScalarFieldEnum = (typeof XpTransactionScalarFieldEnum)[keyof typeof XpTransactionScalarFieldEnum]
+
+
+export const UserXpBalanceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  totalXp: 'totalXp',
+  rank: 'rank',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserXpBalanceScalarFieldEnum = (typeof UserXpBalanceScalarFieldEnum)[keyof typeof UserXpBalanceScalarFieldEnum]
+
+
+export const RewardScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  costXp: 'costXp',
+  monthlyLimit: 'monthlyLimit',
+  quantityAvailable: 'quantityAvailable',
+  approvalRequired: 'approvalRequired',
+  active: 'active',
+  imageUrl: 'imageUrl',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RewardScalarFieldEnum = (typeof RewardScalarFieldEnum)[keyof typeof RewardScalarFieldEnum]
+
+
+export const RewardRedemptionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  rewardId: 'rewardId',
+  xpSpent: 'xpSpent',
+  status: 'status',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  rejectReason: 'rejectReason',
+  createdAt: 'createdAt'
+} as const
+
+export type RewardRedemptionScalarFieldEnum = (typeof RewardRedemptionScalarFieldEnum)[keyof typeof RewardRedemptionScalarFieldEnum]
+
+
+export const KnowledgeSuggestionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  link: 'link',
+  isAnonymous: 'isAnonymous',
+  status: 'status',
+  voteCount: 'voteCount',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  convertedModuleId: 'convertedModuleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KnowledgeSuggestionScalarFieldEnum = (typeof KnowledgeSuggestionScalarFieldEnum)[keyof typeof KnowledgeSuggestionScalarFieldEnum]
+
+
+export const KnowledgeSuggestionVoteScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  suggestionId: 'suggestionId',
+  createdAt: 'createdAt'
+} as const
+
+export type KnowledgeSuggestionVoteScalarFieldEnum = (typeof KnowledgeSuggestionVoteScalarFieldEnum)[keyof typeof KnowledgeSuggestionVoteScalarFieldEnum]
+
+
+export const KnowledgeSuggestionCommentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  suggestionId: 'suggestionId',
+  body: 'body',
+  parentId: 'parentId',
+  createdAt: 'createdAt'
+} as const
+
+export type KnowledgeSuggestionCommentScalarFieldEnum = (typeof KnowledgeSuggestionCommentScalarFieldEnum)[keyof typeof KnowledgeSuggestionCommentScalarFieldEnum]
 
 
 export const MediaAssetScalarFieldEnum = {

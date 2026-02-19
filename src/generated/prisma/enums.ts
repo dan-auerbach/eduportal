@@ -60,7 +60,10 @@ export const Permission = {
   OVERRIDE_PROGRESS: 'OVERRIDE_PROGRESS',
   VIEW_ANALYTICS: 'VIEW_ANALYTICS',
   VIEW_AUDIT_LOG: 'VIEW_AUDIT_LOG',
-  EXPORT_REPORTS: 'EXPORT_REPORTS'
+  EXPORT_REPORTS: 'EXPORT_REPORTS',
+  MANAGE_REWARDS: 'MANAGE_REWARDS',
+  VIEW_MANAGER_DASHBOARD: 'VIEW_MANAGER_DASHBOARD',
+  MANAGE_SUGGESTIONS: 'MANAGE_SUGGESTIONS'
 } as const
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
@@ -143,7 +146,14 @@ export const NotificationType = {
   SYSTEM: 'SYSTEM',
   RADAR_APPROVED: 'RADAR_APPROVED',
   RADAR_REJECTED: 'RADAR_REJECTED',
-  NEW_KNOWLEDGE: 'NEW_KNOWLEDGE'
+  NEW_KNOWLEDGE: 'NEW_KNOWLEDGE',
+  XP_EARNED: 'XP_EARNED',
+  REWARD_APPROVED: 'REWARD_APPROVED',
+  REWARD_REJECTED: 'REWARD_REJECTED',
+  SUGGESTION_POPULAR: 'SUGGESTION_POPULAR',
+  SUGGESTION_STATUS_CHANGED: 'SUGGESTION_STATUS_CHANGED',
+  MODULE_EXPIRING: 'MODULE_EXPIRING',
+  MODULE_EXPIRED: 'MODULE_EXPIRED'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -197,7 +207,20 @@ export const AuditAction = {
   INVITE_ACCEPTED: 'INVITE_ACCEPTED',
   MEDIA_DELETED: 'MEDIA_DELETED',
   MODULE_DELETED: 'MODULE_DELETED',
-  ASSET_BULK_DELETED: 'ASSET_BULK_DELETED'
+  ASSET_BULK_DELETED: 'ASSET_BULK_DELETED',
+  XP_AWARDED: 'XP_AWARDED',
+  XP_DEDUCTED: 'XP_DEDUCTED',
+  REWARD_CREATED: 'REWARD_CREATED',
+  REWARD_UPDATED: 'REWARD_UPDATED',
+  REWARD_REDEEMED: 'REWARD_REDEEMED',
+  REWARD_APPROVED: 'REWARD_APPROVED',
+  REWARD_REJECTED: 'REWARD_REJECTED',
+  SUGGESTION_CREATED: 'SUGGESTION_CREATED',
+  SUGGESTION_VOTED: 'SUGGESTION_VOTED',
+  SUGGESTION_STATUS_CHANGED: 'SUGGESTION_STATUS_CHANGED',
+  SUGGESTION_CONVERTED: 'SUGGESTION_CONVERTED',
+  MODULE_VALIDITY_EXPIRED: 'MODULE_VALIDITY_EXPIRED',
+  MODULE_REASSIGNED: 'MODULE_REASSIGNED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -229,6 +252,48 @@ export const EmailTokenType = {
 } as const
 
 export type EmailTokenType = (typeof EmailTokenType)[keyof typeof EmailTokenType]
+
+
+export const XpSourceType = {
+  MODULE_COMPLETED: 'MODULE_COMPLETED',
+  QUIZ_HIGH_SCORE: 'QUIZ_HIGH_SCORE',
+  MENTOR_CONFIRMATION: 'MENTOR_CONFIRMATION',
+  TOP_SUGGESTION: 'TOP_SUGGESTION',
+  COMPLIANCE_RENEWAL: 'COMPLIANCE_RENEWAL',
+  MANUAL: 'MANUAL'
+} as const
+
+export type XpSourceType = (typeof XpSourceType)[keyof typeof XpSourceType]
+
+
+export const ReputationRank = {
+  BRONZE: 'BRONZE',
+  SILVER: 'SILVER',
+  GOLD: 'GOLD',
+  ELITE: 'ELITE'
+} as const
+
+export type ReputationRank = (typeof ReputationRank)[keyof typeof ReputationRank]
+
+
+export const RedemptionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RedemptionStatus = (typeof RedemptionStatus)[keyof typeof RedemptionStatus]
+
+
+export const SuggestionStatus = {
+  OPEN: 'OPEN',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CONVERTED: 'CONVERTED'
+} as const
+
+export type SuggestionStatus = (typeof SuggestionStatus)[keyof typeof SuggestionStatus]
 
 
 export const MediaAssetType = {

@@ -7,6 +7,7 @@ import { logAudit } from "@/lib/audit";
 import { getTenantContext } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { getModuleProgress } from "@/lib/progress";
+import { awardXp, XP_RULES } from "@/lib/xp";
 import type { ActionResult } from "@/types";
 import type { QuestionType } from "@/generated/prisma/client";
 
@@ -267,6 +268,18 @@ export async function submitQuizAttempt(
       metadata: { moduleId: quiz.moduleId, score, passed },
     });
 
+    // Award XP for high quiz score (≥90%) — fire-and-forget
+    if (score >= 90) {
+      void awardXp({
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+        amount: XP_RULES.QUIZ_HIGH_SCORE,
+        source: "QUIZ_HIGH_SCORE",
+        sourceEntityId: quizId,
+        description: `Kviz ${score}%`,
+      }).catch(() => {/* XP award failure should not break quiz */});
+    }
+
     // If passed, check if module is now fully completed and issue certificate
     let certificateIssued = false;
     if (passed) {
@@ -301,6 +314,16 @@ export async function submitQuizAttempt(
           });
 
           certificateIssued = true;
+
+          // Award XP for module completion — fire-and-forget
+          void awardXp({
+            userId: ctx.user.id,
+            tenantId: ctx.tenantId,
+            amount: XP_RULES.MODULE_COMPLETED,
+            source: "MODULE_COMPLETED",
+            sourceEntityId: quiz.moduleId,
+            description: "Zaključen modul (kviz opravljen)",
+          }).catch(() => {/* XP award failure should not break quiz */});
         }
       }
     }

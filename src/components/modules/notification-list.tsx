@@ -18,6 +18,10 @@ import {
   TrendingUp,
   RefreshCw,
   Radar,
+  Zap,
+  Gift,
+  Lightbulb,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,21 +33,11 @@ import {
   markAllNotificationsRead,
 } from "@/actions/notifications";
 import { t } from "@/lib/i18n";
+import type { NotificationType } from "@/generated/prisma/client";
 
 type NotificationData = {
   id: string;
-  type:
-    | "NEW_MODULE"
-    | "DEADLINE_REMINDER"
-    | "QUIZ_RESULT"
-    | "COMMENT_REPLY"
-    | "CERTIFICATE_ISSUED"
-    | "PROGRESS_OVERRIDE"
-    | "MODULE_UPDATED"
-    | "SYSTEM"
-    | "RADAR_APPROVED"
-    | "RADAR_REJECTED"
-    | "NEW_KNOWLEDGE";
+  type: NotificationType;
   title: string;
   message: string;
   link: string | null;
@@ -63,6 +57,13 @@ const typeIcons: Record<NotificationData["type"], React.ReactNode> = {
   RADAR_APPROVED: <Radar className="h-4 w-4 text-green-500" />,
   RADAR_REJECTED: <Radar className="h-4 w-4 text-red-500" />,
   NEW_KNOWLEDGE: <BookOpen className="h-4 w-4 text-emerald-500" />,
+  XP_EARNED: <Zap className="h-4 w-4 text-yellow-500" />,
+  REWARD_APPROVED: <Gift className="h-4 w-4 text-green-500" />,
+  REWARD_REJECTED: <Gift className="h-4 w-4 text-red-500" />,
+  SUGGESTION_POPULAR: <Lightbulb className="h-4 w-4 text-yellow-500" />,
+  SUGGESTION_STATUS_CHANGED: <Lightbulb className="h-4 w-4 text-blue-500" />,
+  MODULE_EXPIRING: <ShieldCheck className="h-4 w-4 text-amber-500" />,
+  MODULE_EXPIRED: <ShieldCheck className="h-4 w-4 text-red-500" />,
 };
 
 function getTypeLabel(type: NotificationData["type"]): string {
@@ -78,6 +79,13 @@ function getTypeLabel(type: NotificationData["type"]): string {
     RADAR_APPROVED: t("notifications.typeRadarApproved"),
     RADAR_REJECTED: t("notifications.typeRadarRejected"),
     NEW_KNOWLEDGE: t("notifications.typeNewKnowledge"),
+    XP_EARNED: t("notifications.typeXpEarned"),
+    REWARD_APPROVED: t("notifications.typeRewardApproved"),
+    REWARD_REJECTED: t("notifications.typeRewardRejected"),
+    SUGGESTION_POPULAR: t("notifications.typeSuggestionPopular"),
+    SUGGESTION_STATUS_CHANGED: t("notifications.typeSuggestionStatus"),
+    MODULE_EXPIRING: t("notifications.typeModuleExpiring"),
+    MODULE_EXPIRED: t("notifications.typeModuleExpired"),
   };
   return map[type];
 }

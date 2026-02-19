@@ -166,3 +166,18 @@ export async function rateLimitAiBuild(userId: string): Promise<RateLimitResult>
 export async function rateLimitAiEditor(userId: string): Promise<RateLimitResult> {
   return rateLimit(`ai:editor:${userId}`, 30, 60 * 60_000);
 }
+
+/** Knowledge suggestion vote: 30 per 60s per user */
+export async function rateLimitSuggestionVote(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`suggest:vote:${userId}`, 30, 60_000);
+}
+
+/** Knowledge suggestion creation: 5 per hour per user */
+export async function rateLimitSuggestionCreate(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`suggest:create:${userId}`, 5, 60 * 60_000);
+}
+
+/** Reward redemption: 5 per minute per user */
+export async function rateLimitRedemption(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`reward:redeem:${userId}`, 5, 60_000);
+}

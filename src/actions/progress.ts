@@ -7,6 +7,7 @@ import { logAudit } from "@/lib/audit";
 import { getTenantContext } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { getModuleProgress, type ModuleProgress } from "@/lib/progress";
+import { awardXp, XP_RULES } from "@/lib/xp";
 import type { ActionResult } from "@/types";
 
 // ---------------------------------------------------------------------------
@@ -81,6 +82,16 @@ export async function completeSection(
         });
 
         certificateIssued = true;
+
+        // Award XP for module completion (fire-and-forget to not block response)
+        void awardXp({
+          userId: ctx.user.id,
+          tenantId: ctx.tenantId,
+          amount: XP_RULES.MODULE_COMPLETED,
+          source: "MODULE_COMPLETED",
+          sourceEntityId: section.moduleId,
+          description: "Zaključen modul",
+        }).catch(() => {/* XP award failure should not break progress */});
       }
     }
 

@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, LogOut, User, Menu, Megaphone } from "lucide-react";
+import { Bell, LogOut, User, Menu, Megaphone, Zap } from "lucide-react";
 import Link from "next/link";
 import { t } from "@/lib/i18n";
 import { clearTenantCookies } from "@/actions/auth";
@@ -87,6 +87,16 @@ export function Header({ tenantLogoUrl, effectiveRole, onMenuClick, navCounts }:
               {hasNewUpdates && (
                 <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary" />
               )}
+            </Link>
+          </Button>
+        )}
+
+        {/* XP Badge */}
+        {navCounts?.xpTotal !== undefined && (
+          <Button variant="ghost" size="sm" asChild className="gap-1 px-2 text-xs font-semibold tabular-nums">
+            <Link href="/leaderboard" prefetch={false}>
+              <Zap className="h-3.5 w-3.5 text-yellow-500" />
+              {navCounts.xpTotal.toLocaleString()}
             </Link>
           </Button>
         )}

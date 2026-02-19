@@ -10,6 +10,7 @@ import {
   rateLimitConfirmAnswer,
   rateLimitChatJoin,
 } from "@/lib/rate-limit";
+import { awardXp, XP_RULES } from "@/lib/xp";
 import type { ActionResult } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -417,7 +418,7 @@ export async function confirmAnswer(messageId: string): Promise<ActionResult<voi
     // Load the message
     const msg = await prisma.chatMessage.findUnique({
       where: { id: messageId },
-      select: { id: true, tenantId: true, moduleId: true, type: true },
+      select: { id: true, tenantId: true, moduleId: true, type: true, userId: true },
     });
 
     if (!msg || msg.tenantId !== ctx.tenantId || !msg.moduleId) {
@@ -460,6 +461,18 @@ export async function confirmAnswer(messageId: string): Promise<ActionResult<voi
       tenantId: ctx.tenantId,
       metadata: { moduleId: msg.moduleId },
     });
+
+    // Award XP to the message author for having their answer confirmed
+    if (msg.userId && msg.userId !== ctx.user.id) {
+      void awardXp({
+        userId: msg.userId,
+        tenantId: ctx.tenantId,
+        amount: XP_RULES.MENTOR_CONFIRMATION,
+        source: "MENTOR_CONFIRMATION",
+        sourceEntityId: messageId,
+        description: "Odgovor potrjen s strani mentorja",
+      }).catch(() => {/* XP award failure should not break confirmation */});
+    }
 
     return { success: true, data: undefined };
   } catch (e) {

@@ -30,12 +30,14 @@ export type ModuleAvgAggregateOutputType = {
   sortOrder: number | null
   estimatedTime: number | null
   version: number | null
+  validityMonths: number | null
 }
 
 export type ModuleSumAggregateOutputType = {
   sortOrder: number | null
   estimatedTime: number | null
   version: number | null
+  validityMonths: number | null
 }
 
 export type ModuleMinAggregateOutputType = {
@@ -55,6 +57,7 @@ export type ModuleMinAggregateOutputType = {
   publishedAt: Date | null
   createdById: string | null
   categoryId: string | null
+  validityMonths: number | null
 }
 
 export type ModuleMaxAggregateOutputType = {
@@ -74,6 +77,7 @@ export type ModuleMaxAggregateOutputType = {
   publishedAt: Date | null
   createdById: string | null
   categoryId: string | null
+  validityMonths: number | null
 }
 
 export type ModuleCountAggregateOutputType = {
@@ -93,6 +97,7 @@ export type ModuleCountAggregateOutputType = {
   publishedAt: number
   createdById: number
   categoryId: number
+  validityMonths: number
   _all: number
 }
 
@@ -101,12 +106,14 @@ export type ModuleAvgAggregateInputType = {
   sortOrder?: true
   estimatedTime?: true
   version?: true
+  validityMonths?: true
 }
 
 export type ModuleSumAggregateInputType = {
   sortOrder?: true
   estimatedTime?: true
   version?: true
+  validityMonths?: true
 }
 
 export type ModuleMinAggregateInputType = {
@@ -126,6 +133,7 @@ export type ModuleMinAggregateInputType = {
   publishedAt?: true
   createdById?: true
   categoryId?: true
+  validityMonths?: true
 }
 
 export type ModuleMaxAggregateInputType = {
@@ -145,6 +153,7 @@ export type ModuleMaxAggregateInputType = {
   publishedAt?: true
   createdById?: true
   categoryId?: true
+  validityMonths?: true
 }
 
 export type ModuleCountAggregateInputType = {
@@ -164,6 +173,7 @@ export type ModuleCountAggregateInputType = {
   publishedAt?: true
   createdById?: true
   categoryId?: true
+  validityMonths?: true
   _all?: true
 }
 
@@ -270,6 +280,7 @@ export type ModuleGroupByOutputType = {
   publishedAt: Date | null
   createdById: string
   categoryId: string | null
+  validityMonths: number | null
   _count: ModuleCountAggregateOutputType | null
   _avg: ModuleAvgAggregateOutputType | null
   _sum: ModuleSumAggregateOutputType | null
@@ -312,6 +323,7 @@ export type ModuleWhereInput = {
   publishedAt?: Prisma.DateTimeNullableFilter<"Module"> | Date | string | null
   createdById?: Prisma.StringFilter<"Module"> | string
   categoryId?: Prisma.StringNullableFilter<"Module"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"Module"> | number | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.ModuleCategoryNullableScalarRelationFilter, Prisma.ModuleCategoryWhereInput> | null
@@ -333,6 +345,7 @@ export type ModuleWhereInput = {
   mentors?: Prisma.ModuleMentorListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
+  convertedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
 }
 
 export type ModuleOrderByWithRelationInput = {
@@ -352,6 +365,7 @@ export type ModuleOrderByWithRelationInput = {
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   category?: Prisma.ModuleCategoryOrderByWithRelationInput
@@ -373,6 +387,7 @@ export type ModuleOrderByWithRelationInput = {
   mentors?: Prisma.ModuleMentorOrderByRelationAggregateInput
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
   liveEvents?: Prisma.MentorLiveEventOrderByRelationAggregateInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionOrderByRelationAggregateInput
 }
 
 export type ModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -395,6 +410,7 @@ export type ModuleWhereUniqueInput = Prisma.AtLeast<{
   publishedAt?: Prisma.DateTimeNullableFilter<"Module"> | Date | string | null
   createdById?: Prisma.StringFilter<"Module"> | string
   categoryId?: Prisma.StringNullableFilter<"Module"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"Module"> | number | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.ModuleCategoryNullableScalarRelationFilter, Prisma.ModuleCategoryWhereInput> | null
@@ -416,6 +432,7 @@ export type ModuleWhereUniqueInput = Prisma.AtLeast<{
   mentors?: Prisma.ModuleMentorListRelationFilter
   chatMessages?: Prisma.ChatMessageListRelationFilter
   liveEvents?: Prisma.MentorLiveEventListRelationFilter
+  convertedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
 }, "id">
 
 export type ModuleOrderByWithAggregationInput = {
@@ -435,6 +452,7 @@ export type ModuleOrderByWithAggregationInput = {
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ModuleCountOrderByAggregateInput
   _avg?: Prisma.ModuleAvgOrderByAggregateInput
   _max?: Prisma.ModuleMaxOrderByAggregateInput
@@ -462,6 +480,7 @@ export type ModuleScalarWhereWithAggregatesInput = {
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Module"> | Date | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"Module"> | string
   categoryId?: Prisma.StringNullableWithAggregatesFilter<"Module"> | string | null
+  validityMonths?: Prisma.IntNullableWithAggregatesFilter<"Module"> | number | null
 }
 
 export type ModuleCreateInput = {
@@ -478,6 +497,7 @@ export type ModuleCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -499,6 +519,7 @@ export type ModuleCreateInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateInput = {
@@ -518,6 +539,7 @@ export type ModuleUncheckedCreateInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -536,6 +558,7 @@ export type ModuleUncheckedCreateInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUpdateInput = {
@@ -552,6 +575,7 @@ export type ModuleUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -573,6 +597,7 @@ export type ModuleUpdateInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateInput = {
@@ -592,6 +617,7 @@ export type ModuleUncheckedUpdateInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -610,6 +636,7 @@ export type ModuleUncheckedUpdateInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateManyInput = {
@@ -629,6 +656,7 @@ export type ModuleCreateManyInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
 }
 
 export type ModuleUpdateManyMutationInput = {
@@ -645,6 +673,7 @@ export type ModuleUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ModuleUncheckedUpdateManyInput = {
@@ -664,6 +693,7 @@ export type ModuleUncheckedUpdateManyInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ModuleListRelationFilter = {
@@ -693,12 +723,14 @@ export type ModuleCountOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
 }
 
 export type ModuleAvgOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   estimatedTime?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
 }
 
 export type ModuleMaxOrderByAggregateInput = {
@@ -718,6 +750,7 @@ export type ModuleMaxOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
 }
 
 export type ModuleMinOrderByAggregateInput = {
@@ -737,12 +770,14 @@ export type ModuleMinOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
 }
 
 export type ModuleSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   estimatedTime?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
 }
 
 export type ModuleScalarRelationFilter = {
@@ -1161,6 +1196,22 @@ export type ModuleUpdateOneWithoutLiveEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutLiveEventsInput, Prisma.ModuleUpdateWithoutLiveEventsInput>, Prisma.ModuleUncheckedUpdateWithoutLiveEventsInput>
 }
 
+export type ModuleCreateNestedOneWithoutConvertedSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedCreateWithoutConvertedSuggestionsInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutConvertedSuggestionsInput
+  connect?: Prisma.ModuleWhereUniqueInput
+}
+
+export type ModuleUpdateOneWithoutConvertedSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedCreateWithoutConvertedSuggestionsInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutConvertedSuggestionsInput
+  upsert?: Prisma.ModuleUpsertWithoutConvertedSuggestionsInput
+  disconnect?: Prisma.ModuleWhereInput | boolean
+  delete?: Prisma.ModuleWhereInput | boolean
+  connect?: Prisma.ModuleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutConvertedSuggestionsInput, Prisma.ModuleUpdateWithoutConvertedSuggestionsInput>, Prisma.ModuleUncheckedUpdateWithoutConvertedSuggestionsInput>
+}
+
 export type ModuleCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -1175,6 +1226,7 @@ export type ModuleCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
   groups?: Prisma.ModuleGroupCreateNestedManyWithoutModuleInput
@@ -1195,6 +1247,7 @@ export type ModuleCreateWithoutTenantInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutTenantInput = {
@@ -1213,6 +1266,7 @@ export type ModuleUncheckedCreateWithoutTenantInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -1231,6 +1285,7 @@ export type ModuleUncheckedCreateWithoutTenantInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutTenantInput = {
@@ -1279,6 +1334,7 @@ export type ModuleScalarWhereInput = {
   publishedAt?: Prisma.DateTimeNullableFilter<"Module"> | Date | string | null
   createdById?: Prisma.StringFilter<"Module"> | string
   categoryId?: Prisma.StringNullableFilter<"Module"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"Module"> | number | null
 }
 
 export type ModuleCreateWithoutCreatedByInput = {
@@ -1295,6 +1351,7 @@ export type ModuleCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
   groups?: Prisma.ModuleGroupCreateNestedManyWithoutModuleInput
@@ -1315,6 +1372,7 @@ export type ModuleCreateWithoutCreatedByInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCreatedByInput = {
@@ -1333,6 +1391,7 @@ export type ModuleUncheckedCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   publishedAt?: Date | string | null
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -1351,6 +1410,7 @@ export type ModuleUncheckedCreateWithoutCreatedByInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCreatedByInput = {
@@ -1393,6 +1453,7 @@ export type ModuleCreateWithoutGroupsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -1413,6 +1474,7 @@ export type ModuleCreateWithoutGroupsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutGroupsInput = {
@@ -1432,6 +1494,7 @@ export type ModuleUncheckedCreateWithoutGroupsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutModuleInput
@@ -1449,6 +1512,7 @@ export type ModuleUncheckedCreateWithoutGroupsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutGroupsInput = {
@@ -1481,6 +1545,7 @@ export type ModuleUpdateWithoutGroupsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -1501,6 +1566,7 @@ export type ModuleUpdateWithoutGroupsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutGroupsInput = {
@@ -1520,6 +1586,7 @@ export type ModuleUncheckedUpdateWithoutGroupsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutModuleNestedInput
@@ -1537,6 +1604,7 @@ export type ModuleUncheckedUpdateWithoutGroupsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutPrerequisitesInput = {
@@ -1553,6 +1621,7 @@ export type ModuleCreateWithoutPrerequisitesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -1573,6 +1642,7 @@ export type ModuleCreateWithoutPrerequisitesInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutPrerequisitesInput = {
@@ -1592,6 +1662,7 @@ export type ModuleUncheckedCreateWithoutPrerequisitesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -1609,6 +1680,7 @@ export type ModuleUncheckedCreateWithoutPrerequisitesInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutPrerequisitesInput = {
@@ -1630,6 +1702,7 @@ export type ModuleCreateWithoutDependentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -1650,6 +1723,7 @@ export type ModuleCreateWithoutDependentsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutDependentsInput = {
@@ -1669,6 +1743,7 @@ export type ModuleUncheckedCreateWithoutDependentsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -1686,6 +1761,7 @@ export type ModuleUncheckedCreateWithoutDependentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutDependentsInput = {
@@ -1718,6 +1794,7 @@ export type ModuleUpdateWithoutPrerequisitesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -1738,6 +1815,7 @@ export type ModuleUpdateWithoutPrerequisitesInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutPrerequisitesInput = {
@@ -1757,6 +1835,7 @@ export type ModuleUncheckedUpdateWithoutPrerequisitesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -1774,6 +1853,7 @@ export type ModuleUncheckedUpdateWithoutPrerequisitesInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUpsertWithoutDependentsInput = {
@@ -1801,6 +1881,7 @@ export type ModuleUpdateWithoutDependentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -1821,6 +1902,7 @@ export type ModuleUpdateWithoutDependentsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutDependentsInput = {
@@ -1840,6 +1922,7 @@ export type ModuleUncheckedUpdateWithoutDependentsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -1857,6 +1940,7 @@ export type ModuleUncheckedUpdateWithoutDependentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutSectionsInput = {
@@ -1873,6 +1957,7 @@ export type ModuleCreateWithoutSectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -1893,6 +1978,7 @@ export type ModuleCreateWithoutSectionsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutSectionsInput = {
@@ -1912,6 +1998,7 @@ export type ModuleUncheckedCreateWithoutSectionsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutModuleInput
@@ -1929,6 +2016,7 @@ export type ModuleUncheckedCreateWithoutSectionsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutSectionsInput = {
@@ -1961,6 +2049,7 @@ export type ModuleUpdateWithoutSectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -1981,6 +2070,7 @@ export type ModuleUpdateWithoutSectionsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutSectionsInput = {
@@ -2000,6 +2090,7 @@ export type ModuleUncheckedUpdateWithoutSectionsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutModuleNestedInput
@@ -2017,6 +2108,7 @@ export type ModuleUncheckedUpdateWithoutSectionsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutLastAccessesInput = {
@@ -2033,6 +2125,7 @@ export type ModuleCreateWithoutLastAccessesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2053,6 +2146,7 @@ export type ModuleCreateWithoutLastAccessesInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutLastAccessesInput = {
@@ -2072,6 +2166,7 @@ export type ModuleUncheckedCreateWithoutLastAccessesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -2089,6 +2184,7 @@ export type ModuleUncheckedCreateWithoutLastAccessesInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutLastAccessesInput = {
@@ -2121,6 +2217,7 @@ export type ModuleUpdateWithoutLastAccessesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2141,6 +2238,7 @@ export type ModuleUpdateWithoutLastAccessesInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutLastAccessesInput = {
@@ -2160,6 +2258,7 @@ export type ModuleUncheckedUpdateWithoutLastAccessesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -2177,6 +2276,7 @@ export type ModuleUncheckedUpdateWithoutLastAccessesInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutQuizzesInput = {
@@ -2193,6 +2293,7 @@ export type ModuleCreateWithoutQuizzesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2213,6 +2314,7 @@ export type ModuleCreateWithoutQuizzesInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutQuizzesInput = {
@@ -2232,6 +2334,7 @@ export type ModuleUncheckedCreateWithoutQuizzesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutModuleInput
@@ -2249,6 +2352,7 @@ export type ModuleUncheckedCreateWithoutQuizzesInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutQuizzesInput = {
@@ -2281,6 +2385,7 @@ export type ModuleUpdateWithoutQuizzesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2301,6 +2406,7 @@ export type ModuleUpdateWithoutQuizzesInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutQuizzesInput = {
@@ -2320,6 +2426,7 @@ export type ModuleUncheckedUpdateWithoutQuizzesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutModuleNestedInput
@@ -2337,6 +2444,7 @@ export type ModuleUncheckedUpdateWithoutQuizzesInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutSelfAssessmentsInput = {
@@ -2353,6 +2461,7 @@ export type ModuleCreateWithoutSelfAssessmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2373,6 +2482,7 @@ export type ModuleCreateWithoutSelfAssessmentsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -2392,6 +2502,7 @@ export type ModuleUncheckedCreateWithoutSelfAssessmentsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -2409,6 +2520,7 @@ export type ModuleUncheckedCreateWithoutSelfAssessmentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -2441,6 +2553,7 @@ export type ModuleUpdateWithoutSelfAssessmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2461,6 +2574,7 @@ export type ModuleUpdateWithoutSelfAssessmentsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2480,6 +2594,7 @@ export type ModuleUncheckedUpdateWithoutSelfAssessmentsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -2497,6 +2612,7 @@ export type ModuleUncheckedUpdateWithoutSelfAssessmentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutOverridesInput = {
@@ -2513,6 +2629,7 @@ export type ModuleCreateWithoutOverridesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2533,6 +2650,7 @@ export type ModuleCreateWithoutOverridesInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutOverridesInput = {
@@ -2552,6 +2670,7 @@ export type ModuleUncheckedCreateWithoutOverridesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -2569,6 +2688,7 @@ export type ModuleUncheckedCreateWithoutOverridesInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutOverridesInput = {
@@ -2601,6 +2721,7 @@ export type ModuleUpdateWithoutOverridesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2621,6 +2742,7 @@ export type ModuleUpdateWithoutOverridesInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutOverridesInput = {
@@ -2640,6 +2762,7 @@ export type ModuleUncheckedUpdateWithoutOverridesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -2657,6 +2780,7 @@ export type ModuleUncheckedUpdateWithoutOverridesInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCertificatesInput = {
@@ -2673,6 +2797,7 @@ export type ModuleCreateWithoutCertificatesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2693,6 +2818,7 @@ export type ModuleCreateWithoutCertificatesInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCertificatesInput = {
@@ -2712,6 +2838,7 @@ export type ModuleUncheckedCreateWithoutCertificatesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -2729,6 +2856,7 @@ export type ModuleUncheckedCreateWithoutCertificatesInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCertificatesInput = {
@@ -2761,6 +2889,7 @@ export type ModuleUpdateWithoutCertificatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2781,6 +2910,7 @@ export type ModuleUpdateWithoutCertificatesInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCertificatesInput = {
@@ -2800,6 +2930,7 @@ export type ModuleUncheckedUpdateWithoutCertificatesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -2817,6 +2948,7 @@ export type ModuleUncheckedUpdateWithoutCertificatesInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCommentsInput = {
@@ -2833,6 +2965,7 @@ export type ModuleCreateWithoutCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -2853,6 +2986,7 @@ export type ModuleCreateWithoutCommentsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCommentsInput = {
@@ -2872,6 +3006,7 @@ export type ModuleUncheckedCreateWithoutCommentsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -2889,6 +3024,7 @@ export type ModuleUncheckedCreateWithoutCommentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCommentsInput = {
@@ -2921,6 +3057,7 @@ export type ModuleUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -2941,6 +3078,7 @@ export type ModuleUpdateWithoutCommentsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCommentsInput = {
@@ -2960,6 +3098,7 @@ export type ModuleUncheckedUpdateWithoutCommentsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -2977,6 +3116,7 @@ export type ModuleUncheckedUpdateWithoutCommentsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCategoryInput = {
@@ -2993,6 +3133,7 @@ export type ModuleCreateWithoutCategoryInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   groups?: Prisma.ModuleGroupCreateNestedManyWithoutModuleInput
@@ -3013,6 +3154,7 @@ export type ModuleCreateWithoutCategoryInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCategoryInput = {
@@ -3031,6 +3173,7 @@ export type ModuleUncheckedCreateWithoutCategoryInput = {
   updatedAt?: Date | string
   publishedAt?: Date | string | null
   createdById: string
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3049,6 +3192,7 @@ export type ModuleUncheckedCreateWithoutCategoryInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCategoryInput = {
@@ -3091,6 +3235,7 @@ export type ModuleCreateWithoutUserPinsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3111,6 +3256,7 @@ export type ModuleCreateWithoutUserPinsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutUserPinsInput = {
@@ -3130,6 +3276,7 @@ export type ModuleUncheckedCreateWithoutUserPinsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3147,6 +3294,7 @@ export type ModuleUncheckedCreateWithoutUserPinsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutUserPinsInput = {
@@ -3179,6 +3327,7 @@ export type ModuleUpdateWithoutUserPinsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3199,6 +3348,7 @@ export type ModuleUpdateWithoutUserPinsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutUserPinsInput = {
@@ -3218,6 +3368,7 @@ export type ModuleUncheckedUpdateWithoutUserPinsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -3235,6 +3386,7 @@ export type ModuleUncheckedUpdateWithoutUserPinsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutCompanyPinsInput = {
@@ -3251,6 +3403,7 @@ export type ModuleCreateWithoutCompanyPinsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3271,6 +3424,7 @@ export type ModuleCreateWithoutCompanyPinsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutCompanyPinsInput = {
@@ -3290,6 +3444,7 @@ export type ModuleUncheckedCreateWithoutCompanyPinsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3307,6 +3462,7 @@ export type ModuleUncheckedCreateWithoutCompanyPinsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutCompanyPinsInput = {
@@ -3339,6 +3495,7 @@ export type ModuleUpdateWithoutCompanyPinsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3359,6 +3516,7 @@ export type ModuleUpdateWithoutCompanyPinsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCompanyPinsInput = {
@@ -3378,6 +3536,7 @@ export type ModuleUncheckedUpdateWithoutCompanyPinsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -3395,6 +3554,7 @@ export type ModuleUncheckedUpdateWithoutCompanyPinsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutTagsInput = {
@@ -3411,6 +3571,7 @@ export type ModuleCreateWithoutTagsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3431,6 +3592,7 @@ export type ModuleCreateWithoutTagsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutTagsInput = {
@@ -3450,6 +3612,7 @@ export type ModuleUncheckedCreateWithoutTagsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3467,6 +3630,7 @@ export type ModuleUncheckedCreateWithoutTagsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutTagsInput = {
@@ -3499,6 +3663,7 @@ export type ModuleUpdateWithoutTagsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3519,6 +3684,7 @@ export type ModuleUpdateWithoutTagsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutTagsInput = {
@@ -3538,6 +3704,7 @@ export type ModuleUncheckedUpdateWithoutTagsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -3555,6 +3722,7 @@ export type ModuleUncheckedUpdateWithoutTagsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutMentorsInput = {
@@ -3571,6 +3739,7 @@ export type ModuleCreateWithoutMentorsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3591,6 +3760,7 @@ export type ModuleCreateWithoutMentorsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutMentorsInput = {
@@ -3610,6 +3780,7 @@ export type ModuleUncheckedCreateWithoutMentorsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3627,6 +3798,7 @@ export type ModuleUncheckedCreateWithoutMentorsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutMentorsInput = {
@@ -3659,6 +3831,7 @@ export type ModuleUpdateWithoutMentorsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3679,6 +3852,7 @@ export type ModuleUpdateWithoutMentorsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutMentorsInput = {
@@ -3698,6 +3872,7 @@ export type ModuleUncheckedUpdateWithoutMentorsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -3715,6 +3890,7 @@ export type ModuleUncheckedUpdateWithoutMentorsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutChangeLogsInput = {
@@ -3731,6 +3907,7 @@ export type ModuleCreateWithoutChangeLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3751,6 +3928,7 @@ export type ModuleCreateWithoutChangeLogsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutChangeLogsInput = {
@@ -3770,6 +3948,7 @@ export type ModuleUncheckedCreateWithoutChangeLogsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3787,6 +3966,7 @@ export type ModuleUncheckedCreateWithoutChangeLogsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutChangeLogsInput = {
@@ -3819,6 +3999,7 @@ export type ModuleUpdateWithoutChangeLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3839,6 +4020,7 @@ export type ModuleUpdateWithoutChangeLogsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutChangeLogsInput = {
@@ -3858,6 +4040,7 @@ export type ModuleUncheckedUpdateWithoutChangeLogsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -3875,6 +4058,7 @@ export type ModuleUncheckedUpdateWithoutChangeLogsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutReviewsInput = {
@@ -3891,6 +4075,7 @@ export type ModuleCreateWithoutReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -3911,6 +4096,7 @@ export type ModuleCreateWithoutReviewsInput = {
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutReviewsInput = {
@@ -3930,6 +4116,7 @@ export type ModuleUncheckedCreateWithoutReviewsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -3947,6 +4134,7 @@ export type ModuleUncheckedCreateWithoutReviewsInput = {
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutReviewsInput = {
@@ -3979,6 +4167,7 @@ export type ModuleUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -3999,6 +4188,7 @@ export type ModuleUpdateWithoutReviewsInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutReviewsInput = {
@@ -4018,6 +4208,7 @@ export type ModuleUncheckedUpdateWithoutReviewsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4035,6 +4226,7 @@ export type ModuleUncheckedUpdateWithoutReviewsInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutChatMessagesInput = {
@@ -4051,6 +4243,7 @@ export type ModuleCreateWithoutChatMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -4071,6 +4264,7 @@ export type ModuleCreateWithoutChatMessagesInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutChatMessagesInput = {
@@ -4090,6 +4284,7 @@ export type ModuleUncheckedCreateWithoutChatMessagesInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -4107,6 +4302,7 @@ export type ModuleUncheckedCreateWithoutChatMessagesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutChatMessagesInput = {
@@ -4139,6 +4335,7 @@ export type ModuleUpdateWithoutChatMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -4159,6 +4356,7 @@ export type ModuleUpdateWithoutChatMessagesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutChatMessagesInput = {
@@ -4178,6 +4376,7 @@ export type ModuleUncheckedUpdateWithoutChatMessagesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4195,6 +4394,7 @@ export type ModuleUncheckedUpdateWithoutChatMessagesInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleCreateWithoutLiveEventsInput = {
@@ -4211,6 +4411,7 @@ export type ModuleCreateWithoutLiveEventsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedAt?: Date | string | null
+  validityMonths?: number | null
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
   category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
@@ -4231,6 +4432,7 @@ export type ModuleCreateWithoutLiveEventsInput = {
   companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleUncheckedCreateWithoutLiveEventsInput = {
@@ -4250,6 +4452,7 @@ export type ModuleUncheckedCreateWithoutLiveEventsInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
   groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
@@ -4267,6 +4470,7 @@ export type ModuleUncheckedCreateWithoutLiveEventsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
   mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutConvertedModuleInput
 }
 
 export type ModuleCreateOrConnectWithoutLiveEventsInput = {
@@ -4299,6 +4503,7 @@ export type ModuleUpdateWithoutLiveEventsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
@@ -4319,6 +4524,7 @@ export type ModuleUpdateWithoutLiveEventsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutLiveEventsInput = {
@@ -4338,6 +4544,7 @@ export type ModuleUncheckedUpdateWithoutLiveEventsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4355,6 +4562,175 @@ export type ModuleUncheckedUpdateWithoutLiveEventsInput = {
   companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
+}
+
+export type ModuleCreateWithoutConvertedSuggestionsInput = {
+  id?: string
+  title: string
+  description: string
+  coverImage?: string | null
+  status?: $Enums.ModuleStatus
+  sortOrder?: number
+  estimatedTime?: number | null
+  difficulty?: $Enums.Difficulty
+  isMandatory?: boolean
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  publishedAt?: Date | string | null
+  validityMonths?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedModulesInput
+  category?: Prisma.ModuleCategoryCreateNestedOneWithoutModulesInput
+  groups?: Prisma.ModuleGroupCreateNestedManyWithoutModuleInput
+  sections?: Prisma.SectionCreateNestedManyWithoutModuleInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutModuleInput
+  comments?: Prisma.CommentCreateNestedManyWithoutModuleInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutModuleInput
+  tags?: Prisma.ModuleTagCreateNestedManyWithoutModuleInput
+  prerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutDependentModuleInput
+  dependents?: Prisma.ModulePrerequisiteCreateNestedManyWithoutPrerequisiteModuleInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutModuleInput
+  lastAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutModuleInput
+  overrides?: Prisma.ProgressOverrideCreateNestedManyWithoutModuleInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutModuleInput
+  reviews?: Prisma.UserModuleReviewCreateNestedManyWithoutModuleInput
+  userPins?: Prisma.UserPinnedModuleCreateNestedManyWithoutModuleInput
+  companyPins?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutModuleInput
+  mentors?: Prisma.ModuleMentorCreateNestedManyWithoutModuleInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutRelatedModuleInput
+}
+
+export type ModuleUncheckedCreateWithoutConvertedSuggestionsInput = {
+  id?: string
+  tenantId: string
+  title: string
+  description: string
+  coverImage?: string | null
+  status?: $Enums.ModuleStatus
+  sortOrder?: number
+  estimatedTime?: number | null
+  difficulty?: $Enums.Difficulty
+  isMandatory?: boolean
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  publishedAt?: Date | string | null
+  createdById: string
+  categoryId?: string | null
+  validityMonths?: number | null
+  groups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutModuleInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutModuleInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutModuleInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutModuleInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutModuleInput
+  tags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutModuleInput
+  prerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutDependentModuleInput
+  dependents?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutPrerequisiteModuleInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutModuleInput
+  lastAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutModuleInput
+  overrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutModuleInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutModuleInput
+  reviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutModuleInput
+  userPins?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
+  companyPins?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutModuleInput
+  mentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutModuleInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutModuleInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutRelatedModuleInput
+}
+
+export type ModuleCreateOrConnectWithoutConvertedSuggestionsInput = {
+  where: Prisma.ModuleWhereUniqueInput
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedCreateWithoutConvertedSuggestionsInput>
+}
+
+export type ModuleUpsertWithoutConvertedSuggestionsInput = {
+  update: Prisma.XOR<Prisma.ModuleUpdateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedUpdateWithoutConvertedSuggestionsInput>
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedCreateWithoutConvertedSuggestionsInput>
+  where?: Prisma.ModuleWhereInput
+}
+
+export type ModuleUpdateToOneWithWhereWithoutConvertedSuggestionsInput = {
+  where?: Prisma.ModuleWhereInput
+  data: Prisma.XOR<Prisma.ModuleUpdateWithoutConvertedSuggestionsInput, Prisma.ModuleUncheckedUpdateWithoutConvertedSuggestionsInput>
+}
+
+export type ModuleUpdateWithoutConvertedSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumModuleStatusFieldUpdateOperationsInput | $Enums.ModuleStatus
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
+  category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
+  groups?: Prisma.ModuleGroupUpdateManyWithoutModuleNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutModuleNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutModuleNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutModuleNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutModuleNestedInput
+  tags?: Prisma.ModuleTagUpdateManyWithoutModuleNestedInput
+  prerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutDependentModuleNestedInput
+  dependents?: Prisma.ModulePrerequisiteUpdateManyWithoutPrerequisiteModuleNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutModuleNestedInput
+  lastAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutModuleNestedInput
+  overrides?: Prisma.ProgressOverrideUpdateManyWithoutModuleNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutModuleNestedInput
+  reviews?: Prisma.UserModuleReviewUpdateManyWithoutModuleNestedInput
+  userPins?: Prisma.UserPinnedModuleUpdateManyWithoutModuleNestedInput
+  companyPins?: Prisma.CompanyPinnedModuleUpdateManyWithoutModuleNestedInput
+  mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+}
+
+export type ModuleUncheckedUpdateWithoutConvertedSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumModuleStatusFieldUpdateOperationsInput | $Enums.ModuleStatus
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutModuleNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutModuleNestedInput
+  tags?: Prisma.ModuleTagUncheckedUpdateManyWithoutModuleNestedInput
+  prerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutDependentModuleNestedInput
+  dependents?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutPrerequisiteModuleNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutModuleNestedInput
+  lastAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutModuleNestedInput
+  overrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutModuleNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutModuleNestedInput
+  reviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutModuleNestedInput
+  userPins?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
+  companyPins?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutModuleNestedInput
+  mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
 }
 
 export type ModuleCreateManyTenantInput = {
@@ -4373,6 +4749,7 @@ export type ModuleCreateManyTenantInput = {
   publishedAt?: Date | string | null
   createdById: string
   categoryId?: string | null
+  validityMonths?: number | null
 }
 
 export type ModuleUpdateWithoutTenantInput = {
@@ -4389,6 +4766,7 @@ export type ModuleUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
   groups?: Prisma.ModuleGroupUpdateManyWithoutModuleNestedInput
@@ -4409,6 +4787,7 @@ export type ModuleUpdateWithoutTenantInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutTenantInput = {
@@ -4427,6 +4806,7 @@ export type ModuleUncheckedUpdateWithoutTenantInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4445,6 +4825,7 @@ export type ModuleUncheckedUpdateWithoutTenantInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutTenantInput = {
@@ -4463,6 +4844,7 @@ export type ModuleUncheckedUpdateManyWithoutTenantInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ModuleCreateManyCreatedByInput = {
@@ -4481,6 +4863,7 @@ export type ModuleCreateManyCreatedByInput = {
   updatedAt?: Date | string
   publishedAt?: Date | string | null
   categoryId?: string | null
+  validityMonths?: number | null
 }
 
 export type ModuleUpdateWithoutCreatedByInput = {
@@ -4497,6 +4880,7 @@ export type ModuleUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   category?: Prisma.ModuleCategoryUpdateOneWithoutModulesNestedInput
   groups?: Prisma.ModuleGroupUpdateManyWithoutModuleNestedInput
@@ -4517,6 +4901,7 @@ export type ModuleUpdateWithoutCreatedByInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCreatedByInput = {
@@ -4535,6 +4920,7 @@ export type ModuleUncheckedUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4553,6 +4939,7 @@ export type ModuleUncheckedUpdateWithoutCreatedByInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutCreatedByInput = {
@@ -4571,6 +4958,7 @@ export type ModuleUncheckedUpdateManyWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ModuleCreateManyCategoryInput = {
@@ -4589,6 +4977,7 @@ export type ModuleCreateManyCategoryInput = {
   updatedAt?: Date | string
   publishedAt?: Date | string | null
   createdById: string
+  validityMonths?: number | null
 }
 
 export type ModuleUpdateWithoutCategoryInput = {
@@ -4605,6 +4994,7 @@ export type ModuleUpdateWithoutCategoryInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedModulesNestedInput
   groups?: Prisma.ModuleGroupUpdateManyWithoutModuleNestedInput
@@ -4625,6 +5015,7 @@ export type ModuleUpdateWithoutCategoryInput = {
   mentors?: Prisma.ModuleMentorUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateWithoutCategoryInput = {
@@ -4643,6 +5034,7 @@ export type ModuleUncheckedUpdateWithoutCategoryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutModuleNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutModuleNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutModuleNestedInput
@@ -4661,6 +5053,7 @@ export type ModuleUncheckedUpdateWithoutCategoryInput = {
   mentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutModuleNestedInput
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutModuleNestedInput
   liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput
+  convertedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutConvertedModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateManyWithoutCategoryInput = {
@@ -4679,6 +5072,7 @@ export type ModuleUncheckedUpdateManyWithoutCategoryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -4705,6 +5099,7 @@ export type ModuleCountOutputType = {
   mentors: number
   chatMessages: number
   liveEvents: number
+  convertedSuggestions: number
 }
 
 export type ModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4726,6 +5121,7 @@ export type ModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   mentors?: boolean | ModuleCountOutputTypeCountMentorsArgs
   chatMessages?: boolean | ModuleCountOutputTypeCountChatMessagesArgs
   liveEvents?: boolean | ModuleCountOutputTypeCountLiveEventsArgs
+  convertedSuggestions?: boolean | ModuleCountOutputTypeCountConvertedSuggestionsArgs
 }
 
 /**
@@ -4864,6 +5260,13 @@ export type ModuleCountOutputTypeCountLiveEventsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.MentorLiveEventWhereInput
 }
 
+/**
+ * ModuleCountOutputType without action
+ */
+export type ModuleCountOutputTypeCountConvertedSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KnowledgeSuggestionWhereInput
+}
+
 
 export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4882,6 +5285,7 @@ export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   publishedAt?: boolean
   createdById?: boolean
   categoryId?: boolean
+  validityMonths?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.Module$categoryArgs<ExtArgs>
@@ -4903,6 +5307,7 @@ export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   mentors?: boolean | Prisma.Module$mentorsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Module$chatMessagesArgs<ExtArgs>
   liveEvents?: boolean | Prisma.Module$liveEventsArgs<ExtArgs>
+  convertedSuggestions?: boolean | Prisma.Module$convertedSuggestionsArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["module"]>
 
@@ -4923,6 +5328,7 @@ export type ModuleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   publishedAt?: boolean
   createdById?: boolean
   categoryId?: boolean
+  validityMonths?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.Module$categoryArgs<ExtArgs>
@@ -4945,6 +5351,7 @@ export type ModuleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   publishedAt?: boolean
   createdById?: boolean
   categoryId?: boolean
+  validityMonths?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.Module$categoryArgs<ExtArgs>
@@ -4967,9 +5374,10 @@ export type ModuleSelectScalar = {
   publishedAt?: boolean
   createdById?: boolean
   categoryId?: boolean
+  validityMonths?: boolean
 }
 
-export type ModuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "coverImage" | "status" | "sortOrder" | "estimatedTime" | "difficulty" | "isMandatory" | "version" | "createdAt" | "updatedAt" | "publishedAt" | "createdById" | "categoryId", ExtArgs["result"]["module"]>
+export type ModuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "coverImage" | "status" | "sortOrder" | "estimatedTime" | "difficulty" | "isMandatory" | "version" | "createdAt" | "updatedAt" | "publishedAt" | "createdById" | "categoryId" | "validityMonths", ExtArgs["result"]["module"]>
 export type ModuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4992,6 +5400,7 @@ export type ModuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   mentors?: boolean | Prisma.Module$mentorsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Module$chatMessagesArgs<ExtArgs>
   liveEvents?: boolean | Prisma.Module$liveEventsArgs<ExtArgs>
+  convertedSuggestions?: boolean | Prisma.Module$convertedSuggestionsArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ModuleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5029,6 +5438,7 @@ export type $ModulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     mentors: Prisma.$ModuleMentorPayload<ExtArgs>[]
     chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
     liveEvents: Prisma.$MentorLiveEventPayload<ExtArgs>[]
+    convertedSuggestions: Prisma.$KnowledgeSuggestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5047,6 +5457,7 @@ export type $ModulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     publishedAt: Date | null
     createdById: string
     categoryId: string | null
+    validityMonths: number | null
   }, ExtArgs["result"]["module"]>
   composites: {}
 }
@@ -5462,6 +5873,7 @@ export interface Prisma__ModuleClient<T, Null = never, ExtArgs extends runtime.T
   mentors<T extends Prisma.Module$mentorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$mentorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleMentorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.Module$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   liveEvents<T extends Prisma.Module$liveEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$liveEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorLiveEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  convertedSuggestions<T extends Prisma.Module$convertedSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$convertedSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5507,6 +5919,7 @@ export interface ModuleFieldRefs {
   readonly publishedAt: Prisma.FieldRef<"Module", 'DateTime'>
   readonly createdById: Prisma.FieldRef<"Module", 'String'>
   readonly categoryId: Prisma.FieldRef<"Module", 'String'>
+  readonly validityMonths: Prisma.FieldRef<"Module", 'Int'>
 }
     
 
@@ -6351,6 +6764,30 @@ export type Module$liveEventsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.MentorLiveEventScalarFieldEnum | Prisma.MentorLiveEventScalarFieldEnum[]
+}
+
+/**
+ * Module.convertedSuggestions
+ */
+export type Module$convertedSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KnowledgeSuggestion
+   */
+  select?: Prisma.KnowledgeSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KnowledgeSuggestion
+   */
+  omit?: Prisma.KnowledgeSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KnowledgeSuggestionInclude<ExtArgs> | null
+  where?: Prisma.KnowledgeSuggestionWhereInput
+  orderBy?: Prisma.KnowledgeSuggestionOrderByWithRelationInput | Prisma.KnowledgeSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.KnowledgeSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KnowledgeSuggestionScalarFieldEnum | Prisma.KnowledgeSuggestionScalarFieldEnum[]
 }
 
 /**

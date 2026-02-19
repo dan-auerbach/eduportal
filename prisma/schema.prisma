@@ -61,6 +61,17 @@ model Tenant {
   aiModuleBuilds       AiModuleBuild[]
   mediaAssets          MediaAsset[]
 
+  // Gamification & Rewards
+  xpTransactions       XpTransaction[]
+  xpBalances           UserXpBalance[]
+  rewards              Reward[]
+  rewardRedemptions    RewardRedemption[]
+
+  // Knowledge Suggestions
+  suggestions          KnowledgeSuggestion[]
+  suggestionVotes      KnowledgeSuggestionVote[]
+  suggestionComments   KnowledgeSuggestionComment[]
+
   // Email templates (owner-configurable, plain text with {placeholder} vars)
   emailInviteSubject   String?
   emailInviteBody      String?  @db.Text
@@ -156,6 +167,19 @@ model User {
   aiModuleBuilds     AiModuleBuild[]    @relation("AiBuildCreator")
   mediaAssets        MediaAsset[]       @relation("MediaAssetCreator")
 
+  // Gamification & Rewards
+  xpTransactions       XpTransaction[]
+  xpBalances           UserXpBalance[]
+  createdRewards       Reward[]               @relation("RewardCreator")
+  redemptions          RewardRedemption[]
+  reviewedRedemptions  RewardRedemption[]     @relation("RedemptionReviewer")
+
+  // Knowledge Suggestions
+  suggestions          KnowledgeSuggestion[]  @relation("SuggestionAuthor")
+  reviewedSuggestions  KnowledgeSuggestion[]  @relation("SuggestionReviewer")
+  suggestionVotes      KnowledgeSuggestionVote[]
+  suggestionComments   KnowledgeSuggestionComment[]
+
   @@index([role, isActive])
 }
 
@@ -199,6 +223,9 @@ enum Permission {
   VIEW_ANALYTICS
   VIEW_AUDIT_LOG
   EXPORT_REPORTS
+  MANAGE_REWARDS
+  VIEW_MANAGER_DASHBOARD
+  MANAGE_SUGGESTIONS
 }
 
 // ============================================
@@ -256,8 +283,9 @@ model Module {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   publishedAt   DateTime?
-  createdById   String
-  categoryId    String?
+  createdById    String
+  categoryId     String?
+  validityMonths Int?          // Compliance: how many months a completion stays valid
 
   tenant          Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   createdBy       User                   @relation("ModuleCreator", fields: [createdById], references: [id])
@@ -280,6 +308,7 @@ model Module {
   mentors         ModuleMentor[]
   chatMessages    ChatMessage[]
   liveEvents      MentorLiveEvent[]
+  convertedSuggestions KnowledgeSuggestion[] @relation("ConvertedModule")
 
   @@index([tenantId, status])
   @@index([createdById])
@@ -299,12 +328,13 @@ enum Difficulty {
 }
 
 model ModuleGroup {
-  moduleId     String
-  groupId      String
-  tenantId     String
-  assignedAt   DateTime @default(now())
-  deadlineDays Int?
-  isMandatory  Boolean  @default(false)
+  moduleId       String
+  groupId        String
+  tenantId       String
+  assignedAt     DateTime @default(now())
+  deadlineDays   Int?
+  isMandatory    Boolean  @default(false)
+  renewalXpBonus Int      @default(0)
 
   module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   group  Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
@@ -662,6 +692,13 @@ enum NotificationType {
   RADAR_APPROVED
   RADAR_REJECTED
   NEW_KNOWLEDGE
+  XP_EARNED
+  REWARD_APPROVED
+  REWARD_REJECTED
+  SUGGESTION_POPULAR
+  SUGGESTION_STATUS_CHANGED
+  MODULE_EXPIRING
+  MODULE_EXPIRED
 }
 
 model NotificationDedup {
@@ -909,6 +946,19 @@ enum AuditAction {
   MEDIA_DELETED
   MODULE_DELETED
   ASSET_BULK_DELETED
+  XP_AWARDED
+  XP_DEDUCTED
+  REWARD_CREATED
+  REWARD_UPDATED
+  REWARD_REDEEMED
+  REWARD_APPROVED
+  REWARD_REJECTED
+  SUGGESTION_CREATED
+  SUGGESTION_VOTED
+  SUGGESTION_STATUS_CHANGED
+  SUGGESTION_CONVERTED
+  MODULE_VALIDITY_EXPIRED
+  MODULE_REASSIGNED
 }
 
 // ============================================
@@ -1137,6 +1187,182 @@ model AiModuleBuild {
 
   @@index([tenantId, createdAt])
   @@index([createdById])
+}
+
+// ============================================
+// GAMIFICATION: XP & REWARDS
+// ============================================
+
+enum XpSourceType {
+  MODULE_COMPLETED
+  QUIZ_HIGH_SCORE
+  MENTOR_CONFIRMATION
+  TOP_SUGGESTION
+  COMPLIANCE_RENEWAL
+  MANUAL
+}
+
+enum ReputationRank {
+  BRONZE
+  SILVER
+  GOLD
+  ELITE
+}
+
+model XpTransaction {
+  id             String       @id @default(cuid())
+  tenantId       String
+  userId         String
+  amount         Int
+  source         XpSourceType
+  sourceEntityId String?
+  description    String?
+  createdAt      DateTime     @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, userId, createdAt])
+  @@index([tenantId, createdAt])
+}
+
+model UserXpBalance {
+  id        String         @id @default(cuid())
+  tenantId  String
+  userId    String
+  totalXp   Int            @default(0)
+  rank      ReputationRank @default(BRONZE)
+  updatedAt DateTime       @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId, totalXp])
+}
+
+enum RedemptionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+model Reward {
+  id                String   @id @default(cuid())
+  tenantId          String
+  title             String
+  description       String?  @db.Text
+  costXp            Int
+  monthlyLimit      Int?
+  quantityAvailable Int?
+  approvalRequired  Boolean  @default(true)
+  active            Boolean  @default(true)
+  imageUrl          String?
+  createdById       String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  tenant      Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy   User               @relation("RewardCreator", fields: [createdById], references: [id])
+  redemptions RewardRedemption[]
+
+  @@index([tenantId, active])
+}
+
+model RewardRedemption {
+  id           String           @id @default(cuid())
+  tenantId     String
+  userId       String
+  rewardId     String
+  xpSpent      Int
+  status       RedemptionStatus @default(PENDING)
+  reviewedById String?
+  reviewedAt   DateTime?
+  rejectReason String?
+  createdAt    DateTime         @default(now())
+
+  tenant     Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reward     Reward  @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  reviewedBy User?   @relation("RedemptionReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, userId, createdAt])
+  @@index([tenantId, status])
+  @@index([rewardId, createdAt])
+}
+
+// ============================================
+// KNOWLEDGE SUGGESTIONS ("PREDLAGAJ ZNANJE")
+// ============================================
+
+enum SuggestionStatus {
+  OPEN
+  APPROVED
+  REJECTED
+  CONVERTED
+}
+
+model KnowledgeSuggestion {
+  id                String           @id @default(cuid())
+  tenantId          String
+  userId            String
+  title             String
+  description       String           @db.Text
+  link              String?
+  isAnonymous       Boolean          @default(false)
+  status            SuggestionStatus @default(OPEN)
+  voteCount         Int              @default(0)
+  reviewedById      String?
+  reviewedAt        DateTime?
+  convertedModuleId String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  tenant          Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user            User                         @relation("SuggestionAuthor", fields: [userId], references: [id], onDelete: Cascade)
+  reviewedBy      User?                        @relation("SuggestionReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  convertedModule Module?                      @relation("ConvertedModule", fields: [convertedModuleId], references: [id], onDelete: SetNull)
+  votes           KnowledgeSuggestionVote[]
+  comments        KnowledgeSuggestionComment[]
+
+  @@index([tenantId, status, createdAt])
+  @@index([tenantId, voteCount])
+}
+
+model KnowledgeSuggestionVote {
+  id           String   @id @default(cuid())
+  tenantId     String
+  userId       String
+  suggestionId String
+  createdAt    DateTime @default(now())
+
+  tenant     Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  suggestion KnowledgeSuggestion @relation(fields: [suggestionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, suggestionId])
+  @@index([suggestionId])
+  @@index([tenantId])
+}
+
+model KnowledgeSuggestionComment {
+  id           String   @id @default(cuid())
+  tenantId     String
+  userId       String
+  suggestionId String
+  body         String   @db.Text
+  parentId     String?
+  createdAt    DateTime @default(now())
+
+  tenant     Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user       User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  suggestion KnowledgeSuggestion          @relation(fields: [suggestionId], references: [id], onDelete: Cascade)
+  parent     KnowledgeSuggestionComment?  @relation("SuggestionCommentReplies", fields: [parentId], references: [id])
+  replies    KnowledgeSuggestionComment[] @relation("SuggestionCommentReplies")
+
+  @@index([suggestionId, createdAt])
+  @@index([tenantId])
 }
 
 // ============================================

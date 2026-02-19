@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // Run all count queries in parallel for minimum latency
-    const [chatCount, radarData, notifCount, latestUpdate, nextEvent] = await Promise.all([
+    const [chatCount, radarData, notifCount, latestUpdate, nextEvent, xpBalance] = await Promise.all([
       // 1) Chat unread: count global messages after lastRead cursor
       prisma.chatMessage.count({
         where: {
@@ -94,6 +94,12 @@ export async function GET(req: NextRequest) {
         orderBy: { startsAt: "asc" },
         select: { title: true, startsAt: true },
       }),
+
+      // 6) XP balance for header badge
+      prisma.userXpBalance.findUnique({
+        where: { userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId } },
+        select: { totalXp: true },
+      }),
     ]);
 
     const elapsed = Date.now() - start;
@@ -106,6 +112,7 @@ export async function GET(req: NextRequest) {
       nextLiveEvent: nextEvent
         ? { title: nextEvent.title, startsAt: nextEvent.startsAt.toISOString() }
         : null,
+      xpTotal: xpBalance?.totalXp ?? 0,
     });
 
     // Server-Timing header for observability

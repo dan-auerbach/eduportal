@@ -268,6 +268,15 @@ export type UserWhereInput = {
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
   aiModuleBuilds?: Prisma.AiModuleBuildListRelationFilter
   mediaAssets?: Prisma.MediaAssetListRelationFilter
+  xpTransactions?: Prisma.XpTransactionListRelationFilter
+  xpBalances?: Prisma.UserXpBalanceListRelationFilter
+  createdRewards?: Prisma.RewardListRelationFilter
+  redemptions?: Prisma.RewardRedemptionListRelationFilter
+  reviewedRedemptions?: Prisma.RewardRedemptionListRelationFilter
+  suggestions?: Prisma.KnowledgeSuggestionListRelationFilter
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -313,6 +322,15 @@ export type UserOrderByWithRelationInput = {
   emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
   aiModuleBuilds?: Prisma.AiModuleBuildOrderByRelationAggregateInput
   mediaAssets?: Prisma.MediaAssetOrderByRelationAggregateInput
+  xpTransactions?: Prisma.XpTransactionOrderByRelationAggregateInput
+  xpBalances?: Prisma.UserXpBalanceOrderByRelationAggregateInput
+  createdRewards?: Prisma.RewardOrderByRelationAggregateInput
+  redemptions?: Prisma.RewardRedemptionOrderByRelationAggregateInput
+  reviewedRedemptions?: Prisma.RewardRedemptionOrderByRelationAggregateInput
+  suggestions?: Prisma.KnowledgeSuggestionOrderByRelationAggregateInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionOrderByRelationAggregateInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteOrderByRelationAggregateInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -361,6 +379,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
   aiModuleBuilds?: Prisma.AiModuleBuildListRelationFilter
   mediaAssets?: Prisma.MediaAssetListRelationFilter
+  xpTransactions?: Prisma.XpTransactionListRelationFilter
+  xpBalances?: Prisma.UserXpBalanceListRelationFilter
+  createdRewards?: Prisma.RewardListRelationFilter
+  redemptions?: Prisma.RewardRedemptionListRelationFilter
+  reviewedRedemptions?: Prisma.RewardRedemptionListRelationFilter
+  suggestions?: Prisma.KnowledgeSuggestionListRelationFilter
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -442,6 +469,15 @@ export type UserCreateInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -487,6 +523,15 @@ export type UserUncheckedCreateInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -532,6 +577,15 @@ export type UserUpdateInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -577,6 +631,15 @@ export type UserUncheckedUpdateInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1105,6 +1168,136 @@ export type UserUpdateOneRequiredWithoutAiModuleBuildsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiModuleBuildsInput, Prisma.UserUpdateWithoutAiModuleBuildsInput>, Prisma.UserUncheckedUpdateWithoutAiModuleBuildsInput>
 }
 
+export type UserCreateNestedOneWithoutXpTransactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXpTransactionsInput, Prisma.UserUncheckedCreateWithoutXpTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXpTransactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutXpTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXpTransactionsInput, Prisma.UserUncheckedCreateWithoutXpTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXpTransactionsInput
+  upsert?: Prisma.UserUpsertWithoutXpTransactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXpTransactionsInput, Prisma.UserUpdateWithoutXpTransactionsInput>, Prisma.UserUncheckedUpdateWithoutXpTransactionsInput>
+}
+
+export type UserCreateNestedOneWithoutXpBalancesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXpBalancesInput, Prisma.UserUncheckedCreateWithoutXpBalancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXpBalancesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutXpBalancesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXpBalancesInput, Prisma.UserUncheckedCreateWithoutXpBalancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXpBalancesInput
+  upsert?: Prisma.UserUpsertWithoutXpBalancesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXpBalancesInput, Prisma.UserUpdateWithoutXpBalancesInput>, Prisma.UserUncheckedUpdateWithoutXpBalancesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedRewardsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedRewardsInput, Prisma.UserUncheckedCreateWithoutCreatedRewardsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedRewardsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedRewardsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedRewardsInput, Prisma.UserUncheckedCreateWithoutCreatedRewardsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedRewardsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedRewardsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedRewardsInput, Prisma.UserUpdateWithoutCreatedRewardsInput>, Prisma.UserUncheckedUpdateWithoutCreatedRewardsInput>
+}
+
+export type UserCreateNestedOneWithoutRedemptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedRedemptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedCreateWithoutReviewedRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRedemptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRedemptionsInput
+  upsert?: Prisma.UserUpsertWithoutRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRedemptionsInput, Prisma.UserUpdateWithoutRedemptionsInput>, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+}
+
+export type UserUpdateOneWithoutReviewedRedemptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedCreateWithoutReviewedRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedRedemptionsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedRedemptionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedRedemptionsInput, Prisma.UserUpdateWithoutReviewedRedemptionsInput>, Prisma.UserUncheckedUpdateWithoutReviewedRedemptionsInput>
+}
+
+export type UserCreateNestedOneWithoutSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedCreateWithoutReviewedSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedSuggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionsInput
+  upsert?: Prisma.UserUpsertWithoutSuggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuggestionsInput, Prisma.UserUpdateWithoutSuggestionsInput>, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+}
+
+export type UserUpdateOneWithoutReviewedSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedCreateWithoutReviewedSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedSuggestionsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedSuggestionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedSuggestionsInput, Prisma.UserUpdateWithoutReviewedSuggestionsInput>, Prisma.UserUncheckedUpdateWithoutReviewedSuggestionsInput>
+}
+
+export type UserCreateNestedOneWithoutSuggestionVotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionVotesInput, Prisma.UserUncheckedCreateWithoutSuggestionVotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionVotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSuggestionVotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionVotesInput, Prisma.UserUncheckedCreateWithoutSuggestionVotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionVotesInput
+  upsert?: Prisma.UserUpsertWithoutSuggestionVotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuggestionVotesInput, Prisma.UserUpdateWithoutSuggestionVotesInput>, Prisma.UserUncheckedUpdateWithoutSuggestionVotesInput>
+}
+
+export type UserCreateNestedOneWithoutSuggestionCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionCommentsInput, Prisma.UserUncheckedCreateWithoutSuggestionCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSuggestionCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionCommentsInput, Prisma.UserUncheckedCreateWithoutSuggestionCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionCommentsInput
+  upsert?: Prisma.UserUpsertWithoutSuggestionCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuggestionCommentsInput, Prisma.UserUpdateWithoutSuggestionCommentsInput>, Prisma.UserUncheckedUpdateWithoutSuggestionCommentsInput>
+}
+
 export type UserCreateNestedOneWithoutMediaAssetsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMediaAssetsInput, Prisma.UserUncheckedCreateWithoutMediaAssetsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMediaAssetsInput
@@ -1161,6 +1354,15 @@ export type UserCreateWithoutMembershipsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1205,6 +1407,15 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1265,6 +1476,15 @@ export type UserUpdateWithoutMembershipsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1309,6 +1529,15 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1353,6 +1582,15 @@ export type UserCreateWithoutPermissionsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1397,6 +1635,15 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1457,6 +1704,15 @@ export type UserUpdateWithoutPermissionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1501,6 +1757,15 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1545,6 +1810,15 @@ export type UserCreateWithoutGroupsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1589,6 +1863,15 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1649,6 +1932,15 @@ export type UserUpdateWithoutGroupsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1693,6 +1985,15 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -1737,6 +2038,15 @@ export type UserCreateWithoutCreatedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -1781,6 +2091,15 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -1841,6 +2160,15 @@ export type UserUpdateWithoutCreatedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -1885,6 +2213,15 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -1929,6 +2266,15 @@ export type UserCreateWithoutSectionCompletionsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -1973,6 +2319,15 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -2033,6 +2388,15 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -2077,6 +2441,15 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -2121,6 +2494,15 @@ export type UserCreateWithoutModuleAccessesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -2165,6 +2547,15 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -2225,6 +2616,15 @@ export type UserUpdateWithoutModuleAccessesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -2269,6 +2669,15 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -2313,6 +2722,15 @@ export type UserCreateWithoutQuizAttemptsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -2357,6 +2775,15 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -2417,6 +2844,15 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -2461,6 +2897,15 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -2505,6 +2950,15 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -2549,6 +3003,15 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -2609,6 +3072,15 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -2653,6 +3125,15 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -2697,6 +3178,15 @@ export type UserCreateWithoutProgressOverridesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -2741,6 +3231,15 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -2801,6 +3300,15 @@ export type UserUpdateWithoutProgressOverridesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -2845,6 +3353,15 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2889,6 +3406,15 @@ export type UserCreateWithoutCertificatesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2933,6 +3459,15 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2993,6 +3528,15 @@ export type UserUpdateWithoutCertificatesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -3037,6 +3581,15 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -3081,6 +3634,15 @@ export type UserCreateWithoutCommentsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -3125,6 +3687,15 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -3185,6 +3756,15 @@ export type UserUpdateWithoutCommentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -3229,6 +3809,15 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3273,6 +3862,15 @@ export type UserCreateWithoutNotificationsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3317,6 +3915,15 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3377,6 +3984,15 @@ export type UserUpdateWithoutNotificationsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3421,6 +4037,15 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -3465,6 +4090,15 @@ export type UserCreateWithoutPinnedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -3509,6 +4143,15 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -3569,6 +4212,15 @@ export type UserUpdateWithoutPinnedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -3613,6 +4265,15 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMentorModulesInput = {
@@ -3657,6 +4318,15 @@ export type UserCreateWithoutMentorModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMentorModulesInput = {
@@ -3701,6 +4371,15 @@ export type UserUncheckedCreateWithoutMentorModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMentorModulesInput = {
@@ -3761,6 +4440,15 @@ export type UserUpdateWithoutMentorModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMentorModulesInput = {
@@ -3805,6 +4493,15 @@ export type UserUncheckedUpdateWithoutMentorModulesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -3849,6 +4546,15 @@ export type UserCreateWithoutChangeLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -3893,6 +4599,15 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -3953,6 +4668,15 @@ export type UserUpdateWithoutChangeLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -3997,6 +4721,15 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -4041,6 +4774,15 @@ export type UserCreateWithoutModuleReviewsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -4085,6 +4827,15 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -4145,6 +4896,15 @@ export type UserUpdateWithoutModuleReviewsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -4189,6 +4949,15 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -4233,6 +5002,15 @@ export type UserCreateWithoutAuditLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -4277,6 +5055,15 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -4337,6 +5124,15 @@ export type UserUpdateWithoutAuditLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -4381,6 +5177,15 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -4425,6 +5230,15 @@ export type UserCreateWithoutChangelogEntriesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -4469,6 +5283,15 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -4529,6 +5352,15 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -4573,6 +5405,15 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatMessagesInput = {
@@ -4617,6 +5458,15 @@ export type UserCreateWithoutChatMessagesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatMessagesInput = {
@@ -4661,6 +5511,15 @@ export type UserUncheckedCreateWithoutChatMessagesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatMessagesInput = {
@@ -4710,6 +5569,15 @@ export type UserCreateWithoutConfirmedAnswersInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
@@ -4754,6 +5622,15 @@ export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConfirmedAnswersInput = {
@@ -4814,6 +5691,15 @@ export type UserUpdateWithoutChatMessagesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatMessagesInput = {
@@ -4858,6 +5744,15 @@ export type UserUncheckedUpdateWithoutChatMessagesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConfirmedAnswersInput = {
@@ -4913,6 +5808,15 @@ export type UserUpdateWithoutConfirmedAnswersInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
@@ -4957,6 +5861,15 @@ export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedLiveEventsInput = {
@@ -5001,6 +5914,15 @@ export type UserCreateWithoutCreatedLiveEventsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
@@ -5045,6 +5967,15 @@ export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLiveEventsInput = {
@@ -5105,6 +6036,15 @@ export type UserUpdateWithoutCreatedLiveEventsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
@@ -5149,6 +6089,15 @@ export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -5193,6 +6142,15 @@ export type UserCreateWithoutSessionsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -5237,6 +6195,15 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -5297,6 +6264,15 @@ export type UserUpdateWithoutSessionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -5341,6 +6317,15 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarPostsInput = {
@@ -5385,6 +6370,15 @@ export type UserCreateWithoutRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarPostsInput = {
@@ -5429,6 +6423,15 @@ export type UserUncheckedCreateWithoutRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarPostsInput = {
@@ -5478,6 +6481,15 @@ export type UserCreateWithoutApprovedRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
@@ -5522,6 +6534,15 @@ export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApprovedRadarPostsInput = {
@@ -5582,6 +6603,15 @@ export type UserUpdateWithoutRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarPostsInput = {
@@ -5626,6 +6656,15 @@ export type UserUncheckedUpdateWithoutRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutApprovedRadarPostsInput = {
@@ -5681,6 +6720,15 @@ export type UserUpdateWithoutApprovedRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
@@ -5725,6 +6773,15 @@ export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarSeenInput = {
@@ -5769,6 +6826,15 @@ export type UserCreateWithoutRadarSeenInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarSeenInput = {
@@ -5813,6 +6879,15 @@ export type UserUncheckedCreateWithoutRadarSeenInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarSeenInput = {
@@ -5873,6 +6948,15 @@ export type UserUpdateWithoutRadarSeenInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSeenInput = {
@@ -5917,6 +7001,15 @@ export type UserUncheckedUpdateWithoutRadarSeenInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRadarSavesInput = {
@@ -5961,6 +7054,15 @@ export type UserCreateWithoutRadarSavesInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRadarSavesInput = {
@@ -6005,6 +7107,15 @@ export type UserUncheckedCreateWithoutRadarSavesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRadarSavesInput = {
@@ -6065,6 +7176,15 @@ export type UserUpdateWithoutRadarSavesInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSavesInput = {
@@ -6109,6 +7229,15 @@ export type UserUncheckedUpdateWithoutRadarSavesInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailTokensInput = {
@@ -6153,6 +7282,15 @@ export type UserCreateWithoutEmailTokensInput = {
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailTokensInput = {
@@ -6197,6 +7335,15 @@ export type UserUncheckedCreateWithoutEmailTokensInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailTokensInput = {
@@ -6257,6 +7404,15 @@ export type UserUpdateWithoutEmailTokensInput = {
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailTokensInput = {
@@ -6301,6 +7457,15 @@ export type UserUncheckedUpdateWithoutEmailTokensInput = {
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailPreferencesInput = {
@@ -6345,6 +7510,15 @@ export type UserCreateWithoutEmailPreferencesInput = {
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailPreferencesInput = {
@@ -6389,6 +7563,15 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailPreferencesInput = {
@@ -6449,6 +7632,15 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
@@ -6493,6 +7685,15 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiModuleBuildsInput = {
@@ -6537,6 +7738,15 @@ export type UserCreateWithoutAiModuleBuildsInput = {
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiModuleBuildsInput = {
@@ -6581,6 +7791,15 @@ export type UserUncheckedCreateWithoutAiModuleBuildsInput = {
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiModuleBuildsInput = {
@@ -6641,6 +7860,15 @@ export type UserUpdateWithoutAiModuleBuildsInput = {
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiModuleBuildsInput = {
@@ -6685,6 +7913,2067 @@ export type UserUncheckedUpdateWithoutAiModuleBuildsInput = {
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutXpTransactionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutXpTransactionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutXpTransactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXpTransactionsInput, Prisma.UserUncheckedCreateWithoutXpTransactionsInput>
+}
+
+export type UserUpsertWithoutXpTransactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXpTransactionsInput, Prisma.UserUncheckedUpdateWithoutXpTransactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXpTransactionsInput, Prisma.UserUncheckedCreateWithoutXpTransactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXpTransactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXpTransactionsInput, Prisma.UserUncheckedUpdateWithoutXpTransactionsInput>
+}
+
+export type UserUpdateWithoutXpTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXpTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutXpBalancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutXpBalancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutXpBalancesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXpBalancesInput, Prisma.UserUncheckedCreateWithoutXpBalancesInput>
+}
+
+export type UserUpsertWithoutXpBalancesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXpBalancesInput, Prisma.UserUncheckedUpdateWithoutXpBalancesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXpBalancesInput, Prisma.UserUncheckedCreateWithoutXpBalancesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXpBalancesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXpBalancesInput, Prisma.UserUncheckedUpdateWithoutXpBalancesInput>
+}
+
+export type UserUpdateWithoutXpBalancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXpBalancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCreatedRewardsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCreatedRewardsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCreatedRewardsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedRewardsInput, Prisma.UserUncheckedCreateWithoutCreatedRewardsInput>
+}
+
+export type UserUpsertWithoutCreatedRewardsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedRewardsInput, Prisma.UserUncheckedUpdateWithoutCreatedRewardsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedRewardsInput, Prisma.UserUncheckedCreateWithoutCreatedRewardsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedRewardsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedRewardsInput, Prisma.UserUncheckedUpdateWithoutCreatedRewardsInput>
+}
+
+export type UserUpdateWithoutCreatedRewardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedRewardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRedemptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+}
+
+export type UserCreateWithoutReviewedRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewedRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewedRedemptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedCreateWithoutReviewedRedemptionsInput>
+}
+
+export type UserUpsertWithoutRedemptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRedemptionsInput, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRedemptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRedemptionsInput, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+}
+
+export type UserUpdateWithoutRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutReviewedRedemptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedUpdateWithoutReviewedRedemptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedCreateWithoutReviewedRedemptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedRedemptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedRedemptionsInput, Prisma.UserUncheckedUpdateWithoutReviewedRedemptionsInput>
+}
+
+export type UserUpdateWithoutReviewedRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSuggestionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSuggestionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSuggestionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+}
+
+export type UserCreateWithoutReviewedSuggestionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewedSuggestionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewedSuggestionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedCreateWithoutReviewedSuggestionsInput>
+}
+
+export type UserUpsertWithoutSuggestionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionsInput, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuggestionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionsInput, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+}
+
+export type UserUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutReviewedSuggestionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedUpdateWithoutReviewedSuggestionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedCreateWithoutReviewedSuggestionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedSuggestionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedSuggestionsInput, Prisma.UserUncheckedUpdateWithoutReviewedSuggestionsInput>
+}
+
+export type UserUpdateWithoutReviewedSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSuggestionVotesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSuggestionVotesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSuggestionVotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionVotesInput, Prisma.UserUncheckedCreateWithoutSuggestionVotesInput>
+}
+
+export type UserUpsertWithoutSuggestionVotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionVotesInput, Prisma.UserUncheckedUpdateWithoutSuggestionVotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionVotesInput, Prisma.UserUncheckedCreateWithoutSuggestionVotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuggestionVotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionVotesInput, Prisma.UserUncheckedUpdateWithoutSuggestionVotesInput>
+}
+
+export type UserUpdateWithoutSuggestionVotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuggestionVotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSuggestionCommentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSuggestionCommentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSuggestionCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionCommentsInput, Prisma.UserUncheckedCreateWithoutSuggestionCommentsInput>
+}
+
+export type UserUpsertWithoutSuggestionCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionCommentsInput, Prisma.UserUncheckedUpdateWithoutSuggestionCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionCommentsInput, Prisma.UserUncheckedCreateWithoutSuggestionCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuggestionCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionCommentsInput, Prisma.UserUncheckedUpdateWithoutSuggestionCommentsInput>
+}
+
+export type UserUpdateWithoutSuggestionCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuggestionCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMediaAssetsInput = {
@@ -6729,6 +10018,15 @@ export type UserCreateWithoutMediaAssetsInput = {
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaAssetsInput = {
@@ -6773,6 +10071,15 @@ export type UserUncheckedCreateWithoutMediaAssetsInput = {
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaAssetsInput = {
@@ -6833,6 +10140,15 @@ export type UserUpdateWithoutMediaAssetsInput = {
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaAssetsInput = {
@@ -6877,6 +10193,15 @@ export type UserUncheckedUpdateWithoutMediaAssetsInput = {
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -6915,6 +10240,15 @@ export type UserCountOutputType = {
   emailPreferences: number
   aiModuleBuilds: number
   mediaAssets: number
+  xpTransactions: number
+  xpBalances: number
+  createdRewards: number
+  redemptions: number
+  reviewedRedemptions: number
+  suggestions: number
+  reviewedSuggestions: number
+  suggestionVotes: number
+  suggestionComments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6948,6 +10282,15 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   emailPreferences?: boolean | UserCountOutputTypeCountEmailPreferencesArgs
   aiModuleBuilds?: boolean | UserCountOutputTypeCountAiModuleBuildsArgs
   mediaAssets?: boolean | UserCountOutputTypeCountMediaAssetsArgs
+  xpTransactions?: boolean | UserCountOutputTypeCountXpTransactionsArgs
+  xpBalances?: boolean | UserCountOutputTypeCountXpBalancesArgs
+  createdRewards?: boolean | UserCountOutputTypeCountCreatedRewardsArgs
+  redemptions?: boolean | UserCountOutputTypeCountRedemptionsArgs
+  reviewedRedemptions?: boolean | UserCountOutputTypeCountReviewedRedemptionsArgs
+  suggestions?: boolean | UserCountOutputTypeCountSuggestionsArgs
+  reviewedSuggestions?: boolean | UserCountOutputTypeCountReviewedSuggestionsArgs
+  suggestionVotes?: boolean | UserCountOutputTypeCountSuggestionVotesArgs
+  suggestionComments?: boolean | UserCountOutputTypeCountSuggestionCommentsArgs
 }
 
 /**
@@ -7170,6 +10513,69 @@ export type UserCountOutputTypeCountMediaAssetsArgs<ExtArgs extends runtime.Type
   where?: Prisma.MediaAssetWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXpTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XpTransactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXpBalancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserXpBalanceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedRewardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RewardWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RewardRedemptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RewardRedemptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KnowledgeSuggestionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KnowledgeSuggestionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuggestionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KnowledgeSuggestionVoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuggestionCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KnowledgeSuggestionCommentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7214,6 +10620,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
   aiModuleBuilds?: boolean | Prisma.User$aiModuleBuildsArgs<ExtArgs>
   mediaAssets?: boolean | Prisma.User$mediaAssetsArgs<ExtArgs>
+  xpTransactions?: boolean | Prisma.User$xpTransactionsArgs<ExtArgs>
+  xpBalances?: boolean | Prisma.User$xpBalancesArgs<ExtArgs>
+  createdRewards?: boolean | Prisma.User$createdRewardsArgs<ExtArgs>
+  redemptions?: boolean | Prisma.User$redemptionsArgs<ExtArgs>
+  reviewedRedemptions?: boolean | Prisma.User$reviewedRedemptionsArgs<ExtArgs>
+  suggestions?: boolean | Prisma.User$suggestionsArgs<ExtArgs>
+  reviewedSuggestions?: boolean | Prisma.User$reviewedSuggestionsArgs<ExtArgs>
+  suggestionVotes?: boolean | Prisma.User$suggestionVotesArgs<ExtArgs>
+  suggestionComments?: boolean | Prisma.User$suggestionCommentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7294,6 +10709,15 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
   aiModuleBuilds?: boolean | Prisma.User$aiModuleBuildsArgs<ExtArgs>
   mediaAssets?: boolean | Prisma.User$mediaAssetsArgs<ExtArgs>
+  xpTransactions?: boolean | Prisma.User$xpTransactionsArgs<ExtArgs>
+  xpBalances?: boolean | Prisma.User$xpBalancesArgs<ExtArgs>
+  createdRewards?: boolean | Prisma.User$createdRewardsArgs<ExtArgs>
+  redemptions?: boolean | Prisma.User$redemptionsArgs<ExtArgs>
+  reviewedRedemptions?: boolean | Prisma.User$reviewedRedemptionsArgs<ExtArgs>
+  suggestions?: boolean | Prisma.User$suggestionsArgs<ExtArgs>
+  reviewedSuggestions?: boolean | Prisma.User$reviewedSuggestionsArgs<ExtArgs>
+  suggestionVotes?: boolean | Prisma.User$suggestionVotesArgs<ExtArgs>
+  suggestionComments?: boolean | Prisma.User$suggestionCommentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7332,6 +10756,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
     aiModuleBuilds: Prisma.$AiModuleBuildPayload<ExtArgs>[]
     mediaAssets: Prisma.$MediaAssetPayload<ExtArgs>[]
+    xpTransactions: Prisma.$XpTransactionPayload<ExtArgs>[]
+    xpBalances: Prisma.$UserXpBalancePayload<ExtArgs>[]
+    createdRewards: Prisma.$RewardPayload<ExtArgs>[]
+    redemptions: Prisma.$RewardRedemptionPayload<ExtArgs>[]
+    reviewedRedemptions: Prisma.$RewardRedemptionPayload<ExtArgs>[]
+    suggestions: Prisma.$KnowledgeSuggestionPayload<ExtArgs>[]
+    reviewedSuggestions: Prisma.$KnowledgeSuggestionPayload<ExtArgs>[]
+    suggestionVotes: Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>[]
+    suggestionComments: Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7770,6 +11203,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   emailPreferences<T extends Prisma.User$emailPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiModuleBuilds<T extends Prisma.User$aiModuleBuildsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiModuleBuildsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiModuleBuildPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mediaAssets<T extends Prisma.User$mediaAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mediaAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xpTransactions<T extends Prisma.User$xpTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xpTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XpTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xpBalances<T extends Prisma.User$xpBalancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xpBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserXpBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdRewards<T extends Prisma.User$createdRewardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdRewardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  redemptions<T extends Prisma.User$redemptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$redemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewardRedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedRedemptions<T extends Prisma.User$reviewedRedemptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedRedemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewardRedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suggestions<T extends Prisma.User$suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedSuggestions<T extends Prisma.User$reviewedSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suggestionVotes<T extends Prisma.User$suggestionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suggestionComments<T extends Prisma.User$suggestionCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8916,6 +12358,222 @@ export type User$mediaAssetsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.MediaAssetScalarFieldEnum | Prisma.MediaAssetScalarFieldEnum[]
+}
+
+/**
+ * User.xpTransactions
+ */
+export type User$xpTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XpTransaction
+   */
+  select?: Prisma.XpTransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XpTransaction
+   */
+  omit?: Prisma.XpTransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XpTransactionInclude<ExtArgs> | null
+  where?: Prisma.XpTransactionWhereInput
+  orderBy?: Prisma.XpTransactionOrderByWithRelationInput | Prisma.XpTransactionOrderByWithRelationInput[]
+  cursor?: Prisma.XpTransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XpTransactionScalarFieldEnum | Prisma.XpTransactionScalarFieldEnum[]
+}
+
+/**
+ * User.xpBalances
+ */
+export type User$xpBalancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserXpBalance
+   */
+  select?: Prisma.UserXpBalanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserXpBalance
+   */
+  omit?: Prisma.UserXpBalanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserXpBalanceInclude<ExtArgs> | null
+  where?: Prisma.UserXpBalanceWhereInput
+  orderBy?: Prisma.UserXpBalanceOrderByWithRelationInput | Prisma.UserXpBalanceOrderByWithRelationInput[]
+  cursor?: Prisma.UserXpBalanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserXpBalanceScalarFieldEnum | Prisma.UserXpBalanceScalarFieldEnum[]
+}
+
+/**
+ * User.createdRewards
+ */
+export type User$createdRewardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reward
+   */
+  select?: Prisma.RewardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reward
+   */
+  omit?: Prisma.RewardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RewardInclude<ExtArgs> | null
+  where?: Prisma.RewardWhereInput
+  orderBy?: Prisma.RewardOrderByWithRelationInput | Prisma.RewardOrderByWithRelationInput[]
+  cursor?: Prisma.RewardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RewardScalarFieldEnum | Prisma.RewardScalarFieldEnum[]
+}
+
+/**
+ * User.redemptions
+ */
+export type User$redemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RewardRedemption
+   */
+  select?: Prisma.RewardRedemptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RewardRedemption
+   */
+  omit?: Prisma.RewardRedemptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RewardRedemptionInclude<ExtArgs> | null
+  where?: Prisma.RewardRedemptionWhereInput
+  orderBy?: Prisma.RewardRedemptionOrderByWithRelationInput | Prisma.RewardRedemptionOrderByWithRelationInput[]
+  cursor?: Prisma.RewardRedemptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RewardRedemptionScalarFieldEnum | Prisma.RewardRedemptionScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedRedemptions
+ */
+export type User$reviewedRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RewardRedemption
+   */
+  select?: Prisma.RewardRedemptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RewardRedemption
+   */
+  omit?: Prisma.RewardRedemptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RewardRedemptionInclude<ExtArgs> | null
+  where?: Prisma.RewardRedemptionWhereInput
+  orderBy?: Prisma.RewardRedemptionOrderByWithRelationInput | Prisma.RewardRedemptionOrderByWithRelationInput[]
+  cursor?: Prisma.RewardRedemptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RewardRedemptionScalarFieldEnum | Prisma.RewardRedemptionScalarFieldEnum[]
+}
+
+/**
+ * User.suggestions
+ */
+export type User$suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KnowledgeSuggestion
+   */
+  select?: Prisma.KnowledgeSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KnowledgeSuggestion
+   */
+  omit?: Prisma.KnowledgeSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KnowledgeSuggestionInclude<ExtArgs> | null
+  where?: Prisma.KnowledgeSuggestionWhereInput
+  orderBy?: Prisma.KnowledgeSuggestionOrderByWithRelationInput | Prisma.KnowledgeSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.KnowledgeSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KnowledgeSuggestionScalarFieldEnum | Prisma.KnowledgeSuggestionScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedSuggestions
+ */
+export type User$reviewedSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KnowledgeSuggestion
+   */
+  select?: Prisma.KnowledgeSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KnowledgeSuggestion
+   */
+  omit?: Prisma.KnowledgeSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KnowledgeSuggestionInclude<ExtArgs> | null
+  where?: Prisma.KnowledgeSuggestionWhereInput
+  orderBy?: Prisma.KnowledgeSuggestionOrderByWithRelationInput | Prisma.KnowledgeSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.KnowledgeSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KnowledgeSuggestionScalarFieldEnum | Prisma.KnowledgeSuggestionScalarFieldEnum[]
+}
+
+/**
+ * User.suggestionVotes
+ */
+export type User$suggestionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KnowledgeSuggestionVote
+   */
+  select?: Prisma.KnowledgeSuggestionVoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KnowledgeSuggestionVote
+   */
+  omit?: Prisma.KnowledgeSuggestionVoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KnowledgeSuggestionVoteInclude<ExtArgs> | null
+  where?: Prisma.KnowledgeSuggestionVoteWhereInput
+  orderBy?: Prisma.KnowledgeSuggestionVoteOrderByWithRelationInput | Prisma.KnowledgeSuggestionVoteOrderByWithRelationInput[]
+  cursor?: Prisma.KnowledgeSuggestionVoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KnowledgeSuggestionVoteScalarFieldEnum | Prisma.KnowledgeSuggestionVoteScalarFieldEnum[]
+}
+
+/**
+ * User.suggestionComments
+ */
+export type User$suggestionCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KnowledgeSuggestionComment
+   */
+  select?: Prisma.KnowledgeSuggestionCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KnowledgeSuggestionComment
+   */
+  omit?: Prisma.KnowledgeSuggestionCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KnowledgeSuggestionCommentInclude<ExtArgs> | null
+  where?: Prisma.KnowledgeSuggestionCommentWhereInput
+  orderBy?: Prisma.KnowledgeSuggestionCommentOrderByWithRelationInput | Prisma.KnowledgeSuggestionCommentOrderByWithRelationInput[]
+  cursor?: Prisma.KnowledgeSuggestionCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KnowledgeSuggestionCommentScalarFieldEnum | Prisma.KnowledgeSuggestionCommentScalarFieldEnum[]
 }
 
 /**

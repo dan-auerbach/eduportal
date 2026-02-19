@@ -3,6 +3,7 @@
     { "path": "/api/cron/deadline-reminders", "schedule": "0 8 * * *" },
     { "path": "/api/cron/dedup-cleanup", "schedule": "0 3 * * 0" },
     { "path": "/api/cron/live-reminders", "schedule": "0 7 * * *" },
-    { "path": "/api/cron/knowledge-digest", "schedule": "0 8 * * *" }
+    { "path": "/api/cron/knowledge-digest", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/compliance-check", "schedule": "0 6 * * *" }
   ]
 }

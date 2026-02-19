@@ -11,6 +11,7 @@ export type NavCounts = {
   notificationsUnread: number;
   latestUpdateAt: string | null;
   nextLiveEvent: { title: string; startsAt: string } | null;
+  xpTotal?: number;
 };
 
 const EMPTY: NavCounts = {

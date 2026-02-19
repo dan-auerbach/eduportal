@@ -24,6 +24,10 @@ import {
   Radio,
   Radar,
   HardDrive,
+  Trophy,
+  Gift,
+  Lightbulb,
+  ShieldCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -35,6 +39,9 @@ const employeeNav: NavItem[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: LayoutDashboard },
   { href: "/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
+  { href: "/leaderboard", labelKey: "nav.leaderboard", icon: Trophy },
+  { href: "/rewards", labelKey: "nav.rewards", icon: Gift },
+  { href: "/suggestions", labelKey: "nav.suggestions", icon: Lightbulb },
   { href: "/chat", labelKey: "nav.chat", icon: Hash },
   { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio },
   { href: "/radar", labelKey: "nav.radar", icon: Radar },
@@ -47,6 +54,10 @@ const adminNav: NavItem[] = [
   { href: "/admin/groups", labelKey: "nav.groups", icon: FolderOpen },
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
+  { href: "/admin/manager", labelKey: "nav.managerDashboard", icon: BarChart3 },
+  { href: "/admin/rewards", labelKey: "nav.adminRewards", icon: Gift },
+  { href: "/admin/suggestions", labelKey: "nav.adminSuggestions", icon: Lightbulb },
+  { href: "/admin/compliance", labelKey: "nav.compliance", icon: ShieldCheck },
   { href: "/admin/feedback", labelKey: "nav.feedback", icon: Star },
   { href: "/admin/audit-log", labelKey: "nav.auditLog", icon: FileText, ownerOnly: true },
   { href: "/admin/settings", labelKey: "nav.settings", icon: Settings, minRole: "SUPER_ADMIN" },

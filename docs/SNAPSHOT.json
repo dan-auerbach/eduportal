@@ -1,0 +1,80 @@
+{
+  "project_name": "Mentor LMS (eduportal)",
+  "version": "0.1.0",
+  "runtime": "Node.js 20+",
+  "language": "TypeScript ^5",
+  "framework": "Next.js 16.1.6 (App Router, Turbopack)",
+  "react": "React 19.2.3",
+  "database": "PostgreSQL 17 (Neon Serverless)",
+  "orm": "Prisma 7.3.0 (@prisma/adapter-neon)",
+  "hosting": "Vercel (Serverless Functions + Edge Middleware)",
+  "auth": "NextAuth.js 5.0.0-beta.30 (JWT, Credentials provider)",
+  "css": "Tailwind CSS v4 + shadcn/ui (new-york style)",
+  "ui_components": "shadcn/ui (Radix + CVA)",
+  "state_management": "@tanstack/react-query ^5.90.20",
+  "form_handling": "React Hook Form ^7.71.1 + Zod ^4.3.6",
+  "rich_text_editor": "TipTap ^3.19.0",
+  "integrations": [
+    {
+      "name": "Anthropic Claude",
+      "purpose": "AI text generation (modules, metadata, tags, quizzes)",
+      "sdk": "@anthropic-ai/sdk ^0.74.0",
+      "model": "claude-sonnet-4-20250514"
+    },
+    {
+      "name": "OpenAI DALL-E 3",
+      "purpose": "AI cover image generation",
+      "sdk": "openai ^6.22.0"
+    },
+    {
+      "name": "Cloudflare Stream",
+      "purpose": "Video hosting and streaming",
+      "protocol": "TUS upload + HLS playback"
+    },
+    {
+      "name": "Soniox",
+      "purpose": "Speech-to-text transcription (sl/en)",
+      "api_version": "v1"
+    },
+    {
+      "name": "Resend",
+      "purpose": "Transactional email",
+      "sdk": "resend ^6.9.1"
+    },
+    {
+      "name": "Vercel Blob",
+      "purpose": "File storage (production)",
+      "sdk": "@vercel/blob ^2.2.0"
+    },
+    {
+      "name": "Upstash Redis",
+      "purpose": "Distributed rate limiting",
+      "sdk": "@upstash/ratelimit ^2.0.8, @upstash/redis ^1.36.2"
+    },
+    {
+      "name": "Sentry",
+      "purpose": "Error tracking and APM",
+      "sdk": "@sentry/nextjs"
+    }
+  ],
+  "ci_cd": "Vercel (auto-deploy on push to main) + GitHub Actions (changelog)",
+  "testing": "Playwright ^1.58.2 (E2E)",
+  "linting": "ESLint ^9 + eslint-config-next 16.1.6",
+  "i18n": {
+    "framework": "Custom module-level singleton",
+    "locales": ["sl", "en"],
+    "default_locale": "en"
+  },
+  "cron_jobs": [
+    { "path": "/api/cron/deadline-reminders", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/dedup-cleanup", "schedule": "0 3 * * 0" },
+    { "path": "/api/cron/live-reminders", "schedule": "0 7 * * *" },
+    { "path": "/api/cron/knowledge-digest", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/compliance-check", "schedule": "0 6 * * *" }
+  ],
+  "db_tables": 43,
+  "db_enums": 24,
+  "api_routes": 36,
+  "server_action_files": 25,
+  "last_doc_update": "2026-02-19"
+}

@@ -1644,6 +1644,14 @@ export const en = {
     backToStore: "Back to store",
     noRedemptions: "You haven't redeemed any rewards yet.",
     noRedemptionsHint: "Visit the store and pick a reward!",
+    // Admin redemption log
+    redemptions: "Redemptions",
+    redemptionLog: "Redemption log",
+    noRedemptionsYet: "No redemptions yet.",
+    reviewedBy: "Reviewed by:",
+    rejectReason: "Reason",
+    pendingStatus: "Pending",
+    cancelled: "Cancelled",
   },
 
   // ── Knowledge Suggestions ──────────────────────────────────────

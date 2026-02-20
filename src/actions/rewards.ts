@@ -28,6 +28,7 @@ export type RewardDTO = {
 export type RedemptionDTO = {
   id: string;
   rewardTitle: string;
+  rewardId: string;
   xpSpent: number;
   status: RedemptionStatus;
   rejectReason: string | null;
@@ -35,6 +36,7 @@ export type RedemptionDTO = {
   reviewedAt: string | null;
   userName?: string;
   userEmail?: string;
+  reviewedByName?: string | null;
 };
 
 // ── Employee: List active rewards ────────────────────────────────────────────
@@ -334,6 +336,34 @@ export async function redeemReward(
       metadata: { rewardId, rewardTitle: reward.title, xpSpent: reward.costXp, status },
     });
 
+    // Notify admins about the redemption
+    const userName = `${ctx.user.firstName} ${ctx.user.lastName}`;
+    const admins = await prisma.membership.findMany({
+      where: {
+        tenantId: ctx.tenantId,
+        role: { in: ["ADMIN", "SUPER_ADMIN", "OWNER"] },
+        userId: { not: ctx.user.id },
+        user: { isActive: true, deletedAt: null },
+      },
+      select: { userId: true },
+    });
+    if (admins.length > 0) {
+      await prisma.notification.createMany({
+        data: admins.map((a) => ({
+          userId: a.userId,
+          tenantId: ctx.tenantId,
+          type: "SYSTEM" as const,
+          title: status === "PENDING"
+            ? `Nova zahteva za nagrado: ${reward.title}`
+            : `Nagrada unovčena: ${reward.title}`,
+          message: status === "PENDING"
+            ? `${userName} želi unovčiti nagrado "${reward.title}" (${reward.costXp} XP). Čaka na odobritev.`
+            : `${userName} je unovčil/a nagrado "${reward.title}" (${reward.costXp} XP).`,
+          link: "/admin/rewards",
+        })),
+      });
+    }
+
     log({ rewardId, rewardTitle: reward.title, xpSpent: reward.costXp, status });
 
     return { success: true, data: { redemptionId: redemption.id, status } };
@@ -356,6 +386,7 @@ export async function getMyRedemptions(): Promise<ActionResult<RedemptionDTO[]>>
       data: redemptions.map((r) => ({
         id: r.id,
         rewardTitle: r.reward.title,
+        rewardId: r.rewardId,
         xpSpent: r.xpSpent,
         status: r.status,
         rejectReason: r.rejectReason,
@@ -390,6 +421,7 @@ export async function getPendingRedemptions(): Promise<ActionResult<RedemptionDT
       data: redemptions.map((r) => ({
         id: r.id,
         rewardTitle: r.reward.title,
+        rewardId: r.rewardId,
         xpSpent: r.xpSpent,
         status: r.status,
         rejectReason: r.rejectReason,
@@ -397,6 +429,53 @@ export async function getPendingRedemptions(): Promise<ActionResult<RedemptionDT
         reviewedAt: r.reviewedAt?.toISOString() ?? null,
         userName: `${r.user.firstName} ${r.user.lastName}`,
         userEmail: r.user.email,
+      })),
+    };
+  } catch (e) {
+    if (e instanceof ForbiddenError || e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
+// ── Admin: All redemptions (history) ────────────────────────────────────────
+
+export async function getAllRedemptions(
+  rewardId?: string,
+): Promise<ActionResult<RedemptionDTO[]>> {
+  try {
+    const ctx = await getTenantContext();
+    await requirePermission(ctx.user, "MANAGE_REWARDS", { tenantId: ctx.tenantId });
+
+    const redemptions = await prisma.rewardRedemption.findMany({
+      where: {
+        tenantId: ctx.tenantId,
+        ...(rewardId ? { rewardId } : {}),
+      },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      include: {
+        reward: { select: { title: true } },
+        user: { select: { firstName: true, lastName: true, email: true } },
+        reviewedBy: { select: { firstName: true, lastName: true } },
+      },
+    });
+
+    return {
+      success: true,
+      data: redemptions.map((r) => ({
+        id: r.id,
+        rewardTitle: r.reward.title,
+        rewardId: r.rewardId,
+        xpSpent: r.xpSpent,
+        status: r.status,
+        rejectReason: r.rejectReason,
+        createdAt: r.createdAt.toISOString(),
+        reviewedAt: r.reviewedAt?.toISOString() ?? null,
+        userName: `${r.user.firstName} ${r.user.lastName}`,
+        userEmail: r.user.email,
+        reviewedByName: r.reviewedBy
+          ? `${r.reviewedBy.firstName} ${r.reviewedBy.lastName}`
+          : null,
       })),
     };
   } catch (e) {

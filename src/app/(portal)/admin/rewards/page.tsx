@@ -1,19 +1,22 @@
 import { t } from "@/lib/i18n";
-import { getAdminRewards, getPendingRedemptions } from "@/actions/rewards";
+import { getAdminRewards, getPendingRedemptions, getAllRedemptions } from "@/actions/rewards";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Gift, Zap } from "lucide-react";
 import { AdminRewardActions } from "./actions";
 import { PendingRedemptions } from "./pending-redemptions";
+import { RewardRedemptionHistory, FullRedemptionLog } from "./redemption-log";
 
 export default async function AdminRewardsPage() {
-  const [rewardsResult, pendingResult] = await Promise.all([
+  const [rewardsResult, pendingResult, allRedemptionsResult] = await Promise.all([
     getAdminRewards(),
     getPendingRedemptions(),
+    getAllRedemptions(),
   ]);
 
   const rewards = rewardsResult.success ? rewardsResult.data! : [];
   const pending = pendingResult.success ? pendingResult.data! : [];
+  const allRedemptions = allRedemptionsResult.success ? allRedemptionsResult.data! : [];
 
   return (
     <div className="space-y-6">
@@ -35,7 +38,7 @@ export default async function AdminRewardsPage() {
         </div>
       )}
 
-      {/* Rewards table */}
+      {/* Rewards catalog */}
       <div>
         <h2 className="mb-3 text-lg font-semibold">{t("rewards.catalog")}</h2>
         {rewards.length === 0 ? (
@@ -49,40 +52,53 @@ export default async function AdminRewardsPage() {
           <div className="space-y-2">
             {rewards.map((reward) => (
               <Card key={reward.id}>
-                <CardContent className="flex items-center justify-between py-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium">{reward.title}</p>
-                      {!reward.active && (
-                        <Badge variant="outline" className="text-xs">
-                          {t("rewards.inactive")}
-                        </Badge>
-                      )}
+                <CardContent className="py-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium">{reward.title}</p>
+                        {!reward.active && (
+                          <Badge variant="outline" className="text-xs">
+                            {t("rewards.inactive")}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-0.5">
+                          <Zap className="h-3 w-3 text-yellow-500" />
+                          {reward.costXp} XP
+                        </span>
+                        {reward.monthlyLimit && (
+                          <span>{t("rewards.monthlyLimit")}: {reward.monthlyLimit}</span>
+                        )}
+                        {reward.quantityAvailable !== null && (
+                          <span>{t("rewards.stock")}: {reward.quantityAvailable}</span>
+                        )}
+                        <span>
+                          {reward.approvalRequired
+                            ? t("rewards.approvalRequired")
+                            : t("rewards.autoApprove")}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-0.5">
-                        <Zap className="h-3 w-3 text-yellow-500" />
-                        {reward.costXp} XP
-                      </span>
-                      {reward.monthlyLimit && (
-                        <span>{t("rewards.monthlyLimit")}: {reward.monthlyLimit}</span>
-                      )}
-                      {reward.quantityAvailable !== null && (
-                        <span>{t("rewards.stock")}: {reward.quantityAvailable}</span>
-                      )}
-                      <span>
-                        {reward.approvalRequired
-                          ? t("rewards.approvalRequired")
-                          : t("rewards.autoApprove")}
-                      </span>
-                    </div>
+                    <AdminRewardActions mode="edit" reward={reward} />
                   </div>
-                  <AdminRewardActions mode="edit" reward={reward} />
+                  {/* Per-reward redemption history */}
+                  <RewardRedemptionHistory
+                    rewardId={reward.id}
+                    rewardTitle={reward.title}
+                  />
                 </CardContent>
               </Card>
             ))}
           </div>
         )}
+      </div>
+
+      {/* Full redemption log */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold">{t("rewards.redemptionLog")}</h2>
+        <FullRedemptionLog initialRedemptions={allRedemptions} />
       </div>
     </div>
   );

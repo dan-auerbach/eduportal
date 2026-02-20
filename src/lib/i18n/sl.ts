@@ -1658,6 +1658,14 @@ export const sl = {
     backToStore: "Nazaj v trgovino",
     noRedemptions: "Še niste unovčili nobene nagrade.",
     noRedemptionsHint: "Obiščite trgovino in izberite nagrado!",
+    // Admin redemption log
+    redemptions: "Unovčitve",
+    redemptionLog: "Dnevnik unovčitev",
+    noRedemptionsYet: "Še ni unovčitev.",
+    reviewedBy: "Odobril/a:",
+    rejectReason: "Razlog",
+    pendingStatus: "V čakanju",
+    cancelled: "Preklicano",
   },
 
   // ── Knowledge Suggestions ──────────────────────────────────────

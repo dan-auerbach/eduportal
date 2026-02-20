@@ -50,11 +50,6 @@
       "name": "Upstash Redis",
       "purpose": "Distributed rate limiting",
       "sdk": "@upstash/ratelimit ^2.0.8, @upstash/redis ^1.36.2"
-    },
-    {
-      "name": "Sentry",
-      "purpose": "Error tracking and APM",
-      "sdk": "@sentry/nextjs"
     }
   ],
   "ci_cd": "Vercel (auto-deploy on push to main) + GitHub Actions (changelog)",

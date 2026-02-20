@@ -33,7 +33,6 @@
 |  OpenAI DALL-E 3     (AI image generation)        |
 |  Resend              (transactional email)        |
 |  Vercel Blob         (file storage in production) |
-|  Sentry              (error tracking + APM)       |
 +--------------------------------------------------+
 ```
 
@@ -158,5 +157,3 @@ Employee -> Redeem Reward -> Check totalXp >= costXp
 6. **Dual XP balances (lifetimeXp / totalXp)**: Rank never decreases when spending XP on rewards. `lifetimeXp` is cumulative and determines rank. `totalXp` is the spendable balance. Both increment on XP earn, only `totalXp` decreases on spend.
 
 7. **Eager rank computation**: Rank recalculated on every XP event within the same DB transaction. No background jobs — rank is always up-to-date. Acceptable because rank changes are infrequent.
-
-8. **Sentry with low sample rates**: 10% trace sampling, 10% profiling in production (1.0 in development). Tenant context (tenantId, tenantSlug, effectiveRole) attached to every event for efficient debugging.

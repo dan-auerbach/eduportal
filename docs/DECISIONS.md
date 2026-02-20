@@ -177,13 +177,3 @@
 **Decision**: Eager computation in `awardXp()` — rank is recalculated within the same database transaction that awards XP. No background jobs or cron for rank updates.
 
 **Consequence**: Rank is always accurate and up-to-date immediately after any XP event. Simple architecture — no job queue needed. Trade-off: slightly more work per XP transaction, but rank computation is a trivial O(1) comparison against 4 thresholds, so the overhead is negligible.
-
----
-
-## ADR-019: Sentry for Error Tracking and APM
-
-**Context**: Production debugging relied solely on Vercel Function Logs with no structured error tracking, alerting, or performance monitoring.
-
-**Decision**: `@sentry/nextjs` with client, server, and edge configs. Tenant context enrichment on every request (`tenantId`, `tenantSlug`, `effectiveRole`). Low sampling rates in production (10% traces, 10% profiles) to control costs. Prisma integration for DB query tracing.
-
-**Consequence**: Structured error tracking with tenant attribution. Performance monitoring for server actions and API routes. Source maps uploaded at build time. Trade-off: additional JS bundle size (~30KB gzipped), low sampling means some rare issues may not be captured in traces (but errors are always captured at 100%).

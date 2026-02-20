@@ -162,13 +162,6 @@ Development period: ~4 weeks (late January 2026 - mid/late February 2026).
 - Admin compliance page: expiring/expired modules, reassign workflow
 - XP bonus for timely compliance renewal
 
-### Sentry Integration
-- Error tracking + APM via `@sentry/nextjs`
-- Client, server, and edge configs
-- Tenant context enrichment (tenantId, tenantSlug, effectiveRole)
-- Prisma query tracing integration
-- 10% trace sampling in production, 100% in development
-
 ### Database
 - 7 new tables: XpTransaction, UserXpBalance, Reward, RewardRedemption, KnowledgeSuggestion, KnowledgeSuggestionVote, KnowledgeSuggestionComment
 - 4 new enums: XpSourceType, RedemptionStatus, SuggestionStatus, ReputationRank

@@ -6,7 +6,6 @@
 
 - **Vercel Dashboard**: Request metrics, function execution times, error rates, cold starts
 - **Vercel Function Logs**: Real-time serverless function logs (stdout/stderr)
-- **Sentry** (`@sentry/nextjs`): Error tracking + APM. Events enriched with tenant context (`tenantId`, `tenantSlug`, `effectiveRole`). 10% trace sampling in production, 100% in dev. Prisma query tracing. Config files: `sentry.client.config.ts`, `sentry.server.config.ts`, `sentry.edge.config.ts`.
 
 ### Database Monitoring
 
@@ -21,7 +20,6 @@
 | Upstash Redis | Upstash Console — request count, latency, memory |
 | Resend | Resend Dashboard — email delivery rates, bounces |
 | Soniox | API responses only — no dedicated dashboard integration |
-| Sentry | Sentry Dashboard — errors, traces, performance, alerts |
 
 ## Logging
 

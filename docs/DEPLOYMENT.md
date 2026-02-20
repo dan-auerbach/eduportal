@@ -122,13 +122,13 @@ A GitHub Action (`ci: add GitHub Action to auto-trigger changelog after deploy`)
 
 Defined in `vercel.json`:
 
-| Job | Schedule | Description |
-|---|---|---|
-| `/api/cron/deadline-reminders` | Daily 08:00 UTC | Email deadline reminders |
-| `/api/cron/dedup-cleanup` | Weekly Sun 03:00 UTC | Clean old notification dedup records |
-| `/api/cron/live-reminders` | Daily 07:00 UTC | Email live event reminders (supports online/physical/hybrid locations) |
-| `/api/cron/knowledge-digest` | Daily 08:00 UTC | Email knowledge digest |
-| `/api/cron/compliance-check` | Daily 06:00 UTC | Check for expiring/expired module certifications |
+| Job | Schedule | Description | maxDuration |
+|---|---|---|---|
+| `/api/cron/compliance-check` | Daily 06:00 UTC | Check for expiring/expired module certifications | 60s |
+| `/api/cron/live-reminders` | Daily 07:00 UTC | Email live event reminders (supports online/physical/hybrid locations) | 60s |
+| `/api/cron/deadline-reminders` | Daily 08:00 UTC | Email deadline reminders | 60s |
+| `/api/cron/knowledge-digest` | Daily 08:15 UTC | Email knowledge digest (staggered to avoid collision) | 60s |
+| `/api/cron/dedup-cleanup` | Weekly Sun 03:00 UTC | Clean old notification dedup records | 60s |
 
 ## API Routes (Non-Cron)
 

@@ -508,3 +508,107 @@ export async function convertSuggestionToModule(
     return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }
+
+// ── Admin: Delete suggestion ──────────────────────────────────────────────────
+
+export async function deleteSuggestion(
+  id: string,
+): Promise<ActionResult<void>> {
+  return withAction("deleteSuggestion", async ({ log }) => {
+    const ctx = await getTenantContext();
+    await requirePermission(ctx.user, "MANAGE_SUGGESTIONS", { tenantId: ctx.tenantId });
+
+    const suggestion = await prisma.knowledgeSuggestion.findFirst({
+      where: { id, tenantId: ctx.tenantId },
+      include: { _count: { select: { votes: true, comments: true } } },
+    });
+    if (!suggestion) return { success: false, error: "Predlog ne obstaja" };
+    if (suggestion.status === "CONVERTED") {
+      return { success: false, error: "Pretvorjenega predloga ni mogoče izbrisati" };
+    }
+
+    // Reverse XP awards (best-effort — don't block deletion on failure)
+    try {
+      const xpReversals: { amount: number; source: string; desc: string }[] = [];
+
+      // Always reverse SUGGESTION_CREATED XP
+      xpReversals.push({
+        amount: XP_RULES.SUGGESTION_CREATED,
+        source: "SUGGESTION_CREATED",
+        desc: `Izbrisan predlog: "${suggestion.title}"`,
+      });
+
+      // Reverse SUGGESTION_APPROVED XP if suggestion was approved
+      if (suggestion.status === "APPROVED") {
+        xpReversals.push({
+          amount: XP_RULES.SUGGESTION_APPROVED,
+          source: "SUGGESTION_APPROVED",
+          desc: `Izbrisan odobren predlog: "${suggestion.title}"`,
+        });
+      }
+
+      // Reverse TOP_SUGGESTION XP if suggestion crossed vote threshold
+      if (suggestion.voteCount >= SUGGESTION_VOTE_THRESHOLD) {
+        xpReversals.push({
+          amount: XP_RULES.TOP_SUGGESTION,
+          source: "TOP_SUGGESTION",
+          desc: `Izbrisan priljubljen predlog: "${suggestion.title}"`,
+        });
+      }
+
+      const totalReversal = xpReversals.reduce((sum, r) => sum + r.amount, 0);
+
+      if (totalReversal > 0) {
+        await prisma.$transaction([
+          ...xpReversals.map((r) =>
+            prisma.xpTransaction.create({
+              data: {
+                tenantId: ctx.tenantId,
+                userId: suggestion.userId,
+                amount: -r.amount,
+                source: r.source as "SUGGESTION_CREATED" | "TOP_SUGGESTION" | "SUGGESTION_APPROVED",
+                sourceEntityId: `${id}:deletion`,
+                description: r.desc,
+              },
+            }),
+          ),
+          prisma.userXpBalance.updateMany({
+            where: { userId: suggestion.userId, tenantId: ctx.tenantId },
+            data: {
+              totalXp: { decrement: totalReversal },
+              lifetimeXp: { decrement: totalReversal },
+            },
+          }),
+        ]);
+      }
+    } catch {
+      // Best effort — if reversal fails, still delete the suggestion
+    }
+
+    // Delete related records and suggestion in a transaction
+    await prisma.$transaction([
+      prisma.knowledgeSuggestionVote.deleteMany({ where: { suggestionId: id } }),
+      prisma.knowledgeSuggestionComment.deleteMany({ where: { suggestionId: id } }),
+      prisma.knowledgeSuggestion.delete({ where: { id } }),
+    ]);
+
+    await logAudit({
+      actorId: ctx.user.id,
+      tenantId: ctx.tenantId,
+      action: "SUGGESTION_DELETED",
+      entityType: "KnowledgeSuggestion",
+      entityId: id,
+      metadata: {
+        title: suggestion.title,
+        status: suggestion.status,
+        voteCount: suggestion.voteCount,
+        commentCount: suggestion._count.comments,
+        authorId: suggestion.userId,
+      },
+    });
+
+    log({ suggestionId: id, title: suggestion.title, status: suggestion.status });
+
+    return { success: true, data: undefined };
+  });
+}

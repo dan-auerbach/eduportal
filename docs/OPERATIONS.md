@@ -25,7 +25,7 @@
 
 ### Application Logs
 
-The application uses `console.log`, `console.error`, and `console.warn` for logging. Key log prefixes:
+The application uses structured logging via `withAction()` for all mutation server actions (attendance, rewards, modules, etc.) and `console.log`/`console.error` for infrastructure operations. Key log prefixes:
 
 | Prefix | Source |
 |---|---|
@@ -36,16 +36,23 @@ The application uses `console.log`, `console.error`, and `console.warn` for logg
 | `[migrate]` | Database migration script |
 | `[asset-cleanup]` | Media asset cleanup operations |
 
+**Structured logging via `withAction()`:**
+- All mutation server actions wrapped with `withAction()` for automatic error persistence, requestId correlation, and performance timing
+- Errors persisted to `SystemError` table with stack trace and tenant context
+- Error reference IDs returned to users (e.g., `ref: abc123`) for support correlation
+- Owner-level error log UI at `/owner/errors`
+
 Logs are available in:
 - **Development**: Terminal output
 - **Production**: Vercel Function Logs (Vercel Dashboard -> Deployments -> Logs)
+- **Error persistence**: `SystemError` table (queryable via `/owner/errors` UI)
 
 ### Audit Log
 
 All significant actions are recorded in the `AuditLog` table with:
 - Actor (user ID)
 - Tenant
-- Action type (45 defined actions)
+- Action type (51+ defined actions)
 - Entity type and ID
 - Optional metadata (JSON)
 - IP address
@@ -138,7 +145,13 @@ ORDER BY xt."createdAt" DESC
 LIMIT 20;
 ```
 
-#### 7. Login redirect loops (works in incognito, not in normal browser)
+#### 10. Event attendance issues
+- **Registration not allowed**: Check `maxAttendees` on `MentorLiveEvent` — may be at capacity. Query: `SELECT COUNT(*) FROM "LiveEventAttendance" WHERE "eventId" = '...' AND "status" != 'CANCELLED'`
+- **XP not awarded on confirmation**: Check `xpAwarded` flag on `LiveEventAttendance` record. XP is idempotent — if already `true`, won't re-award
+- **Confirmation link not working**: HMAC token validates `eventId:userId:tenantId` signed with `CRON_SECRET`. If `CRON_SECRET` was rotated, old links become invalid
+- **Duplicate XP prevention**: Partial unique index on `XpTransaction(tenantId, userId, source, sourceEntityId) WHERE sourceEntityId IS NOT NULL` prevents double awards
+
+#### 11. Login redirect loops (works in incognito, not in normal browser)
 - **Symptom**: User can log in via incognito but gets redirect loop in normal browser
 - **Root cause**: Stale `mentor-tenant` cookie (1-year maxAge) pointing to a deleted/archived tenant or a tenant where the user lost membership
 - **Diagnosis**: Check the `mentor-tenant` cookie value in browser DevTools → Application → Cookies. Verify the tenant ID exists and the user has an active membership for it.

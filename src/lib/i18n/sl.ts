@@ -1694,6 +1694,9 @@ export const sl = {
     rejected: "Predlog zavrnjen",
     converted: "Predlog pretvorjen v modul",
     convertToModule: "Pretvori v znanje",
+    delete: "Izbriši",
+    deleted: "Predlog izbrisan",
+    deleteConfirm: "Ali ste prepričani, da želite izbrisati ta predlog? Vsi glasovi in komentarji bodo izgubljeni.",
   },
 
   // ── Manager Dashboard ──────────────────────────────────────────

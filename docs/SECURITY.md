@@ -138,7 +138,7 @@ Configured in `next.config.ts`:
 ### CSP Policy Details
 
 - `default-src 'self'`
-- `script-src 'self' 'unsafe-inline' 'unsafe-eval'` + TargetVideo player
+- `script-src 'self' 'unsafe-inline'` + TargetVideo player
 - `img-src 'self' data: blob:` + Unsplash, Vercel Blob, YouTube, TargetVideo
 - `connect-src 'self'` + Vercel, Vercel Blob, TargetVideo, Cloudflare
 - `frame-src` YouTube, TargetVideo, Cloudflare Stream
@@ -173,6 +173,7 @@ Centralized rate limiting via `src/lib/rate-limit.ts`:
   - Reward redemptions: 5/60s
   - Suggestion creation: 5/hour, suggestion votes: 30/60s
   - Event attendance registration: 10/60s, attendance confirmation: 20/60s
+  - File uploads: 20/hour
   - Presence heartbeat: 4/60s, presence list: 10/60s
 
 ## Input Validation
@@ -200,7 +201,7 @@ Centralized rate limiting via `src/lib/rate-limit.ts`:
 
 ## Audit Trail
 
-All significant actions logged to `AuditLog` with 38+ action types covering:
+All significant actions logged to `AuditLog` with 50+ action types covering:
 - User lifecycle (create, update, deactivate, delete, login)
 - Module lifecycle (create, update, publish, archive, delete)
 - Progress events (section completion, quiz attempt, progress override)
@@ -234,14 +235,23 @@ All significant actions logged to `AuditLog` with 38+ action types covering:
 
 ## Observability & Error Tracking
 
-- Server actions wrapped in `withAction()` for structured logging and error persistence
+- All mutation server actions wrapped in `withAction()` for structured logging and error persistence
+- `withAction()` provides: requestId correlation, performance timing, tenant context tagging, automatic error capture
 - Errors persisted to `SystemError` table with request ID, stack trace, tenant context
 - Error reference IDs returned to users for support (e.g., `ref: abc123`)
 - Owner-level error log UI at `/owner/errors` for debugging production issues
+- Cron endpoints protected with `verifyCronSecret()` — guards against empty/unset `CRON_SECRET`
+
+## Data Integrity
+
+- **XP Operations**: `awardXp()` and `deductXp()` use Prisma interactive transactions (`$transaction(async (tx) => {...})`) with row-level locking to prevent TOCTOU race conditions
+- **Reward Redemptions**: XP deduction is atomic within the same transaction as redemption creation — no orphaned redemptions possible
+- **Attendance XP Reversals**: Cancel/revoke operations batch XP transaction creation + balance update in `prisma.$transaction([...])`
+- **Production Migrations**: Transactional execution — non-enum statements wrapped in `BEGIN/COMMIT` with `ROLLBACK` on failure. `ALTER TYPE ... ADD VALUE` runs outside transaction (PostgreSQL limitation)
 
 ## Known Considerations
 
-1. **CSP `unsafe-inline` and `unsafe-eval`**: Required by current frontend dependencies. Consider migrating to nonces.
+1. **CSP `unsafe-inline` for styles**: Required by Tailwind CSS. `unsafe-eval` was removed in Phase 9 audit. Consider migrating to nonces for style-src.
 2. **No CAPTCHA**: Bot protection relies on rate limiting only. Consider adding CAPTCHA for login/registration.
 3. **No MFA/2FA**: Authentication is single-factor (email + password). Consider adding TOTP or WebAuthn.
 4. **JWT session invalidation**: No server-side session revocation. Changing AUTH_SECRET invalidates all sessions.

@@ -356,6 +356,12 @@ const MIGRATIONS: Migration[] = [
       `CREATE UNIQUE INDEX IF NOT EXISTS "XpTransaction_idempotency_idx" ON "XpTransaction"("tenantId", "userId", "source", "sourceEntityId") WHERE "sourceEntityId" IS NOT NULL;`,
     ],
   },
+  {
+    name: "20260220140000_suggestion_deleted_action",
+    statements: [
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'SUGGESTION_DELETED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'SUGGESTION_DELETED'; END IF; END $$;`,
+    ],
+  },
 ];
 
 /**

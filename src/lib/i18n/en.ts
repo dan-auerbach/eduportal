@@ -1680,6 +1680,9 @@ export const en = {
     rejected: "Suggestion rejected",
     converted: "Suggestion converted to module",
     convertToModule: "Convert to module",
+    delete: "Delete",
+    deleted: "Suggestion deleted",
+    deleteConfirm: "Are you sure you want to delete this suggestion? All votes and comments will be lost.",
   },
 
   // ── Manager Dashboard ──────────────────────────────────────────

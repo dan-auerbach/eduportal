@@ -191,6 +191,59 @@ Development period: ~4 weeks (late January 2026 - mid/late February 2026).
 - DECISIONS.md (15 ADRs), CHANGELOG.md, SNAPSHOT.json
 - All documentation based on actual code analysis with version tracking
 
+## Phase 8: Live Events 2.0, Attendance & Storefront (Feb 20, 2026)
+
+### Live Events 2.0
+- Extended `MentorLiveEvent` with `locationType` (ONLINE, PHYSICAL, HYBRID), `physicalAddress`, `maxAttendees`, `coverImage`, and `description` fields
+- New `LiveEventMaterial` table for downloadable resources attached to events
+- Material management UI: upload, download, delete via Vercel Blob
+- Cron live-reminders updated to include location type in email notifications
+
+### Event Attendance System
+- New `LiveEventAttendance` table tracking registration, confirmation, XP award status
+- `AttendanceStatus` enum: REGISTERED → CONFIRMED → CANCELLED
+- Employee self-registration with slot availability (maxAttendees)
+- Admin bulk confirmation and individual revocation
+- Email-based attendance confirmation via HMAC-signed links (`/api/attendance/confirm`)
+- XP award on confirmed attendance (EVENT_ATTENDED source type, 30 XP)
+- Idempotent XP via `xpAwarded` flag + partial unique index on XpTransaction
+- Duplicate XP prevention via `sourceEntityId` unique constraint
+- Attendance UI integrated into live event detail pages
+- Attendance summary stats for admins (registered, confirmed, cancelled counts)
+
+### Gamified Reward Storefront
+- Reward catalog with card grid layout and XP cost badges
+- Stock availability display and out-of-stock indicators
+- Redemption history page for employees (pending/approved/rejected status)
+- Admin pending redemptions panel visibility improvements
+
+### Database
+- 2 new tables: `LiveEventMaterial`, `LiveEventAttendance`
+- 2 new enums: `LiveEventLocationType`, `AttendanceStatus`
+- New `XpSourceType` value: `EVENT_ATTENDED`
+- New `AuditAction` values: `LIVE_EVENT_MATERIAL_ADDED`, `LIVE_EVENT_MATERIAL_REMOVED`, `ATTENDANCE_REGISTERED`, `ATTENDANCE_CANCELLED`, `ATTENDANCE_CONFIRMED`, `ATTENDANCE_REVOKED`
+- New `NotificationType` value: `ATTENDANCE_CONFIRMED`
+- 2 production migrations (live events 2.0 + attendance)
+
+## Phase 9: Technical Audit & Hardening (Feb 20, 2026)
+
+### Critical Fixes
+- **D1**: Fixed TOCTOU race condition in `awardXp()` and `deductXp()` — moved read inside interactive `prisma.$transaction()` with row-level locking
+- **D2**: Fixed orphaned redemptions in `redeemReward()` and `reviewRedemption()` — XP deduction now atomic within the same transaction as redemption/review
+- **S2**: Fixed `CRON_SECRET` empty-string bypass in `verifyCronSecret()` — added early guard `if (!secret) return false`
+
+### High-Priority Fixes
+- **S1**: Removed `unsafe-eval` from CSP `script-src` directive (XSS hardening)
+- **A1**: Wrapped all mutation server actions with `withAction()` observability wrapper in `attendance.ts` (5 functions) and `rewards.ts` (2 functions) for structured logging and error persistence
+- **P1**: Optimized `bulkConfirmAttendance()` — batched `Promise.all` with concurrency limit of 5 (reduces N+1 from ~6 queries × N users to parallel batches)
+- **D3**: Made production migration script transactional — `ALTER TYPE ... ADD VALUE` statements run outside transaction (PostgreSQL limitation), all other statements wrapped in `BEGIN/COMMIT` with `ROLLBACK` on failure
+- **D4**: Made XP reversals atomic in `cancelRegistration()` and `revokeAttendance()` — `xpTransaction.create` + `userXpBalance.update` now in single `prisma.$transaction([])`
+
+### Additional Improvements
+- **S5**: Added `rateLimitUpload()` — 20 uploads per hour per user
+- **P3**: Added `maxDuration: 60` for cron functions in `vercel.json`
+- **P4**: Staggered `knowledge-digest` cron from `0 8 * * *` to `15 8 * * *` to avoid collision with `deadline-reminders`
+
 ## Notable Bug Fixes
 
 - VideoAssetPicker dialog overflow (multiple attempts)
@@ -207,13 +260,14 @@ Development period: ~4 weeks (late January 2026 - mid/late February 2026).
 
 ## Infrastructure & DevOps
 
-- Custom production migration script (`migrate-prod.ts`)
-- Vercel Cron jobs: deadline reminders, dedup cleanup, live reminders, knowledge digest
+- Custom production migration script (`migrate-prod.ts`) with transactional execution
+- Vercel Cron jobs: deadline reminders, dedup cleanup, live reminders, knowledge digest, compliance check (staggered schedules, `maxDuration: 60`)
 - Auto-changelog generation (GitHub Action + Claude API + deploy webhook)
-- Rate limiting infrastructure (Upstash Redis + in-memory fallback)
+- Rate limiting infrastructure (Upstash Redis + in-memory fallback) — 17 pre-configured limiters
 - Redis presence store (Upstash, 90s TTL keys, heartbeat every 30s)
 - SSE endpoint with DB-polling (2s interval, 25s connection, auto-reconnect)
 - Storage abstraction layer (local filesystem + Vercel Blob)
-- Security headers (CSP, HSTS, X-Frame-Options, etc.)
-- Email system (Resend + templates + unsubscribe)
-- Technical documentation system (`/docs` — 12 files, 1700+ lines)
+- Security headers (CSP with `unsafe-inline` styles only, HSTS, X-Frame-Options, etc.)
+- Email system (Resend + templates + unsubscribe + HMAC-signed attendance confirmation)
+- Technical documentation system (`/docs` — 12 files, 2000+ lines)
+- Observability: `withAction()` wrappers on all mutation server actions, `SystemError` persistence

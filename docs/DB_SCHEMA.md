@@ -77,8 +77,10 @@
 
 | Table | Description | Key Fields |
 |---|---|---|
-| **MentorLiveEvent** | Scheduled live training | `title`, `startsAt`, `meetUrl` |
+| **MentorLiveEvent** | Scheduled live training | `title`, `startsAt`, `locationType`, `meetUrl`, `physicalAddress`, `maxAttendees`, `coverImage`, `description` |
 | **LiveEventGroup** | Event ↔ Group (M:N) | target audience |
+| **LiveEventMaterial** | Downloadable resource attached to event | `eventId`, `fileName`, `storagePath`, `fileType`, `fileSize` |
+| **LiveEventAttendance** | User registration/confirmation for event | `eventId`, `userId`, `status` (AttendanceStatus), `xpAwarded` |
 
 ### Pinning
 
@@ -152,6 +154,9 @@ Reward 1:N RewardRedemption
 User 1:N KnowledgeSuggestion
 KnowledgeSuggestion 1:N KnowledgeSuggestionVote
 KnowledgeSuggestion 1:N KnowledgeSuggestionComment (threaded via parentId)
+MentorLiveEvent 1:N LiveEventMaterial
+MentorLiveEvent 1:N LiveEventAttendance
+User 1:N LiveEventAttendance
 ```
 
 ## Enums
@@ -170,8 +175,10 @@ KnowledgeSuggestion 1:N KnowledgeSuggestionComment (threaded via parentId)
 | VideoStatus | PENDING, READY, ERROR |
 | AttachmentType | PDF, WORD, IMAGE, OTHER |
 | QuestionType | SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_FALSE |
-| NotificationType | NEW_MODULE, DEADLINE_REMINDER, QUIZ_RESULT, COMMENT_REPLY, CERTIFICATE_ISSUED, PROGRESS_OVERRIDE, MODULE_UPDATED, SYSTEM, RADAR_APPROVED, RADAR_REJECTED, NEW_KNOWLEDGE, XP_EARNED, REWARD_APPROVED, REWARD_REJECTED, SUGGESTION_POPULAR, SUGGESTION_STATUS_CHANGED, MODULE_EXPIRING, MODULE_EXPIRED |
-| XpSourceType | MODULE_COMPLETED, QUIZ_HIGH_SCORE, MENTOR_CONFIRMATION, TOP_SUGGESTION, COMPLIANCE_RENEWAL, MANUAL |
+| NotificationType | NEW_MODULE, DEADLINE_REMINDER, QUIZ_RESULT, COMMENT_REPLY, CERTIFICATE_ISSUED, PROGRESS_OVERRIDE, MODULE_UPDATED, SYSTEM, RADAR_APPROVED, RADAR_REJECTED, NEW_KNOWLEDGE, XP_EARNED, REWARD_APPROVED, REWARD_REJECTED, SUGGESTION_POPULAR, SUGGESTION_STATUS_CHANGED, MODULE_EXPIRING, MODULE_EXPIRED, ATTENDANCE_CONFIRMED |
+| LiveEventLocationType | ONLINE, PHYSICAL, HYBRID |
+| AttendanceStatus | REGISTERED, CONFIRMED, CANCELLED |
+| XpSourceType | MODULE_COMPLETED, QUIZ_HIGH_SCORE, MENTOR_CONFIRMATION, TOP_SUGGESTION, COMPLIANCE_RENEWAL, EVENT_ATTENDED, MANUAL |
 | ReputationRank | VAJENEC (0), POMOCNIK (1500), MOJSTER (3500), MENTOR (6000) |
 | RedemptionStatus | PENDING, APPROVED, REJECTED, CANCELLED |
 | SuggestionStatus | OPEN, APPROVED, REJECTED, CONVERTED |
@@ -181,7 +188,7 @@ KnowledgeSuggestion 1:N KnowledgeSuggestionComment (threaded via parentId)
 | MediaAssetStatus | PROCESSING, READY, FAILED, DELETE_PENDING, DELETE_FAILED |
 | MediaProvider | CLOUDFLARE_STREAM, VERCEL_BLOB |
 | EmailTokenType | PASSWORD_RESET, INVITE |
-| AuditAction | 45 actions (USER_CREATED through SUGGESTION_CONVERTED) |
+| AuditAction | 51+ actions (USER_CREATED through ATTENDANCE_REVOKED) |
 
 ## Indexes
 
@@ -201,6 +208,8 @@ All tables include tenant-scoped indexes (`tenantId` or composite). Key performa
 - `KnowledgeSuggestion`: `(tenantId, status, createdAt)`, `(tenantId, voteCount)`
 - `KnowledgeSuggestionVote`: `(userId, suggestionId)` unique
 - `KnowledgeSuggestionComment`: `(suggestionId, createdAt)`
+- `LiveEventAttendance`: `(eventId, userId)` unique, `(eventId, status)`
+- `LiveEventMaterial`: `(eventId)`
 
 ## Migration System
 
@@ -211,6 +220,7 @@ All tables include tenant-scoped indexes (`tenantId` or composite). Key performa
 2. Tracks applied migrations in `_applied_migrations` table
 3. Runs as part of the build step: `npx tsx prisma/migrate-prod.ts && next build`
 4. Idempotent — safe to re-run on every deploy
+5. Transactional execution — `ALTER TYPE ... ADD VALUE` runs outside transaction (PostgreSQL limitation), all other statements wrapped in `BEGIN/COMMIT` with `ROLLBACK` on failure
 
 ### Applied Migrations
 
@@ -223,3 +233,5 @@ All tables include tenant-scoped indexes (`tenantId` or composite). Key performa
 | `20260219100000_gamification_suggestions_compliance` | XpTransaction, UserXpBalance, Reward, RewardRedemption, KnowledgeSuggestion, KnowledgeSuggestionVote, KnowledgeSuggestionComment tables; XpSourceType, RedemptionStatus, SuggestionStatus, ReputationRank enums; new AuditAction + NotificationType + Permission values; Module.validityMonths |
 | `20260219120000_rename_reputation_ranks` | Rename reputation ranks: BRONZE→VAJENEC, SILVER→POMOCNIK, GOLD→MOJSTER, ELITE→MENTOR |
 | `20260219130000_add_lifetime_xp` | Add `lifetimeXp` column to UserXpBalance (cumulative, never decreases); backfill from positive XpTransaction sums |
+| `20260220100000_live_events_v2` | MentorLiveEvent new fields (locationType, physicalAddress, maxAttendees, coverImage, description); LiveEventLocationType enum; LiveEventMaterial table |
+| `20260220120000_attendance` | LiveEventAttendance table; AttendanceStatus enum; EVENT_ATTENDED XpSourceType; new AuditAction + NotificationType values; partial unique index on XpTransaction for duplicate prevention |

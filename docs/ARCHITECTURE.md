@@ -69,8 +69,8 @@ Redis-based online user tracking with 90s TTL keys (auto-expire). Heartbeat ever
 ### 8. Radar Feed (`src/actions/radar.ts`)
 Social content curation: employees submit URL-based posts, admins approve/reject, all employees see approved feed. Pinning, save/bookmark, moderation.
 
-### 9. Live Events (`src/actions/live-events.ts`)
-Mentor-scheduled live training events with video conference URLs. Group-targeted with reminder emails. ICS calendar download.
+### 9. Live Events (`src/actions/live-events.ts`, `src/actions/attendance.ts`)
+Mentor-scheduled live training events with location types (ONLINE, PHYSICAL, HYBRID). Online events have video conference URLs; physical/hybrid events have addresses. Group-targeted with reminder emails (location-aware). ICS calendar download. Downloadable materials via `LiveEventMaterial` (Vercel Blob). Attendance system: employee self-registration (slot-limited via `maxAttendees`), admin bulk confirmation, email-based HMAC-signed confirmation links, XP award on confirmation (EVENT_ATTENDED, 30 XP).
 
 ### 10. Notification System (`src/actions/notifications.ts`)
 In-app notifications for new modules, deadlines, quiz results, comments, certificates. Email delivery via Resend with configurable templates per tenant.
@@ -82,10 +82,10 @@ Centralized media asset management. Videos via Cloudflare Stream, documents via 
 Fine-grained permissions (14 capabilities) with optional scope (groupIds, moduleIds). Role hierarchy bypass: OWNER/SUPER_ADMIN skip permission checks.
 
 ### 13. Gamification & XP Engine (`src/lib/xp.ts`, `src/actions/xp.ts`)
-Dual XP system: `lifetimeXp` (cumulative, determines rank, never decreases) and `totalXp` (spendable balance, decreases on reward redemption). XP awarded for module completion (100), high quiz scores (50, ≥90%), mentor answer confirmations (25), popular suggestions (75), and compliance renewals (50). Rank system: VAJENEC (0) → POMOCNIK (1500) → MOJSTER (3500) → MENTOR (6000). Leaderboard with tenant-scoped and group-filtered views.
+Dual XP system: `lifetimeXp` (cumulative, determines rank, never decreases) and `totalXp` (spendable balance, decreases on reward redemption). XP awarded for module completion (100), high quiz scores (50, ≥90%), mentor answer confirmations (25), popular suggestions (75), compliance renewals (50), and event attendance (30). Rank system: VAJENEC (0) → POMOCNIK (1500) → MOJSTER (3500) → MENTOR (6000). Leaderboard with tenant-scoped and group-filtered views. All XP mutations use Prisma interactive transactions (`$transaction(async (tx) => {...})`) with row-level locking to prevent race conditions.
 
 ### 14. Reward Economy (`src/actions/rewards.ts`)
-Admin-managed reward catalog with XP cost, stock limits, monthly caps, and optional approval workflow. Employees redeem rewards by spending `totalXp` (spendable balance) — rank based on `lifetimeXp` is never affected. Pending redemptions reviewed by admins. Auto-approve mode for low-risk rewards.
+Admin-managed reward catalog with XP cost, stock limits, monthly caps, and optional approval workflow. Employees redeem rewards by spending `totalXp` (spendable balance) — rank based on `lifetimeXp` is never affected. Pending redemptions reviewed by admins. Auto-approve mode for low-risk rewards. All redemption and review operations are fully atomic — XP deduction, stock update, and redemption record are created within a single interactive transaction.
 
 ### 15. Knowledge Suggestions (`src/actions/suggestions.ts`)
 Employee-submitted knowledge ideas with voting, threaded comments, and admin moderation. Suggestions can be converted to draft modules. Anonymous submission support. Popular suggestions (≥5 votes) trigger admin notifications. Status workflow: OPEN → APPROVED/REJECTED/CONVERTED.
@@ -125,24 +125,31 @@ Employee -> Module Page (SSR) -> Read Section -> Mark Complete -> Server Action
 
 ### XP Award Flow
 ```
-Trigger (module complete / quiz pass / mentor confirm)
-  -> awardXp() in $transaction:
-     1. Create XpTransaction record
-     2. Upsert UserXpBalance (increment lifetimeXp + totalXp)
-     3. Compute rank from lifetimeXp
-     4. If rank changed: create notification
-     5. Audit log
+Trigger (module complete / quiz pass / mentor confirm / event attend)
+  -> awardXp() in interactive $transaction:
+     1. SELECT existing UserXpBalance (row-level lock)
+     2. Create XpTransaction record
+     3. Upsert UserXpBalance (increment lifetimeXp + totalXp)
+     4. Compute rank from lifetimeXp
+     5. If rank changed: create notification
+     6. Audit log
+  (All steps atomic — no TOCTOU race conditions)
 ```
 
 ### Reward Redemption Flow
 ```
 Employee -> Redeem Reward -> Check totalXp >= costXp
   -> Check monthlyLimit & quantityAvailable
-  -> If approvalRequired: create PENDING RewardRedemption
-     -> Admin reviews -> Approve: deductXp(totalXp only) + notify
-                      -> Reject: notify
-  -> If !approvalRequired: auto-approve, deductXp immediately
+  -> Single interactive $transaction:
+     -> Decrement stock (if limited)
+     -> If auto-approve: deductXp(totalXp only) within same tx
+     -> Create RewardRedemption record
+  -> If approvalRequired (manual review):
+     -> Admin reviews in interactive $transaction:
+        -> Approve: deductXp + update status + notify
+        -> Reject: refund stock + update status + notify
   (lifetimeXp never decreases — rank is preserved)
+  (All operations fully atomic — no orphaned redemptions)
 ```
 
 ## Key Trade-offs
@@ -151,7 +158,7 @@ Employee -> Redeem Reward -> Check totalXp >= costXp
 
 2. **JWT sessions over DB sessions**: Fast edge middleware auth checks without DB round-trip. Role refresh every 5 minutes for freshness.
 
-3. **Custom migration script over Prisma Migrate**: Neon's serverless driver requires Pool-based raw SQL. Prisma Migrate doesn't support the Neon adapter. Custom `migrate-prod.ts` with `_applied_migrations` tracking table.
+3. **Custom migration script over Prisma Migrate**: Neon's serverless driver requires Pool-based raw SQL. Prisma Migrate doesn't support the Neon adapter. Custom `migrate-prod.ts` with `_applied_migrations` tracking table. Transactional execution with `ROLLBACK` on failure (except `ALTER TYPE ... ADD VALUE` which PostgreSQL requires outside transactions).
 
 4. **Storage abstraction layer**: Local filesystem for development, Vercel Blob for production. Seamless switching via `STORAGE_BACKEND` env var.
 

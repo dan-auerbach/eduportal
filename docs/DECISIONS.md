@@ -197,3 +197,43 @@
 **Decision**: Extract shared utilities into `chat-engine.ts`, transport logic into `useChat` hook, labels into `chat-labels.ts`, and rendering into a single `ChatThread` component with `variant="full"` (global) and `variant="embedded"` (module). Conditional features (topic bar, mentor badges, confirm buttons) controlled by `scope` and props.
 
 **Consequence**: Single source of truth for all chat UI and behavior. Adding features (SSE, presence) only needs one change. Trade-off: slightly more complex prop surface on `ChatThread`, but eliminates ~700 lines of duplicated code.
+
+---
+
+## ADR-021: Interactive Transactions for XP Operations
+
+**Context**: Technical audit (Phase 9) revealed a TOCTOU race condition in `awardXp()` — the `findUnique` read happened outside the `$transaction([...])` batch. Two concurrent calls for the same user could read the same balance and both write, resulting in incorrect XP totals.
+
+**Decision**: Convert all XP mutation functions (`awardXp`, `deductXp`) from batched `$transaction([...])` to interactive `$transaction(async (tx) => {...})`. The read is now inside the transaction callback, acquiring a row-level lock automatically via Prisma's `findUnique` within an interactive transaction.
+
+**Consequence**: No race conditions in concurrent XP operations. Row-level locks prevent two simultaneous awards from corrupting the balance. Slightly longer transaction hold time (read + write instead of just write), but XP operations are infrequent enough that contention is negligible.
+
+---
+
+## ADR-022: Atomic Reward Redemptions
+
+**Context**: Technical audit found that `redeemReward()` created the redemption record inside `$transaction` but called `deductXp()` after the transaction completed. If XP deduction failed, the redemption existed without XP being deducted — an orphaned state.
+
+**Decision**: Inline XP deduction logic directly into the interactive transaction that creates the redemption. Same pattern for `reviewRedemption()` — approval/rejection + XP operations are fully atomic.
+
+**Consequence**: No orphaned redemptions. Stock decrement, XP deduction, and redemption record creation all succeed or all fail together. Trade-off: the `deductXp()` helper is no longer used for reward operations (logic is inlined), but this is acceptable for correctness.
+
+---
+
+## ADR-023: Transactional Production Migrations
+
+**Context**: Technical audit found that if statement N+1 in a migration failed, statements 1..N were already committed but the migration was not marked as applied. Re-running would retry all statements, which is unsafe for non-idempotent operations (UPDATE, backfill).
+
+**Decision**: Wrap each migration's statements in `BEGIN/COMMIT` with `ROLLBACK` on failure. Exception: `ALTER TYPE ... ADD VALUE` statements cannot run inside PostgreSQL transactions, so they are detected via regex and executed before the transaction begins.
+
+**Consequence**: Migrations are all-or-nothing — partial application is no longer possible. The `_applied_migrations` record is inserted within the same transaction, so it's only marked as applied if all statements succeeded. Trade-off: enum value additions are still non-transactional (PostgreSQL limitation), but these are inherently idempotent.
+
+---
+
+## ADR-024: HMAC-Signed Attendance Confirmation
+
+**Context**: Needed a way for users to confirm event attendance via email link without requiring authentication. The link must be tamper-proof and tied to a specific user/event/tenant.
+
+**Decision**: HMAC-SHA256 signed tokens with payload `eventId:userId:tenantId`, signed with `CRON_SECRET`. Validated server-side at `/api/attendance/confirm`. XP award is idempotent via `xpAwarded` flag on `LiveEventAttendance` + partial unique index on `XpTransaction`.
+
+**Consequence**: Passwordless attendance confirmation via email. Tokens cannot be forged without `CRON_SECRET`. Idempotent — clicking the link multiple times won't double-award XP. Trade-off: if `CRON_SECRET` is rotated, existing confirmation links become invalid.

@@ -22,7 +22,7 @@
 +--------------------------------------------------+
 |                   Data Layer                      |
 |  Neon PostgreSQL (via @prisma/adapter-neon)       |
-|  Upstash Redis (rate limiting)                    |
+|  Upstash Redis (rate limiting, presence)          |
 +--------------------------------------------------+
 
 +--------------------------------------------------+
@@ -60,8 +60,11 @@ SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_FALSE questions. Score calculation with con
 ### 6. Progress Tracking (`src/lib/progress.ts`, `src/actions/progress.ts`)
 Section-level completion tracking. Module completion = all sections done + quiz passed (if exists). Admin can override progress. Certificates auto-issued on module completion.
 
-### 7. Chat System (`src/actions/chat.ts`)
-Per-tenant and per-module chat rooms. Polling-based (no WebSockets). Mentors can confirm answers. Rate-limited message sending.
+### 7. Chat System (`src/actions/chat.ts`, `src/hooks/use-chat.ts`, `src/components/chat/chat-thread.tsx`)
+Per-tenant and per-module chat rooms. SSE streaming for near-real-time delivery (~2s latency) with automatic adaptive polling fallback. Unified `ChatThread` component with `variant="full"` (global chat page) and `variant="embedded"` (module tab). Mentors can confirm answers. Rate-limited message sending.
+
+### 7a. Presence System (`src/lib/presence.ts`)
+Redis-based online user tracking with 90s TTL keys (auto-expire). Heartbeat every 30s via `UsageTracker` component (visibility-aware). Sidebar widget shows online users per tenant. No database model — Redis only.
 
 ### 8. Radar Feed (`src/actions/radar.ts`)
 Social content curation: employees submit URL-based posts, admins approve/reject, all employees see approved feed. Pinning, save/bookmark, moderation.
@@ -144,7 +147,7 @@ Employee -> Redeem Reward -> Check totalXp >= costXp
 
 ## Key Trade-offs
 
-1. **Polling over WebSockets** for chat/status: Simpler deployment on Vercel serverless, no persistent connections. Acceptable latency for the use case.
+1. **SSE over WebSockets** for chat: Vercel serverless doesn't support WebSockets. SSE endpoint polls DB every 2s for 25s, then client auto-reconnects. Reduces client HTTP requests from ~12/min (polling) to ~2/min (SSE). Automatic fallback to adaptive polling if SSE fails 3 times in 30s.
 
 2. **JWT sessions over DB sessions**: Fast edge middleware auth checks without DB round-trip. Role refresh every 5 minutes for freshness.
 

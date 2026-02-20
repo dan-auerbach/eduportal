@@ -60,13 +60,13 @@
 
 ---
 
-## ADR-007: Polling-Based Chat (No WebSockets)
+## ADR-007: SSE-Based Chat with Polling Fallback (No WebSockets)
 
-**Context**: Needed real-time-ish chat for per-tenant and per-module conversations. Vercel serverless doesn't support WebSocket connections natively.
+**Context**: Needed real-time chat for per-tenant and per-module conversations. Vercel serverless doesn't support WebSocket connections natively. Upstash Redis is REST-only (no Pub/Sub or XREAD).
 
-**Decision**: HTTP polling with `@tanstack/react-query`. Chat messages fetched via GET with cursor pagination. Rate limited polling (30 req/60s per user).
+**Decision**: Server-Sent Events (SSE) as primary transport. SSE endpoint (`/api/chat/stream`) polls DB every 2s within a 25s serverless function, pushing new messages as events. Client reconnects automatically via `EventSource` + `Last-Event-ID`. Falls back to adaptive polling (5-15s) if SSE fails 3 times in 30s. Unified `useChat` hook handles both transports transparently.
 
-**Consequence**: Simple deployment on Vercel serverless. No infrastructure for WebSocket connections. Acceptable latency (~3-5 seconds) for the mentoring use case. Trade-off: higher request volume, not true real-time. Chat join events may be delayed.
+**Consequence**: ~2s message latency (vs ~5s with polling). Client HTTP requests reduced from ~12/min to ~2/min. Graceful degradation — polling fallback ensures chat always works. Trade-off: 25s Vercel function per SSE connection (requires Pro plan `maxDuration: 30`). DB-polling inside SSE adds ~12 lightweight queries per connection.
 
 ---
 
@@ -177,3 +177,23 @@
 **Decision**: Eager computation in `awardXp()` — rank is recalculated within the same database transaction that awards XP. No background jobs or cron for rank updates.
 
 **Consequence**: Rank is always accurate and up-to-date immediately after any XP event. Simple architecture — no job queue needed. Trade-off: slightly more work per XP transaction, but rank computation is a trivial O(1) comparison against 4 thresholds, so the overhead is negligible.
+
+---
+
+## ADR-019: Redis-Based Presence (No DB Model)
+
+**Context**: Needed online user presence for the chat sidebar. Existing `UserSession` model (DB-based, 60s ping) was too heavy for real-time presence. Upstash Redis is REST-only (no Pub/Sub).
+
+**Decision**: Redis keys with 90s TTL (`presence:{tenantId}:{userId}`) containing JSON `{userId, displayName}`. Heartbeat every 30s from `UsageTracker` (visibility-aware — pauses when tab hidden). Listing via `SCAN` + `MGET`. No database model needed.
+
+**Consequence**: Approximate presence — users disappear ~90s after closing the tab. Very low overhead (one Redis SET per 30s per user). Silent no-op fallback when Redis not configured. Trade-off: SCAN-based listing is O(N) across all Redis keys, acceptable for <1000 concurrent users per tenant.
+
+---
+
+## ADR-020: Unified ChatThread Component (Replacing Two Duplicates)
+
+**Context**: Global chat (`chat-room.tsx`, 685 lines) and module chat (`module-chat-room.tsx`, 679 lines) were copy-pasted with ~90% identical code. Theme definitions, nick colors, mention detection, URL rendering, scroll handling, polling logic — all duplicated.
+
+**Decision**: Extract shared utilities into `chat-engine.ts`, transport logic into `useChat` hook, labels into `chat-labels.ts`, and rendering into a single `ChatThread` component with `variant="full"` (global) and `variant="embedded"` (module). Conditional features (topic bar, mentor badges, confirm buttons) controlled by `scope` and props.
+
+**Consequence**: Single source of truth for all chat UI and behavior. Adding features (SSE, presence) only needs one change. Trade-off: slightly more complex prop surface on `ChatThread`, but eliminates ~700 lines of duplicated code.

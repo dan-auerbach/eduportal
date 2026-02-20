@@ -103,7 +103,19 @@ No automated backup schedule beyond Neon's built-in features. Tenant data export
 - Verify `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
 - Without Redis, rate limiting falls back to in-memory (per-instance, not shared)
 
-#### 8. XP / Gamification issues
+#### 7. Chat SSE not connecting
+- SSE requires Vercel Pro plan (`maxDuration: 30` in `vercel.json`)
+- If SSE fails, the client automatically falls back to adaptive polling (5-15s)
+- Check browser DevTools → Network for `/api/chat/stream` requests
+- Rate limit: 6 SSE connections per 60s per user
+
+#### 8. Online presence not showing
+- Requires Upstash Redis — presence is Redis-only (no DB fallback)
+- Heartbeat sent every 30s from `UsageTracker` — only when tab is visible
+- Keys expire after 90s — users disappear ~90s after closing the tab
+- Check Redis keys: `presence:{tenantId}:*` in Upstash console
+
+#### 9. XP / Gamification issues
 - **User has wrong rank**: Check `UserXpBalance.lifetimeXp` — rank is computed from lifetime XP only. Run: `SELECT "lifetimeXp", "totalXp", "rank" FROM "UserXpBalance" WHERE "userId" = '...' AND "tenantId" = '...'`
 - **XP not awarded after module completion**: Check `XpTransaction` for existing record (idempotent — won't double-award). Verify `awardXp()` is called in `completeSection()` after all sections + quiz done.
 - **Reward redemption fails**: Check `totalXp` (spendable) >= `costXp`. Check `monthlyLimit` (count approved redemptions this month). Check `quantityAvailable`.

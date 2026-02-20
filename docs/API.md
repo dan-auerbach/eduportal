@@ -52,9 +52,17 @@ All API routes (except public paths) require authentication via NextAuth.js v5 J
 
 | Method | Path | Description | Auth |
 |---|---|---|---|
-| GET/POST | `/api/chat` | Get messages / send message | User |
+| GET | `/api/chat` | Get messages (polling fallback) | User |
+| GET | `/api/chat/stream` | SSE stream for live messages (25s connection, 2s DB-poll) | User |
 | GET | `/api/chat/unread` | Get unread message count | User |
 | GET | `/api/chat/module-unread` | Get per-module unread counts | User |
+
+### Presence
+
+| Method | Path | Description | Auth |
+|---|---|---|---|
+| POST | `/api/presence/ping` | Heartbeat (called every 30s by UsageTracker) | User |
+| GET | `/api/presence/online?limit=20` | List online users for tenant | User |
 
 ### Notifications
 
@@ -177,11 +185,13 @@ export async function createModule(formData: FormData): Promise<ActionResult<{ i
 | Chat message | 10 per user | 60 seconds |
 | Chat topic change | 3 per user | 60 seconds |
 | Chat poll (GET) | 30 per user | 60 seconds |
+| Chat SSE stream | 6 per user | 60 seconds |
+| Presence ping | 4 per user | 60 seconds |
+| Presence online list | 10 per user | 60 seconds |
 | Radar post | 5 per user | 24 hours |
 | AI builder | 50 per user | 1 hour |
 | AI editor actions | 30 per user | 1 hour |
 | Confirm answer | 10 per user | 60 seconds |
-| Chat join | 1 per channel | 5 minutes |
 | Suggestion create | 5 per user | 1 hour |
 | Suggestion vote | 30 per user | 60 seconds |
 | Reward redemption | 5 per user | 60 seconds |

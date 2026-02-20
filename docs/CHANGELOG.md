@@ -65,8 +65,11 @@ Development period: ~4 weeks (late January 2026 - mid/late February 2026).
 ### Chat System
 - Per-tenant and per-module chat rooms
 - Mentor answer confirmation
-- Polling-based updates
 - Chat topic management
+- SSE streaming for near-real-time delivery (~2s latency), automatic polling fallback
+- JOIN spam removal (messages no longer created or displayed)
+- Redis-based online presence with 90s TTL + sidebar widget
+- Unified ChatThread component replacing two duplicate 700-line components
 
 ## Phase 3: Video & Media (Feb 2026)
 
@@ -208,6 +211,8 @@ Development period: ~4 weeks (late January 2026 - mid/late February 2026).
 - Vercel Cron jobs: deadline reminders, dedup cleanup, live reminders, knowledge digest
 - Auto-changelog generation (GitHub Action + Claude API + deploy webhook)
 - Rate limiting infrastructure (Upstash Redis + in-memory fallback)
+- Redis presence store (Upstash, 90s TTL keys, heartbeat every 30s)
+- SSE endpoint with DB-polling (2s interval, 25s connection, auto-reconnect)
 - Storage abstraction layer (local filesystem + Vercel Blob)
 - Security headers (CSP, HSTS, X-Frame-Options, etc.)
 - Email system (Resend + templates + unsubscribe)

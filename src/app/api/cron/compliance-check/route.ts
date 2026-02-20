@@ -3,20 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { awardXp, XP_RULES } from "@/lib/xp";
 import { format } from "date-fns";
 import { t, setLocale, isValidLocale, DEFAULT_LOCALE } from "@/lib/i18n";
-import { timingSafeEqual } from "crypto";
+import { withCron } from "@/lib/observability";
 
-function verifyCronSecret(req: Request): boolean {
-  const header = req.headers.get("authorization") ?? "";
-  const expected = `Bearer ${process.env.CRON_SECRET ?? ""}`;
-  if (header.length !== expected.length) return false;
-  return timingSafeEqual(Buffer.from(header), Buffer.from(expected));
-}
-
-export async function GET(req: Request) {
-  if (!verifyCronSecret(req)) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
+export const GET = withCron("compliance-check", async (req) => {
   const now = new Date();
   const today = format(now, "yyyy-MM-dd");
   const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
@@ -237,4 +226,4 @@ export async function GET(req: Request) {
     expired: expiredCount,
     reminders: reminderCount,
   });
-}
+});

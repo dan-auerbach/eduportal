@@ -8,6 +8,7 @@ import { getTenantContext } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { getModuleProgress } from "@/lib/progress";
 import { awardXp, XP_RULES } from "@/lib/xp";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 import type { QuestionType } from "@/generated/prisma/client";
 
@@ -168,7 +169,7 @@ export async function submitQuizAttempt(
   quizId: string,
   answers: Record<string, number[]> // questionId -> selected option indices
 ): Promise<ActionResult<QuizSubmitResult>> {
-  try {
+  return withAction("submitQuizAttempt", async ({ log }) => {
     const ctx = await getTenantContext();
 
     const quiz = await prisma.quiz.findUnique({
@@ -333,6 +334,8 @@ export async function submitQuizAttempt(
         ? quiz.maxAttempts - (previousAttempts + 1)
         : null;
 
+    log({ quizId, moduleId: quiz.moduleId, score, passed, certificateIssued });
+
     return {
       success: true,
       data: {
@@ -343,16 +346,5 @@ export async function submitQuizAttempt(
         results,
       },
     };
-  } catch (e) {
-    if (e instanceof TenantAccessError) {
-      return { success: false, error: e.message };
-    }
-    return {
-      success: false,
-      error:
-        e instanceof Error
-          ? e.message
-          : "Napaka pri oddaji kviza",
-    };
-  }
+  });
 }

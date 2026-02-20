@@ -2,15 +2,30 @@ import { getTenantContext } from "@/lib/tenant";
 import { setLocale, t } from "@/lib/i18n";
 import { getLiveEventsOverview, getPublishedModulesForSelect, getGroupsForSelect } from "@/actions/live-events";
 import type { LiveEventDTO } from "@/actions/live-events";
+import { getMyAttendanceBatch } from "@/actions/attendance";
+import type { MyAttendanceMap } from "@/actions/attendance";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Radio, ExternalLink, BookOpen, Calendar, CalendarPlus, Info, Users } from "lucide-react";
+import {
+  Radio,
+  ExternalLink,
+  BookOpen,
+  Calendar,
+  CalendarPlus,
+  Info,
+  Users,
+  MapPin,
+  Globe,
+  Monitor,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CreateLiveEventDialog, EditLiveEventDialog, GoogleMeetIcon, TeamsIcon } from "@/components/live-events/live-event-form";
 import { detectPlatform } from "@/lib/meet-platform";
 import { DeleteLiveEventButton } from "@/components/live-events/live-event-actions";
+import { AttendanceButton } from "@/components/live-events/attendance-button";
+import { AttendeeManager } from "@/components/live-events/attendee-manager";
 
 function MeetPlatformIcon({ url, className }: { url: string; className?: string }) {
   const platform = detectPlatform(url);
@@ -24,6 +39,11 @@ function meetPlatformLabel(url: string): string {
   if (platform === "meet") return "Google Meet";
   if (platform === "teams") return "MS Teams";
   return t("mentorLive.join");
+}
+
+/** Resolve the effective online URL: prefer onlineUrl, fall back to meetUrl */
+function getEffectiveUrl(event: LiveEventDTO): string | null {
+  return event.onlineUrl ?? event.meetUrl ?? null;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -59,6 +79,67 @@ function formatEventDateShort(isoString: string, locale: string): string {
   return `${datePart}, ${timePart}`;
 }
 
+// ── Location type display ────────────────────────────────────────────────────
+
+function LocationTypeBadge({ event }: { event: LiveEventDTO }) {
+  const type = event.locationType;
+  if (type === "ONLINE") {
+    return (
+      <Badge variant="outline" className="gap-1 text-xs">
+        <Monitor className="h-3 w-3" />
+        {t("mentorLive.locationOnline")}
+      </Badge>
+    );
+  }
+  if (type === "PHYSICAL") {
+    return (
+      <Badge variant="outline" className="gap-1 text-xs">
+        <MapPin className="h-3 w-3" />
+        {t("mentorLive.locationPhysical")}
+      </Badge>
+    );
+  }
+  // HYBRID
+  return (
+    <Badge variant="outline" className="gap-1 text-xs">
+      <Globe className="h-3 w-3" />
+      {t("mentorLive.locationHybrid")}
+    </Badge>
+  );
+}
+
+function EventLocationInfo({ event, compact }: { event: LiveEventDTO; compact?: boolean }) {
+  const effectiveUrl = getEffectiveUrl(event);
+  const showUrl = event.locationType !== "PHYSICAL" && effectiveUrl;
+  const showPhysical = event.locationType !== "ONLINE" && event.physicalLocation;
+
+  if (!showUrl && !showPhysical) return null;
+
+  if (compact) {
+    return (
+      <div className="flex items-center gap-2 flex-wrap">
+        {showPhysical && (
+          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+            <MapPin className="h-3 w-3" />
+            {event.physicalLocation}
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-1.5">
+      {showPhysical && (
+        <div className="flex items-center gap-2 text-sm">
+          <MapPin className="h-4 w-4 text-muted-foreground" />
+          <span className="text-muted-foreground">{event.physicalLocation}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Group badges ─────────────────────────────────────────────────────────────
 
 function EventGroupBadges({ event }: { event: LiveEventDTO }) {
@@ -88,22 +169,30 @@ function EventHighlight({
   modules,
   groups,
   locale,
+  myAttendance,
 }: {
   event: LiveEventDTO;
   isAdmin: boolean;
   modules: { id: string; title: string }[];
   groups: { id: string; name: string }[];
   locale: string;
+  myAttendance: MyAttendanceMap;
 }) {
+  const effectiveUrl = getEffectiveUrl(event);
+  const attendance = myAttendance[event.id];
+
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
-          <div>
+          <div className="space-y-1">
             <p className="text-xs font-medium uppercase tracking-wider text-primary mb-1">
               {t("mentorLive.nextEvent")}
             </p>
             <CardTitle className="text-xl">{event.title}</CardTitle>
+            <div className="flex items-center gap-2 pt-1">
+              <LocationTypeBadge event={event} />
+            </div>
           </div>
           {isAdmin && (
             <div className="flex gap-1 shrink-0">
@@ -121,6 +210,7 @@ function EventHighlight({
           </span>
         </div>
 
+        <EventLocationInfo event={event} />
         <EventGroupBadges event={event} />
 
         {event.instructions && (
@@ -142,18 +232,36 @@ function EventHighlight({
           </div>
         )}
 
+        {/* Attendance: register/cancel for employees */}
+        <div className="flex items-center gap-3 pt-1">
+          <AttendanceButton
+            eventId={event.id}
+            initialStatus={attendance?.status ?? null}
+            isPast={false}
+            xpAwarded={attendance?.xpAwarded}
+          />
+          {event.attendeeCount > 0 && (
+            <span className="text-xs text-muted-foreground flex items-center gap-1">
+              <Users className="h-3 w-3" />
+              {event.attendeeCount} {t("mentorLive.registered").toLowerCase()}
+            </span>
+          )}
+        </div>
+
         <div className="flex items-center gap-3 pt-2">
-          <a
-            href={event.meetUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            <Button size="lg">
-              <MeetPlatformIcon url={event.meetUrl} className="mr-2 h-4 w-4" />
-              {meetPlatformLabel(event.meetUrl)}
-            </Button>
-          </a>
+          {effectiveUrl && event.locationType !== "PHYSICAL" && (
+            <a
+              href={effectiveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2"
+            >
+              <Button size="lg">
+                <MeetPlatformIcon url={effectiveUrl} className="mr-2 h-4 w-4" />
+                {meetPlatformLabel(effectiveUrl)}
+              </Button>
+            </a>
+          )}
           <a href={`/api/calendar/live-event/${event.id}`}>
             <Button variant="outline" size="lg">
               <CalendarPlus className="mr-2 h-4 w-4" />
@@ -161,6 +269,15 @@ function EventHighlight({
             </Button>
           </a>
         </div>
+
+        {/* Admin: attendee management */}
+        {isAdmin && (
+          <AttendeeManager
+            eventId={event.id}
+            attendeeCount={event.attendeeCount}
+            isPast={false}
+          />
+        )}
       </CardContent>
     </Card>
   );
@@ -173,6 +290,8 @@ function EventListItem({
   modules,
   groups,
   locale,
+  isPast,
+  myAttendance,
 }: {
   event: LiveEventDTO;
   showJoin: boolean;
@@ -180,50 +299,87 @@ function EventListItem({
   modules: { id: string; title: string }[];
   groups: { id: string; name: string }[];
   locale: string;
+  isPast: boolean;
+  myAttendance: MyAttendanceMap;
 }) {
+  const effectiveUrl = getEffectiveUrl(event);
+  const attendance = myAttendance[event.id];
+
   return (
-    <div className="flex items-start justify-between gap-4 rounded-lg border bg-card p-4">
-      <div className="min-w-0 flex-1 space-y-1">
-        <h3 className="font-medium truncate">{event.title}</h3>
-        <p className="text-sm text-muted-foreground">
-          {formatEventDateShort(event.startsAt, locale)}
-        </p>
-        <EventGroupBadges event={event} />
-        {event.relatedModule && (
-          <Link
-            href={`/modules/${event.relatedModule.id}`}
-            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-          >
-            <BookOpen className="h-3 w-3" />
-            {event.relatedModule.title}
-          </Link>
-        )}
-      </div>
-      <div className="flex items-center gap-2 shrink-0">
-        {showJoin && (
-          <>
-            <a href={`/api/calendar/live-event/${event.id}`}>
-              <Button variant="ghost" size="sm" className="gap-1.5" title={t("mentorLive.addToCalendar")}>
-                <CalendarPlus className="h-3.5 w-3.5" />
-              </Button>
-            </a>
-            {event.meetUrl && (
-              <a href={event.meetUrl} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="sm" className="gap-1.5">
-                  <MeetPlatformIcon url={event.meetUrl} className="h-3.5 w-3.5" />
-                  {meetPlatformLabel(event.meetUrl)}
+    <div className="rounded-lg border bg-card p-4 space-y-3">
+      {/* Top row: title + actions */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1 space-y-1">
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium truncate">{event.title}</h3>
+            <LocationTypeBadge event={event} />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            {formatEventDateShort(event.startsAt, locale)}
+          </p>
+          <EventLocationInfo event={event} compact />
+          <EventGroupBadges event={event} />
+          {event.relatedModule && (
+            <Link
+              href={`/modules/${event.relatedModule.id}`}
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              <BookOpen className="h-3 w-3" />
+              {event.relatedModule.title}
+            </Link>
+          )}
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          {showJoin && (
+            <>
+              <a href={`/api/calendar/live-event/${event.id}`}>
+                <Button variant="ghost" size="sm" className="gap-1.5" title={t("mentorLive.addToCalendar")}>
+                  <CalendarPlus className="h-3.5 w-3.5" />
                 </Button>
               </a>
-            )}
-          </>
-        )}
-        {isAdmin && (
-          <>
-            <EditLiveEventDialog event={event} modules={modules} groups={groups} />
-            <DeleteLiveEventButton eventId={event.id} />
-          </>
+              {effectiveUrl && event.locationType !== "PHYSICAL" && (
+                <a href={effectiveUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm" className="gap-1.5">
+                    <MeetPlatformIcon url={effectiveUrl} className="h-3.5 w-3.5" />
+                    {meetPlatformLabel(effectiveUrl)}
+                  </Button>
+                </a>
+              )}
+            </>
+          )}
+          {isAdmin && (
+            <>
+              <EditLiveEventDialog event={event} modules={modules} groups={groups} />
+              <DeleteLiveEventButton eventId={event.id} />
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Attendance row */}
+      <div className="flex items-center justify-between gap-3 pt-1 border-t">
+        <AttendanceButton
+          eventId={event.id}
+          initialStatus={attendance?.status ?? null}
+          isPast={isPast}
+          xpAwarded={attendance?.xpAwarded}
+        />
+        {event.attendeeCount > 0 && (
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            <Users className="h-3 w-3" />
+            {event.attendeeCount}
+          </span>
         )}
       </div>
+
+      {/* Admin: attendee management */}
+      {isAdmin && (
+        <AttendeeManager
+          eventId={event.id}
+          attendeeCount={event.attendeeCount}
+          isPast={isPast}
+        />
+      )}
     </div>
   );
 }
@@ -243,6 +399,22 @@ export default async function MentorLivePage() {
   }
 
   const { nextEvent, upcoming, past } = overviewResult.data;
+
+  // Collect all event IDs and batch-fetch current user's attendance
+  const allEvents = [
+    ...(nextEvent ? [nextEvent] : []),
+    ...upcoming,
+    ...past,
+  ];
+  const allEventIds = allEvents.map((e) => e.id);
+
+  let myAttendance: MyAttendanceMap = {};
+  if (allEventIds.length > 0) {
+    const attendanceResult = await getMyAttendanceBatch(allEventIds);
+    if (attendanceResult.success) {
+      myAttendance = attendanceResult.data;
+    }
+  }
 
   // Fetch modules and groups for admin form dropdowns
   let modules: { id: string; title: string }[] = [];
@@ -288,7 +460,14 @@ export default async function MentorLivePage() {
 
       {/* Highlight: next event */}
       {nextEvent && (
-        <EventHighlight event={nextEvent} isAdmin={isAdmin} modules={modules} groups={groups} locale={locale} />
+        <EventHighlight
+          event={nextEvent}
+          isAdmin={isAdmin}
+          modules={modules}
+          groups={groups}
+          locale={locale}
+          myAttendance={myAttendance}
+        />
       )}
 
       {/* Upcoming events */}
@@ -305,6 +484,8 @@ export default async function MentorLivePage() {
                 modules={modules}
                 groups={groups}
                 locale={locale}
+                isPast={false}
+                myAttendance={myAttendance}
               />
             ))}
           </div>
@@ -325,6 +506,8 @@ export default async function MentorLivePage() {
                 modules={modules}
                 groups={groups}
                 locale={locale}
+                isPast={true}
+                myAttendance={myAttendance}
               />
             ))}
           </div>

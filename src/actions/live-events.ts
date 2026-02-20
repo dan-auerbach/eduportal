@@ -310,6 +310,7 @@ export async function createLiveEvent(
         eventTitle: event.title,
         startsAt: event.startsAt,
         meetUrl: onlineUrl ?? meetUrlValue, // use onlineUrl for new events
+        physicalLocation,
       }).catch((err) => {
         console.error("[createLiveEvent] email notification error:", err);
       });

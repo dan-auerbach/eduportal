@@ -157,20 +157,26 @@ export async function GET(req: Request) {
         // Build location info for email
         const effectiveUrl = event.onlineUrl ?? event.meetUrl;
         const locationParts: string[] = [];
+        const linkLabel = locale === "sl" ? "Povezava" : "Link";
+        const locLabel = locale === "sl" ? "Lokacija" : "Location";
         if (event.locationType !== "PHYSICAL" && effectiveUrl) {
-          locationParts.push(`Povezava: ${effectiveUrl}`);
+          locationParts.push(`${linkLabel}: ${effectiveUrl}`);
         }
         if (event.locationType !== "ONLINE" && event.physicalLocation) {
-          locationParts.push(`Lokacija: ${event.physicalLocation}`);
+          locationParts.push(`${locLabel}: ${event.physicalLocation}`);
         }
         const locationInfo = locationParts.join("\n  ");
+
+        const baseUrl = process.env.NEXTAUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? "";
+        const portalLink = `${baseUrl}/mentor-v-zivo`;
 
         const body = renderTemplate(defaults.liveReminderBody, {
           firstName: target.user.firstName,
           eventTitle: event.title,
           startsAt: formattedDate,
-          meetUrl: effectiveUrl,
+          meetUrl: effectiveUrl ?? "",
           location: locationInfo,
+          portalLink,
           tenantName: tenant.name,
         });
 

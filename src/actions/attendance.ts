@@ -168,6 +168,47 @@ export async function getMyAttendance(
   }
 }
 
+// ── Employee: Get My Attendance for Multiple Events ─────────────────────
+
+export type MyAttendanceMap = Record<
+  string,
+  { status: AttendanceStatus; xpAwarded: boolean } | null
+>;
+
+export async function getMyAttendanceBatch(
+  eventIds: string[],
+): Promise<ActionResult<MyAttendanceMap>> {
+  try {
+    const ctx = await getTenantContext();
+
+    if (eventIds.length === 0) {
+      return { success: true, data: {} };
+    }
+
+    const attendances = await prisma.liveEventAttendance.findMany({
+      where: {
+        eventId: { in: eventIds },
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+      },
+      select: { eventId: true, status: true, xpAwarded: true },
+    });
+
+    const map: MyAttendanceMap = {};
+    for (const eid of eventIds) {
+      map[eid] = null;
+    }
+    for (const a of attendances) {
+      map[a.eventId] = { status: a.status, xpAwarded: a.xpAwarded };
+    }
+
+    return { success: true, data: map };
+  } catch (e) {
+    if (e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
 // ── Admin: Get Event Attendees ───────────────────────────────────────────────
 
 export async function getEventAttendees(

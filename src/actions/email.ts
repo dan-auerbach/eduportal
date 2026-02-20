@@ -797,6 +797,7 @@ export async function sendLiveEventCreatedNotification(opts: {
   eventTitle: string;
   startsAt: Date;
   meetUrl: string;
+  physicalLocation?: string | null;
 }): Promise<void> {
   try {
     const tenant = await prisma.tenant.findUnique({
@@ -858,11 +859,29 @@ export async function sendLiveEventCreatedNotification(opts: {
         startsAt: formattedDate,
         tenantName: tenant.name,
       });
+
+      // Build location info
+      const linkLabel = locale === "sl" ? "Povezava" : "Link";
+      const locLabel = locale === "sl" ? "Lokacija" : "Location";
+      const locationParts: string[] = [];
+      if (opts.meetUrl) {
+        locationParts.push(`${linkLabel}: ${opts.meetUrl}`);
+      }
+      if (opts.physicalLocation) {
+        locationParts.push(`${locLabel}: ${opts.physicalLocation}`);
+      }
+      const locationInfo = locationParts.join("\n  ");
+
+      const baseUrl = process.env.NEXTAUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? "";
+      const portalLink = `${baseUrl}/mentor-v-zivo`;
+
       const body = renderTemplate(defaults.liveCreatedBody, {
         firstName: user.firstName,
         eventTitle: opts.eventTitle,
         startsAt: formattedDate,
         meetUrl: opts.meetUrl,
+        location: locationInfo,
+        portalLink,
         tenantName: tenant.name,
       });
 

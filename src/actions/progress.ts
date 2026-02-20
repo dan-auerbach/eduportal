@@ -8,6 +8,7 @@ import { getTenantContext } from "@/lib/tenant";
 import { TenantAccessError } from "@/lib/tenant";
 import { getModuleProgress, type ModuleProgress } from "@/lib/progress";
 import { awardXp, XP_RULES } from "@/lib/xp";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 
 // ---------------------------------------------------------------------------
@@ -17,7 +18,7 @@ import type { ActionResult } from "@/types";
 export async function completeSection(
   sectionId: string
 ): Promise<ActionResult<{ completed: boolean; moduleCompleted: boolean; readyForQuiz: boolean; certificateIssued: boolean }>> {
-  try {
+  return withAction("completeSection", async ({ log }) => {
     const ctx = await getTenantContext();
 
     // Verify section exists and get moduleId
@@ -95,6 +96,8 @@ export async function completeSection(
       }
     }
 
+    log({ sectionId, moduleId: section.moduleId, moduleCompleted: progress.status === "COMPLETED", certificateIssued });
+
     return {
       success: true,
       data: {
@@ -104,12 +107,7 @@ export async function completeSection(
         certificateIssued,
       },
     };
-  } catch (e) {
-    if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
-      return { success: false, error: e.message };
-    }
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri zaključevanju sekcije" };
-  }
+  });
 }
 
 // ---------------------------------------------------------------------------

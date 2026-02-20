@@ -46,6 +46,7 @@ export async function GET(req: NextRequest) {
   const where: Record<string, unknown> = {
     tenantId: ctx.tenantId,
     moduleId: moduleId ?? null, // null = global chat
+    type: { not: "JOIN" as const },
   };
   if (afterId) {
     where.id = { gt: afterId };

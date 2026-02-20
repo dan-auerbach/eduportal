@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // C4: Only count global chat messages (moduleId=null), not module-specific ones
-    const where: Record<string, unknown> = { tenantId: ctx.tenantId, moduleId: null };
+    const where: Record<string, unknown> = { tenantId: ctx.tenantId, moduleId: null, type: { not: "JOIN" as const } };
 
     // If user has a lastRead marker, count only newer messages.
     // If no marker (never opened chat), count ALL messages so the badge shows up.

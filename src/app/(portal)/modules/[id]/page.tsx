@@ -206,6 +206,7 @@ export default async function ModuleViewerPage({
         }))}
         assignmentGroups={assignmentGroups}
         chatEnabled={!isPreview}
+        tenantSlug={ctx.tenantSlug}
         tenantId={ctx.tenantId}
         userId={user.id}
         userDisplayName={userDisplayName}

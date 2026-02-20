@@ -140,6 +140,7 @@ export const en = {
     mentorLiveNoEvents: "No scheduled events",
     radar: "Radar",
     assetAudit: "Assets",
+    errorLog: "Errors",
     leaderboard: "Leaderboard",
     rewards: "Rewards",
     suggestions: "Suggestions",
@@ -147,6 +148,7 @@ export const en = {
     adminSuggestions: "Suggestions",
     managerDashboard: "Dashboard",
     compliance: "Compliance",
+    online: "Online",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1179,6 +1181,25 @@ export const en = {
     assetSize: "Size",
     usageCount: "Used by",
     assetDate: "Date",
+    // Error Log
+    errors: {
+      title: "System Errors",
+      subtitle: "Error log from server actions and cron jobs.",
+      noErrors: "No errors recorded.",
+      recentErrors: "Recent Errors",
+      time: "Time",
+      tenant: "Tenant",
+      route: "Action",
+      message: "Message",
+      severity: "Severity",
+      requestId: "Request ID",
+      stack: "Stack trace",
+      meta: "Metadata",
+      detail: "Error Details",
+      allRoutes: "All actions",
+      allTenants: "All tenants",
+      allSeverities: "All severities",
+    },
   },
 
   // ── Plans ──────────────────────────────────────────────────

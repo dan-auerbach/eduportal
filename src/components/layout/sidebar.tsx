@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { t } from "@/lib/i18n";
 import type { NavCounts } from "@/hooks/use-nav-counts";
+import { OnlineUsers } from "@/components/layout/online-users";
 import {
   GraduationCap,
   LayoutDashboard,
@@ -18,6 +19,7 @@ import {
   Settings,
   FileText,
   AlertTriangle,
+  AlertCircle,
   Building2,
   Hash,
   Star,
@@ -66,6 +68,7 @@ const adminNav: NavItem[] = [
 const ownerNav: NavItem[] = [
   { href: "/owner", labelKey: "nav.tenants", icon: Building2 },
   { href: "/owner/assets", labelKey: "nav.assetAudit", icon: HardDrive },
+  { href: "/owner/errors", labelKey: "nav.errorLog", icon: AlertCircle },
 ];
 
 // ── Sidebar ──────────────────────────────────────────────────────────────────
@@ -241,6 +244,9 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
           );
         })}
       </nav>
+
+      {/* Online users */}
+      <OnlineUsers />
 
       {/* Logo at bottom */}
       <div className="border-t px-4 py-4 flex justify-center">

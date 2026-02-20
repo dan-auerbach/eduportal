@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
     const where: Record<string, unknown> = {
       tenantId: ctx.tenantId,
       moduleId,
+      type: { not: "JOIN" as const },
     };
 
     if (afterId) {

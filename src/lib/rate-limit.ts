@@ -137,11 +137,6 @@ export async function rateLimitConfirmAnswer(userId: string): Promise<RateLimitR
   return rateLimit(`chat:confirm:${userId}`, 10, 60_000);
 }
 
-/** Chat join: 1 per 5 min per user per channel */
-export async function rateLimitChatJoin(userId: string, channelKey: string): Promise<RateLimitResult> {
-  return rateLimit(`chat:join:${userId}:${channelKey}`, 1, 300_000);
-}
-
 /** Chat polling (GET): 30 per 60s per user */
 export async function rateLimitChatPoll(userId: string): Promise<RateLimitResult> {
   return rateLimit(`chat:poll:${userId}`, 30, 60_000);
@@ -180,4 +175,19 @@ export async function rateLimitSuggestionCreate(userId: string): Promise<RateLim
 /** Reward redemption: 5 per minute per user */
 export async function rateLimitRedemption(userId: string): Promise<RateLimitResult> {
   return rateLimit(`reward:redeem:${userId}`, 5, 60_000);
+}
+
+/** Presence heartbeat: 4 per 60s per user */
+export async function rateLimitPresencePing(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`presence:ping:${userId}`, 4, 60_000);
+}
+
+/** Presence online list: 10 per 60s per user */
+export async function rateLimitPresenceList(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`presence:list:${userId}`, 10, 60_000);
+}
+
+/** Chat SSE stream: 6 per 60s per user */
+export async function rateLimitChatSSE(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`chat:sse:${userId}`, 6, 60_000);
 }

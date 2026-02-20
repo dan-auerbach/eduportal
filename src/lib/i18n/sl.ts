@@ -140,6 +140,7 @@ export const sl = {
     mentorLiveNoEvents: "Ni razpisanih terminov",
     radar: "Radar",
     assetAudit: "Sredstva",
+    errorLog: "Napake",
     leaderboard: "Lestvica",
     rewards: "Nagrade",
     suggestions: "Predlogi znanj",
@@ -147,6 +148,7 @@ export const sl = {
     adminSuggestions: "Predlogi znanj",
     managerDashboard: "Nadzorna plošča",
     compliance: "Veljavnost",
+    online: "Aktivni",
   },
 
   // ── Auth ──────────────────────────────────────────────────────────
@@ -1193,6 +1195,25 @@ export const sl = {
     assetSize: "Velikost",
     usageCount: "V uporabi",
     assetDate: "Datum",
+    // Error Log
+    errors: {
+      title: "Sistemske napake",
+      subtitle: "Pregled napak iz strežniških akcij in cron opravil.",
+      noErrors: "Ni zabeleženih napak.",
+      recentErrors: "Zadnje napake",
+      time: "Čas",
+      tenant: "Podjetje",
+      route: "Akcija",
+      message: "Sporočilo",
+      severity: "Resnost",
+      requestId: "ID zahteve",
+      stack: "Stack trace",
+      meta: "Metapodatki",
+      detail: "Podrobnosti napake",
+      allRoutes: "Vse akcije",
+      allTenants: "Vsa podjetja",
+      allSeverities: "Vse resnosti",
+    },
   },
 
   // ── Plans ──────────────────────────────────────────────────

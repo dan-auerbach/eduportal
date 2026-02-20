@@ -38,7 +38,8 @@ import { cn } from "@/lib/utils";
 import { completeSection } from "@/actions/progress";
 import { acknowledgeModuleUpdate } from "@/actions/modules";
 import { t } from "@/lib/i18n";
-import { ModuleChatRoom } from "@/components/modules/module-chat-room";
+import { ChatThread } from "@/components/chat/chat-thread";
+import { buildChatLabels } from "@/lib/chat-labels";
 import { TargetVideoPlayer } from "@/components/modules/target-video-player";
 
 type SectionData = {
@@ -89,6 +90,7 @@ type SectionViewerProps = {
   assignmentGroups?: string[];
   // Chat props
   chatEnabled?: boolean;
+  tenantSlug?: string;
   tenantId?: string;
   userId?: string;
   userDisplayName?: string;
@@ -216,6 +218,7 @@ export function SectionViewer({
   mentors = [],
   assignmentGroups = [],
   chatEnabled = false,
+  tenantSlug,
   tenantId,
   userId,
   userDisplayName,
@@ -567,16 +570,19 @@ export function SectionViewer({
         )}
 
         {/* Chat tab content */}
-        {chatEnabled && !isPreview && activeTab === "chat" && tenantId && userId && userDisplayName && (
+        {chatEnabled && !isPreview && activeTab === "chat" && tenantSlug && tenantId && userId && userDisplayName && (
           <div className="flex-1 min-h-0">
-            <ModuleChatRoom
-              moduleId={moduleId}
-              moduleTitle={moduleTitle}
+            <ChatThread
+              scope={{ kind: "MODULE", moduleId }}
+              tenantSlug={tenantSlug}
               tenantId={tenantId}
               userId={userId}
               userDisplayName={userDisplayName}
+              moduleTitle={moduleTitle}
               mentorIds={mentorIds}
               canConfirmAnswers={canConfirmAnswers}
+              labels={buildChatLabels({ kind: "MODULE", moduleId })}
+              variant="embedded"
             />
           </div>
         )}

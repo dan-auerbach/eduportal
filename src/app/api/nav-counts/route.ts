@@ -48,6 +48,7 @@ export async function GET(req: NextRequest) {
         where: {
           tenantId: ctx.tenantId,
           moduleId: null,
+          type: { not: "JOIN" as const },
           ...(chatAfter ? { id: { gt: chatAfter } } : {}),
         },
       }),

@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { getTenantContext } from "@/lib/tenant";
-import { setLocale, t } from "@/lib/i18n";
-import { ChatRoom } from "./chat-room";
+import { setLocale } from "@/lib/i18n";
+import { ChatThread } from "@/components/chat/chat-thread";
+import { buildChatLabels } from "@/lib/chat-labels";
 
 export default async function ChatPage() {
   const ctx = await getTenantContext();
@@ -23,9 +24,9 @@ export default async function ChatPage() {
   const canSetTopic = role === "ADMIN" || role === "SUPER_ADMIN" || role === "OWNER";
 
   return (
-    <ChatRoom
+    <ChatThread
+      scope={{ kind: "TENANT" }}
       tenantSlug={ctx.tenantSlug}
-      tenantName={ctx.tenantName}
       tenantId={ctx.tenantId}
       userId={ctx.user.id}
       userDisplayName={displayName}
@@ -33,25 +34,8 @@ export default async function ChatPage() {
       userLastName={lastName}
       initialTopic={tenant?.chatTopic ?? null}
       canSetTopic={canSetTopic}
-      labels={{
-        title: t("chat.title"),
-        send: t("chat.send"),
-        placeholder: t("chat.placeholder"),
-        joined: t("chat.joined"),
-        noMessages: t("chat.noMessages"),
-        error: t("chat.error"),
-        newMessages: t("chat.newMessages"),
-        topicLabel: t("chat.topicLabel"),
-        noTopic: t("chat.noTopic"),
-        unknownCommand: t("chat.unknownCommand"),
-        helpTitle: t("chat.helpTitle"),
-        helpMe: t("chat.helpMe"),
-        helpShrug: t("chat.helpShrug"),
-        helpAfk: t("chat.helpAfk"),
-        helpTopic: t("chat.helpTopic"),
-        helpHelp: t("chat.helpHelp"),
-        helpClose: t("chat.helpClose"),
-      }}
+      labels={buildChatLabels({ kind: "TENANT" })}
+      variant="full"
     />
   );
 }

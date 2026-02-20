@@ -8,7 +8,6 @@ import {
   rateLimitChatMessage,
   rateLimitChatTopic,
   rateLimitConfirmAnswer,
-  rateLimitChatJoin,
 } from "@/lib/rate-limit";
 import { awardXp, XP_RULES } from "@/lib/xp";
 import type { ActionResult } from "@/types";
@@ -121,6 +120,7 @@ export async function getChatMessages(
     const where: Record<string, unknown> = {
       tenantId: ctx.tenantId,
       moduleId: moduleId ?? null, // null = global chat, string = module chat
+      type: { not: "JOIN" as const },
     };
 
     if (afterId) {
@@ -360,45 +360,6 @@ export async function setChatTopic(topic: string): Promise<ActionResult<ChatMess
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Failed to set topic" };
-  }
-}
-
-/**
- * Log a JOIN message when user enters the chat.
- * Should be called once per session (client tracks via sessionStorage).
- */
-export async function joinChat(moduleId?: string | null): Promise<ActionResult<ChatMessageDTO>> {
-  try {
-    const ctx = await getTenantContext();
-
-    // C2+C7/C8: Rate limit joins — max 1 per channel per 5 minutes
-    const channelKey = moduleId ?? "global";
-    const joinRl = await rateLimitChatJoin(ctx.user.id, channelKey);
-    if (!joinRl.success) {
-      // Silently succeed — don't create duplicate JOIN messages
-      return { success: true, data: { id: "", type: "JOIN", displayName: "", body: "", createdAt: new Date().toISOString(), userId: null, moduleId: null, isConfirmedAnswer: false, confirmedByName: null, isMentor: false } };
-    }
-
-    const displayName = getDisplayName(ctx.user);
-
-    const message = await prisma.chatMessage.create({
-      data: {
-        tenantId: ctx.tenantId,
-        userId: ctx.user.id,
-        type: "JOIN",
-        displayName,
-        body: "",
-        moduleId: moduleId ?? null,
-      },
-      select: MSG_SELECT,
-    });
-
-    return { success: true, data: toDTO(message as RawMessage) };
-  } catch (e) {
-    if (e instanceof TenantAccessError) {
-      return { success: false, error: e.message };
-    }
-    return { success: false, error: e instanceof Error ? e.message : "Failed to join chat" };
   }
 }
 

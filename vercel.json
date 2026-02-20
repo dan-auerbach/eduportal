@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "src/app/api/chat/stream/route.ts": { "maxDuration": 30 }
+  },
   "crons": [
     { "path": "/api/cron/deadline-reminders", "schedule": "0 8 * * *" },
     { "path": "/api/cron/dedup-cleanup", "schedule": "0 3 * * 0" },

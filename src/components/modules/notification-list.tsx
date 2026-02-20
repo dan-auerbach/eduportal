@@ -64,6 +64,8 @@ const typeIcons: Record<NotificationData["type"], React.ReactNode> = {
   SUGGESTION_STATUS_CHANGED: <Lightbulb className="h-4 w-4 text-blue-500" />,
   MODULE_EXPIRING: <ShieldCheck className="h-4 w-4 text-amber-500" />,
   MODULE_EXPIRED: <ShieldCheck className="h-4 w-4 text-red-500" />,
+  EVENT_ATTENDANCE_CONFIRMED: <Check className="h-4 w-4 text-green-500" />,
+  EVENT_REMINDER_ATTENDANCE: <Clock className="h-4 w-4 text-blue-500" />,
 };
 
 function getTypeLabel(type: NotificationData["type"]): string {
@@ -86,6 +88,8 @@ function getTypeLabel(type: NotificationData["type"]): string {
     SUGGESTION_STATUS_CHANGED: t("notifications.typeSuggestionStatus"),
     MODULE_EXPIRING: t("notifications.typeModuleExpiring"),
     MODULE_EXPIRED: t("notifications.typeModuleExpired"),
+    EVENT_ATTENDANCE_CONFIRMED: t("notifications.typeAttendanceConfirmed"),
+    EVENT_REMINDER_ATTENDANCE: t("notifications.typeAttendanceReminder"),
   };
   return map[type];
 }

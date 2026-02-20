@@ -73,6 +73,9 @@ export async function GET(req: Request) {
         title: true,
         startsAt: true,
         meetUrl: true,
+        locationType: true,
+        onlineUrl: true,
+        physicalLocation: true,
         groups: { select: { groupId: true } },
       },
     });
@@ -151,11 +154,23 @@ export async function GET(req: Request) {
           startsAt: formattedDate,
           tenantName: tenant.name,
         });
+        // Build location info for email
+        const effectiveUrl = event.onlineUrl ?? event.meetUrl;
+        const locationParts: string[] = [];
+        if (event.locationType !== "PHYSICAL" && effectiveUrl) {
+          locationParts.push(`Povezava: ${effectiveUrl}`);
+        }
+        if (event.locationType !== "ONLINE" && event.physicalLocation) {
+          locationParts.push(`Lokacija: ${event.physicalLocation}`);
+        }
+        const locationInfo = locationParts.join("\n  ");
+
         const body = renderTemplate(defaults.liveReminderBody, {
           firstName: target.user.firstName,
           eventTitle: event.title,
           startsAt: formattedDate,
-          meetUrl: event.meetUrl,
+          meetUrl: effectiveUrl,
+          location: locationInfo,
           tenantName: tenant.name,
         });
 

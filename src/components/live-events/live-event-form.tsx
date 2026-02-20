@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Pencil, Video } from "lucide-react";
+import { Plus, Pencil, Video, MapPin, Globe, Building2 } from "lucide-react";
 import { t } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -164,6 +164,50 @@ function GroupCheckboxes({
   );
 }
 
+// ── Location Type Selector ───────────────────────────────────────────────────
+
+type LocationType = "ONLINE" | "PHYSICAL" | "HYBRID";
+
+function LocationTypeSelector({
+  value,
+  onChange,
+}: {
+  value: LocationType;
+  onChange: (v: LocationType) => void;
+}) {
+  const options: { value: LocationType; label: string; icon: typeof Globe }[] = [
+    { value: "ONLINE", label: t("mentorLive.locationOnline"), icon: Globe },
+    { value: "PHYSICAL", label: t("mentorLive.locationPhysical"), icon: Building2 },
+    { value: "HYBRID", label: t("mentorLive.locationHybrid"), icon: MapPin },
+  ];
+
+  return (
+    <div className="space-y-2">
+      <Label>{t("mentorLive.locationTypeField")}</Label>
+      <div className="flex gap-2">
+        {options.map((opt) => {
+          const Icon = opt.icon;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onChange(opt.value)}
+              className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+                value === opt.value
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-input bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Create Dialog ────────────────────────────────────────────────────────────
 
 export function CreateLiveEventDialog({
@@ -179,10 +223,11 @@ export function CreateLiveEventDialog({
   const [selectedGroups, setSelectedGroups] = useState<Set<string>>(new Set());
   const [meetUrl, setMeetUrl] = useState("");
   const [activePlatform, setActivePlatform] = useState<MeetPlatform>("meet");
+  const [locationType, setLocationType] = useState<LocationType>("ONLINE");
+  const [physicalLocation, setPhysicalLocation] = useState("");
 
   function handlePlatformSelect(platform: MeetPlatform) {
     setActivePlatform(platform);
-    // If URL is empty or matches a different platform prefix, set a new prefix
     const current = meetUrl.trim();
     if (!current || detectPlatform(current) !== platform) {
       if (platform === "meet") setMeetUrl("https://meet.google.com/");
@@ -201,7 +246,10 @@ export function CreateLiveEventDialog({
     const data = {
       title: (formData.get("title") as string) || "",
       startsAt: startsAtISO,
-      meetUrl: meetUrl || "",
+      locationType,
+      onlineUrl: locationType !== "PHYSICAL" ? meetUrl || null : null,
+      physicalLocation: locationType !== "ONLINE" ? physicalLocation || null : null,
+      meetUrl: meetUrl || "", // legacy
       instructions: (formData.get("instructions") as string) || undefined,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
       groupIds: [...selectedGroups],
@@ -215,6 +263,8 @@ export function CreateLiveEventDialog({
         setSelectedGroups(new Set());
         setMeetUrl("");
         setActivePlatform("meet");
+        setLocationType("ONLINE");
+        setPhysicalLocation("");
         router.refresh();
       } else {
         toast.error(result.error);
@@ -243,22 +293,39 @@ export function CreateLiveEventDialog({
             <Label htmlFor="startsAt">{t("mentorLive.dateField")}</Label>
             <Input id="startsAt" name="startsAt" type="datetime-local" required />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="meetUrl">{t("mentorLive.meetUrlField")}</Label>
-            <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
-            <Input
-              id="meetUrl"
-              name="meetUrl"
-              type="url"
-              required
-              value={meetUrl}
-              onChange={(e) => {
-                setMeetUrl(e.target.value);
-                setActivePlatform(detectPlatform(e.target.value));
-              }}
-              placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
-            />
-          </div>
+          <LocationTypeSelector value={locationType} onChange={setLocationType} />
+          {locationType !== "PHYSICAL" && (
+            <div className="space-y-2">
+              <Label htmlFor="meetUrl">{t("mentorLive.meetUrlField")}</Label>
+              <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
+              <Input
+                id="meetUrl"
+                name="meetUrl"
+                type="url"
+                required={locationType === "ONLINE"}
+                value={meetUrl}
+                onChange={(e) => {
+                  setMeetUrl(e.target.value);
+                  setActivePlatform(detectPlatform(e.target.value));
+                }}
+                placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
+              />
+            </div>
+          )}
+          {locationType !== "ONLINE" && (
+            <div className="space-y-2">
+              <Label htmlFor="physicalLocation">{t("mentorLive.physicalLocationField")}</Label>
+              <Input
+                id="physicalLocation"
+                name="physicalLocation"
+                required={locationType === "PHYSICAL"}
+                value={physicalLocation}
+                onChange={(e) => setPhysicalLocation(e.target.value)}
+                maxLength={500}
+                placeholder={t("mentorLive.physicalLocationPlaceholder")}
+              />
+            </div>
+          )}
           <div className="space-y-2">
             <Label htmlFor="instructions">{t("mentorLive.instructionsField")}</Label>
             <Textarea id="instructions" name="instructions" rows={3} maxLength={2000} />
@@ -313,11 +380,14 @@ export function EditLiveEventDialog({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const effectiveUrl = event.onlineUrl ?? event.meetUrl;
   const [selectedGroups, setSelectedGroups] = useState<Set<string>>(
     new Set(event.groups.map((g) => g.id))
   );
-  const [meetUrl, setMeetUrl] = useState(event.meetUrl);
-  const [activePlatform, setActivePlatform] = useState<MeetPlatform>(detectPlatform(event.meetUrl));
+  const [meetUrl, setMeetUrl] = useState(effectiveUrl);
+  const [activePlatform, setActivePlatform] = useState<MeetPlatform>(detectPlatform(effectiveUrl));
+  const [locationType, setLocationType] = useState<LocationType>(event.locationType);
+  const [physicalLocation, setPhysicalLocation] = useState(event.physicalLocation ?? "");
 
   // Sync selectedGroups when event.groups changes (e.g. after router.refresh())
   const eventGroupIds = event.groups.map((g) => g.id).sort().join(",");
@@ -327,12 +397,12 @@ export function EditLiveEventDialog({
     setSelectedGroups(new Set(event.groups.map((g) => g.id)));
   }
 
-  // Sync meetUrl when event.meetUrl changes
-  const [prevMeetUrl, setPrevMeetUrl] = useState(event.meetUrl);
-  if (event.meetUrl !== prevMeetUrl) {
-    setPrevMeetUrl(event.meetUrl);
-    setMeetUrl(event.meetUrl);
-    setActivePlatform(detectPlatform(event.meetUrl));
+  // Sync meetUrl when event changes
+  const [prevMeetUrl, setPrevMeetUrl] = useState(effectiveUrl);
+  if (effectiveUrl !== prevMeetUrl) {
+    setPrevMeetUrl(effectiveUrl);
+    setMeetUrl(effectiveUrl);
+    setActivePlatform(detectPlatform(effectiveUrl));
   }
 
   function handlePlatformSelect(platform: MeetPlatform) {
@@ -355,7 +425,10 @@ export function EditLiveEventDialog({
     const data = {
       title: (formData.get("title") as string) || undefined,
       startsAt: startsAtISO,
-      meetUrl: meetUrl || undefined,
+      locationType,
+      onlineUrl: locationType !== "PHYSICAL" ? meetUrl || null : null,
+      physicalLocation: locationType !== "ONLINE" ? physicalLocation || null : null,
+      meetUrl: meetUrl || undefined, // legacy
       instructions: (formData.get("instructions") as string) || null,
       relatedModuleId: (formData.get("relatedModuleId") as string) || null,
       groupIds: [...selectedGroups],
@@ -406,22 +479,39 @@ export function EditLiveEventDialog({
               defaultValue={toLocalDatetimeString(event.startsAt)}
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="edit-meetUrl">{t("mentorLive.meetUrlField")}</Label>
-            <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
-            <Input
-              id="edit-meetUrl"
-              name="meetUrl"
-              type="url"
-              required
-              value={meetUrl}
-              onChange={(e) => {
-                setMeetUrl(e.target.value);
-                setActivePlatform(detectPlatform(e.target.value));
-              }}
-              placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
-            />
-          </div>
+          <LocationTypeSelector value={locationType} onChange={setLocationType} />
+          {locationType !== "PHYSICAL" && (
+            <div className="space-y-2">
+              <Label htmlFor="edit-meetUrl">{t("mentorLive.meetUrlField")}</Label>
+              <PlatformQuickSelect currentUrl={meetUrl} onSelect={handlePlatformSelect} />
+              <Input
+                id="edit-meetUrl"
+                name="meetUrl"
+                type="url"
+                required={locationType === "ONLINE"}
+                value={meetUrl}
+                onChange={(e) => {
+                  setMeetUrl(e.target.value);
+                  setActivePlatform(detectPlatform(e.target.value));
+                }}
+                placeholder={PLATFORM_PLACEHOLDERS[activePlatform]}
+              />
+            </div>
+          )}
+          {locationType !== "ONLINE" && (
+            <div className="space-y-2">
+              <Label htmlFor="edit-physicalLocation">{t("mentorLive.physicalLocationField")}</Label>
+              <Input
+                id="edit-physicalLocation"
+                name="physicalLocation"
+                required={locationType === "PHYSICAL"}
+                value={physicalLocation}
+                onChange={(e) => setPhysicalLocation(e.target.value)}
+                maxLength={500}
+                placeholder={t("mentorLive.physicalLocationPlaceholder")}
+              />
+            </div>
+          )}
           <div className="space-y-2">
             <Label htmlFor="edit-instructions">{t("mentorLive.instructionsField")}</Label>
             <Textarea

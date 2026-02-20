@@ -257,6 +257,105 @@ const MIGRATIONS: Migration[] = [
       `CREATE INDEX IF NOT EXISTS "UserXpBalance_tenantId_lifetimeXp_idx" ON "UserXpBalance"("tenantId", "lifetimeXp");`,
     ],
   },
+  {
+    name: "20260220100000_system_error_table",
+    statements: [
+      `CREATE TABLE IF NOT EXISTS "SystemError" (
+        "id" TEXT NOT NULL,
+        "tenantId" TEXT,
+        "tenantSlug" TEXT,
+        "route" TEXT NOT NULL,
+        "userId" TEXT,
+        "requestId" TEXT NOT NULL,
+        "message" TEXT NOT NULL,
+        "stack" TEXT,
+        "meta" JSONB,
+        "severity" TEXT NOT NULL DEFAULT 'ERROR',
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT "SystemError_pkey" PRIMARY KEY ("id")
+      );`,
+      `CREATE INDEX IF NOT EXISTS "SystemError_createdAt_idx" ON "SystemError"("createdAt");`,
+      `CREATE INDEX IF NOT EXISTS "SystemError_tenantId_createdAt_idx" ON "SystemError"("tenantId", "createdAt");`,
+      `CREATE INDEX IF NOT EXISTS "SystemError_route_createdAt_idx" ON "SystemError"("route", "createdAt");`,
+      `CREATE INDEX IF NOT EXISTS "SystemError_requestId_idx" ON "SystemError"("requestId");`,
+    ],
+  },
+  {
+    name: "20260220120000_live_events_v2_attendance_suggestion_xp",
+    statements: [
+      // ── New enums ──
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'LiveEventLocationType') THEN CREATE TYPE "LiveEventLocationType" AS ENUM ('ONLINE','PHYSICAL','HYBRID'); END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'AttendanceStatus') THEN CREATE TYPE "AttendanceStatus" AS ENUM ('REGISTERED','CANCELLED','ATTENDED','NO_SHOW'); END IF; END $$;`,
+
+      // ── New XpSourceType values ──
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'SUGGESTION_CREATED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'XpSourceType')) THEN ALTER TYPE "XpSourceType" ADD VALUE 'SUGGESTION_CREATED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'SUGGESTION_APPROVED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'XpSourceType')) THEN ALTER TYPE "XpSourceType" ADD VALUE 'SUGGESTION_APPROVED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'EVENT_ATTENDED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'XpSourceType')) THEN ALTER TYPE "XpSourceType" ADD VALUE 'EVENT_ATTENDED'; END IF; END $$;`,
+
+      // ── New AuditAction values ──
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'ATTENDANCE_REGISTERED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'ATTENDANCE_REGISTERED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'ATTENDANCE_CANCELLED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'ATTENDANCE_CANCELLED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'ATTENDANCE_CONFIRMED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'ATTENDANCE_CONFIRMED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'ATTENDANCE_REVOKED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'ATTENDANCE_REVOKED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'LIVE_EVENT_MATERIAL_ADDED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'LIVE_EVENT_MATERIAL_ADDED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'LIVE_EVENT_MATERIAL_REMOVED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'LIVE_EVENT_MATERIAL_REMOVED'; END IF; END $$;`,
+
+      // ── New NotificationType values ──
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'EVENT_ATTENDANCE_CONFIRMED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'NotificationType')) THEN ALTER TYPE "NotificationType" ADD VALUE 'EVENT_ATTENDANCE_CONFIRMED'; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'EVENT_REMINDER_ATTENDANCE' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'NotificationType')) THEN ALTER TYPE "NotificationType" ADD VALUE 'EVENT_REMINDER_ATTENDANCE'; END IF; END $$;`,
+
+      // ── MentorLiveEvent: add locationType, onlineUrl, physicalLocation ──
+      `ALTER TABLE "MentorLiveEvent" ADD COLUMN IF NOT EXISTS "locationType" "LiveEventLocationType" NOT NULL DEFAULT 'ONLINE';`,
+      `ALTER TABLE "MentorLiveEvent" ADD COLUMN IF NOT EXISTS "onlineUrl" TEXT;`,
+      `ALTER TABLE "MentorLiveEvent" ADD COLUMN IF NOT EXISTS "physicalLocation" TEXT;`,
+      // Backfill onlineUrl from meetUrl for existing rows
+      `UPDATE "MentorLiveEvent" SET "onlineUrl" = "meetUrl" WHERE "onlineUrl" IS NULL AND "meetUrl" IS NOT NULL;`,
+
+      // ── LiveEventMaterial table ──
+      `CREATE TABLE IF NOT EXISTS "LiveEventMaterial" (
+        "id" TEXT NOT NULL,
+        "eventId" TEXT NOT NULL,
+        "assetId" TEXT NOT NULL,
+        "tenantId" TEXT NOT NULL,
+        "visibleBeforeEvent" BOOLEAN NOT NULL DEFAULT false,
+        "addedById" TEXT,
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT "LiveEventMaterial_pkey" PRIMARY KEY ("id")
+      );`,
+      `CREATE INDEX IF NOT EXISTS "LiveEventMaterial_eventId_idx" ON "LiveEventMaterial"("eventId");`,
+      `CREATE INDEX IF NOT EXISTS "LiveEventMaterial_tenantId_idx" ON "LiveEventMaterial"("tenantId");`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventMaterial_eventId_fkey') THEN ALTER TABLE "LiveEventMaterial" ADD CONSTRAINT "LiveEventMaterial_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "MentorLiveEvent"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventMaterial_assetId_fkey') THEN ALTER TABLE "LiveEventMaterial" ADD CONSTRAINT "LiveEventMaterial_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "MediaAsset"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventMaterial_tenantId_fkey') THEN ALTER TABLE "LiveEventMaterial" ADD CONSTRAINT "LiveEventMaterial_tenantId_fkey" FOREIGN KEY ("tenantId") REFERENCES "Tenant"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventMaterial_addedById_fkey') THEN ALTER TABLE "LiveEventMaterial" ADD CONSTRAINT "LiveEventMaterial_addedById_fkey" FOREIGN KEY ("addedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE; END IF; END $$;`,
+
+      // ── LiveEventAttendance table ──
+      `CREATE TABLE IF NOT EXISTS "LiveEventAttendance" (
+        "id" TEXT NOT NULL,
+        "eventId" TEXT NOT NULL,
+        "userId" TEXT NOT NULL,
+        "tenantId" TEXT NOT NULL,
+        "status" "AttendanceStatus" NOT NULL DEFAULT 'REGISTERED',
+        "registeredAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "confirmedById" TEXT,
+        "confirmedAt" TIMESTAMP(3),
+        "xpAwarded" BOOLEAN NOT NULL DEFAULT false,
+        "xpTransactionId" TEXT,
+        "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT "LiveEventAttendance_pkey" PRIMARY KEY ("id")
+      );`,
+      `CREATE UNIQUE INDEX IF NOT EXISTS "LiveEventAttendance_eventId_userId_key" ON "LiveEventAttendance"("eventId", "userId");`,
+      `CREATE INDEX IF NOT EXISTS "LiveEventAttendance_tenantId_eventId_status_idx" ON "LiveEventAttendance"("tenantId", "eventId", "status");`,
+      `CREATE INDEX IF NOT EXISTS "LiveEventAttendance_userId_tenantId_idx" ON "LiveEventAttendance"("userId", "tenantId");`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventAttendance_eventId_fkey') THEN ALTER TABLE "LiveEventAttendance" ADD CONSTRAINT "LiveEventAttendance_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "MentorLiveEvent"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventAttendance_userId_fkey') THEN ALTER TABLE "LiveEventAttendance" ADD CONSTRAINT "LiveEventAttendance_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventAttendance_tenantId_fkey') THEN ALTER TABLE "LiveEventAttendance" ADD CONSTRAINT "LiveEventAttendance_tenantId_fkey" FOREIGN KEY ("tenantId") REFERENCES "Tenant"("id") ON DELETE CASCADE ON UPDATE CASCADE; END IF; END $$;`,
+      `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'LiveEventAttendance_confirmedById_fkey') THEN ALTER TABLE "LiveEventAttendance" ADD CONSTRAINT "LiveEventAttendance_confirmedById_fkey" FOREIGN KEY ("confirmedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE; END IF; END $$;`,
+
+      // ── XpTransaction: partial unique index for idempotency ──
+      `CREATE UNIQUE INDEX IF NOT EXISTS "XpTransaction_idempotency_idx" ON "XpTransaction"("tenantId", "userId", "source", "sourceEntityId") WHERE "sourceEntityId" IS NOT NULL;`,
+    ],
+  },
 ];
 
 async function main() {

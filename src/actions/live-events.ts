@@ -6,6 +6,7 @@ import { logAudit } from "@/lib/audit";
 import { CreateLiveEventSchema, UpdateLiveEventSchema } from "@/lib/validators";
 import { sendLiveEventCreatedNotification } from "@/actions/email";
 import type { ActionResult } from "@/types";
+import type { LiveEventLocationType } from "@/generated/prisma/client";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -15,15 +16,30 @@ export type LiveEventGroupDTO = {
   color: string | null;
 };
 
+export type LiveEventMaterialDTO = {
+  id: string;
+  assetId: string;
+  title: string;
+  mimeType: string | null;
+  sizeBytes: string | null; // BigInt serialized
+  visibleBeforeEvent: boolean;
+  createdAt: string;
+};
+
 export type LiveEventDTO = {
   id: string;
   title: string;
   startsAt: string; // ISO string
-  meetUrl: string;
+  meetUrl: string; // legacy, kept for compat
+  locationType: LiveEventLocationType;
+  onlineUrl: string | null;
+  physicalLocation: string | null;
   instructions: string | null;
   relatedModule: { id: string; title: string } | null;
   createdBy: { firstName: string; lastName: string } | null;
   groups: LiveEventGroupDTO[];
+  materials: LiveEventMaterialDTO[];
+  attendeeCount: number;
   createdAt: string;
 };
 
@@ -40,6 +56,9 @@ const EVENT_SELECT = {
   title: true,
   startsAt: true,
   meetUrl: true,
+  locationType: true,
+  onlineUrl: true,
+  physicalLocation: true,
   instructions: true,
   createdAt: true,
   relatedModule: {
@@ -55,6 +74,20 @@ const EVENT_SELECT = {
       },
     },
   },
+  materials: {
+    select: {
+      id: true,
+      assetId: true,
+      visibleBeforeEvent: true,
+      createdAt: true,
+      asset: {
+        select: { title: true, mimeType: true, sizeBytes: true },
+      },
+    },
+  },
+  _count: {
+    select: { attendances: true },
+  },
 } as const;
 
 type RawEvent = {
@@ -62,11 +95,22 @@ type RawEvent = {
   title: string;
   startsAt: Date;
   meetUrl: string;
+  locationType: LiveEventLocationType;
+  onlineUrl: string | null;
+  physicalLocation: string | null;
   instructions: string | null;
   createdAt: Date;
   relatedModule: { id: string; title: string } | null;
   createdBy: { firstName: string; lastName: string } | null;
   groups: Array<{ group: { id: string; name: string; color: string | null } }>;
+  materials: Array<{
+    id: string;
+    assetId: string;
+    visibleBeforeEvent: boolean;
+    createdAt: Date;
+    asset: { title: string; mimeType: string | null; sizeBytes: bigint | null };
+  }>;
+  _count: { attendances: number };
 };
 
 function toDTO(e: RawEvent): LiveEventDTO {
@@ -75,6 +119,9 @@ function toDTO(e: RawEvent): LiveEventDTO {
     title: e.title,
     startsAt: e.startsAt.toISOString(),
     meetUrl: e.meetUrl,
+    locationType: e.locationType,
+    onlineUrl: e.onlineUrl,
+    physicalLocation: e.physicalLocation,
     instructions: e.instructions,
     relatedModule: e.relatedModule
       ? { id: e.relatedModule.id, title: e.relatedModule.title }
@@ -87,6 +134,16 @@ function toDTO(e: RawEvent): LiveEventDTO {
       name: g.group.name,
       color: g.group.color,
     })),
+    materials: e.materials.map((m) => ({
+      id: m.id,
+      assetId: m.assetId,
+      title: m.asset.title,
+      mimeType: m.asset.mimeType,
+      sizeBytes: m.asset.sizeBytes?.toString() ?? null,
+      visibleBeforeEvent: m.visibleBeforeEvent,
+      createdAt: m.createdAt.toISOString(),
+    })),
+    attendeeCount: e._count.attendances,
     createdAt: e.createdAt.toISOString(),
   };
 }
@@ -213,12 +270,21 @@ export async function createLiveEvent(
     const ctx = await requireTenantRole("ADMIN");
     const parsed = CreateLiveEventSchema.parse(data);
 
+    // Determine effective URL for meetUrl (legacy) and onlineUrl
+    const locationType = (parsed.locationType ?? "ONLINE") as LiveEventLocationType;
+    const onlineUrl = locationType !== "PHYSICAL" ? (parsed.onlineUrl ?? parsed.meetUrl)?.trim() || null : null;
+    const physicalLocation = locationType !== "ONLINE" ? parsed.physicalLocation?.trim() || null : null;
+    const meetUrlValue = onlineUrl ?? parsed.meetUrl?.trim() ?? "";
+
     const event = await prisma.mentorLiveEvent.create({
       data: {
         tenantId: ctx.tenantId,
         title: parsed.title.trim(),
         startsAt: new Date(parsed.startsAt),
-        meetUrl: parsed.meetUrl.trim(),
+        meetUrl: meetUrlValue, // legacy field, kept for compat
+        locationType,
+        onlineUrl,
+        physicalLocation,
         instructions: parsed.instructions?.trim() || null,
         relatedModuleId: parsed.relatedModuleId ?? null,
         createdById: ctx.user.id,
@@ -243,7 +309,7 @@ export async function createLiveEvent(
         groupIds,
         eventTitle: event.title,
         startsAt: event.startsAt,
-        meetUrl: event.meetUrl,
+        meetUrl: onlineUrl ?? meetUrlValue, // use onlineUrl for new events
       }).catch((err) => {
         console.error("[createLiveEvent] email notification error:", err);
       });
@@ -293,10 +359,17 @@ export async function updateLiveEvent(
     if (parsed.title !== undefined) updateData.title = parsed.title.trim();
     if (parsed.startsAt !== undefined) updateData.startsAt = new Date(parsed.startsAt);
     if (parsed.meetUrl !== undefined) updateData.meetUrl = parsed.meetUrl.trim();
+    if (parsed.locationType !== undefined) updateData.locationType = parsed.locationType;
+    if (parsed.onlineUrl !== undefined) updateData.onlineUrl = parsed.onlineUrl?.trim() || null;
+    if (parsed.physicalLocation !== undefined) updateData.physicalLocation = parsed.physicalLocation?.trim() || null;
     if (parsed.instructions !== undefined)
       updateData.instructions = parsed.instructions?.trim() || null;
     if (parsed.relatedModuleId !== undefined)
       updateData.relatedModuleId = parsed.relatedModuleId ?? null;
+    // Keep meetUrl in sync with onlineUrl for backward compat
+    if (parsed.onlineUrl !== undefined && !updateData.meetUrl) {
+      updateData.meetUrl = parsed.onlineUrl?.trim() || "";
+    }
 
     await prisma.mentorLiveEvent.update({
       where: { id },
@@ -373,5 +446,149 @@ export async function deleteLiveEvent(id: string): Promise<ActionResult<void>> {
       return { success: false, error: e.message };
     }
     return { success: false, error: e instanceof Error ? e.message : "Napaka pri brisanju termina" };
+  }
+}
+
+// ── Material Management ──────────────────────────────────────────────────────
+
+/**
+ * Add a material (document asset) to a live event. Admin+ only.
+ */
+export async function addLiveEventMaterial(
+  eventId: string,
+  assetId: string,
+  visibleBeforeEvent: boolean = false,
+): Promise<ActionResult<{ id: string }>> {
+  try {
+    const ctx = await requireTenantRole("ADMIN");
+
+    // Verify event belongs to this tenant
+    const event = await prisma.mentorLiveEvent.findUnique({
+      where: { id: eventId },
+      select: { tenantId: true, title: true },
+    });
+    if (!event || event.tenantId !== ctx.tenantId) {
+      return { success: false, error: "Termin ne obstaja" };
+    }
+
+    // Verify asset belongs to this tenant and is a document
+    const asset = await prisma.mediaAsset.findUnique({
+      where: { id: assetId },
+      select: { tenantId: true, type: true, title: true },
+    });
+    if (!asset || asset.tenantId !== ctx.tenantId) {
+      return { success: false, error: "Datoteka ne obstaja" };
+    }
+
+    const material = await prisma.liveEventMaterial.create({
+      data: {
+        eventId,
+        assetId,
+        tenantId: ctx.tenantId,
+        visibleBeforeEvent,
+        addedById: ctx.user.id,
+      },
+    });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      action: "LIVE_EVENT_MATERIAL_ADDED",
+      entityType: "LiveEventMaterial",
+      entityId: material.id,
+      tenantId: ctx.tenantId,
+      metadata: { eventId, assetId, assetTitle: asset.title, eventTitle: event.title },
+    });
+
+    return { success: true, data: { id: material.id } };
+  } catch (e) {
+    if (e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri dodajanju gradiva" };
+  }
+}
+
+/**
+ * Remove a material from a live event. Admin+ only.
+ */
+export async function removeLiveEventMaterial(
+  materialId: string,
+): Promise<ActionResult<void>> {
+  try {
+    const ctx = await requireTenantRole("ADMIN");
+
+    const material = await prisma.liveEventMaterial.findUnique({
+      where: { id: materialId },
+      select: { tenantId: true, eventId: true, assetId: true, asset: { select: { title: true } } },
+    });
+    if (!material || material.tenantId !== ctx.tenantId) {
+      return { success: false, error: "Gradivo ne obstaja" };
+    }
+
+    await prisma.liveEventMaterial.delete({ where: { id: materialId } });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      action: "LIVE_EVENT_MATERIAL_REMOVED",
+      entityType: "LiveEventMaterial",
+      entityId: materialId,
+      tenantId: ctx.tenantId,
+      metadata: { eventId: material.eventId, assetId: material.assetId, assetTitle: material.asset.title },
+    });
+
+    return { success: true, data: undefined };
+  } catch (e) {
+    if (e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka pri odstranjevanju gradiva" };
+  }
+}
+
+/**
+ * Get materials for a live event. Employees see materials based on visibleBeforeEvent flag.
+ */
+export async function getLiveEventMaterials(
+  eventId: string,
+): Promise<ActionResult<LiveEventMaterialDTO[]>> {
+  try {
+    const ctx = await getTenantContext();
+
+    const event = await prisma.mentorLiveEvent.findUnique({
+      where: { id: eventId },
+      select: { tenantId: true, startsAt: true },
+    });
+    if (!event || event.tenantId !== ctx.tenantId) {
+      return { success: false, error: "Termin ne obstaja" };
+    }
+
+    const now = new Date();
+    const isBeforeEvent = now < event.startsAt;
+    const isAdmin = ["OWNER", "SUPER_ADMIN", "ADMIN"].includes(ctx.effectiveRole);
+
+    const materials = await prisma.liveEventMaterial.findMany({
+      where: {
+        eventId,
+        tenantId: ctx.tenantId,
+        // Non-admin users before event only see materials marked visibleBeforeEvent
+        ...(!isAdmin && isBeforeEvent ? { visibleBeforeEvent: true } : {}),
+      },
+      include: {
+        asset: { select: { title: true, mimeType: true, sizeBytes: true } },
+      },
+      orderBy: { createdAt: "asc" },
+    });
+
+    return {
+      success: true,
+      data: materials.map((m) => ({
+        id: m.id,
+        assetId: m.assetId,
+        title: m.asset.title,
+        mimeType: m.asset.mimeType,
+        sizeBytes: m.asset.sizeBytes?.toString() ?? null,
+        visibleBeforeEvent: m.visibleBeforeEvent,
+        createdAt: m.createdAt.toISOString(),
+      })),
+    };
+  } catch (e) {
+    if (e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }

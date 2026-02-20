@@ -586,6 +586,40 @@ export type EnumChatMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumChatMessageTypeFilter<$PrismaModel>
 }
 
+export type EnumLiveEventLocationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveEventLocationType | Prisma.EnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel> | $Enums.LiveEventLocationType
+}
+
+export type EnumLiveEventLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveEventLocationType | Prisma.EnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveEventLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.LiveEventLocationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel>
+}
+
+export type EnumAttendanceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel> | $Enums.AttendanceStatus
+}
+
+export type EnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
+}
+
 export type EnumRadarPostStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.RadarPostStatus | Prisma.EnumRadarPostStatusFieldRefInput<$PrismaModel>
   in?: $Enums.RadarPostStatus[] | Prisma.ListEnumRadarPostStatusFieldRefInput<$PrismaModel>
@@ -1284,6 +1318,40 @@ export type NestedEnumChatMessageTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumChatMessageTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumChatMessageTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLiveEventLocationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveEventLocationType | Prisma.EnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel> | $Enums.LiveEventLocationType
+}
+
+export type NestedEnumLiveEventLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LiveEventLocationType | Prisma.EnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LiveEventLocationType[] | Prisma.ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLiveEventLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.LiveEventLocationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLiveEventLocationTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumAttendanceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel> | $Enums.AttendanceStatus
+}
+
+export type NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttendanceStatus | Prisma.EnumAttendanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttendanceStatus[] | Prisma.ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttendanceStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumRadarPostStatusFilter<$PrismaModel = never> = {

@@ -6,6 +6,7 @@ import { requirePermission, ForbiddenError } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
 import { awardXp, getOrCreateBalance, xpToNextRank } from "@/lib/xp";
 import { TenantAccessError } from "@/lib/tenant";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 import type { ReputationRank } from "@/generated/prisma/client";
 
@@ -170,7 +171,7 @@ export async function awardManualXp(
   amount: number,
   description: string,
 ): Promise<ActionResult<{ newTotal: number; newRank: ReputationRank }>> {
-  try {
+  return withAction("awardManualXp", async ({ log }) => {
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_REWARDS", { tenantId: ctx.tenantId });
 
@@ -186,14 +187,11 @@ export async function awardManualXp(
       description,
     });
 
+    log({ targetUserId: userId, amount, newTotal: result.newTotal, newRank: result.newRank });
+
     return {
       success: true,
       data: { newTotal: result.newTotal, newRank: result.newRank },
     };
-  } catch (e) {
-    if (e instanceof ForbiddenError || e instanceof TenantAccessError) {
-      return { success: false, error: e.message };
-    }
-    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
-  }
+  });
 }

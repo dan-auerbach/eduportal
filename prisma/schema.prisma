@@ -72,6 +72,10 @@ model Tenant {
   suggestionVotes      KnowledgeSuggestionVote[]
   suggestionComments   KnowledgeSuggestionComment[]
 
+  // Live Event Attendance & Materials
+  liveEventMaterials   LiveEventMaterial[]
+  liveEventAttendances LiveEventAttendance[]
+
   // Email templates (owner-configurable, plain text with {placeholder} vars)
   emailInviteSubject   String?
   emailInviteBody      String?  @db.Text
@@ -179,6 +183,11 @@ model User {
   reviewedSuggestions  KnowledgeSuggestion[]  @relation("SuggestionReviewer")
   suggestionVotes      KnowledgeSuggestionVote[]
   suggestionComments   KnowledgeSuggestionComment[]
+
+  // Live Event Attendance & Materials
+  eventAttendances           LiveEventAttendance[]  @relation("EventAttendee")
+  confirmedAttendances       LiveEventAttendance[]  @relation("AttendanceConfirmer")
+  addedMaterials             LiveEventMaterial[]     @relation("MaterialAddedBy")
 
   @@index([role, isActive])
 }
@@ -699,6 +708,8 @@ enum NotificationType {
   SUGGESTION_STATUS_CHANGED
   MODULE_EXPIRING
   MODULE_EXPIRED
+  EVENT_ATTENDANCE_CONFIRMED
+  EVENT_REMINDER_ATTENDANCE
 }
 
 model NotificationDedup {
@@ -959,6 +970,12 @@ enum AuditAction {
   SUGGESTION_CONVERTED
   MODULE_VALIDITY_EXPIRED
   MODULE_REASSIGNED
+  ATTENDANCE_REGISTERED
+  ATTENDANCE_CANCELLED
+  ATTENDANCE_CONFIRMED
+  ATTENDANCE_REVOKED
+  LIVE_EVENT_MATERIAL_ADDED
+  LIVE_EVENT_MATERIAL_REMOVED
 }
 
 // ============================================
@@ -998,24 +1015,83 @@ enum ChatMessageType {
 // MENTOR LIVE EVENTS
 // ============================================
 
+enum LiveEventLocationType {
+  ONLINE
+  PHYSICAL
+  HYBRID
+}
+
+enum AttendanceStatus {
+  REGISTERED
+  CANCELLED
+  ATTENDED
+  NO_SHOW
+}
+
 model MentorLiveEvent {
-  id              String   @id @default(cuid())
-  tenantId        String
-  title           String
-  startsAt        DateTime
-  meetUrl         String
-  instructions    String?  @db.Text
-  relatedModuleId String?
-  createdById     String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id               String                @id @default(cuid())
+  tenantId         String
+  title            String
+  startsAt         DateTime
+  meetUrl          String                // Legacy — kept for backward compat, use onlineUrl
+  locationType     LiveEventLocationType @default(ONLINE)
+  onlineUrl        String?
+  physicalLocation String?
+  instructions     String?               @db.Text
+  relatedModuleId  String?
+  createdById      String?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
 
   tenant        Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   createdBy     User?   @relation("LiveEventCreator", fields: [createdById], references: [id], onDelete: SetNull)
   relatedModule Module? @relation(fields: [relatedModuleId], references: [id], onDelete: SetNull)
   groups        LiveEventGroup[]
+  materials     LiveEventMaterial[]
+  attendances   LiveEventAttendance[]
 
   @@index([tenantId, startsAt])
+}
+
+model LiveEventMaterial {
+  id                 String   @id @default(cuid())
+  eventId            String
+  assetId            String
+  tenantId           String
+  visibleBeforeEvent Boolean  @default(false)
+  addedById          String?
+  createdAt          DateTime @default(now())
+
+  event   MentorLiveEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  asset   MediaAsset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  tenant  Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  addedBy User?           @relation("MaterialAddedBy", fields: [addedById], references: [id], onDelete: SetNull)
+
+  @@index([eventId])
+  @@index([tenantId])
+}
+
+model LiveEventAttendance {
+  id              String           @id @default(cuid())
+  eventId         String
+  userId          String
+  tenantId        String
+  status          AttendanceStatus @default(REGISTERED)
+  registeredAt    DateTime         @default(now())
+  confirmedById   String?
+  confirmedAt     DateTime?
+  xpAwarded       Boolean          @default(false)
+  xpTransactionId String?
+  updatedAt       DateTime         @updatedAt
+
+  event       MentorLiveEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user        User            @relation("EventAttendee", fields: [userId], references: [id], onDelete: Cascade)
+  tenant      Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  confirmedBy User?           @relation("AttendanceConfirmer", fields: [confirmedById], references: [id], onDelete: SetNull)
+
+  @@unique([eventId, userId])
+  @@index([tenantId, eventId, status])
+  @@index([userId, tenantId])
 }
 
 model LiveEventGroup {
@@ -1200,6 +1276,9 @@ enum XpSourceType {
   TOP_SUGGESTION
   COMPLIANCE_RENEWAL
   MANUAL
+  SUGGESTION_CREATED
+  SUGGESTION_APPROVED
+  EVENT_ATTENDED
 }
 
 enum ReputationRank {
@@ -1368,6 +1447,29 @@ model KnowledgeSuggestionComment {
 }
 
 // ============================================
+// SYSTEM ERROR LOG (OBSERVABILITY)
+// ============================================
+
+model SystemError {
+  id         String   @id @default(cuid())
+  tenantId   String?
+  tenantSlug String?
+  route      String   /// Server action or API route name
+  userId     String?
+  requestId  String   /// Correlation ID for tracing
+  message    String
+  stack      String?  @db.Text
+  meta       Json?
+  severity   String   @default("ERROR") /// "ERROR" or "WARN"
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([tenantId, createdAt])
+  @@index([route, createdAt])
+  @@index([requestId])
+}
+
+// ============================================
 // MEDIA LIBRARY
 // ============================================
 
@@ -1410,6 +1512,7 @@ model MediaAsset {
   tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   createdBy User     @relation("MediaAssetCreator", fields: [createdById], references: [id])
   sections  Section[]
+  liveEventMaterials LiveEventMaterial[]
 
   @@unique([tenantId, cfStreamUid])
   @@index([tenantId, type, status])

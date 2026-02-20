@@ -85,6 +85,8 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
+  LiveEventMaterial: 'LiveEventMaterial',
+  LiveEventAttendance: 'LiveEventAttendance',
   LiveEventGroup: 'LiveEventGroup',
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
@@ -100,6 +102,7 @@ export const ModelName = {
   KnowledgeSuggestion: 'KnowledgeSuggestion',
   KnowledgeSuggestionVote: 'KnowledgeSuggestionVote',
   KnowledgeSuggestionComment: 'KnowledgeSuggestionComment',
+  SystemError: 'SystemError',
   MediaAsset: 'MediaAsset'
 } as const
 
@@ -570,6 +573,9 @@ export const MentorLiveEventScalarFieldEnum = {
   title: 'title',
   startsAt: 'startsAt',
   meetUrl: 'meetUrl',
+  locationType: 'locationType',
+  onlineUrl: 'onlineUrl',
+  physicalLocation: 'physicalLocation',
   instructions: 'instructions',
   relatedModuleId: 'relatedModuleId',
   createdById: 'createdById',
@@ -578,6 +584,36 @@ export const MentorLiveEventScalarFieldEnum = {
 } as const
 
 export type MentorLiveEventScalarFieldEnum = (typeof MentorLiveEventScalarFieldEnum)[keyof typeof MentorLiveEventScalarFieldEnum]
+
+
+export const LiveEventMaterialScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  assetId: 'assetId',
+  tenantId: 'tenantId',
+  visibleBeforeEvent: 'visibleBeforeEvent',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type LiveEventMaterialScalarFieldEnum = (typeof LiveEventMaterialScalarFieldEnum)[keyof typeof LiveEventMaterialScalarFieldEnum]
+
+
+export const LiveEventAttendanceScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  status: 'status',
+  registeredAt: 'registeredAt',
+  confirmedById: 'confirmedById',
+  confirmedAt: 'confirmedAt',
+  xpAwarded: 'xpAwarded',
+  xpTransactionId: 'xpTransactionId',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LiveEventAttendanceScalarFieldEnum = (typeof LiveEventAttendanceScalarFieldEnum)[keyof typeof LiveEventAttendanceScalarFieldEnum]
 
 
 export const LiveEventGroupScalarFieldEnum = {
@@ -793,6 +829,23 @@ export const KnowledgeSuggestionCommentScalarFieldEnum = {
 } as const
 
 export type KnowledgeSuggestionCommentScalarFieldEnum = (typeof KnowledgeSuggestionCommentScalarFieldEnum)[keyof typeof KnowledgeSuggestionCommentScalarFieldEnum]
+
+
+export const SystemErrorScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tenantSlug: 'tenantSlug',
+  route: 'route',
+  userId: 'userId',
+  requestId: 'requestId',
+  message: 'message',
+  stack: 'stack',
+  meta: 'meta',
+  severity: 'severity',
+  createdAt: 'createdAt'
+} as const
+
+export type SystemErrorScalarFieldEnum = (typeof SystemErrorScalarFieldEnum)[keyof typeof SystemErrorScalarFieldEnum]
 
 
 export const MediaAssetScalarFieldEnum = {

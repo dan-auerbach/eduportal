@@ -17,6 +17,9 @@ export const XP_RULES = {
   MENTOR_CONFIRMATION: 25,
   TOP_SUGGESTION: 75, // suggestion reaches vote threshold
   COMPLIANCE_RENEWAL: 50, // timely renewal bonus
+  SUGGESTION_CREATED: 10, // XP for creating a suggestion
+  SUGGESTION_APPROVED: 30, // XP when admin approves suggestion
+  EVENT_ATTENDED: 20, // XP when admin confirms attendance
 } as const;
 
 export const RANK_THRESHOLDS: Record<ReputationRank, number> = {

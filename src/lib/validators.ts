@@ -198,13 +198,20 @@ export const UpdateMembershipSchema = z.object({
 });
 
 // ---- Live event forms ----
+const locationTypeValues = ["ONLINE", "PHYSICAL", "HYBRID"] as const;
+
 export const CreateLiveEventSchema = z.object({
   title: z.string().min(1, "Naslov je obvezen").max(200, "Naslov je predolg (max 200 znakov)"),
   startsAt: z.string().min(1, "Datum in ura sta obvezna"),
-  meetUrl: z
+  meetUrl: z.string().optional().default(""), // legacy, kept for compat
+  locationType: z.enum(locationTypeValues).optional().default("ONLINE"),
+  onlineUrl: z
     .string()
     .url("Neveljaven URL")
-    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni"),
+    .refine((val) => /^https?:\/\//.test(val), "Samo http/https URL-ji so dovoljeni")
+    .optional()
+    .nullable(),
+  physicalLocation: z.string().max(500, "Lokacija je predolga (max 500 znakov)").optional().nullable(),
   instructions: z.string().max(2000, "Navodila so predolga (max 2000 znakov)").optional(),
   relatedModuleId: z.string().cuid().nullable().optional(),
   groupIds: z.array(z.string().cuid()).optional(),
@@ -213,11 +220,15 @@ export const CreateLiveEventSchema = z.object({
 export const UpdateLiveEventSchema = z.object({
   title: z.string().min(1).max(200).optional(),
   startsAt: z.string().min(1).optional(),
-  meetUrl: z
+  meetUrl: z.string().optional(), // legacy
+  locationType: z.enum(locationTypeValues).optional(),
+  onlineUrl: z
     .string()
     .url()
     .refine((val) => /^https?:\/\//.test(val), "Samo http/https")
-    .optional(),
+    .optional()
+    .nullable(),
+  physicalLocation: z.string().max(500).nullable().optional(),
   instructions: z.string().max(2000).nullable().optional(),
   relatedModuleId: z.string().cuid().nullable().optional(),
   groupIds: z.array(z.string().cuid()).optional(),

@@ -277,6 +277,9 @@ export type UserWhereInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
   suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
+  eventAttendances?: Prisma.LiveEventAttendanceListRelationFilter
+  confirmedAttendances?: Prisma.LiveEventAttendanceListRelationFilter
+  addedMaterials?: Prisma.LiveEventMaterialListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -331,6 +334,9 @@ export type UserOrderByWithRelationInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionOrderByRelationAggregateInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteOrderByRelationAggregateInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentOrderByRelationAggregateInput
+  eventAttendances?: Prisma.LiveEventAttendanceOrderByRelationAggregateInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceOrderByRelationAggregateInput
+  addedMaterials?: Prisma.LiveEventMaterialOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -388,6 +394,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewedSuggestions?: Prisma.KnowledgeSuggestionListRelationFilter
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
   suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
+  eventAttendances?: Prisma.LiveEventAttendanceListRelationFilter
+  confirmedAttendances?: Prisma.LiveEventAttendanceListRelationFilter
+  addedMaterials?: Prisma.LiveEventMaterialListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -478,6 +487,9 @@ export type UserCreateInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -532,6 +544,9 @@ export type UserUncheckedCreateInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUpdateInput = {
@@ -586,6 +601,9 @@ export type UserUpdateInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -640,6 +658,9 @@ export type UserUncheckedUpdateInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1054,6 +1075,52 @@ export type UserUpdateOneWithoutCreatedLiveEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLiveEventsInput, Prisma.UserUpdateWithoutCreatedLiveEventsInput>, Prisma.UserUncheckedUpdateWithoutCreatedLiveEventsInput>
 }
 
+export type UserCreateNestedOneWithoutAddedMaterialsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAddedMaterialsInput, Prisma.UserUncheckedCreateWithoutAddedMaterialsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAddedMaterialsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAddedMaterialsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAddedMaterialsInput, Prisma.UserUncheckedCreateWithoutAddedMaterialsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAddedMaterialsInput
+  upsert?: Prisma.UserUpsertWithoutAddedMaterialsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAddedMaterialsInput, Prisma.UserUpdateWithoutAddedMaterialsInput>, Prisma.UserUncheckedUpdateWithoutAddedMaterialsInput>
+}
+
+export type UserCreateNestedOneWithoutEventAttendancesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEventAttendancesInput, Prisma.UserUncheckedCreateWithoutEventAttendancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEventAttendancesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConfirmedAttendancesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedCreateWithoutConfirmedAttendancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConfirmedAttendancesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEventAttendancesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEventAttendancesInput, Prisma.UserUncheckedCreateWithoutEventAttendancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEventAttendancesInput
+  upsert?: Prisma.UserUpsertWithoutEventAttendancesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEventAttendancesInput, Prisma.UserUpdateWithoutEventAttendancesInput>, Prisma.UserUncheckedUpdateWithoutEventAttendancesInput>
+}
+
+export type UserUpdateOneWithoutConfirmedAttendancesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedCreateWithoutConfirmedAttendancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConfirmedAttendancesInput
+  upsert?: Prisma.UserUpsertWithoutConfirmedAttendancesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConfirmedAttendancesInput, Prisma.UserUpdateWithoutConfirmedAttendancesInput>, Prisma.UserUncheckedUpdateWithoutConfirmedAttendancesInput>
+}
+
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -1363,6 +1430,9 @@ export type UserCreateWithoutMembershipsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1416,6 +1486,9 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1485,6 +1558,9 @@ export type UserUpdateWithoutMembershipsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1538,6 +1614,9 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutPermissionsInput = {
@@ -1591,6 +1670,9 @@ export type UserCreateWithoutPermissionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -1644,6 +1726,9 @@ export type UserUncheckedCreateWithoutPermissionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -1713,6 +1798,9 @@ export type UserUpdateWithoutPermissionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -1766,6 +1854,9 @@ export type UserUncheckedUpdateWithoutPermissionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutGroupsInput = {
@@ -1819,6 +1910,9 @@ export type UserCreateWithoutGroupsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutGroupsInput = {
@@ -1872,6 +1966,9 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutGroupsInput = {
@@ -1941,6 +2038,9 @@ export type UserUpdateWithoutGroupsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -1994,6 +2094,9 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutCreatedModulesInput = {
@@ -2047,6 +2150,9 @@ export type UserCreateWithoutCreatedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedModulesInput = {
@@ -2100,6 +2206,9 @@ export type UserUncheckedCreateWithoutCreatedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedModulesInput = {
@@ -2169,6 +2278,9 @@ export type UserUpdateWithoutCreatedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedModulesInput = {
@@ -2222,6 +2334,9 @@ export type UserUncheckedUpdateWithoutCreatedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSectionCompletionsInput = {
@@ -2275,6 +2390,9 @@ export type UserCreateWithoutSectionCompletionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSectionCompletionsInput = {
@@ -2328,6 +2446,9 @@ export type UserUncheckedCreateWithoutSectionCompletionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSectionCompletionsInput = {
@@ -2397,6 +2518,9 @@ export type UserUpdateWithoutSectionCompletionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
@@ -2450,6 +2574,9 @@ export type UserUncheckedUpdateWithoutSectionCompletionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutModuleAccessesInput = {
@@ -2503,6 +2630,9 @@ export type UserCreateWithoutModuleAccessesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutModuleAccessesInput = {
@@ -2556,6 +2686,9 @@ export type UserUncheckedCreateWithoutModuleAccessesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutModuleAccessesInput = {
@@ -2625,6 +2758,9 @@ export type UserUpdateWithoutModuleAccessesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleAccessesInput = {
@@ -2678,6 +2814,9 @@ export type UserUncheckedUpdateWithoutModuleAccessesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutQuizAttemptsInput = {
@@ -2731,6 +2870,9 @@ export type UserCreateWithoutQuizAttemptsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -2784,6 +2926,9 @@ export type UserUncheckedCreateWithoutQuizAttemptsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -2853,6 +2998,9 @@ export type UserUpdateWithoutQuizAttemptsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -2906,6 +3054,9 @@ export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSelfAssessmentsInput = {
@@ -2959,6 +3110,9 @@ export type UserCreateWithoutSelfAssessmentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
@@ -3012,6 +3166,9 @@ export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
@@ -3081,6 +3238,9 @@ export type UserUpdateWithoutSelfAssessmentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
@@ -3134,6 +3294,9 @@ export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutProgressOverridesInput = {
@@ -3187,6 +3350,9 @@ export type UserCreateWithoutProgressOverridesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutProgressOverridesInput = {
@@ -3240,6 +3406,9 @@ export type UserUncheckedCreateWithoutProgressOverridesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutProgressOverridesInput = {
@@ -3309,6 +3478,9 @@ export type UserUpdateWithoutProgressOverridesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProgressOverridesInput = {
@@ -3362,6 +3534,9 @@ export type UserUncheckedUpdateWithoutProgressOverridesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -3415,6 +3590,9 @@ export type UserCreateWithoutCertificatesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -3468,6 +3646,9 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -3537,6 +3718,9 @@ export type UserUpdateWithoutCertificatesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -3590,6 +3774,9 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -3643,6 +3830,9 @@ export type UserCreateWithoutCommentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -3696,6 +3886,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -3765,6 +3958,9 @@ export type UserUpdateWithoutCommentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -3818,6 +4014,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3871,6 +4070,9 @@ export type UserCreateWithoutNotificationsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3924,6 +4126,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3993,6 +4198,9 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -4046,6 +4254,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutPinnedModulesInput = {
@@ -4099,6 +4310,9 @@ export type UserCreateWithoutPinnedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutPinnedModulesInput = {
@@ -4152,6 +4366,9 @@ export type UserUncheckedCreateWithoutPinnedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutPinnedModulesInput = {
@@ -4221,6 +4438,9 @@ export type UserUpdateWithoutPinnedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPinnedModulesInput = {
@@ -4274,6 +4494,9 @@ export type UserUncheckedUpdateWithoutPinnedModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutMentorModulesInput = {
@@ -4327,6 +4550,9 @@ export type UserCreateWithoutMentorModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutMentorModulesInput = {
@@ -4380,6 +4606,9 @@ export type UserUncheckedCreateWithoutMentorModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutMentorModulesInput = {
@@ -4449,6 +4678,9 @@ export type UserUpdateWithoutMentorModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMentorModulesInput = {
@@ -4502,6 +4734,9 @@ export type UserUncheckedUpdateWithoutMentorModulesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutChangeLogsInput = {
@@ -4555,6 +4790,9 @@ export type UserCreateWithoutChangeLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutChangeLogsInput = {
@@ -4608,6 +4846,9 @@ export type UserUncheckedCreateWithoutChangeLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutChangeLogsInput = {
@@ -4677,6 +4918,9 @@ export type UserUpdateWithoutChangeLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangeLogsInput = {
@@ -4730,6 +4974,9 @@ export type UserUncheckedUpdateWithoutChangeLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutModuleReviewsInput = {
@@ -4783,6 +5030,9 @@ export type UserCreateWithoutModuleReviewsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutModuleReviewsInput = {
@@ -4836,6 +5086,9 @@ export type UserUncheckedCreateWithoutModuleReviewsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutModuleReviewsInput = {
@@ -4905,6 +5158,9 @@ export type UserUpdateWithoutModuleReviewsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleReviewsInput = {
@@ -4958,6 +5214,9 @@ export type UserUncheckedUpdateWithoutModuleReviewsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -5011,6 +5270,9 @@ export type UserCreateWithoutAuditLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -5064,6 +5326,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -5133,6 +5398,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -5186,6 +5454,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutChangelogEntriesInput = {
@@ -5239,6 +5510,9 @@ export type UserCreateWithoutChangelogEntriesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutChangelogEntriesInput = {
@@ -5292,6 +5566,9 @@ export type UserUncheckedCreateWithoutChangelogEntriesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutChangelogEntriesInput = {
@@ -5361,6 +5638,9 @@ export type UserUpdateWithoutChangelogEntriesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
@@ -5414,6 +5694,9 @@ export type UserUncheckedUpdateWithoutChangelogEntriesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutChatMessagesInput = {
@@ -5467,6 +5750,9 @@ export type UserCreateWithoutChatMessagesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutChatMessagesInput = {
@@ -5520,6 +5806,9 @@ export type UserUncheckedCreateWithoutChatMessagesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutChatMessagesInput = {
@@ -5578,6 +5867,9 @@ export type UserCreateWithoutConfirmedAnswersInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
@@ -5631,6 +5923,9 @@ export type UserUncheckedCreateWithoutConfirmedAnswersInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutConfirmedAnswersInput = {
@@ -5700,6 +5995,9 @@ export type UserUpdateWithoutChatMessagesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatMessagesInput = {
@@ -5753,6 +6051,9 @@ export type UserUncheckedUpdateWithoutChatMessagesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUpsertWithoutConfirmedAnswersInput = {
@@ -5817,6 +6118,9 @@ export type UserUpdateWithoutConfirmedAnswersInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
@@ -5870,6 +6174,9 @@ export type UserUncheckedUpdateWithoutConfirmedAnswersInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutCreatedLiveEventsInput = {
@@ -5923,6 +6230,9 @@ export type UserCreateWithoutCreatedLiveEventsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
@@ -5976,6 +6286,9 @@ export type UserUncheckedCreateWithoutCreatedLiveEventsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLiveEventsInput = {
@@ -6045,6 +6358,9 @@ export type UserUpdateWithoutCreatedLiveEventsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
@@ -6098,6 +6414,729 @@ export type UserUncheckedUpdateWithoutCreatedLiveEventsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
+}
+
+export type UserCreateWithoutAddedMaterialsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserUncheckedCreateWithoutAddedMaterialsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+}
+
+export type UserCreateOrConnectWithoutAddedMaterialsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAddedMaterialsInput, Prisma.UserUncheckedCreateWithoutAddedMaterialsInput>
+}
+
+export type UserUpsertWithoutAddedMaterialsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAddedMaterialsInput, Prisma.UserUncheckedUpdateWithoutAddedMaterialsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAddedMaterialsInput, Prisma.UserUncheckedCreateWithoutAddedMaterialsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAddedMaterialsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAddedMaterialsInput, Prisma.UserUncheckedUpdateWithoutAddedMaterialsInput>
+}
+
+export type UserUpdateWithoutAddedMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAddedMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+}
+
+export type UserCreateWithoutEventAttendancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
+}
+
+export type UserUncheckedCreateWithoutEventAttendancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
+}
+
+export type UserCreateOrConnectWithoutEventAttendancesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEventAttendancesInput, Prisma.UserUncheckedCreateWithoutEventAttendancesInput>
+}
+
+export type UserCreateWithoutConfirmedAttendancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
+}
+
+export type UserUncheckedCreateWithoutConfirmedAttendancesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastLoginAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  groups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutUserInput
+  permissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutUserInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutUserInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  createdModules?: Prisma.ModuleUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutOverrideByInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutUserInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutChangedByInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutUserInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedCreateNestedManyWithoutUserInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutConfirmedByInput
+  mentorModules?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutUserInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutCreatedByInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutApprovedByInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutUserInput
+  radarSaves?: Prisma.RadarSaveUncheckedCreateNestedManyWithoutUserInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutCreatedByInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutCreatedByInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutUserInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutUserInput
+  createdRewards?: Prisma.RewardUncheckedCreateNestedManyWithoutCreatedByInput
+  redemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
+}
+
+export type UserCreateOrConnectWithoutConfirmedAttendancesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedCreateWithoutConfirmedAttendancesInput>
+}
+
+export type UserUpsertWithoutEventAttendancesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEventAttendancesInput, Prisma.UserUncheckedUpdateWithoutEventAttendancesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEventAttendancesInput, Prisma.UserUncheckedCreateWithoutEventAttendancesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEventAttendancesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEventAttendancesInput, Prisma.UserUncheckedUpdateWithoutEventAttendancesInput>
+}
+
+export type UserUpdateWithoutEventAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEventAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
+}
+
+export type UserUpsertWithoutConfirmedAttendancesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedUpdateWithoutConfirmedAttendancesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedCreateWithoutConfirmedAttendancesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConfirmedAttendancesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConfirmedAttendancesInput, Prisma.UserUncheckedUpdateWithoutConfirmedAttendancesInput>
+}
+
+export type UserUpdateWithoutConfirmedAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConfirmedAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  groups?: Prisma.UserGroupUncheckedUpdateManyWithoutUserNestedInput
+  permissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutUserNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  createdModules?: Prisma.ModuleUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutOverrideByNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutUserNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutChangedByNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutUserNestedInput
+  pinnedModules?: Prisma.UserPinnedModuleUncheckedUpdateManyWithoutUserNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAnswers?: Prisma.ChatMessageUncheckedUpdateManyWithoutConfirmedByNestedInput
+  mentorModules?: Prisma.ModuleMentorUncheckedUpdateManyWithoutUserNestedInput
+  createdLiveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedRadarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutApprovedByNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutUserNestedInput
+  radarSaves?: Prisma.RadarSaveUncheckedUpdateManyWithoutUserNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutCreatedByNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutCreatedByNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutUserNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutUserNestedInput
+  createdRewards?: Prisma.RewardUncheckedUpdateManyWithoutCreatedByNestedInput
+  redemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
+  reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -6151,6 +7190,9 @@ export type UserCreateWithoutSessionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -6204,6 +7246,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -6273,6 +7318,9 @@ export type UserUpdateWithoutSessionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -6326,6 +7374,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutRadarPostsInput = {
@@ -6379,6 +7430,9 @@ export type UserCreateWithoutRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutRadarPostsInput = {
@@ -6432,6 +7486,9 @@ export type UserUncheckedCreateWithoutRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutRadarPostsInput = {
@@ -6490,6 +7547,9 @@ export type UserCreateWithoutApprovedRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
@@ -6543,6 +7603,9 @@ export type UserUncheckedCreateWithoutApprovedRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedRadarPostsInput = {
@@ -6612,6 +7675,9 @@ export type UserUpdateWithoutRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarPostsInput = {
@@ -6665,6 +7731,9 @@ export type UserUncheckedUpdateWithoutRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedRadarPostsInput = {
@@ -6729,6 +7798,9 @@ export type UserUpdateWithoutApprovedRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
@@ -6782,6 +7854,9 @@ export type UserUncheckedUpdateWithoutApprovedRadarPostsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutRadarSeenInput = {
@@ -6835,6 +7910,9 @@ export type UserCreateWithoutRadarSeenInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutRadarSeenInput = {
@@ -6888,6 +7966,9 @@ export type UserUncheckedCreateWithoutRadarSeenInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutRadarSeenInput = {
@@ -6957,6 +8038,9 @@ export type UserUpdateWithoutRadarSeenInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSeenInput = {
@@ -7010,6 +8094,9 @@ export type UserUncheckedUpdateWithoutRadarSeenInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutRadarSavesInput = {
@@ -7063,6 +8150,9 @@ export type UserCreateWithoutRadarSavesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutRadarSavesInput = {
@@ -7116,6 +8206,9 @@ export type UserUncheckedCreateWithoutRadarSavesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutRadarSavesInput = {
@@ -7185,6 +8278,9 @@ export type UserUpdateWithoutRadarSavesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRadarSavesInput = {
@@ -7238,6 +8334,9 @@ export type UserUncheckedUpdateWithoutRadarSavesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutEmailTokensInput = {
@@ -7291,6 +8390,9 @@ export type UserCreateWithoutEmailTokensInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailTokensInput = {
@@ -7344,6 +8446,9 @@ export type UserUncheckedCreateWithoutEmailTokensInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailTokensInput = {
@@ -7413,6 +8518,9 @@ export type UserUpdateWithoutEmailTokensInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailTokensInput = {
@@ -7466,6 +8574,9 @@ export type UserUncheckedUpdateWithoutEmailTokensInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutEmailPreferencesInput = {
@@ -7519,6 +8630,9 @@ export type UserCreateWithoutEmailPreferencesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailPreferencesInput = {
@@ -7572,6 +8686,9 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailPreferencesInput = {
@@ -7641,6 +8758,9 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
@@ -7694,6 +8814,9 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutAiModuleBuildsInput = {
@@ -7747,6 +8870,9 @@ export type UserCreateWithoutAiModuleBuildsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutAiModuleBuildsInput = {
@@ -7800,6 +8926,9 @@ export type UserUncheckedCreateWithoutAiModuleBuildsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutAiModuleBuildsInput = {
@@ -7869,6 +8998,9 @@ export type UserUpdateWithoutAiModuleBuildsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiModuleBuildsInput = {
@@ -7922,6 +9054,9 @@ export type UserUncheckedUpdateWithoutAiModuleBuildsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutXpTransactionsInput = {
@@ -7975,6 +9110,9 @@ export type UserCreateWithoutXpTransactionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutXpTransactionsInput = {
@@ -8028,6 +9166,9 @@ export type UserUncheckedCreateWithoutXpTransactionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutXpTransactionsInput = {
@@ -8097,6 +9238,9 @@ export type UserUpdateWithoutXpTransactionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutXpTransactionsInput = {
@@ -8150,6 +9294,9 @@ export type UserUncheckedUpdateWithoutXpTransactionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutXpBalancesInput = {
@@ -8203,6 +9350,9 @@ export type UserCreateWithoutXpBalancesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutXpBalancesInput = {
@@ -8256,6 +9406,9 @@ export type UserUncheckedCreateWithoutXpBalancesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutXpBalancesInput = {
@@ -8325,6 +9478,9 @@ export type UserUpdateWithoutXpBalancesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutXpBalancesInput = {
@@ -8378,6 +9534,9 @@ export type UserUncheckedUpdateWithoutXpBalancesInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutCreatedRewardsInput = {
@@ -8431,6 +9590,9 @@ export type UserCreateWithoutCreatedRewardsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRewardsInput = {
@@ -8484,6 +9646,9 @@ export type UserUncheckedCreateWithoutCreatedRewardsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRewardsInput = {
@@ -8553,6 +9718,9 @@ export type UserUpdateWithoutCreatedRewardsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRewardsInput = {
@@ -8606,6 +9774,9 @@ export type UserUncheckedUpdateWithoutCreatedRewardsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutRedemptionsInput = {
@@ -8659,6 +9830,9 @@ export type UserCreateWithoutRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutRedemptionsInput = {
@@ -8712,6 +9886,9 @@ export type UserUncheckedCreateWithoutRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutRedemptionsInput = {
@@ -8770,6 +9947,9 @@ export type UserCreateWithoutReviewedRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedRedemptionsInput = {
@@ -8823,6 +10003,9 @@ export type UserUncheckedCreateWithoutReviewedRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedRedemptionsInput = {
@@ -8892,6 +10075,9 @@ export type UserUpdateWithoutRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRedemptionsInput = {
@@ -8945,6 +10131,9 @@ export type UserUncheckedUpdateWithoutRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedRedemptionsInput = {
@@ -9009,6 +10198,9 @@ export type UserUpdateWithoutReviewedRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedRedemptionsInput = {
@@ -9062,6 +10254,9 @@ export type UserUncheckedUpdateWithoutReviewedRedemptionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSuggestionsInput = {
@@ -9115,6 +10310,9 @@ export type UserCreateWithoutSuggestionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSuggestionsInput = {
@@ -9168,6 +10366,9 @@ export type UserUncheckedCreateWithoutSuggestionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSuggestionsInput = {
@@ -9226,6 +10427,9 @@ export type UserCreateWithoutReviewedSuggestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedSuggestionsInput = {
@@ -9279,6 +10483,9 @@ export type UserUncheckedCreateWithoutReviewedSuggestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedSuggestionsInput = {
@@ -9348,6 +10555,9 @@ export type UserUpdateWithoutSuggestionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuggestionsInput = {
@@ -9401,6 +10611,9 @@ export type UserUncheckedUpdateWithoutSuggestionsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedSuggestionsInput = {
@@ -9465,6 +10678,9 @@ export type UserUpdateWithoutReviewedSuggestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedSuggestionsInput = {
@@ -9518,6 +10734,9 @@ export type UserUncheckedUpdateWithoutReviewedSuggestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSuggestionVotesInput = {
@@ -9571,6 +10790,9 @@ export type UserCreateWithoutSuggestionVotesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSuggestionVotesInput = {
@@ -9624,6 +10846,9 @@ export type UserUncheckedCreateWithoutSuggestionVotesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSuggestionVotesInput = {
@@ -9693,6 +10918,9 @@ export type UserUpdateWithoutSuggestionVotesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuggestionVotesInput = {
@@ -9746,6 +10974,9 @@ export type UserUncheckedUpdateWithoutSuggestionVotesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutSuggestionCommentsInput = {
@@ -9799,6 +11030,9 @@ export type UserCreateWithoutSuggestionCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutUserInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutSuggestionCommentsInput = {
@@ -9852,6 +11086,9 @@ export type UserUncheckedCreateWithoutSuggestionCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutUserInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutSuggestionCommentsInput = {
@@ -9921,6 +11158,9 @@ export type UserUpdateWithoutSuggestionCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutUserNestedInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuggestionCommentsInput = {
@@ -9974,6 +11214,9 @@ export type UserUncheckedUpdateWithoutSuggestionCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutUserNestedInput
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserCreateWithoutMediaAssetsInput = {
@@ -10027,6 +11270,9 @@ export type UserCreateWithoutMediaAssetsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAddedByInput
 }
 
 export type UserUncheckedCreateWithoutMediaAssetsInput = {
@@ -10080,6 +11326,9 @@ export type UserUncheckedCreateWithoutMediaAssetsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutReviewedByInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutUserInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutUserInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutUserInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutConfirmedByInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAddedByInput
 }
 
 export type UserCreateOrConnectWithoutMediaAssetsInput = {
@@ -10149,6 +11398,9 @@ export type UserUpdateWithoutMediaAssetsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAddedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaAssetsInput = {
@@ -10202,6 +11454,9 @@ export type UserUncheckedUpdateWithoutMediaAssetsInput = {
   reviewedSuggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutReviewedByNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutUserNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutUserNestedInput
+  eventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutUserNestedInput
+  confirmedAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutConfirmedByNestedInput
+  addedMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAddedByNestedInput
 }
 
 
@@ -10249,6 +11504,9 @@ export type UserCountOutputType = {
   reviewedSuggestions: number
   suggestionVotes: number
   suggestionComments: number
+  eventAttendances: number
+  confirmedAttendances: number
+  addedMaterials: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10291,6 +11549,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewedSuggestions?: boolean | UserCountOutputTypeCountReviewedSuggestionsArgs
   suggestionVotes?: boolean | UserCountOutputTypeCountSuggestionVotesArgs
   suggestionComments?: boolean | UserCountOutputTypeCountSuggestionCommentsArgs
+  eventAttendances?: boolean | UserCountOutputTypeCountEventAttendancesArgs
+  confirmedAttendances?: boolean | UserCountOutputTypeCountConfirmedAttendancesArgs
+  addedMaterials?: boolean | UserCountOutputTypeCountAddedMaterialsArgs
 }
 
 /**
@@ -10576,6 +11837,27 @@ export type UserCountOutputTypeCountSuggestionCommentsArgs<ExtArgs extends runti
   where?: Prisma.KnowledgeSuggestionCommentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEventAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventAttendanceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConfirmedAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventAttendanceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAddedMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventMaterialWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -10629,6 +11911,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewedSuggestions?: boolean | Prisma.User$reviewedSuggestionsArgs<ExtArgs>
   suggestionVotes?: boolean | Prisma.User$suggestionVotesArgs<ExtArgs>
   suggestionComments?: boolean | Prisma.User$suggestionCommentsArgs<ExtArgs>
+  eventAttendances?: boolean | Prisma.User$eventAttendancesArgs<ExtArgs>
+  confirmedAttendances?: boolean | Prisma.User$confirmedAttendancesArgs<ExtArgs>
+  addedMaterials?: boolean | Prisma.User$addedMaterialsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -10718,6 +12003,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewedSuggestions?: boolean | Prisma.User$reviewedSuggestionsArgs<ExtArgs>
   suggestionVotes?: boolean | Prisma.User$suggestionVotesArgs<ExtArgs>
   suggestionComments?: boolean | Prisma.User$suggestionCommentsArgs<ExtArgs>
+  eventAttendances?: boolean | Prisma.User$eventAttendancesArgs<ExtArgs>
+  confirmedAttendances?: boolean | Prisma.User$confirmedAttendancesArgs<ExtArgs>
+  addedMaterials?: boolean | Prisma.User$addedMaterialsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -10765,6 +12053,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewedSuggestions: Prisma.$KnowledgeSuggestionPayload<ExtArgs>[]
     suggestionVotes: Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>[]
     suggestionComments: Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>[]
+    eventAttendances: Prisma.$LiveEventAttendancePayload<ExtArgs>[]
+    confirmedAttendances: Prisma.$LiveEventAttendancePayload<ExtArgs>[]
+    addedMaterials: Prisma.$LiveEventMaterialPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -11212,6 +12503,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewedSuggestions<T extends Prisma.User$reviewedSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suggestionVotes<T extends Prisma.User$suggestionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suggestionComments<T extends Prisma.User$suggestionCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  eventAttendances<T extends Prisma.User$eventAttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  confirmedAttendances<T extends Prisma.User$confirmedAttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$confirmedAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  addedMaterials<T extends Prisma.User$addedMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$addedMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12574,6 +13868,78 @@ export type User$suggestionCommentsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.KnowledgeSuggestionCommentScalarFieldEnum | Prisma.KnowledgeSuggestionCommentScalarFieldEnum[]
+}
+
+/**
+ * User.eventAttendances
+ */
+export type User$eventAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventAttendance
+   */
+  select?: Prisma.LiveEventAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventAttendance
+   */
+  omit?: Prisma.LiveEventAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventAttendanceInclude<ExtArgs> | null
+  where?: Prisma.LiveEventAttendanceWhereInput
+  orderBy?: Prisma.LiveEventAttendanceOrderByWithRelationInput | Prisma.LiveEventAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventAttendanceScalarFieldEnum | Prisma.LiveEventAttendanceScalarFieldEnum[]
+}
+
+/**
+ * User.confirmedAttendances
+ */
+export type User$confirmedAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventAttendance
+   */
+  select?: Prisma.LiveEventAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventAttendance
+   */
+  omit?: Prisma.LiveEventAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventAttendanceInclude<ExtArgs> | null
+  where?: Prisma.LiveEventAttendanceWhereInput
+  orderBy?: Prisma.LiveEventAttendanceOrderByWithRelationInput | Prisma.LiveEventAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventAttendanceScalarFieldEnum | Prisma.LiveEventAttendanceScalarFieldEnum[]
+}
+
+/**
+ * User.addedMaterials
+ */
+export type User$addedMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventMaterial
+   */
+  select?: Prisma.LiveEventMaterialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventMaterial
+   */
+  omit?: Prisma.LiveEventMaterialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventMaterialInclude<ExtArgs> | null
+  where?: Prisma.LiveEventMaterialWhereInput
+  orderBy?: Prisma.LiveEventMaterialOrderByWithRelationInput | Prisma.LiveEventMaterialOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventMaterialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventMaterialScalarFieldEnum | Prisma.LiveEventMaterialScalarFieldEnum[]
 }
 
 /**

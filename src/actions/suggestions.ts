@@ -7,6 +7,7 @@ import { logAudit } from "@/lib/audit";
 import { awardXp, SUGGESTION_VOTE_THRESHOLD, XP_RULES } from "@/lib/xp";
 import { rateLimitSuggestionVote, rateLimitSuggestionCreate } from "@/lib/rate-limit";
 import { CreateSuggestionSchema, SuggestionCommentSchema } from "@/lib/validators";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 import type { SuggestionStatus } from "@/generated/prisma/client";
 
@@ -153,7 +154,7 @@ export async function getSuggestionDetail(
 export async function createSuggestion(
   input: unknown,
 ): Promise<ActionResult<{ id: string }>> {
-  try {
+  return withAction("createSuggestion", async ({ log }) => {
     const ctx = await getTenantContext();
 
     const rl = await rateLimitSuggestionCreate(ctx.user.id);
@@ -181,11 +182,24 @@ export async function createSuggestion(
       metadata: { title: data.title, isAnonymous: data.isAnonymous },
     });
 
+    // Award XP for creating a suggestion (idempotent via partial unique index)
+    try {
+      await awardXp({
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+        amount: XP_RULES.SUGGESTION_CREATED,
+        source: "SUGGESTION_CREATED",
+        sourceEntityId: suggestion.id,
+        description: `Ustvarjen predlog: "${data.title}"`,
+      });
+    } catch {
+      // Unique constraint violation = already awarded, silently skip
+    }
+
+    log({ suggestionId: suggestion.id, title: data.title });
+
     return { success: true, data: { id: suggestion.id } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri ustvarjanju predloga" };
-  }
+  });
 }
 
 // ── Vote on Suggestion (toggle) ──────────────────────────────────────────────
@@ -193,7 +207,7 @@ export async function createSuggestion(
 export async function voteSuggestion(
   suggestionId: string,
 ): Promise<ActionResult<{ voteCount: number; hasVoted: boolean }>> {
-  try {
+  return withAction("voteSuggestion", async ({ log }) => {
     const ctx = await getTenantContext();
 
     const rl = await rateLimitSuggestionVote(ctx.user.id);
@@ -289,11 +303,10 @@ export async function voteSuggestion(
       metadata: { hasVoted, newVoteCount },
     });
 
+    log({ suggestionId, hasVoted, newVoteCount });
+
     return { success: true, data: { voteCount: newVoteCount, hasVoted } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
-  }
+  });
 }
 
 // ── Comment on Suggestion ────────────────────────────────────────────────────
@@ -356,6 +369,8 @@ export async function updateSuggestionStatus(
     });
     if (!suggestion) return { success: false, error: "Predlog ne obstaja" };
 
+    const oldStatus = suggestion.status;
+
     await prisma.knowledgeSuggestion.update({
       where: { id },
       data: {
@@ -364,6 +379,48 @@ export async function updateSuggestionStatus(
         reviewedAt: new Date(),
       },
     });
+
+    // Award XP when approving (idempotent via partial unique index)
+    if (status === "APPROVED") {
+      try {
+        await awardXp({
+          userId: suggestion.userId,
+          tenantId: ctx.tenantId,
+          amount: XP_RULES.SUGGESTION_APPROVED,
+          source: "SUGGESTION_APPROVED",
+          sourceEntityId: id,
+          description: `Predlog odobren: "${suggestion.title}"`,
+        });
+      } catch {
+        // Unique constraint violation = already awarded, silently skip
+      }
+    }
+
+    // Reverse XP if changing FROM APPROVED to something else (rare admin reversal)
+    if (oldStatus === "APPROVED" && status === "REJECTED") {
+      try {
+        await prisma.xpTransaction.create({
+          data: {
+            tenantId: ctx.tenantId,
+            userId: suggestion.userId,
+            amount: -XP_RULES.SUGGESTION_APPROVED,
+            source: "SUGGESTION_APPROVED",
+            sourceEntityId: `${id}:reversal`,
+            description: `Preklicana odobritev predloga: "${suggestion.title}"`,
+          },
+        });
+        // Update balance
+        await prisma.userXpBalance.updateMany({
+          where: { userId: suggestion.userId, tenantId: ctx.tenantId },
+          data: {
+            totalXp: { decrement: XP_RULES.SUGGESTION_APPROVED },
+            lifetimeXp: { decrement: XP_RULES.SUGGESTION_APPROVED },
+          },
+        });
+      } catch {
+        // Best effort — if reversal fails, don't block the status change
+      }
+    }
 
     // Notify author
     await prisma.notification.create({
@@ -387,7 +444,7 @@ export async function updateSuggestionStatus(
       action: "SUGGESTION_STATUS_CHANGED",
       entityType: "KnowledgeSuggestion",
       entityId: id,
-      metadata: { oldStatus: suggestion.status, newStatus: status },
+      metadata: { oldStatus, newStatus: status },
     });
 
     return { success: true, data: undefined };

@@ -7,6 +7,7 @@ import { logAudit } from "@/lib/audit";
 import { deductXp, getOrCreateBalance } from "@/lib/xp";
 import { rateLimitRedemption } from "@/lib/rate-limit";
 import { CreateRewardSchema, UpdateRewardSchema } from "@/lib/validators";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 import type { RedemptionStatus } from "@/generated/prisma/client";
 
@@ -58,6 +59,73 @@ export async function getRewards(): Promise<ActionResult<RewardDTO[]>> {
         approvalRequired: r.approvalRequired,
         active: r.active,
         imageUrl: r.imageUrl,
+      })),
+    };
+  } catch (e) {
+    if (e instanceof TenantAccessError) return { success: false, error: e.message };
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
+  }
+}
+
+// ── Employee: Storefront data (richer than getRewards) ──────────────────────
+
+export type StorefrontRewardDTO = RewardDTO & {
+  monthlyRedemptions: number; // how many times this user redeemed this month
+  totalRedemptionsThisMonth: number; // total redemptions across all users this month
+};
+
+export async function getStorefrontRewards(): Promise<ActionResult<StorefrontRewardDTO[]>> {
+  try {
+    const ctx = await getTenantContext();
+
+    const rewards = await prisma.reward.findMany({
+      where: { tenantId: ctx.tenantId, active: true },
+      orderBy: { costXp: "asc" },
+    });
+
+    // Get this month's start
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // Get user's monthly redemptions for all rewards
+    const userRedemptions = await prisma.rewardRedemption.groupBy({
+      by: ["rewardId"],
+      where: {
+        userId: ctx.user.id,
+        tenantId: ctx.tenantId,
+        status: { in: ["PENDING", "APPROVED"] },
+        createdAt: { gte: monthStart },
+      },
+      _count: true,
+    });
+    const userRedemptionMap = new Map(userRedemptions.map((r) => [r.rewardId, r._count]));
+
+    // Get total monthly redemptions for popularity badge
+    const totalRedemptions = await prisma.rewardRedemption.groupBy({
+      by: ["rewardId"],
+      where: {
+        tenantId: ctx.tenantId,
+        status: { in: ["PENDING", "APPROVED"] },
+        createdAt: { gte: monthStart },
+      },
+      _count: true,
+    });
+    const totalRedemptionMap = new Map(totalRedemptions.map((r) => [r.rewardId, r._count]));
+
+    return {
+      success: true,
+      data: rewards.map((r) => ({
+        id: r.id,
+        title: r.title,
+        description: r.description,
+        costXp: r.costXp,
+        monthlyLimit: r.monthlyLimit,
+        quantityAvailable: r.quantityAvailable,
+        approvalRequired: r.approvalRequired,
+        active: r.active,
+        imageUrl: r.imageUrl,
+        monthlyRedemptions: userRedemptionMap.get(r.id) ?? 0,
+        totalRedemptionsThisMonth: totalRedemptionMap.get(r.id) ?? 0,
       })),
     };
   } catch (e) {
@@ -174,7 +242,7 @@ export async function updateReward(
 export async function redeemReward(
   rewardId: string,
 ): Promise<ActionResult<{ redemptionId: string; status: RedemptionStatus }>> {
-  try {
+  return withAction("redeemReward", async ({ log }) => {
     const ctx = await getTenantContext();
 
     // Rate limit
@@ -266,11 +334,10 @@ export async function redeemReward(
       metadata: { rewardId, rewardTitle: reward.title, xpSpent: reward.costXp, status },
     });
 
+    log({ rewardId, rewardTitle: reward.title, xpSpent: reward.costXp, status });
+
     return { success: true, data: { redemptionId: redemption.id, status } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri unovčevanju" };
-  }
+  });
 }
 
 // ── Employee: My redemptions ─────────────────────────────────────────────────
@@ -345,7 +412,7 @@ export async function reviewRedemption(
   approved: boolean,
   rejectReason?: string,
 ): Promise<ActionResult<void>> {
-  try {
+  return withAction("reviewRedemption", async ({ log }) => {
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_REWARDS", { tenantId: ctx.tenantId });
 
@@ -408,9 +475,8 @@ export async function reviewRedemption(
       metadata: { rewardTitle: redemption.reward.title, approved, rejectReason },
     });
 
+    log({ redemptionId, approved, rewardTitle: redemption.reward.title });
+
     return { success: true, data: undefined };
-  } catch (e) {
-    if (e instanceof ForbiddenError || e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
-  }
+  });
 }

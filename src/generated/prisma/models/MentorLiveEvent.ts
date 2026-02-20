@@ -30,6 +30,9 @@ export type MentorLiveEventMinAggregateOutputType = {
   title: string | null
   startsAt: Date | null
   meetUrl: string | null
+  locationType: $Enums.LiveEventLocationType | null
+  onlineUrl: string | null
+  physicalLocation: string | null
   instructions: string | null
   relatedModuleId: string | null
   createdById: string | null
@@ -43,6 +46,9 @@ export type MentorLiveEventMaxAggregateOutputType = {
   title: string | null
   startsAt: Date | null
   meetUrl: string | null
+  locationType: $Enums.LiveEventLocationType | null
+  onlineUrl: string | null
+  physicalLocation: string | null
   instructions: string | null
   relatedModuleId: string | null
   createdById: string | null
@@ -56,6 +62,9 @@ export type MentorLiveEventCountAggregateOutputType = {
   title: number
   startsAt: number
   meetUrl: number
+  locationType: number
+  onlineUrl: number
+  physicalLocation: number
   instructions: number
   relatedModuleId: number
   createdById: number
@@ -71,6 +80,9 @@ export type MentorLiveEventMinAggregateInputType = {
   title?: true
   startsAt?: true
   meetUrl?: true
+  locationType?: true
+  onlineUrl?: true
+  physicalLocation?: true
   instructions?: true
   relatedModuleId?: true
   createdById?: true
@@ -84,6 +96,9 @@ export type MentorLiveEventMaxAggregateInputType = {
   title?: true
   startsAt?: true
   meetUrl?: true
+  locationType?: true
+  onlineUrl?: true
+  physicalLocation?: true
   instructions?: true
   relatedModuleId?: true
   createdById?: true
@@ -97,6 +112,9 @@ export type MentorLiveEventCountAggregateInputType = {
   title?: true
   startsAt?: true
   meetUrl?: true
+  locationType?: true
+  onlineUrl?: true
+  physicalLocation?: true
   instructions?: true
   relatedModuleId?: true
   createdById?: true
@@ -183,6 +201,9 @@ export type MentorLiveEventGroupByOutputType = {
   title: string
   startsAt: Date
   meetUrl: string
+  locationType: $Enums.LiveEventLocationType
+  onlineUrl: string | null
+  physicalLocation: string | null
   instructions: string | null
   relatedModuleId: string | null
   createdById: string | null
@@ -217,6 +238,9 @@ export type MentorLiveEventWhereInput = {
   title?: Prisma.StringFilter<"MentorLiveEvent"> | string
   startsAt?: Prisma.DateTimeFilter<"MentorLiveEvent"> | Date | string
   meetUrl?: Prisma.StringFilter<"MentorLiveEvent"> | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFilter<"MentorLiveEvent"> | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
+  physicalLocation?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   instructions?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   relatedModuleId?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   createdById?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
@@ -226,6 +250,8 @@ export type MentorLiveEventWhereInput = {
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   relatedModule?: Prisma.XOR<Prisma.ModuleNullableScalarRelationFilter, Prisma.ModuleWhereInput> | null
   groups?: Prisma.LiveEventGroupListRelationFilter
+  materials?: Prisma.LiveEventMaterialListRelationFilter
+  attendances?: Prisma.LiveEventAttendanceListRelationFilter
 }
 
 export type MentorLiveEventOrderByWithRelationInput = {
@@ -234,6 +260,9 @@ export type MentorLiveEventOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   meetUrl?: Prisma.SortOrder
+  locationType?: Prisma.SortOrder
+  onlineUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicalLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   instructions?: Prisma.SortOrderInput | Prisma.SortOrder
   relatedModuleId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -243,6 +272,8 @@ export type MentorLiveEventOrderByWithRelationInput = {
   createdBy?: Prisma.UserOrderByWithRelationInput
   relatedModule?: Prisma.ModuleOrderByWithRelationInput
   groups?: Prisma.LiveEventGroupOrderByRelationAggregateInput
+  materials?: Prisma.LiveEventMaterialOrderByRelationAggregateInput
+  attendances?: Prisma.LiveEventAttendanceOrderByRelationAggregateInput
 }
 
 export type MentorLiveEventWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +285,9 @@ export type MentorLiveEventWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"MentorLiveEvent"> | string
   startsAt?: Prisma.DateTimeFilter<"MentorLiveEvent"> | Date | string
   meetUrl?: Prisma.StringFilter<"MentorLiveEvent"> | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFilter<"MentorLiveEvent"> | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
+  physicalLocation?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   instructions?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   relatedModuleId?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   createdById?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
@@ -263,6 +297,8 @@ export type MentorLiveEventWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   relatedModule?: Prisma.XOR<Prisma.ModuleNullableScalarRelationFilter, Prisma.ModuleWhereInput> | null
   groups?: Prisma.LiveEventGroupListRelationFilter
+  materials?: Prisma.LiveEventMaterialListRelationFilter
+  attendances?: Prisma.LiveEventAttendanceListRelationFilter
 }, "id">
 
 export type MentorLiveEventOrderByWithAggregationInput = {
@@ -271,6 +307,9 @@ export type MentorLiveEventOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   meetUrl?: Prisma.SortOrder
+  locationType?: Prisma.SortOrder
+  onlineUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicalLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   instructions?: Prisma.SortOrderInput | Prisma.SortOrder
   relatedModuleId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -290,6 +329,9 @@ export type MentorLiveEventScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"MentorLiveEvent"> | string
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"MentorLiveEvent"> | Date | string
   meetUrl?: Prisma.StringWithAggregatesFilter<"MentorLiveEvent"> | string
+  locationType?: Prisma.EnumLiveEventLocationTypeWithAggregatesFilter<"MentorLiveEvent"> | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.StringNullableWithAggregatesFilter<"MentorLiveEvent"> | string | null
+  physicalLocation?: Prisma.StringNullableWithAggregatesFilter<"MentorLiveEvent"> | string | null
   instructions?: Prisma.StringNullableWithAggregatesFilter<"MentorLiveEvent"> | string | null
   relatedModuleId?: Prisma.StringNullableWithAggregatesFilter<"MentorLiveEvent"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"MentorLiveEvent"> | string | null
@@ -302,6 +344,9 @@ export type MentorLiveEventCreateInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -309,6 +354,8 @@ export type MentorLiveEventCreateInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
   relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
   groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUncheckedCreateInput = {
@@ -317,12 +364,17 @@ export type MentorLiveEventUncheckedCreateInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUpdateInput = {
@@ -330,6 +382,9 @@ export type MentorLiveEventUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,6 +392,8 @@ export type MentorLiveEventUpdateInput = {
   createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
   relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
   groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateInput = {
@@ -345,12 +402,17 @@ export type MentorLiveEventUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventCreateManyInput = {
@@ -359,6 +421,9 @@ export type MentorLiveEventCreateManyInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdById?: string | null
@@ -371,6 +436,9 @@ export type MentorLiveEventUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -382,6 +450,9 @@ export type MentorLiveEventUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -405,6 +476,9 @@ export type MentorLiveEventCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   meetUrl?: Prisma.SortOrder
+  locationType?: Prisma.SortOrder
+  onlineUrl?: Prisma.SortOrder
+  physicalLocation?: Prisma.SortOrder
   instructions?: Prisma.SortOrder
   relatedModuleId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -418,6 +492,9 @@ export type MentorLiveEventMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   meetUrl?: Prisma.SortOrder
+  locationType?: Prisma.SortOrder
+  onlineUrl?: Prisma.SortOrder
+  physicalLocation?: Prisma.SortOrder
   instructions?: Prisma.SortOrder
   relatedModuleId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -431,6 +508,9 @@ export type MentorLiveEventMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   meetUrl?: Prisma.SortOrder
+  locationType?: Prisma.SortOrder
+  onlineUrl?: Prisma.SortOrder
+  physicalLocation?: Prisma.SortOrder
   instructions?: Prisma.SortOrder
   relatedModuleId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -569,6 +649,38 @@ export type MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleNestedInput = 
   deleteMany?: Prisma.MentorLiveEventScalarWhereInput | Prisma.MentorLiveEventScalarWhereInput[]
 }
 
+export type EnumLiveEventLocationTypeFieldUpdateOperationsInput = {
+  set?: $Enums.LiveEventLocationType
+}
+
+export type MentorLiveEventCreateNestedOneWithoutMaterialsInput = {
+  create?: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedCreateWithoutMaterialsInput>
+  connectOrCreate?: Prisma.MentorLiveEventCreateOrConnectWithoutMaterialsInput
+  connect?: Prisma.MentorLiveEventWhereUniqueInput
+}
+
+export type MentorLiveEventUpdateOneRequiredWithoutMaterialsNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedCreateWithoutMaterialsInput>
+  connectOrCreate?: Prisma.MentorLiveEventCreateOrConnectWithoutMaterialsInput
+  upsert?: Prisma.MentorLiveEventUpsertWithoutMaterialsInput
+  connect?: Prisma.MentorLiveEventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MentorLiveEventUpdateToOneWithWhereWithoutMaterialsInput, Prisma.MentorLiveEventUpdateWithoutMaterialsInput>, Prisma.MentorLiveEventUncheckedUpdateWithoutMaterialsInput>
+}
+
+export type MentorLiveEventCreateNestedOneWithoutAttendancesInput = {
+  create?: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedCreateWithoutAttendancesInput>
+  connectOrCreate?: Prisma.MentorLiveEventCreateOrConnectWithoutAttendancesInput
+  connect?: Prisma.MentorLiveEventWhereUniqueInput
+}
+
+export type MentorLiveEventUpdateOneRequiredWithoutAttendancesNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedCreateWithoutAttendancesInput>
+  connectOrCreate?: Prisma.MentorLiveEventCreateOrConnectWithoutAttendancesInput
+  upsert?: Prisma.MentorLiveEventUpsertWithoutAttendancesInput
+  connect?: Prisma.MentorLiveEventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MentorLiveEventUpdateToOneWithWhereWithoutAttendancesInput, Prisma.MentorLiveEventUpdateWithoutAttendancesInput>, Prisma.MentorLiveEventUncheckedUpdateWithoutAttendancesInput>
+}
+
 export type MentorLiveEventCreateNestedOneWithoutGroupsInput = {
   create?: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutGroupsInput, Prisma.MentorLiveEventUncheckedCreateWithoutGroupsInput>
   connectOrCreate?: Prisma.MentorLiveEventCreateOrConnectWithoutGroupsInput
@@ -588,12 +700,17 @@ export type MentorLiveEventCreateWithoutTenantInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
   relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
   groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUncheckedCreateWithoutTenantInput = {
@@ -601,12 +718,17 @@ export type MentorLiveEventUncheckedCreateWithoutTenantInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventCreateOrConnectWithoutTenantInput = {
@@ -644,6 +766,9 @@ export type MentorLiveEventScalarWhereInput = {
   title?: Prisma.StringFilter<"MentorLiveEvent"> | string
   startsAt?: Prisma.DateTimeFilter<"MentorLiveEvent"> | Date | string
   meetUrl?: Prisma.StringFilter<"MentorLiveEvent"> | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFilter<"MentorLiveEvent"> | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
+  physicalLocation?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   instructions?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   relatedModuleId?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
   createdById?: Prisma.StringNullableFilter<"MentorLiveEvent"> | string | null
@@ -656,12 +781,17 @@ export type MentorLiveEventCreateWithoutCreatedByInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutLiveEventsInput
   relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
   groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUncheckedCreateWithoutCreatedByInput = {
@@ -670,11 +800,16 @@ export type MentorLiveEventUncheckedCreateWithoutCreatedByInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventCreateOrConnectWithoutCreatedByInput = {
@@ -708,12 +843,17 @@ export type MentorLiveEventCreateWithoutRelatedModuleInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutLiveEventsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
   groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUncheckedCreateWithoutRelatedModuleInput = {
@@ -722,11 +862,16 @@ export type MentorLiveEventUncheckedCreateWithoutRelatedModuleInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventCreateOrConnectWithoutRelatedModuleInput = {
@@ -755,17 +900,198 @@ export type MentorLiveEventUpdateManyWithWhereWithoutRelatedModuleInput = {
   data: Prisma.XOR<Prisma.MentorLiveEventUpdateManyMutationInput, Prisma.MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleInput>
 }
 
-export type MentorLiveEventCreateWithoutGroupsInput = {
+export type MentorLiveEventCreateWithoutMaterialsInput = {
   id?: string
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutLiveEventsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
   relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
+  groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
+}
+
+export type MentorLiveEventUncheckedCreateWithoutMaterialsInput = {
+  id?: string
+  tenantId: string
+  title: string
+  startsAt: Date | string
+  meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
+  instructions?: string | null
+  relatedModuleId?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type MentorLiveEventCreateOrConnectWithoutMaterialsInput = {
+  where: Prisma.MentorLiveEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedCreateWithoutMaterialsInput>
+}
+
+export type MentorLiveEventUpsertWithoutMaterialsInput = {
+  update: Prisma.XOR<Prisma.MentorLiveEventUpdateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedUpdateWithoutMaterialsInput>
+  create: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedCreateWithoutMaterialsInput>
+  where?: Prisma.MentorLiveEventWhereInput
+}
+
+export type MentorLiveEventUpdateToOneWithWhereWithoutMaterialsInput = {
+  where?: Prisma.MentorLiveEventWhereInput
+  data: Prisma.XOR<Prisma.MentorLiveEventUpdateWithoutMaterialsInput, Prisma.MentorLiveEventUncheckedUpdateWithoutMaterialsInput>
+}
+
+export type MentorLiveEventUpdateWithoutMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutLiveEventsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
+  relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
+  groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
+}
+
+export type MentorLiveEventUncheckedUpdateWithoutMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type MentorLiveEventCreateWithoutAttendancesInput = {
+  id?: string
+  title: string
+  startsAt: Date | string
+  meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
+  instructions?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutLiveEventsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
+  relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
+  groups?: Prisma.LiveEventGroupCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+}
+
+export type MentorLiveEventUncheckedCreateWithoutAttendancesInput = {
+  id?: string
+  tenantId: string
+  title: string
+  startsAt: Date | string
+  meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
+  instructions?: string | null
+  relatedModuleId?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  groups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutEventInput
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type MentorLiveEventCreateOrConnectWithoutAttendancesInput = {
+  where: Prisma.MentorLiveEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedCreateWithoutAttendancesInput>
+}
+
+export type MentorLiveEventUpsertWithoutAttendancesInput = {
+  update: Prisma.XOR<Prisma.MentorLiveEventUpdateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedUpdateWithoutAttendancesInput>
+  create: Prisma.XOR<Prisma.MentorLiveEventCreateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedCreateWithoutAttendancesInput>
+  where?: Prisma.MentorLiveEventWhereInput
+}
+
+export type MentorLiveEventUpdateToOneWithWhereWithoutAttendancesInput = {
+  where?: Prisma.MentorLiveEventWhereInput
+  data: Prisma.XOR<Prisma.MentorLiveEventUpdateWithoutAttendancesInput, Prisma.MentorLiveEventUncheckedUpdateWithoutAttendancesInput>
+}
+
+export type MentorLiveEventUpdateWithoutAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutLiveEventsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
+  relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
+  groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+}
+
+export type MentorLiveEventUncheckedUpdateWithoutAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type MentorLiveEventCreateWithoutGroupsInput = {
+  id?: string
+  title: string
+  startsAt: Date | string
+  meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
+  instructions?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutLiveEventsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLiveEventsInput
+  relatedModule?: Prisma.ModuleCreateNestedOneWithoutLiveEventsInput
+  materials?: Prisma.LiveEventMaterialCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventUncheckedCreateWithoutGroupsInput = {
@@ -774,11 +1100,16 @@ export type MentorLiveEventUncheckedCreateWithoutGroupsInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  materials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutEventInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type MentorLiveEventCreateOrConnectWithoutGroupsInput = {
@@ -802,12 +1133,17 @@ export type MentorLiveEventUpdateWithoutGroupsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutLiveEventsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
   relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateWithoutGroupsInput = {
@@ -816,11 +1152,16 @@ export type MentorLiveEventUncheckedUpdateWithoutGroupsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventCreateManyTenantInput = {
@@ -828,6 +1169,9 @@ export type MentorLiveEventCreateManyTenantInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdById?: string | null
@@ -840,12 +1184,17 @@ export type MentorLiveEventUpdateWithoutTenantInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
   relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
   groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateWithoutTenantInput = {
@@ -853,12 +1202,17 @@ export type MentorLiveEventUncheckedUpdateWithoutTenantInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateManyWithoutTenantInput = {
@@ -866,6 +1220,9 @@ export type MentorLiveEventUncheckedUpdateManyWithoutTenantInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -879,6 +1236,9 @@ export type MentorLiveEventCreateManyCreatedByInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   relatedModuleId?: string | null
   createdAt?: Date | string
@@ -890,12 +1250,17 @@ export type MentorLiveEventUpdateWithoutCreatedByInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutLiveEventsNestedInput
   relatedModule?: Prisma.ModuleUpdateOneWithoutLiveEventsNestedInput
   groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateWithoutCreatedByInput = {
@@ -904,11 +1269,16 @@ export type MentorLiveEventUncheckedUpdateWithoutCreatedByInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateManyWithoutCreatedByInput = {
@@ -917,6 +1287,9 @@ export type MentorLiveEventUncheckedUpdateManyWithoutCreatedByInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   relatedModuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -929,6 +1302,9 @@ export type MentorLiveEventCreateManyRelatedModuleInput = {
   title: string
   startsAt: Date | string
   meetUrl: string
+  locationType?: $Enums.LiveEventLocationType
+  onlineUrl?: string | null
+  physicalLocation?: string | null
   instructions?: string | null
   createdById?: string | null
   createdAt?: Date | string
@@ -940,12 +1316,17 @@ export type MentorLiveEventUpdateWithoutRelatedModuleInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutLiveEventsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedLiveEventsNestedInput
   groups?: Prisma.LiveEventGroupUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateWithoutRelatedModuleInput = {
@@ -954,11 +1335,16 @@ export type MentorLiveEventUncheckedUpdateWithoutRelatedModuleInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutEventNestedInput
+  materials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutEventNestedInput
+  attendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleInput = {
@@ -967,6 +1353,9 @@ export type MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meetUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  locationType?: Prisma.EnumLiveEventLocationTypeFieldUpdateOperationsInput | $Enums.LiveEventLocationType
+  onlineUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicalLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -980,10 +1369,14 @@ export type MentorLiveEventUncheckedUpdateManyWithoutRelatedModuleInput = {
 
 export type MentorLiveEventCountOutputType = {
   groups: number
+  materials: number
+  attendances: number
 }
 
 export type MentorLiveEventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   groups?: boolean | MentorLiveEventCountOutputTypeCountGroupsArgs
+  materials?: boolean | MentorLiveEventCountOutputTypeCountMaterialsArgs
+  attendances?: boolean | MentorLiveEventCountOutputTypeCountAttendancesArgs
 }
 
 /**
@@ -1003,6 +1396,20 @@ export type MentorLiveEventCountOutputTypeCountGroupsArgs<ExtArgs extends runtim
   where?: Prisma.LiveEventGroupWhereInput
 }
 
+/**
+ * MentorLiveEventCountOutputType without action
+ */
+export type MentorLiveEventCountOutputTypeCountMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventMaterialWhereInput
+}
+
+/**
+ * MentorLiveEventCountOutputType without action
+ */
+export type MentorLiveEventCountOutputTypeCountAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventAttendanceWhereInput
+}
+
 
 export type MentorLiveEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1010,6 +1417,9 @@ export type MentorLiveEventSelect<ExtArgs extends runtime.Types.Extensions.Inter
   title?: boolean
   startsAt?: boolean
   meetUrl?: boolean
+  locationType?: boolean
+  onlineUrl?: boolean
+  physicalLocation?: boolean
   instructions?: boolean
   relatedModuleId?: boolean
   createdById?: boolean
@@ -1019,6 +1429,8 @@ export type MentorLiveEventSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdBy?: boolean | Prisma.MentorLiveEvent$createdByArgs<ExtArgs>
   relatedModule?: boolean | Prisma.MentorLiveEvent$relatedModuleArgs<ExtArgs>
   groups?: boolean | Prisma.MentorLiveEvent$groupsArgs<ExtArgs>
+  materials?: boolean | Prisma.MentorLiveEvent$materialsArgs<ExtArgs>
+  attendances?: boolean | Prisma.MentorLiveEvent$attendancesArgs<ExtArgs>
   _count?: boolean | Prisma.MentorLiveEventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorLiveEvent"]>
 
@@ -1028,6 +1440,9 @@ export type MentorLiveEventSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   title?: boolean
   startsAt?: boolean
   meetUrl?: boolean
+  locationType?: boolean
+  onlineUrl?: boolean
+  physicalLocation?: boolean
   instructions?: boolean
   relatedModuleId?: boolean
   createdById?: boolean
@@ -1044,6 +1459,9 @@ export type MentorLiveEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   title?: boolean
   startsAt?: boolean
   meetUrl?: boolean
+  locationType?: boolean
+  onlineUrl?: boolean
+  physicalLocation?: boolean
   instructions?: boolean
   relatedModuleId?: boolean
   createdById?: boolean
@@ -1060,6 +1478,9 @@ export type MentorLiveEventSelectScalar = {
   title?: boolean
   startsAt?: boolean
   meetUrl?: boolean
+  locationType?: boolean
+  onlineUrl?: boolean
+  physicalLocation?: boolean
   instructions?: boolean
   relatedModuleId?: boolean
   createdById?: boolean
@@ -1067,12 +1488,14 @@ export type MentorLiveEventSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MentorLiveEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "startsAt" | "meetUrl" | "instructions" | "relatedModuleId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["mentorLiveEvent"]>
+export type MentorLiveEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "startsAt" | "meetUrl" | "locationType" | "onlineUrl" | "physicalLocation" | "instructions" | "relatedModuleId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["mentorLiveEvent"]>
 export type MentorLiveEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.MentorLiveEvent$createdByArgs<ExtArgs>
   relatedModule?: boolean | Prisma.MentorLiveEvent$relatedModuleArgs<ExtArgs>
   groups?: boolean | Prisma.MentorLiveEvent$groupsArgs<ExtArgs>
+  materials?: boolean | Prisma.MentorLiveEvent$materialsArgs<ExtArgs>
+  attendances?: boolean | Prisma.MentorLiveEvent$attendancesArgs<ExtArgs>
   _count?: boolean | Prisma.MentorLiveEventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MentorLiveEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1093,6 +1516,8 @@ export type $MentorLiveEventPayload<ExtArgs extends runtime.Types.Extensions.Int
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     relatedModule: Prisma.$ModulePayload<ExtArgs> | null
     groups: Prisma.$LiveEventGroupPayload<ExtArgs>[]
+    materials: Prisma.$LiveEventMaterialPayload<ExtArgs>[]
+    attendances: Prisma.$LiveEventAttendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1100,6 +1525,9 @@ export type $MentorLiveEventPayload<ExtArgs extends runtime.Types.Extensions.Int
     title: string
     startsAt: Date
     meetUrl: string
+    locationType: $Enums.LiveEventLocationType
+    onlineUrl: string | null
+    physicalLocation: string | null
     instructions: string | null
     relatedModuleId: string | null
     createdById: string | null
@@ -1503,6 +1931,8 @@ export interface Prisma__MentorLiveEventClient<T, Null = never, ExtArgs extends 
   createdBy<T extends Prisma.MentorLiveEvent$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorLiveEvent$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   relatedModule<T extends Prisma.MentorLiveEvent$relatedModuleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorLiveEvent$relatedModuleArgs<ExtArgs>>): Prisma.Prisma__ModuleClient<runtime.Types.Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.MentorLiveEvent$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorLiveEvent$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  materials<T extends Prisma.MentorLiveEvent$materialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorLiveEvent$materialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendances<T extends Prisma.MentorLiveEvent$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorLiveEvent$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1537,6 +1967,9 @@ export interface MentorLiveEventFieldRefs {
   readonly title: Prisma.FieldRef<"MentorLiveEvent", 'String'>
   readonly startsAt: Prisma.FieldRef<"MentorLiveEvent", 'DateTime'>
   readonly meetUrl: Prisma.FieldRef<"MentorLiveEvent", 'String'>
+  readonly locationType: Prisma.FieldRef<"MentorLiveEvent", 'LiveEventLocationType'>
+  readonly onlineUrl: Prisma.FieldRef<"MentorLiveEvent", 'String'>
+  readonly physicalLocation: Prisma.FieldRef<"MentorLiveEvent", 'String'>
   readonly instructions: Prisma.FieldRef<"MentorLiveEvent", 'String'>
   readonly relatedModuleId: Prisma.FieldRef<"MentorLiveEvent", 'String'>
   readonly createdById: Prisma.FieldRef<"MentorLiveEvent", 'String'>
@@ -1997,6 +2430,54 @@ export type MentorLiveEvent$groupsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.LiveEventGroupScalarFieldEnum | Prisma.LiveEventGroupScalarFieldEnum[]
+}
+
+/**
+ * MentorLiveEvent.materials
+ */
+export type MentorLiveEvent$materialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventMaterial
+   */
+  select?: Prisma.LiveEventMaterialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventMaterial
+   */
+  omit?: Prisma.LiveEventMaterialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventMaterialInclude<ExtArgs> | null
+  where?: Prisma.LiveEventMaterialWhereInput
+  orderBy?: Prisma.LiveEventMaterialOrderByWithRelationInput | Prisma.LiveEventMaterialOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventMaterialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventMaterialScalarFieldEnum | Prisma.LiveEventMaterialScalarFieldEnum[]
+}
+
+/**
+ * MentorLiveEvent.attendances
+ */
+export type MentorLiveEvent$attendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventAttendance
+   */
+  select?: Prisma.LiveEventAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventAttendance
+   */
+  omit?: Prisma.LiveEventAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventAttendanceInclude<ExtArgs> | null
+  where?: Prisma.LiveEventAttendanceWhereInput
+  orderBy?: Prisma.LiveEventAttendanceOrderByWithRelationInput | Prisma.LiveEventAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventAttendanceScalarFieldEnum | Prisma.LiveEventAttendanceScalarFieldEnum[]
 }
 
 /**

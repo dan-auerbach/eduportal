@@ -188,6 +188,16 @@ export type ChatMessage = Prisma.ChatMessageModel
  */
 export type MentorLiveEvent = Prisma.MentorLiveEventModel
 /**
+ * Model LiveEventMaterial
+ * 
+ */
+export type LiveEventMaterial = Prisma.LiveEventMaterialModel
+/**
+ * Model LiveEventAttendance
+ * 
+ */
+export type LiveEventAttendance = Prisma.LiveEventAttendanceModel
+/**
  * Model LiveEventGroup
  * 
  */
@@ -262,6 +272,11 @@ export type KnowledgeSuggestionVote = Prisma.KnowledgeSuggestionVoteModel
  * 
  */
 export type KnowledgeSuggestionComment = Prisma.KnowledgeSuggestionCommentModel
+/**
+ * Model SystemError
+ * 
+ */
+export type SystemError = Prisma.SystemErrorModel
 /**
  * Model MediaAsset
  * 

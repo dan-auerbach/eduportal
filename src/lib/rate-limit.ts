@@ -191,3 +191,13 @@ export async function rateLimitPresenceList(userId: string): Promise<RateLimitRe
 export async function rateLimitChatSSE(userId: string): Promise<RateLimitResult> {
   return rateLimit(`chat:sse:${userId}`, 6, 60_000);
 }
+
+/** Attendance register: 10 per 60s per user */
+export async function rateLimitAttendanceRegister(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`attendance:register:${userId}`, 10, 60_000);
+}
+
+/** Attendance confirm (admin): 20 per 60s per user (for bulk ops) */
+export async function rateLimitAttendanceConfirm(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`attendance:confirm:${userId}`, 20, 60_000);
+}

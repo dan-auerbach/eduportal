@@ -311,6 +311,7 @@ export type MediaAssetWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   sections?: Prisma.SectionListRelationFilter
+  liveEventMaterials?: Prisma.LiveEventMaterialListRelationFilter
 }
 
 export type MediaAssetOrderByWithRelationInput = {
@@ -333,6 +334,7 @@ export type MediaAssetOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   sections?: Prisma.SectionOrderByRelationAggregateInput
+  liveEventMaterials?: Prisma.LiveEventMaterialOrderByRelationAggregateInput
 }
 
 export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
@@ -359,6 +361,7 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   sections?: Prisma.SectionListRelationFilter
+  liveEventMaterials?: Prisma.LiveEventMaterialListRelationFilter
 }, "id" | "tenantId_cfStreamUid">
 
 export type MediaAssetOrderByWithAggregationInput = {
@@ -425,6 +428,7 @@ export type MediaAssetCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
   createdBy: Prisma.UserCreateNestedOneWithoutMediaAssetsInput
   sections?: Prisma.SectionCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateInput = {
@@ -445,6 +449,7 @@ export type MediaAssetUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUpdateInput = {
@@ -465,6 +470,7 @@ export type MediaAssetUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutMediaAssetsNestedInput
   sections?: Prisma.SectionUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateInput = {
@@ -485,6 +491,7 @@ export type MediaAssetUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateManyInput = {
@@ -555,6 +562,11 @@ export type MediaAssetOrderByRelationAggregateInput = {
 export type MediaAssetNullableScalarRelationFilter = {
   is?: Prisma.MediaAssetWhereInput | null
   isNot?: Prisma.MediaAssetWhereInput | null
+}
+
+export type MediaAssetScalarRelationFilter = {
+  is?: Prisma.MediaAssetWhereInput
+  isNot?: Prisma.MediaAssetWhereInput
 }
 
 export type MediaAssetTenantIdCfStreamUidCompoundUniqueInput = {
@@ -729,6 +741,20 @@ export type MediaAssetUpdateOneWithoutSectionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutSectionsInput, Prisma.MediaAssetUpdateWithoutSectionsInput>, Prisma.MediaAssetUncheckedUpdateWithoutSectionsInput>
 }
 
+export type MediaAssetCreateNestedOneWithoutLiveEventMaterialsInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedCreateWithoutLiveEventMaterialsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutLiveEventMaterialsInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+}
+
+export type MediaAssetUpdateOneRequiredWithoutLiveEventMaterialsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedCreateWithoutLiveEventMaterialsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutLiveEventMaterialsInput
+  upsert?: Prisma.MediaAssetUpsertWithoutLiveEventMaterialsInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutLiveEventMaterialsInput, Prisma.MediaAssetUpdateWithoutLiveEventMaterialsInput>, Prisma.MediaAssetUncheckedUpdateWithoutLiveEventMaterialsInput>
+}
+
 export type EnumMediaAssetTypeFieldUpdateOperationsInput = {
   set?: $Enums.MediaAssetType
 }
@@ -766,6 +792,7 @@ export type MediaAssetCreateWithoutTenantInput = {
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutMediaAssetsInput
   sections?: Prisma.SectionCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutTenantInput = {
@@ -785,6 +812,7 @@ export type MediaAssetUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutTenantInput = {
@@ -852,6 +880,7 @@ export type MediaAssetCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
   sections?: Prisma.SectionCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutCreatedByInput = {
@@ -871,6 +900,7 @@ export type MediaAssetUncheckedCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutCreatedByInput = {
@@ -916,6 +946,7 @@ export type MediaAssetCreateWithoutSectionsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
   createdBy: Prisma.UserCreateNestedOneWithoutMediaAssetsInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutSectionsInput = {
@@ -935,6 +966,7 @@ export type MediaAssetUncheckedCreateWithoutSectionsInput = {
   extractedText?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutSectionsInput = {
@@ -970,6 +1002,7 @@ export type MediaAssetUpdateWithoutSectionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutMediaAssetsNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutSectionsInput = {
@@ -989,6 +1022,103 @@ export type MediaAssetUncheckedUpdateWithoutSectionsInput = {
   extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAssetNestedInput
+}
+
+export type MediaAssetCreateWithoutLiveEventMaterialsInput = {
+  id?: string
+  type?: $Enums.MediaAssetType
+  status?: $Enums.MediaAssetStatus
+  provider?: $Enums.MediaProvider
+  title?: string
+  cfStreamUid?: string | null
+  mimeType?: string | null
+  sizeBytes?: bigint | number | null
+  durationSeconds?: number | null
+  lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutMediaAssetsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutMediaAssetsInput
+  sections?: Prisma.SectionCreateNestedManyWithoutMediaAssetInput
+}
+
+export type MediaAssetUncheckedCreateWithoutLiveEventMaterialsInput = {
+  id?: string
+  tenantId: string
+  createdById: string
+  type?: $Enums.MediaAssetType
+  status?: $Enums.MediaAssetStatus
+  provider?: $Enums.MediaProvider
+  title?: string
+  cfStreamUid?: string | null
+  mimeType?: string | null
+  sizeBytes?: bigint | number | null
+  durationSeconds?: number | null
+  lastError?: string | null
+  blobUrl?: string | null
+  extractedText?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutMediaAssetInput
+}
+
+export type MediaAssetCreateOrConnectWithoutLiveEventMaterialsInput = {
+  where: Prisma.MediaAssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedCreateWithoutLiveEventMaterialsInput>
+}
+
+export type MediaAssetUpsertWithoutLiveEventMaterialsInput = {
+  update: Prisma.XOR<Prisma.MediaAssetUpdateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedUpdateWithoutLiveEventMaterialsInput>
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedCreateWithoutLiveEventMaterialsInput>
+  where?: Prisma.MediaAssetWhereInput
+}
+
+export type MediaAssetUpdateToOneWithWhereWithoutLiveEventMaterialsInput = {
+  where?: Prisma.MediaAssetWhereInput
+  data: Prisma.XOR<Prisma.MediaAssetUpdateWithoutLiveEventMaterialsInput, Prisma.MediaAssetUncheckedUpdateWithoutLiveEventMaterialsInput>
+}
+
+export type MediaAssetUpdateWithoutLiveEventMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumMediaAssetTypeFieldUpdateOperationsInput | $Enums.MediaAssetType
+  status?: Prisma.EnumMediaAssetStatusFieldUpdateOperationsInput | $Enums.MediaAssetStatus
+  provider?: Prisma.EnumMediaProviderFieldUpdateOperationsInput | $Enums.MediaProvider
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  cfStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutMediaAssetsNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutMediaAssetNestedInput
+}
+
+export type MediaAssetUncheckedUpdateWithoutLiveEventMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumMediaAssetTypeFieldUpdateOperationsInput | $Enums.MediaAssetType
+  status?: Prisma.EnumMediaAssetStatusFieldUpdateOperationsInput | $Enums.MediaAssetStatus
+  provider?: Prisma.EnumMediaProviderFieldUpdateOperationsInput | $Enums.MediaProvider
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  cfStreamUid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+  durationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blobUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  extractedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
 }
 
 export type MediaAssetCreateManyTenantInput = {
@@ -1026,6 +1156,7 @@ export type MediaAssetUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutMediaAssetsNestedInput
   sections?: Prisma.SectionUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutTenantInput = {
@@ -1045,6 +1176,7 @@ export type MediaAssetUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutTenantInput = {
@@ -1100,6 +1232,7 @@ export type MediaAssetUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMediaAssetsNestedInput
   sections?: Prisma.SectionUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutCreatedByInput = {
@@ -1119,6 +1252,7 @@ export type MediaAssetUncheckedUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutMediaAssetNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1146,10 +1280,12 @@ export type MediaAssetUncheckedUpdateManyWithoutCreatedByInput = {
 
 export type MediaAssetCountOutputType = {
   sections: number
+  liveEventMaterials: number
 }
 
 export type MediaAssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sections?: boolean | MediaAssetCountOutputTypeCountSectionsArgs
+  liveEventMaterials?: boolean | MediaAssetCountOutputTypeCountLiveEventMaterialsArgs
 }
 
 /**
@@ -1167,6 +1303,13 @@ export type MediaAssetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
  */
 export type MediaAssetCountOutputTypeCountSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SectionWhereInput
+}
+
+/**
+ * MediaAssetCountOutputType without action
+ */
+export type MediaAssetCountOutputTypeCountLiveEventMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventMaterialWhereInput
 }
 
 
@@ -1190,6 +1333,7 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   sections?: boolean | Prisma.MediaAsset$sectionsArgs<ExtArgs>
+  liveEventMaterials?: boolean | Prisma.MediaAsset$liveEventMaterialsArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mediaAsset"]>
 
@@ -1259,6 +1403,7 @@ export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   sections?: boolean | Prisma.MediaAsset$sectionsArgs<ExtArgs>
+  liveEventMaterials?: boolean | Prisma.MediaAsset$liveEventMaterialsArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MediaAssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1276,6 +1421,7 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     tenant: Prisma.$TenantPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
     sections: Prisma.$SectionPayload<ExtArgs>[]
+    liveEventMaterials: Prisma.$LiveEventMaterialPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1691,6 +1837,7 @@ export interface Prisma__MediaAssetClient<T, Null = never, ExtArgs extends runti
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sections<T extends Prisma.MediaAsset$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveEventMaterials<T extends Prisma.MediaAsset$liveEventMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$liveEventMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2153,6 +2300,30 @@ export type MediaAsset$sectionsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.SectionScalarFieldEnum | Prisma.SectionScalarFieldEnum[]
+}
+
+/**
+ * MediaAsset.liveEventMaterials
+ */
+export type MediaAsset$liveEventMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventMaterial
+   */
+  select?: Prisma.LiveEventMaterialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventMaterial
+   */
+  omit?: Prisma.LiveEventMaterialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventMaterialInclude<ExtArgs> | null
+  where?: Prisma.LiveEventMaterialWhereInput
+  orderBy?: Prisma.LiveEventMaterialOrderByWithRelationInput | Prisma.LiveEventMaterialOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventMaterialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventMaterialScalarFieldEnum | Prisma.LiveEventMaterialScalarFieldEnum[]
 }
 
 /**

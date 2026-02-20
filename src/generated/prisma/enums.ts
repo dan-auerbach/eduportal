@@ -153,7 +153,9 @@ export const NotificationType = {
   SUGGESTION_POPULAR: 'SUGGESTION_POPULAR',
   SUGGESTION_STATUS_CHANGED: 'SUGGESTION_STATUS_CHANGED',
   MODULE_EXPIRING: 'MODULE_EXPIRING',
-  MODULE_EXPIRED: 'MODULE_EXPIRED'
+  MODULE_EXPIRED: 'MODULE_EXPIRED',
+  EVENT_ATTENDANCE_CONFIRMED: 'EVENT_ATTENDANCE_CONFIRMED',
+  EVENT_REMINDER_ATTENDANCE: 'EVENT_REMINDER_ATTENDANCE'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -220,7 +222,13 @@ export const AuditAction = {
   SUGGESTION_STATUS_CHANGED: 'SUGGESTION_STATUS_CHANGED',
   SUGGESTION_CONVERTED: 'SUGGESTION_CONVERTED',
   MODULE_VALIDITY_EXPIRED: 'MODULE_VALIDITY_EXPIRED',
-  MODULE_REASSIGNED: 'MODULE_REASSIGNED'
+  MODULE_REASSIGNED: 'MODULE_REASSIGNED',
+  ATTENDANCE_REGISTERED: 'ATTENDANCE_REGISTERED',
+  ATTENDANCE_CANCELLED: 'ATTENDANCE_CANCELLED',
+  ATTENDANCE_CONFIRMED: 'ATTENDANCE_CONFIRMED',
+  ATTENDANCE_REVOKED: 'ATTENDANCE_REVOKED',
+  LIVE_EVENT_MATERIAL_ADDED: 'LIVE_EVENT_MATERIAL_ADDED',
+  LIVE_EVENT_MATERIAL_REMOVED: 'LIVE_EVENT_MATERIAL_REMOVED'
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
@@ -234,6 +242,25 @@ export const ChatMessageType = {
 } as const
 
 export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType]
+
+
+export const LiveEventLocationType = {
+  ONLINE: 'ONLINE',
+  PHYSICAL: 'PHYSICAL',
+  HYBRID: 'HYBRID'
+} as const
+
+export type LiveEventLocationType = (typeof LiveEventLocationType)[keyof typeof LiveEventLocationType]
+
+
+export const AttendanceStatus = {
+  REGISTERED: 'REGISTERED',
+  CANCELLED: 'CANCELLED',
+  ATTENDED: 'ATTENDED',
+  NO_SHOW: 'NO_SHOW'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
 
 
 export const RadarPostStatus = {
@@ -260,7 +287,10 @@ export const XpSourceType = {
   MENTOR_CONFIRMATION: 'MENTOR_CONFIRMATION',
   TOP_SUGGESTION: 'TOP_SUGGESTION',
   COMPLIANCE_RENEWAL: 'COMPLIANCE_RENEWAL',
-  MANUAL: 'MANUAL'
+  MANUAL: 'MANUAL',
+  SUGGESTION_CREATED: 'SUGGESTION_CREATED',
+  SUGGESTION_APPROVED: 'SUGGESTION_APPROVED',
+  EVENT_ATTENDED: 'EVENT_ATTENDED'
 } as const
 
 export type XpSourceType = (typeof XpSourceType)[keyof typeof XpSourceType]

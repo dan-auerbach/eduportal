@@ -418,6 +418,8 @@ export const ModelName = {
   ChangelogEntry: 'ChangelogEntry',
   ChatMessage: 'ChatMessage',
   MentorLiveEvent: 'MentorLiveEvent',
+  LiveEventMaterial: 'LiveEventMaterial',
+  LiveEventAttendance: 'LiveEventAttendance',
   LiveEventGroup: 'LiveEventGroup',
   UserSession: 'UserSession',
   MentorRadarPost: 'MentorRadarPost',
@@ -433,6 +435,7 @@ export const ModelName = {
   KnowledgeSuggestion: 'KnowledgeSuggestion',
   KnowledgeSuggestionVote: 'KnowledgeSuggestionVote',
   KnowledgeSuggestionComment: 'KnowledgeSuggestionComment',
+  SystemError: 'SystemError',
   MediaAsset: 'MediaAsset'
 } as const
 
@@ -449,7 +452,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference" | "aiModuleBuild" | "xpTransaction" | "userXpBalance" | "reward" | "rewardRedemption" | "knowledgeSuggestion" | "knowledgeSuggestionVote" | "knowledgeSuggestionComment" | "mediaAsset"
+    modelProps: "tenant" | "membership" | "user" | "userPermission" | "group" | "userGroup" | "module" | "moduleGroup" | "modulePrerequisite" | "section" | "sectionCompletion" | "userModuleLastAccess" | "attachment" | "quiz" | "quizQuestion" | "quizAttempt" | "moduleSelfAssessment" | "progressOverride" | "certificate" | "comment" | "notification" | "notificationDedup" | "moduleCategory" | "userPinnedModule" | "companyPinnedModule" | "tag" | "moduleTag" | "moduleMentor" | "moduleChangeLog" | "userModuleReview" | "auditLog" | "changelogEntry" | "chatMessage" | "mentorLiveEvent" | "liveEventMaterial" | "liveEventAttendance" | "liveEventGroup" | "userSession" | "mentorRadarPost" | "radarSeen" | "radarSave" | "emailToken" | "emailPreference" | "aiModuleBuild" | "xpTransaction" | "userXpBalance" | "reward" | "rewardRedemption" | "knowledgeSuggestion" | "knowledgeSuggestionVote" | "knowledgeSuggestionComment" | "systemError" | "mediaAsset"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2969,6 +2972,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LiveEventMaterial: {
+      payload: Prisma.$LiveEventMaterialPayload<ExtArgs>
+      fields: Prisma.LiveEventMaterialFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LiveEventMaterialFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LiveEventMaterialFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        findFirst: {
+          args: Prisma.LiveEventMaterialFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LiveEventMaterialFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        findMany: {
+          args: Prisma.LiveEventMaterialFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>[]
+        }
+        create: {
+          args: Prisma.LiveEventMaterialCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        createMany: {
+          args: Prisma.LiveEventMaterialCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LiveEventMaterialCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>[]
+        }
+        delete: {
+          args: Prisma.LiveEventMaterialDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        update: {
+          args: Prisma.LiveEventMaterialUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        deleteMany: {
+          args: Prisma.LiveEventMaterialDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LiveEventMaterialUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LiveEventMaterialUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>[]
+        }
+        upsert: {
+          args: Prisma.LiveEventMaterialUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventMaterialPayload>
+        }
+        aggregate: {
+          args: Prisma.LiveEventMaterialAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLiveEventMaterial>
+        }
+        groupBy: {
+          args: Prisma.LiveEventMaterialGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventMaterialGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LiveEventMaterialCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventMaterialCountAggregateOutputType> | number
+        }
+      }
+    }
+    LiveEventAttendance: {
+      payload: Prisma.$LiveEventAttendancePayload<ExtArgs>
+      fields: Prisma.LiveEventAttendanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LiveEventAttendanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LiveEventAttendanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        findFirst: {
+          args: Prisma.LiveEventAttendanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LiveEventAttendanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        findMany: {
+          args: Prisma.LiveEventAttendanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>[]
+        }
+        create: {
+          args: Prisma.LiveEventAttendanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        createMany: {
+          args: Prisma.LiveEventAttendanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LiveEventAttendanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>[]
+        }
+        delete: {
+          args: Prisma.LiveEventAttendanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        update: {
+          args: Prisma.LiveEventAttendanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        deleteMany: {
+          args: Prisma.LiveEventAttendanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LiveEventAttendanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LiveEventAttendanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>[]
+        }
+        upsert: {
+          args: Prisma.LiveEventAttendanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LiveEventAttendancePayload>
+        }
+        aggregate: {
+          args: Prisma.LiveEventAttendanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLiveEventAttendance>
+        }
+        groupBy: {
+          args: Prisma.LiveEventAttendanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventAttendanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LiveEventAttendanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LiveEventAttendanceCountAggregateOutputType> | number
+        }
+      }
+    }
     LiveEventGroup: {
       payload: Prisma.$LiveEventGroupPayload<ExtArgs>
       fields: Prisma.LiveEventGroupFieldRefs
@@ -4079,6 +4230,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SystemError: {
+      payload: Prisma.$SystemErrorPayload<ExtArgs>
+      fields: Prisma.SystemErrorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SystemErrorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SystemErrorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        findFirst: {
+          args: Prisma.SystemErrorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SystemErrorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        findMany: {
+          args: Prisma.SystemErrorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>[]
+        }
+        create: {
+          args: Prisma.SystemErrorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        createMany: {
+          args: Prisma.SystemErrorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SystemErrorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>[]
+        }
+        delete: {
+          args: Prisma.SystemErrorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        update: {
+          args: Prisma.SystemErrorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        deleteMany: {
+          args: Prisma.SystemErrorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SystemErrorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SystemErrorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>[]
+        }
+        upsert: {
+          args: Prisma.SystemErrorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemErrorPayload>
+        }
+        aggregate: {
+          args: Prisma.SystemErrorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSystemError>
+        }
+        groupBy: {
+          args: Prisma.SystemErrorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemErrorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SystemErrorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemErrorCountAggregateOutputType> | number
+        }
+      }
+    }
     MediaAsset: {
       payload: Prisma.$MediaAssetPayload<ExtArgs>
       fields: Prisma.MediaAssetFieldRefs
@@ -4643,6 +4868,9 @@ export const MentorLiveEventScalarFieldEnum = {
   title: 'title',
   startsAt: 'startsAt',
   meetUrl: 'meetUrl',
+  locationType: 'locationType',
+  onlineUrl: 'onlineUrl',
+  physicalLocation: 'physicalLocation',
   instructions: 'instructions',
   relatedModuleId: 'relatedModuleId',
   createdById: 'createdById',
@@ -4651,6 +4879,36 @@ export const MentorLiveEventScalarFieldEnum = {
 } as const
 
 export type MentorLiveEventScalarFieldEnum = (typeof MentorLiveEventScalarFieldEnum)[keyof typeof MentorLiveEventScalarFieldEnum]
+
+
+export const LiveEventMaterialScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  assetId: 'assetId',
+  tenantId: 'tenantId',
+  visibleBeforeEvent: 'visibleBeforeEvent',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type LiveEventMaterialScalarFieldEnum = (typeof LiveEventMaterialScalarFieldEnum)[keyof typeof LiveEventMaterialScalarFieldEnum]
+
+
+export const LiveEventAttendanceScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  status: 'status',
+  registeredAt: 'registeredAt',
+  confirmedById: 'confirmedById',
+  confirmedAt: 'confirmedAt',
+  xpAwarded: 'xpAwarded',
+  xpTransactionId: 'xpTransactionId',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LiveEventAttendanceScalarFieldEnum = (typeof LiveEventAttendanceScalarFieldEnum)[keyof typeof LiveEventAttendanceScalarFieldEnum]
 
 
 export const LiveEventGroupScalarFieldEnum = {
@@ -4866,6 +5124,23 @@ export const KnowledgeSuggestionCommentScalarFieldEnum = {
 } as const
 
 export type KnowledgeSuggestionCommentScalarFieldEnum = (typeof KnowledgeSuggestionCommentScalarFieldEnum)[keyof typeof KnowledgeSuggestionCommentScalarFieldEnum]
+
+
+export const SystemErrorScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tenantSlug: 'tenantSlug',
+  route: 'route',
+  userId: 'userId',
+  requestId: 'requestId',
+  message: 'message',
+  stack: 'stack',
+  meta: 'meta',
+  severity: 'severity',
+  createdAt: 'createdAt'
+} as const
+
+export type SystemErrorScalarFieldEnum = (typeof SystemErrorScalarFieldEnum)[keyof typeof SystemErrorScalarFieldEnum]
 
 
 export const MediaAssetScalarFieldEnum = {
@@ -5232,6 +5507,34 @@ export type ListEnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'LiveEventLocationType'
+ */
+export type EnumLiveEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveEventLocationType'>
+    
+
+
+/**
+ * Reference to a field of type 'LiveEventLocationType[]'
+ */
+export type ListEnumLiveEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiveEventLocationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus'
+ */
+export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus[]'
+ */
+export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'RadarPostStatus'
  */
 export type EnumRadarPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadarPostStatus'>
@@ -5499,6 +5802,8 @@ export type GlobalOmitConfig = {
   changelogEntry?: Prisma.ChangelogEntryOmit
   chatMessage?: Prisma.ChatMessageOmit
   mentorLiveEvent?: Prisma.MentorLiveEventOmit
+  liveEventMaterial?: Prisma.LiveEventMaterialOmit
+  liveEventAttendance?: Prisma.LiveEventAttendanceOmit
   liveEventGroup?: Prisma.LiveEventGroupOmit
   userSession?: Prisma.UserSessionOmit
   mentorRadarPost?: Prisma.MentorRadarPostOmit
@@ -5514,6 +5819,7 @@ export type GlobalOmitConfig = {
   knowledgeSuggestion?: Prisma.KnowledgeSuggestionOmit
   knowledgeSuggestionVote?: Prisma.KnowledgeSuggestionVoteOmit
   knowledgeSuggestionComment?: Prisma.KnowledgeSuggestionCommentOmit
+  systemError?: Prisma.SystemErrorOmit
   mediaAsset?: Prisma.MediaAssetOmit
 }
 

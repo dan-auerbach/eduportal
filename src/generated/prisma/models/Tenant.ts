@@ -298,6 +298,8 @@ export type TenantWhereInput = {
   suggestions?: Prisma.KnowledgeSuggestionListRelationFilter
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
   suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
+  liveEventMaterials?: Prisma.LiveEventMaterialListRelationFilter
+  liveEventAttendances?: Prisma.LiveEventAttendanceListRelationFilter
   emailTokens?: Prisma.EmailTokenListRelationFilter
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }
@@ -361,6 +363,8 @@ export type TenantOrderByWithRelationInput = {
   suggestions?: Prisma.KnowledgeSuggestionOrderByRelationAggregateInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteOrderByRelationAggregateInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentOrderByRelationAggregateInput
+  liveEventMaterials?: Prisma.LiveEventMaterialOrderByRelationAggregateInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceOrderByRelationAggregateInput
   emailTokens?: Prisma.EmailTokenOrderByRelationAggregateInput
   emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
 }
@@ -427,6 +431,8 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   suggestions?: Prisma.KnowledgeSuggestionListRelationFilter
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteListRelationFilter
   suggestionComments?: Prisma.KnowledgeSuggestionCommentListRelationFilter
+  liveEventMaterials?: Prisma.LiveEventMaterialListRelationFilter
+  liveEventAttendances?: Prisma.LiveEventAttendanceListRelationFilter
   emailTokens?: Prisma.EmailTokenListRelationFilter
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
 }, "id" | "slug">
@@ -530,6 +536,8 @@ export type TenantCreateInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -593,6 +601,8 @@ export type TenantUncheckedCreateInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -656,6 +666,8 @@ export type TenantUpdateInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -719,6 +731,8 @@ export type TenantUncheckedUpdateInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -1297,6 +1311,34 @@ export type TenantUpdateOneRequiredWithoutLiveEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutLiveEventsInput, Prisma.TenantUpdateWithoutLiveEventsInput>, Prisma.TenantUncheckedUpdateWithoutLiveEventsInput>
 }
 
+export type TenantCreateNestedOneWithoutLiveEventMaterialsInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedCreateWithoutLiveEventMaterialsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLiveEventMaterialsInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutLiveEventMaterialsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedCreateWithoutLiveEventMaterialsInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLiveEventMaterialsInput
+  upsert?: Prisma.TenantUpsertWithoutLiveEventMaterialsInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutLiveEventMaterialsInput, Prisma.TenantUpdateWithoutLiveEventMaterialsInput>, Prisma.TenantUncheckedUpdateWithoutLiveEventMaterialsInput>
+}
+
+export type TenantCreateNestedOneWithoutLiveEventAttendancesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedCreateWithoutLiveEventAttendancesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLiveEventAttendancesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutLiveEventAttendancesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedCreateWithoutLiveEventAttendancesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLiveEventAttendancesInput
+  upsert?: Prisma.TenantUpsertWithoutLiveEventAttendancesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutLiveEventAttendancesInput, Prisma.TenantUpdateWithoutLiveEventAttendancesInput>, Prisma.TenantUncheckedUpdateWithoutLiveEventAttendancesInput>
+}
+
 export type TenantCreateNestedOneWithoutLiveEventGroupsInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventGroupsInput, Prisma.TenantUncheckedCreateWithoutLiveEventGroupsInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutLiveEventGroupsInput
@@ -1567,6 +1609,8 @@ export type TenantCreateWithoutMembershipsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -1629,6 +1673,8 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -1707,6 +1753,8 @@ export type TenantUpdateWithoutMembershipsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -1769,6 +1817,8 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -1831,6 +1881,8 @@ export type TenantCreateWithoutUserPermissionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -1893,6 +1945,8 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -1971,6 +2025,8 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2033,6 +2089,8 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2095,6 +2153,8 @@ export type TenantCreateWithoutGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2157,6 +2217,8 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2235,6 +2297,8 @@ export type TenantUpdateWithoutGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2297,6 +2361,8 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2359,6 +2425,8 @@ export type TenantCreateWithoutUserGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2421,6 +2489,8 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2499,6 +2569,8 @@ export type TenantUpdateWithoutUserGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2561,6 +2633,8 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2623,6 +2697,8 @@ export type TenantCreateWithoutModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2685,6 +2761,8 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -2763,6 +2841,8 @@ export type TenantUpdateWithoutModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -2825,6 +2905,8 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -2887,6 +2969,8 @@ export type TenantCreateWithoutModuleGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -2949,6 +3033,8 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3027,6 +3113,8 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3089,6 +3177,8 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3151,6 +3241,8 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3213,6 +3305,8 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3291,6 +3385,8 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3353,6 +3449,8 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3415,6 +3513,8 @@ export type TenantCreateWithoutSectionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3477,6 +3577,8 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3555,6 +3657,8 @@ export type TenantUpdateWithoutSectionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3617,6 +3721,8 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3679,6 +3785,8 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -3741,6 +3849,8 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -3819,6 +3929,8 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -3881,6 +3993,8 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -3943,6 +4057,8 @@ export type TenantCreateWithoutModuleAccessesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4005,6 +4121,8 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4083,6 +4201,8 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4145,6 +4265,8 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4207,6 +4329,8 @@ export type TenantCreateWithoutAttachmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4269,6 +4393,8 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4347,6 +4473,8 @@ export type TenantUpdateWithoutAttachmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4409,6 +4537,8 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4471,6 +4601,8 @@ export type TenantCreateWithoutQuizzesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4533,6 +4665,8 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4611,6 +4745,8 @@ export type TenantUpdateWithoutQuizzesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4673,6 +4809,8 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4735,6 +4873,8 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -4797,6 +4937,8 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -4875,6 +5017,8 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -4937,6 +5081,8 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -4999,6 +5145,8 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5061,6 +5209,8 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5139,6 +5289,8 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5201,6 +5353,8 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5263,6 +5417,8 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5325,6 +5481,8 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5403,6 +5561,8 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5465,6 +5625,8 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5527,6 +5689,8 @@ export type TenantCreateWithoutProgressOverridesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5589,6 +5753,8 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5667,6 +5833,8 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5729,6 +5897,8 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -5791,6 +5961,8 @@ export type TenantCreateWithoutCertificatesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -5853,6 +6025,8 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -5931,6 +6105,8 @@ export type TenantUpdateWithoutCertificatesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -5993,6 +6169,8 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6055,6 +6233,8 @@ export type TenantCreateWithoutCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6117,6 +6297,8 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6195,6 +6377,8 @@ export type TenantUpdateWithoutCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6257,6 +6441,8 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6319,6 +6505,8 @@ export type TenantCreateWithoutNotificationsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6381,6 +6569,8 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6459,6 +6649,8 @@ export type TenantUpdateWithoutNotificationsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6521,6 +6713,8 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6583,6 +6777,8 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6645,6 +6841,8 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6723,6 +6921,8 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -6785,6 +6985,8 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -6847,6 +7049,8 @@ export type TenantCreateWithoutCategoriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -6909,6 +7113,8 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -6987,6 +7193,8 @@ export type TenantUpdateWithoutCategoriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7049,6 +7257,8 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7111,6 +7321,8 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7173,6 +7385,8 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7251,6 +7465,8 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7313,6 +7529,8 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7375,6 +7593,8 @@ export type TenantCreateWithoutTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7437,6 +7657,8 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7515,6 +7737,8 @@ export type TenantUpdateWithoutTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7577,6 +7801,8 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7639,6 +7865,8 @@ export type TenantCreateWithoutModuleTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7701,6 +7929,8 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -7779,6 +8009,8 @@ export type TenantUpdateWithoutModuleTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -7841,6 +8073,8 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -7903,6 +8137,8 @@ export type TenantCreateWithoutModuleMentorsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -7965,6 +8201,8 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8043,6 +8281,8 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8105,6 +8345,8 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8167,6 +8409,8 @@ export type TenantCreateWithoutChangeLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8229,6 +8473,8 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8307,6 +8553,8 @@ export type TenantUpdateWithoutChangeLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8369,6 +8617,8 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8431,6 +8681,8 @@ export type TenantCreateWithoutModuleReviewsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8493,6 +8745,8 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8571,6 +8825,8 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8633,6 +8889,8 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8695,6 +8953,8 @@ export type TenantCreateWithoutAuditLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -8757,6 +9017,8 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -8835,6 +9097,8 @@ export type TenantUpdateWithoutAuditLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -8897,6 +9161,8 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -8959,6 +9225,8 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9021,6 +9289,8 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9099,6 +9369,8 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9161,6 +9433,8 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9223,6 +9497,8 @@ export type TenantCreateWithoutChatMessagesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9285,6 +9561,8 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9363,6 +9641,8 @@ export type TenantUpdateWithoutChatMessagesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9425,6 +9705,8 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9487,6 +9769,8 @@ export type TenantCreateWithoutLiveEventsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9549,6 +9833,8 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9627,6 +9913,8 @@ export type TenantUpdateWithoutLiveEventsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9689,6 +9977,552 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutLiveEventMaterialsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutTenantInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutTenantInput
+  rewards?: Prisma.RewardCreateNestedManyWithoutTenantInput
+  rewardRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutTenantInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutLiveEventMaterialsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutTenantInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutTenantInput
+  rewards?: Prisma.RewardUncheckedCreateNestedManyWithoutTenantInput
+  rewardRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutTenantInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutLiveEventMaterialsInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedCreateWithoutLiveEventMaterialsInput>
+}
+
+export type TenantUpsertWithoutLiveEventMaterialsInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedUpdateWithoutLiveEventMaterialsInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedCreateWithoutLiveEventMaterialsInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutLiveEventMaterialsInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutLiveEventMaterialsInput, Prisma.TenantUncheckedUpdateWithoutLiveEventMaterialsInput>
+}
+
+export type TenantUpdateWithoutLiveEventMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutTenantNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutTenantNestedInput
+  rewards?: Prisma.RewardUpdateManyWithoutTenantNestedInput
+  rewardRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutTenantNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutLiveEventMaterialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutTenantNestedInput
+  rewards?: Prisma.RewardUncheckedUpdateManyWithoutTenantNestedInput
+  rewardRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutTenantNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutLiveEventAttendancesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutTenantInput
+  xpTransactions?: Prisma.XpTransactionCreateNestedManyWithoutTenantInput
+  xpBalances?: Prisma.UserXpBalanceCreateNestedManyWithoutTenantInput
+  rewards?: Prisma.RewardCreateNestedManyWithoutTenantInput
+  rewardRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutTenantInput
+  suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutLiveEventAttendancesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  theme?: $Enums.TenantTheme
+  plan?: $Enums.TenantPlan
+  locale?: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  chatTopic?: string | null
+  emailInviteSubject?: string | null
+  emailInviteBody?: string | null
+  emailResetSubject?: string | null
+  emailResetBody?: string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
+  userGroups?: Prisma.UserGroupUncheckedCreateNestedManyWithoutTenantInput
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTenantInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedCreateNestedManyWithoutTenantInput
+  quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTenantInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedCreateNestedManyWithoutTenantInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedCreateNestedManyWithoutTenantInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedCreateNestedManyWithoutTenantInput
+  moduleTags?: Prisma.ModuleTagUncheckedCreateNestedManyWithoutTenantInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTenantInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutTenantInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedCreateNestedManyWithoutTenantInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  userPermissions?: Prisma.UserPermissionUncheckedCreateNestedManyWithoutTenantInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutTenantInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedCreateNestedManyWithoutTenantInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedCreateNestedManyWithoutTenantInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedCreateNestedManyWithoutTenantInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedCreateNestedManyWithoutTenantInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.ModuleCategoryUncheckedCreateNestedManyWithoutTenantInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedCreateNestedManyWithoutTenantInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutTenantInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTenantInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedCreateNestedManyWithoutTenantInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedCreateNestedManyWithoutTenantInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedCreateNestedManyWithoutTenantInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedCreateNestedManyWithoutTenantInput
+  radarSeen?: Prisma.RadarSeenUncheckedCreateNestedManyWithoutTenantInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedCreateNestedManyWithoutTenantInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutTenantInput
+  xpTransactions?: Prisma.XpTransactionUncheckedCreateNestedManyWithoutTenantInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedCreateNestedManyWithoutTenantInput
+  rewards?: Prisma.RewardUncheckedCreateNestedManyWithoutTenantInput
+  rewardRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutTenantInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutLiveEventAttendancesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedCreateWithoutLiveEventAttendancesInput>
+}
+
+export type TenantUpsertWithoutLiveEventAttendancesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedUpdateWithoutLiveEventAttendancesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedCreateWithoutLiveEventAttendancesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutLiveEventAttendancesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutLiveEventAttendancesInput, Prisma.TenantUncheckedUpdateWithoutLiveEventAttendancesInput>
+}
+
+export type TenantUpdateWithoutLiveEventAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutTenantNestedInput
+  xpTransactions?: Prisma.XpTransactionUpdateManyWithoutTenantNestedInput
+  xpBalances?: Prisma.UserXpBalanceUpdateManyWithoutTenantNestedInput
+  rewards?: Prisma.RewardUpdateManyWithoutTenantNestedInput
+  rewardRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutTenantNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutLiveEventAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.EnumTenantThemeFieldUpdateOperationsInput | $Enums.TenantTheme
+  plan?: Prisma.EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  chatTopic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
+  tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
+  userGroups?: Prisma.UserGroupUncheckedUpdateManyWithoutTenantNestedInput
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutTenantNestedInput
+  sectionCompletions?: Prisma.SectionCompletionUncheckedUpdateManyWithoutTenantNestedInput
+  quizzes?: Prisma.QuizUncheckedUpdateManyWithoutTenantNestedInput
+  quizQuestions?: Prisma.QuizQuestionUncheckedUpdateManyWithoutTenantNestedInput
+  quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+  moduleGroups?: Prisma.ModuleGroupUncheckedUpdateManyWithoutTenantNestedInput
+  modulePrerequisites?: Prisma.ModulePrerequisiteUncheckedUpdateManyWithoutTenantNestedInput
+  moduleTags?: Prisma.ModuleTagUncheckedUpdateManyWithoutTenantNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTenantNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  notificationDedups?: Prisma.NotificationDedupUncheckedUpdateManyWithoutTenantNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  userPermissions?: Prisma.UserPermissionUncheckedUpdateManyWithoutTenantNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutTenantNestedInput
+  selfAssessments?: Prisma.ModuleSelfAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+  progressOverrides?: Prisma.ProgressOverrideUncheckedUpdateManyWithoutTenantNestedInput
+  moduleAccesses?: Prisma.UserModuleLastAccessUncheckedUpdateManyWithoutTenantNestedInput
+  changeLogs?: Prisma.ModuleChangeLogUncheckedUpdateManyWithoutTenantNestedInput
+  moduleReviews?: Prisma.UserModuleReviewUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.ModuleCategoryUncheckedUpdateManyWithoutTenantNestedInput
+  companyPinnedModules?: Prisma.CompanyPinnedModuleUncheckedUpdateManyWithoutTenantNestedInput
+  changelogEntries?: Prisma.ChangelogEntryUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutTenantNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTenantNestedInput
+  moduleMentors?: Prisma.ModuleMentorUncheckedUpdateManyWithoutTenantNestedInput
+  liveEvents?: Prisma.MentorLiveEventUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventGroups?: Prisma.LiveEventGroupUncheckedUpdateManyWithoutTenantNestedInput
+  radarPosts?: Prisma.MentorRadarPostUncheckedUpdateManyWithoutTenantNestedInput
+  radarSeen?: Prisma.RadarSeenUncheckedUpdateManyWithoutTenantNestedInput
+  aiModuleBuilds?: Prisma.AiModuleBuildUncheckedUpdateManyWithoutTenantNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutTenantNestedInput
+  xpTransactions?: Prisma.XpTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  xpBalances?: Prisma.UserXpBalanceUncheckedUpdateManyWithoutTenantNestedInput
+  rewards?: Prisma.RewardUncheckedUpdateManyWithoutTenantNestedInput
+  rewardRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutTenantNestedInput
+  suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
+  suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
+  suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -9751,6 +10585,8 @@ export type TenantCreateWithoutLiveEventGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -9813,6 +10649,8 @@ export type TenantUncheckedCreateWithoutLiveEventGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -9891,6 +10729,8 @@ export type TenantUpdateWithoutLiveEventGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -9953,6 +10793,8 @@ export type TenantUncheckedUpdateWithoutLiveEventGroupsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -10015,6 +10857,8 @@ export type TenantCreateWithoutSessionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -10077,6 +10921,8 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -10155,6 +11001,8 @@ export type TenantUpdateWithoutSessionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -10217,6 +11065,8 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -10279,6 +11129,8 @@ export type TenantCreateWithoutRadarPostsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -10341,6 +11193,8 @@ export type TenantUncheckedCreateWithoutRadarPostsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -10419,6 +11273,8 @@ export type TenantUpdateWithoutRadarPostsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -10481,6 +11337,8 @@ export type TenantUncheckedUpdateWithoutRadarPostsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -10543,6 +11401,8 @@ export type TenantCreateWithoutRadarSeenInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -10605,6 +11465,8 @@ export type TenantUncheckedCreateWithoutRadarSeenInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -10683,6 +11545,8 @@ export type TenantUpdateWithoutRadarSeenInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -10745,6 +11609,8 @@ export type TenantUncheckedUpdateWithoutRadarSeenInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -10808,6 +11674,8 @@ export type TenantCreateWithoutEmailTokensInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
 
@@ -10870,6 +11738,8 @@ export type TenantUncheckedCreateWithoutEmailTokensInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -10948,6 +11818,8 @@ export type TenantUpdateWithoutEmailTokensInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
 
@@ -11010,6 +11882,8 @@ export type TenantUncheckedUpdateWithoutEmailTokensInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
 
@@ -11072,6 +11946,8 @@ export type TenantCreateWithoutEmailPreferencesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
 }
 
@@ -11134,6 +12010,8 @@ export type TenantUncheckedCreateWithoutEmailPreferencesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -11212,6 +12090,8 @@ export type TenantUpdateWithoutEmailPreferencesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
 }
 
@@ -11274,6 +12154,8 @@ export type TenantUncheckedUpdateWithoutEmailPreferencesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
 }
 
@@ -11335,6 +12217,8 @@ export type TenantCreateWithoutAiModuleBuildsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -11397,6 +12281,8 @@ export type TenantUncheckedCreateWithoutAiModuleBuildsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -11475,6 +12361,8 @@ export type TenantUpdateWithoutAiModuleBuildsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -11537,6 +12425,8 @@ export type TenantUncheckedUpdateWithoutAiModuleBuildsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -11599,6 +12489,8 @@ export type TenantCreateWithoutXpTransactionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -11661,6 +12553,8 @@ export type TenantUncheckedCreateWithoutXpTransactionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -11739,6 +12633,8 @@ export type TenantUpdateWithoutXpTransactionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -11801,6 +12697,8 @@ export type TenantUncheckedUpdateWithoutXpTransactionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -11863,6 +12761,8 @@ export type TenantCreateWithoutXpBalancesInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -11925,6 +12825,8 @@ export type TenantUncheckedCreateWithoutXpBalancesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -12003,6 +12905,8 @@ export type TenantUpdateWithoutXpBalancesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -12065,6 +12969,8 @@ export type TenantUncheckedUpdateWithoutXpBalancesInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -12127,6 +13033,8 @@ export type TenantCreateWithoutRewardsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -12189,6 +13097,8 @@ export type TenantUncheckedCreateWithoutRewardsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -12267,6 +13177,8 @@ export type TenantUpdateWithoutRewardsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -12329,6 +13241,8 @@ export type TenantUncheckedUpdateWithoutRewardsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -12391,6 +13305,8 @@ export type TenantCreateWithoutRewardRedemptionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -12453,6 +13369,8 @@ export type TenantUncheckedCreateWithoutRewardRedemptionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -12531,6 +13449,8 @@ export type TenantUpdateWithoutRewardRedemptionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -12593,6 +13513,8 @@ export type TenantUncheckedUpdateWithoutRewardRedemptionsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -12655,6 +13577,8 @@ export type TenantCreateWithoutSuggestionsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -12717,6 +13641,8 @@ export type TenantUncheckedCreateWithoutSuggestionsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -12795,6 +13721,8 @@ export type TenantUpdateWithoutSuggestionsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -12857,6 +13785,8 @@ export type TenantUncheckedUpdateWithoutSuggestionsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -12919,6 +13849,8 @@ export type TenantCreateWithoutSuggestionVotesInput = {
   rewardRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutTenantInput
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -12981,6 +13913,8 @@ export type TenantUncheckedCreateWithoutSuggestionVotesInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutTenantInput
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -13059,6 +13993,8 @@ export type TenantUpdateWithoutSuggestionVotesInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutTenantNestedInput
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -13121,6 +14057,8 @@ export type TenantUncheckedUpdateWithoutSuggestionVotesInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutTenantNestedInput
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -13183,6 +14121,8 @@ export type TenantCreateWithoutSuggestionCommentsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionCreateNestedManyWithoutTenantInput
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -13245,6 +14185,8 @@ export type TenantUncheckedCreateWithoutSuggestionCommentsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedCreateNestedManyWithoutTenantInput
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -13323,6 +14265,8 @@ export type TenantUpdateWithoutSuggestionCommentsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUpdateManyWithoutTenantNestedInput
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -13385,6 +14329,8 @@ export type TenantUncheckedUpdateWithoutSuggestionCommentsInput = {
   rewardRedemptions?: Prisma.RewardRedemptionUncheckedUpdateManyWithoutTenantNestedInput
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -13447,6 +14393,8 @@ export type TenantCreateWithoutMediaAssetsInput = {
   suggestions?: Prisma.KnowledgeSuggestionCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutTenantInput
 }
@@ -13509,6 +14457,8 @@ export type TenantUncheckedCreateWithoutMediaAssetsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedCreateNestedManyWithoutTenantInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedCreateNestedManyWithoutTenantInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedCreateNestedManyWithoutTenantInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedCreateNestedManyWithoutTenantInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedCreateNestedManyWithoutTenantInput
   emailTokens?: Prisma.EmailTokenUncheckedCreateNestedManyWithoutTenantInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutTenantInput
 }
@@ -13587,6 +14537,8 @@ export type TenantUpdateWithoutMediaAssetsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutTenantNestedInput
 }
@@ -13649,6 +14601,8 @@ export type TenantUncheckedUpdateWithoutMediaAssetsInput = {
   suggestions?: Prisma.KnowledgeSuggestionUncheckedUpdateManyWithoutTenantNestedInput
   suggestionVotes?: Prisma.KnowledgeSuggestionVoteUncheckedUpdateManyWithoutTenantNestedInput
   suggestionComments?: Prisma.KnowledgeSuggestionCommentUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventMaterials?: Prisma.LiveEventMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  liveEventAttendances?: Prisma.LiveEventAttendanceUncheckedUpdateManyWithoutTenantNestedInput
   emailTokens?: Prisma.EmailTokenUncheckedUpdateManyWithoutTenantNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutTenantNestedInput
 }
@@ -13703,6 +14657,8 @@ export type TenantCountOutputType = {
   suggestions: number
   suggestionVotes: number
   suggestionComments: number
+  liveEventMaterials: number
+  liveEventAttendances: number
   emailTokens: number
   emailPreferences: number
 }
@@ -13752,6 +14708,8 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   suggestions?: boolean | TenantCountOutputTypeCountSuggestionsArgs
   suggestionVotes?: boolean | TenantCountOutputTypeCountSuggestionVotesArgs
   suggestionComments?: boolean | TenantCountOutputTypeCountSuggestionCommentsArgs
+  liveEventMaterials?: boolean | TenantCountOutputTypeCountLiveEventMaterialsArgs
+  liveEventAttendances?: boolean | TenantCountOutputTypeCountLiveEventAttendancesArgs
   emailTokens?: boolean | TenantCountOutputTypeCountEmailTokensArgs
   emailPreferences?: boolean | TenantCountOutputTypeCountEmailPreferencesArgs
 }
@@ -14077,6 +15035,20 @@ export type TenantCountOutputTypeCountSuggestionCommentsArgs<ExtArgs extends run
 /**
  * TenantCountOutputType without action
  */
+export type TenantCountOutputTypeCountLiveEventMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventMaterialWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountLiveEventAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LiveEventAttendanceWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
 export type TenantCountOutputTypeCountEmailTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EmailTokenWhereInput
 }
@@ -14148,6 +15120,8 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   suggestions?: boolean | Prisma.Tenant$suggestionsArgs<ExtArgs>
   suggestionVotes?: boolean | Prisma.Tenant$suggestionVotesArgs<ExtArgs>
   suggestionComments?: boolean | Prisma.Tenant$suggestionCommentsArgs<ExtArgs>
+  liveEventMaterials?: boolean | Prisma.Tenant$liveEventMaterialsArgs<ExtArgs>
+  liveEventAttendances?: boolean | Prisma.Tenant$liveEventAttendancesArgs<ExtArgs>
   emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
   emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
@@ -14250,6 +15224,8 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   suggestions?: boolean | Prisma.Tenant$suggestionsArgs<ExtArgs>
   suggestionVotes?: boolean | Prisma.Tenant$suggestionVotesArgs<ExtArgs>
   suggestionComments?: boolean | Prisma.Tenant$suggestionCommentsArgs<ExtArgs>
+  liveEventMaterials?: boolean | Prisma.Tenant$liveEventMaterialsArgs<ExtArgs>
+  liveEventAttendances?: boolean | Prisma.Tenant$liveEventAttendancesArgs<ExtArgs>
   emailTokens?: boolean | Prisma.Tenant$emailTokensArgs<ExtArgs>
   emailPreferences?: boolean | Prisma.Tenant$emailPreferencesArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
@@ -14304,6 +15280,8 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     suggestions: Prisma.$KnowledgeSuggestionPayload<ExtArgs>[]
     suggestionVotes: Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>[]
     suggestionComments: Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>[]
+    liveEventMaterials: Prisma.$LiveEventMaterialPayload<ExtArgs>[]
+    liveEventAttendances: Prisma.$LiveEventAttendancePayload<ExtArgs>[]
     emailTokens: Prisma.$EmailTokenPayload<ExtArgs>[]
     emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
   }
@@ -14760,6 +15738,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   suggestions<T extends Prisma.Tenant$suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suggestionVotes<T extends Prisma.Tenant$suggestionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$suggestionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suggestionComments<T extends Prisma.Tenant$suggestionCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$suggestionCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeSuggestionCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveEventMaterials<T extends Prisma.Tenant$liveEventMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$liveEventMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  liveEventAttendances<T extends Prisma.Tenant$liveEventAttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$liveEventAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LiveEventAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailTokens<T extends Prisma.Tenant$emailTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailPreferences<T extends Prisma.Tenant$emailPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$emailPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -16246,6 +17226,54 @@ export type Tenant$suggestionCommentsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.KnowledgeSuggestionCommentScalarFieldEnum | Prisma.KnowledgeSuggestionCommentScalarFieldEnum[]
+}
+
+/**
+ * Tenant.liveEventMaterials
+ */
+export type Tenant$liveEventMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventMaterial
+   */
+  select?: Prisma.LiveEventMaterialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventMaterial
+   */
+  omit?: Prisma.LiveEventMaterialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventMaterialInclude<ExtArgs> | null
+  where?: Prisma.LiveEventMaterialWhereInput
+  orderBy?: Prisma.LiveEventMaterialOrderByWithRelationInput | Prisma.LiveEventMaterialOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventMaterialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventMaterialScalarFieldEnum | Prisma.LiveEventMaterialScalarFieldEnum[]
+}
+
+/**
+ * Tenant.liveEventAttendances
+ */
+export type Tenant$liveEventAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LiveEventAttendance
+   */
+  select?: Prisma.LiveEventAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LiveEventAttendance
+   */
+  omit?: Prisma.LiveEventAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LiveEventAttendanceInclude<ExtArgs> | null
+  where?: Prisma.LiveEventAttendanceWhereInput
+  orderBy?: Prisma.LiveEventAttendanceOrderByWithRelationInput | Prisma.LiveEventAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.LiveEventAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LiveEventAttendanceScalarFieldEnum | Prisma.LiveEventAttendanceScalarFieldEnum[]
 }
 
 /**

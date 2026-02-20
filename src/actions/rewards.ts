@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { requirePermission, ForbiddenError } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
-import { deductXp, getOrCreateBalance } from "@/lib/xp";
+import { getOrCreateBalance } from "@/lib/xp";
 import { rateLimitRedemption } from "@/lib/rate-limit";
 import { CreateRewardSchema, UpdateRewardSchema } from "@/lib/validators";
 import { withAction } from "@/lib/observability";
@@ -173,7 +173,7 @@ export async function getAdminRewards(): Promise<ActionResult<RewardDTO[]>> {
 export async function createReward(
   input: unknown,
 ): Promise<ActionResult<{ id: string }>> {
-  try {
+  return withAction("createReward", async ({ log }) => {
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_REWARDS", { tenantId: ctx.tenantId });
 
@@ -195,11 +195,10 @@ export async function createReward(
       metadata: { title: reward.title, costXp: reward.costXp },
     });
 
+    log({ rewardId: reward.id, title: reward.title });
+
     return { success: true, data: { id: reward.id } };
-  } catch (e) {
-    if (e instanceof ForbiddenError || e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri ustvarjanju nagrade" };
-  }
+  });
 }
 
 // ── Admin: Update reward ─────────────────────────────────────────────────────
@@ -208,7 +207,7 @@ export async function updateReward(
   rewardId: string,
   input: unknown,
 ): Promise<ActionResult<void>> {
-  try {
+  return withAction("updateReward", async ({ log }) => {
     const ctx = await getTenantContext();
     await requirePermission(ctx.user, "MANAGE_REWARDS", { tenantId: ctx.tenantId });
 
@@ -232,11 +231,10 @@ export async function updateReward(
       metadata: data,
     });
 
+    log({ rewardId, title: existing.title });
+
     return { success: true, data: undefined };
-  } catch (e) {
-    if (e instanceof ForbiddenError || e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
-  }
+  });
 }
 
 // ── Employee: Redeem reward ──────────────────────────────────────────────────
@@ -291,7 +289,7 @@ export async function redeemReward(
     const autoApprove = !reward.approvalRequired;
     const status: RedemptionStatus = autoApprove ? "APPROVED" : "PENDING";
 
-    // Create redemption + optionally deduct XP
+    // Create redemption + deduct XP atomically in one transaction
     const redemption = await prisma.$transaction(async (tx) => {
       // Decrement quantity if applicable
       if (reward.quantityAvailable != null) {
@@ -302,6 +300,30 @@ export async function redeemReward(
         if (updated.quantityAvailable != null && updated.quantityAvailable < 0) {
           throw new Error("Nagrada ni več na voljo");
         }
+      }
+
+      // Deduct XP inside transaction if auto-approved (atomic with redemption)
+      if (autoApprove) {
+        const bal = await tx.userXpBalance.findUnique({
+          where: { userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId } },
+        });
+        const currentTotal = bal?.totalXp ?? 0;
+        if (currentTotal < reward.costXp) {
+          throw new Error("Premalo XP točk za porabo");
+        }
+        await tx.xpTransaction.create({
+          data: {
+            tenantId: ctx.tenantId,
+            userId: ctx.user.id,
+            amount: -reward.costXp,
+            source: "MANUAL",
+            description: `Unovčitev nagrade: ${reward.title}`,
+          },
+        });
+        await tx.userXpBalance.update({
+          where: { userId_tenantId: { userId: ctx.user.id, tenantId: ctx.tenantId } },
+          data: { totalXp: { decrement: reward.costXp } },
+        });
       }
 
       const r = await tx.rewardRedemption.create({
@@ -316,16 +338,6 @@ export async function redeemReward(
 
       return r;
     });
-
-    // Deduct XP if auto-approved
-    if (autoApprove) {
-      await deductXp({
-        userId: ctx.user.id,
-        tenantId: ctx.tenantId,
-        amount: reward.costXp,
-        description: `Unovčitev nagrade: ${reward.title}`,
-      });
-    }
 
     await logAudit({
       actorId: ctx.user.id,
@@ -503,31 +515,48 @@ export async function reviewRedemption(
 
     const newStatus: RedemptionStatus = approved ? "APPROVED" : "REJECTED";
 
-    await prisma.rewardRedemption.update({
-      where: { id: redemptionId },
-      data: {
-        status: newStatus,
-        reviewedById: ctx.user.id,
-        reviewedAt: new Date(),
-        rejectReason: approved ? null : (rejectReason ?? null),
-      },
-    });
+    // Update status + XP deduction/quantity refund atomically
+    await prisma.$transaction(async (tx) => {
+      await tx.rewardRedemption.update({
+        where: { id: redemptionId },
+        data: {
+          status: newStatus,
+          reviewedById: ctx.user.id,
+          reviewedAt: new Date(),
+          rejectReason: approved ? null : (rejectReason ?? null),
+        },
+      });
 
-    // Deduct XP on approval
-    if (approved) {
-      await deductXp({
-        userId: redemption.userId,
-        tenantId: ctx.tenantId,
-        amount: redemption.xpSpent,
-        description: `Unovčitev nagrade: ${redemption.reward.title}`,
-      });
-    } else {
-      // Refund quantity if rejected
-      await prisma.reward.update({
-        where: { id: redemption.rewardId },
-        data: { quantityAvailable: { increment: 1 } },
-      });
-    }
+      if (approved) {
+        // Deduct XP inside transaction (atomic with status change)
+        const bal = await tx.userXpBalance.findUnique({
+          where: { userId_tenantId: { userId: redemption.userId, tenantId: ctx.tenantId } },
+        });
+        const currentTotal = bal?.totalXp ?? 0;
+        if (currentTotal < redemption.xpSpent) {
+          throw new Error("Uporabnik nima dovolj XP točk");
+        }
+        await tx.xpTransaction.create({
+          data: {
+            tenantId: ctx.tenantId,
+            userId: redemption.userId,
+            amount: -redemption.xpSpent,
+            source: "MANUAL",
+            description: `Unovčitev nagrade: ${redemption.reward.title}`,
+          },
+        });
+        await tx.userXpBalance.update({
+          where: { userId_tenantId: { userId: redemption.userId, tenantId: ctx.tenantId } },
+          data: { totalXp: { decrement: redemption.xpSpent } },
+        });
+      } else {
+        // Refund quantity if rejected
+        await tx.reward.update({
+          where: { id: redemption.rewardId },
+          data: { quantityAvailable: { increment: 1 } },
+        });
+      }
+    });
 
     // Notify user
     await prisma.notification.create({

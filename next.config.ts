@@ -29,7 +29,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://player.target-video.com",
+      "script-src 'self' 'unsafe-inline' https://player.target-video.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com https://*.public.blob.vercel-storage.com https://img.youtube.com https://i.ytimg.com https://*.target-video.com https://www.google.com",
       "font-src 'self' data:",

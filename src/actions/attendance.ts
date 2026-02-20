@@ -5,6 +5,7 @@ import { getTenantContext, TenantAccessError, requireTenantRole } from "@/lib/te
 import { logAudit } from "@/lib/audit";
 import { awardXp, XP_RULES } from "@/lib/xp";
 import { rateLimitAttendanceRegister, rateLimitAttendanceConfirm } from "@/lib/rate-limit";
+import { withAction } from "@/lib/observability";
 import type { ActionResult } from "@/types";
 import type { AttendanceStatus } from "@/generated/prisma/client";
 
@@ -36,7 +37,7 @@ export type AttendanceSummary = {
 export async function registerForEvent(
   eventId: string,
 ): Promise<ActionResult<{ status: AttendanceStatus }>> {
-  try {
+  return withAction("registerForEvent", async ({ log }) => {
     const ctx = await getTenantContext();
 
     const rl = await rateLimitAttendanceRegister(ctx.user.id);
@@ -79,11 +80,10 @@ export async function registerForEvent(
       metadata: { eventId, eventTitle: event.title },
     });
 
+    log({ eventId, eventTitle: event.title });
+
     return { success: true, data: { status: "REGISTERED" } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri prijavi" };
-  }
+  });
 }
 
 // ── Employee: Cancel Registration ────────────────────────────────────────────
@@ -91,7 +91,7 @@ export async function registerForEvent(
 export async function cancelRegistration(
   eventId: string,
 ): Promise<ActionResult<{ status: AttendanceStatus }>> {
-  try {
+  return withAction("cancelRegistration", async ({ log }) => {
     const ctx = await getTenantContext();
 
     const attendance = await prisma.liveEventAttendance.findUnique({
@@ -102,26 +102,28 @@ export async function cancelRegistration(
       return { success: false, error: "Prijava ne obstaja" };
     }
 
-    // If was ATTENDED and XP was awarded, reverse XP
+    // If was ATTENDED and XP was awarded, reverse XP atomically (D4 fix)
     if (attendance.status === "ATTENDED" && attendance.xpAwarded) {
       try {
-        await prisma.xpTransaction.create({
-          data: {
-            tenantId: ctx.tenantId,
-            userId: ctx.user.id,
-            amount: -XP_RULES.EVENT_ATTENDED,
-            source: "EVENT_ATTENDED",
-            sourceEntityId: `${eventId}:reversal`,
-            description: "Preklicana prisotnost na dogodku",
-          },
-        });
-        await prisma.userXpBalance.updateMany({
-          where: { userId: ctx.user.id, tenantId: ctx.tenantId },
-          data: {
-            totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
-            lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
-          },
-        });
+        await prisma.$transaction([
+          prisma.xpTransaction.create({
+            data: {
+              tenantId: ctx.tenantId,
+              userId: ctx.user.id,
+              amount: -XP_RULES.EVENT_ATTENDED,
+              source: "EVENT_ATTENDED",
+              sourceEntityId: `${eventId}:reversal`,
+              description: "Preklicana prisotnost na dogodku",
+            },
+          }),
+          prisma.userXpBalance.updateMany({
+            where: { userId: ctx.user.id, tenantId: ctx.tenantId },
+            data: {
+              totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
+              lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
+            },
+          }),
+        ]);
       } catch {
         // Best effort reversal
       }
@@ -141,11 +143,10 @@ export async function cancelRegistration(
       metadata: { eventId },
     });
 
+    log({ eventId, previousStatus: attendance.status, xpReversed: attendance.xpAwarded });
+
     return { success: true, data: { status: "CANCELLED" } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri odjavi" };
-  }
+  });
 }
 
 // ── Employee: Get My Attendance ──────────────────────────────────────────────
@@ -255,7 +256,7 @@ export async function confirmAttendance(
   eventId: string,
   userId: string,
 ): Promise<ActionResult<{ xpAwarded: boolean }>> {
-  try {
+  return withAction("confirmAttendance", async ({ log }) => {
     const ctx = await requireTenantRole("ADMIN");
 
     const rl = await rateLimitAttendanceConfirm(ctx.user.id);
@@ -304,7 +305,7 @@ export async function confirmAttendance(
           description: "Prisotnost na dogodku v živo",
         });
         updateData.xpAwarded = true;
-        updateData.xpTransactionId = result.newTotal.toString(); // store for reference
+        updateData.xpTransactionId = result.newTotal.toString();
         xpAwarded = true;
       } catch {
         // Unique constraint violation = already awarded via another path
@@ -341,11 +342,10 @@ export async function confirmAttendance(
       metadata: { eventId, userId, xpAwarded },
     });
 
+    log({ eventId, userId, xpAwarded });
+
     return { success: true, data: { xpAwarded } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri potrjevanju" };
-  }
+  });
 }
 
 // ── Admin: Bulk Confirm Attendance ───────────────────────────────────────────
@@ -354,7 +354,7 @@ export async function bulkConfirmAttendance(
   eventId: string,
   userIds: string[],
 ): Promise<ActionResult<{ confirmed: number; xpAwarded: number }>> {
-  try {
+  return withAction("bulkConfirmAttendance", async ({ log }) => {
     const ctx = await requireTenantRole("ADMIN");
 
     const rl = await rateLimitAttendanceConfirm(ctx.user.id);
@@ -372,19 +372,25 @@ export async function bulkConfirmAttendance(
     let confirmed = 0;
     let xpAwardedCount = 0;
 
-    for (const userId of userIds) {
-      const result = await confirmAttendance(eventId, userId);
-      if (result.success) {
-        confirmed++;
-        if (result.data.xpAwarded) xpAwardedCount++;
+    // Process concurrently with controlled parallelism (P1 partial fix)
+    const BATCH_SIZE = 5;
+    for (let i = 0; i < userIds.length; i += BATCH_SIZE) {
+      const batch = userIds.slice(i, i + BATCH_SIZE);
+      const results = await Promise.all(
+        batch.map((uid) => confirmAttendance(eventId, uid)),
+      );
+      for (const result of results) {
+        if (result.success) {
+          confirmed++;
+          if (result.data.xpAwarded) xpAwardedCount++;
+        }
       }
     }
 
+    log({ eventId, confirmed, xpAwarded: xpAwardedCount, totalRequested: userIds.length });
+
     return { success: true, data: { confirmed, xpAwarded: xpAwardedCount } };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
-  }
+  });
 }
 
 // ── Admin: Revoke Attendance (mark as NO_SHOW) ──────────────────────────────
@@ -393,7 +399,7 @@ export async function revokeAttendance(
   eventId: string,
   userId: string,
 ): Promise<ActionResult<void>> {
-  try {
+  return withAction("revokeAttendance", async ({ log }) => {
     const ctx = await requireTenantRole("ADMIN");
 
     const attendance = await prisma.liveEventAttendance.findUnique({
@@ -404,26 +410,28 @@ export async function revokeAttendance(
       return { success: false, error: "Prisotnost ne obstaja" };
     }
 
-    // Reverse XP if was awarded
+    // Reverse XP atomically if was awarded (D4 fix)
     if (attendance.xpAwarded) {
       try {
-        await prisma.xpTransaction.create({
-          data: {
-            tenantId: ctx.tenantId,
-            userId,
-            amount: -XP_RULES.EVENT_ATTENDED,
-            source: "EVENT_ATTENDED",
-            sourceEntityId: `${eventId}:reversal`,
-            description: "Preklicana prisotnost — označen kot odsoten",
-          },
-        });
-        await prisma.userXpBalance.updateMany({
-          where: { userId, tenantId: ctx.tenantId },
-          data: {
-            totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
-            lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
-          },
-        });
+        await prisma.$transaction([
+          prisma.xpTransaction.create({
+            data: {
+              tenantId: ctx.tenantId,
+              userId,
+              amount: -XP_RULES.EVENT_ATTENDED,
+              source: "EVENT_ATTENDED",
+              sourceEntityId: `${eventId}:reversal`,
+              description: "Preklicana prisotnost — označen kot odsoten",
+            },
+          }),
+          prisma.userXpBalance.updateMany({
+            where: { userId, tenantId: ctx.tenantId },
+            data: {
+              totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
+              lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
+            },
+          }),
+        ]);
       } catch {
         // Best effort
       }
@@ -449,11 +457,10 @@ export async function revokeAttendance(
       metadata: { eventId, userId, previousXpAwarded: attendance.xpAwarded },
     });
 
+    log({ eventId, userId, xpReversed: attendance.xpAwarded });
+
     return { success: true, data: undefined };
-  } catch (e) {
-    if (e instanceof TenantAccessError) return { success: false, error: e.message };
-    return { success: false, error: e instanceof Error ? e.message : "Napaka pri preklicu" };
-  }
+  });
 }
 
 // ── Admin: Attendance Summary ────────────────────────────────────────────────

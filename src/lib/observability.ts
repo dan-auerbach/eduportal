@@ -250,8 +250,11 @@ export function withApiRoute(
 // ── withCron — Cron endpoint wrapper ────────────────────────────────────────
 
 function verifyCronSecret(req: Request): boolean {
+  const secret = process.env.CRON_SECRET;
+  if (!secret) return false; // Never allow access when secret is unset
+
   const header = req.headers.get("authorization") ?? "";
-  const expected = `Bearer ${process.env.CRON_SECRET ?? ""}`;
+  const expected = `Bearer ${secret}`;
   if (header.length !== expected.length) return false;
   try {
     return timingSafeEqual(Buffer.from(header), Buffer.from(expected));

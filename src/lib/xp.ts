@@ -78,19 +78,18 @@ export async function awardXp(params: {
   const { userId, tenantId, amount, source, sourceEntityId, description } =
     params;
 
-  // Fetch current balance (or default)
-  const existing = await prisma.userXpBalance.findUnique({
-    where: { userId_tenantId: { userId, tenantId } },
-  });
-  const oldRank = existing?.rank ?? "VAJENEC";
-  const newLifetime = (existing?.lifetimeXp ?? 0) + amount;
-  const newTotal = (existing?.totalXp ?? 0) + amount;
-  const newRank = computeRank(newLifetime); // Rank from lifetime, never goes down
-  const rankChanged = newRank !== oldRank;
+  // Interactive transaction: read + write are atomic (row-level lock via findUnique)
+  const result = await prisma.$transaction(async (tx) => {
+    const existing = await tx.userXpBalance.findUnique({
+      where: { userId_tenantId: { userId, tenantId } },
+    });
+    const oldRank = existing?.rank ?? "VAJENEC";
+    const newLifetime = (existing?.lifetimeXp ?? 0) + amount;
+    const newTotal = (existing?.totalXp ?? 0) + amount;
+    const newRank = computeRank(newLifetime);
+    const rankChanged = newRank !== oldRank;
 
-  // Atomic: create transaction + upsert balance
-  await prisma.$transaction([
-    prisma.xpTransaction.create({
+    await tx.xpTransaction.create({
       data: {
         tenantId,
         userId,
@@ -99,39 +98,42 @@ export async function awardXp(params: {
         sourceEntityId,
         description,
       },
-    }),
-    prisma.userXpBalance.upsert({
+    });
+
+    await tx.userXpBalance.upsert({
       where: { userId_tenantId: { userId, tenantId } },
       create: { tenantId, userId, lifetimeXp: amount, totalXp: amount, rank: newRank },
       update: { lifetimeXp: newLifetime, totalXp: newTotal, rank: newRank },
-    }),
-  ]);
+    });
 
-  // Audit
+    return { newLifetime, newTotal, newRank, rankChanged };
+  });
+
+  // Audit (best-effort, outside transaction to avoid holding lock)
   await logAudit({
     actorId: userId,
     tenantId,
     action: "XP_AWARDED",
     entityType: "XpTransaction",
     entityId: userId,
-    metadata: { amount, source, sourceEntityId, newLifetime, newTotal, newRank },
+    metadata: { amount, source, sourceEntityId, newLifetime: result.newLifetime, newTotal: result.newTotal, newRank: result.newRank },
   });
 
   // Notification on rank change
-  if (rankChanged) {
+  if (result.rankChanged) {
     await prisma.notification.create({
       data: {
         userId,
         tenantId,
         type: "XP_EARNED",
-        title: `Novi rang: ${RANK_LABELS[newRank]}`,
-        message: `Čestitamo! Dosegli ste rang ${RANK_LABELS[newRank]} z ${newLifetime} XP točkami.`,
+        title: `Novi rang: ${RANK_LABELS[result.newRank]}`,
+        message: `Čestitamo! Dosegli ste rang ${RANK_LABELS[result.newRank]} z ${result.newLifetime} XP točkami.`,
         link: "/leaderboard",
       },
     });
   }
 
-  return { newTotal, newRank, rankChanged };
+  return { newTotal: result.newTotal, newRank: result.newRank, rankChanged: result.rankChanged };
 }
 
 // ── Deduct XP ────────────────────────────────────────────────────────────────
@@ -144,21 +146,21 @@ export async function deductXp(params: {
 }): Promise<{ newTotal: number; rank: ReputationRank }> {
   const { userId, tenantId, amount, description } = params;
 
-  const existing = await prisma.userXpBalance.findUnique({
-    where: { userId_tenantId: { userId, tenantId } },
-  });
-  const currentTotal = existing?.totalXp ?? 0;
+  // Interactive transaction: read + write are atomic (row-level lock)
+  const result = await prisma.$transaction(async (tx) => {
+    const existing = await tx.userXpBalance.findUnique({
+      where: { userId_tenantId: { userId, tenantId } },
+    });
+    const currentTotal = existing?.totalXp ?? 0;
 
-  if (currentTotal < amount) {
-    throw new Error("Premalo XP točk za odbitek");
-  }
+    if (currentTotal < amount) {
+      throw new Error("Premalo XP točk za odbitek");
+    }
 
-  const newTotal = currentTotal - amount;
-  // Rank stays the same — it's based on lifetimeXp, which never decreases
-  const rank = existing?.rank ?? "VAJENEC";
+    const newTotal = currentTotal - amount;
+    const rank = existing?.rank ?? "VAJENEC";
 
-  await prisma.$transaction([
-    prisma.xpTransaction.create({
+    await tx.xpTransaction.create({
       data: {
         tenantId,
         userId,
@@ -166,13 +168,16 @@ export async function deductXp(params: {
         source: "MANUAL",
         description: description ?? "XP deduction",
       },
-    }),
-    prisma.userXpBalance.update({
+    });
+
+    await tx.userXpBalance.update({
       where: { userId_tenantId: { userId, tenantId } },
       data: { totalXp: newTotal },
       // Note: lifetimeXp and rank are NOT changed on deduction
-    }),
-  ]);
+    });
+
+    return { newTotal, rank };
+  });
 
   await logAudit({
     actorId: userId,
@@ -180,10 +185,10 @@ export async function deductXp(params: {
     action: "XP_DEDUCTED",
     entityType: "XpTransaction",
     entityId: userId,
-    metadata: { amount, newTotal, description },
+    metadata: { amount, newTotal: result.newTotal, description },
   });
 
-  return { newTotal, rank };
+  return result;
 }
 
 // ── Get Balance (with lazy init) ─────────────────────────────────────────────

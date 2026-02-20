@@ -358,6 +358,13 @@ const MIGRATIONS: Migration[] = [
   },
 ];
 
+/**
+ * Detect if a SQL statement is an ALTER TYPE ... ADD VALUE (cannot run in transactions).
+ */
+function isEnumAddValue(stmt: string): boolean {
+  return /ALTER\s+TYPE\s+.*ADD\s+VALUE/i.test(stmt);
+}
+
 async function main() {
   // Ensure tracking table exists
   await pool.query(`
@@ -379,17 +386,34 @@ async function main() {
       continue;
     }
 
-    // Run each SQL statement
     console.log(`[migrate] Applying ${migration.name}...`);
-    for (const stmt of migration.statements) {
+
+    // Split statements: ALTER TYPE ... ADD VALUE cannot run inside transactions in PostgreSQL.
+    // Run enum additions first (outside transaction), then everything else inside a transaction.
+    const enumStatements = migration.statements.filter(isEnumAddValue);
+    const txStatements = migration.statements.filter((s) => !isEnumAddValue(s));
+
+    // Phase 1: Run enum value additions outside transaction (idempotent via IF NOT EXISTS)
+    for (const stmt of enumStatements) {
       await pool.query(stmt);
     }
 
-    // Mark as applied
-    await pool.query(
-      `INSERT INTO "_applied_migrations" (name) VALUES ($1)`,
-      [migration.name],
-    );
+    // Phase 2: Run remaining statements + mark as applied inside a transaction
+    await pool.query("BEGIN");
+    try {
+      for (const stmt of txStatements) {
+        await pool.query(stmt);
+      }
+      await pool.query(
+        `INSERT INTO "_applied_migrations" (name) VALUES ($1)`,
+        [migration.name],
+      );
+      await pool.query("COMMIT");
+    } catch (e) {
+      await pool.query("ROLLBACK");
+      throw e;
+    }
+
     console.log(`[migrate] ✓ ${migration.name} applied`);
   }
 

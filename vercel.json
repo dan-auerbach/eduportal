@@ -1,12 +1,13 @@
 {
   "functions": {
-    "src/app/api/chat/stream/route.ts": { "maxDuration": 30 }
+    "src/app/api/chat/stream/route.ts": { "maxDuration": 30 },
+    "src/app/api/cron/*/route.ts": { "maxDuration": 60 }
   },
   "crons": [
     { "path": "/api/cron/deadline-reminders", "schedule": "0 8 * * *" },
     { "path": "/api/cron/dedup-cleanup", "schedule": "0 3 * * 0" },
     { "path": "/api/cron/live-reminders", "schedule": "0 7 * * *" },
-    { "path": "/api/cron/knowledge-digest", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/knowledge-digest", "schedule": "15 8 * * *" },
     { "path": "/api/cron/compliance-check", "schedule": "0 6 * * *" }
   ]
 }

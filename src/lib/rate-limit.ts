@@ -201,3 +201,8 @@ export async function rateLimitAttendanceRegister(userId: string): Promise<RateL
 export async function rateLimitAttendanceConfirm(userId: string): Promise<RateLimitResult> {
   return rateLimit(`attendance:confirm:${userId}`, 20, 60_000);
 }
+
+/** File upload: 20 per hour per user */
+export async function rateLimitUpload(userId: string): Promise<RateLimitResult> {
+  return rateLimit(`upload:${userId}`, 20, 60 * 60_000);
+}

@@ -17,6 +17,7 @@ type UseChatOptions = {
 type UseChatReturn = {
   messages: ChatMessageDTO[];
   setMessages: React.Dispatch<React.SetStateAction<ChatMessageDTO[]>>;
+  addOptimistic: (msg: ChatMessageDTO) => void;
   isLoading: boolean;
   topic: string | null;
   lastId: string | null;
@@ -65,6 +66,18 @@ export function useChat({ scope, enabled = true }: UseChatOptions): UseChatRetur
     lastIdRef.current = latestId;
 
     setMessages((prev) => [...prev, ...toAdd]);
+  }, []);
+
+  // ── Optimistic add (called by ChatThread after sendChatMessage) ──────────
+
+  const addOptimistic = useCallback((msg: ChatMessageDTO) => {
+    if (seenIdsRef.current.has(msg.id)) return;
+    seenIdsRef.current.add(msg.id);
+    lastIdRef.current = msg.id;
+    setMessages((prev) => {
+      if (prev.some((m) => m.id === msg.id)) return prev;
+      return [...prev, msg];
+    });
   }, []);
 
   // ── Initial fetch via /api/chat ──────────────────────────────────────────
@@ -254,6 +267,7 @@ export function useChat({ scope, enabled = true }: UseChatOptions): UseChatRetur
   return {
     messages,
     setMessages,
+    addOptimistic,
     isLoading,
     topic,
     lastId: lastIdRef.current,

@@ -59,7 +59,7 @@ export function ChatThread({
   labels,
   variant = "full",
 }: ChatThreadProps) {
-  const { messages, setMessages, isLoading, topic: liveTopic } = useChat({ scope });
+  const { messages, setMessages, addOptimistic, isLoading, topic: liveTopic } = useChat({ scope });
   const topic = liveTopic ?? initialTopic ?? null;
 
   const [input, setInput] = useState("");
@@ -177,10 +177,7 @@ export function ChatThread({
     const result = await sendChatMessage(trimmed, moduleId);
     if (result.success) {
       setInput("");
-      setMessages((prev) => {
-        const exists = prev.some((m) => m.id === result.data.id);
-        return exists ? prev : [...prev, result.data];
-      });
+      addOptimistic(result.data);
       markAsRead(result.data.id);
       requestAnimationFrame(() => scrollToBottom(true));
       inputRef.current?.focus();

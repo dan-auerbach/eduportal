@@ -48,12 +48,12 @@ export default async function SuggestionsPage({
       </Card>
 
       {/* Composer */}
-      <div className="mt-8">
+      <div className="mt-6">
         <SuggestionComposer />
       </div>
 
       {/* Sort/Filter tabs */}
-      <div className="mt-8">
+      <div className="mt-6">
         <SuggestionTabs currentSort={sort} currentStatus={status} />
       </div>
 
@@ -68,14 +68,12 @@ export default async function SuggestionsPage({
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {suggestions.map((s) => (
               <SuggestionCard
                 key={s.id}
                 id={s.id}
                 title={s.title}
-                description={s.description}
-                link={s.link}
                 authorName={s.authorName}
                 status={s.status}
                 voteCount={s.voteCount}

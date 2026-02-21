@@ -97,9 +97,11 @@ export default async function SuggestionDetailPage({
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="whitespace-pre-wrap text-sm leading-relaxed">
-            {suggestion.description}
-          </p>
+          {suggestion.description && (
+            <p className="whitespace-pre-wrap text-sm leading-relaxed">
+              {suggestion.description}
+            </p>
+          )}
 
           {suggestion.link && (
             <a
@@ -113,7 +115,7 @@ export default async function SuggestionDetailPage({
             </a>
           )}
 
-          <div className="pt-2">
+          <div>
             <VoteButton
               suggestionId={suggestion.id}
               voteCount={suggestion.voteCount}

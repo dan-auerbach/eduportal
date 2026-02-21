@@ -301,7 +301,7 @@ export const UpdateRewardSchema = z.object({
 // ---- Knowledge suggestion forms ----
 export const CreateSuggestionSchema = z.object({
   title: z.string().min(1, "Naslov je obvezen").max(200),
-  description: z.string().min(10, "Opis mora vsebovati vsaj 10 znakov").max(2000),
+  description: z.string().max(2000).optional().default(""),
   link: z
     .string()
     .url("Neveljaven URL")

@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, ExternalLink, User, Flame, Sparkles } from "lucide-react";
+import { MessageSquare, User, Flame, Sparkles } from "lucide-react";
 import { VoteButton } from "./vote-button";
 import Link from "next/link";
 import { t } from "@/lib/i18n";
@@ -23,8 +23,6 @@ const STATUS_CONFIG: Record<SuggestionStatus, { label: string; variant: "default
 type SuggestionCardProps = {
   id: string;
   title: string;
-  description: string;
-  link?: string | null;
   authorName: string | null; // null = anonymous
   status: SuggestionStatus;
   voteCount: number;
@@ -39,8 +37,6 @@ type SuggestionCardProps = {
 export function SuggestionCard({
   id,
   title,
-  description,
-  link,
   authorName,
   status,
   voteCount,
@@ -58,15 +54,34 @@ export function SuggestionCard({
       data-slot="suggestion-card"
       className={cn("transition-shadow hover:shadow-md", className)}
     >
-      <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 pb-2">
+      <CardContent className="flex items-center gap-4 py-3">
+        {/* Vote button (left) */}
+        <VoteButton
+          suggestionId={id}
+          voteCount={voteCount}
+          hasVoted={hasVoted}
+        />
+
+        {/* Content (center) */}
         <div className="min-w-0 flex-1">
-          <Link
-            href={`/suggestions/${id}`}
-            className="text-base font-semibold leading-tight hover:underline line-clamp-2"
-          >
-            {title}
-          </Link>
-          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/suggestions/${id}`}
+              className="text-sm font-semibold leading-tight hover:underline line-clamp-1"
+            >
+              {title}
+            </Link>
+            {isPopular && (
+              <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                <Flame className="h-2.5 w-2.5" />
+                {t("suggestions.popularBadge")}
+              </span>
+            )}
+            <Badge variant={statusConfig.variant} className="shrink-0 text-[10px]">
+              {statusConfig.label}
+            </Badge>
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <User className="h-3 w-3" />
               <span>{authorName ?? "Anonimno"}</span>
@@ -81,45 +96,15 @@ export function SuggestionCard({
             </span>
           </div>
         </div>
-        <Badge variant={statusConfig.variant}>{statusConfig.label}</Badge>
-      </CardHeader>
 
-      <CardContent className="space-y-3">
-        <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
-
-        {isPopular && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-            <Flame className="h-3 w-3" />
-            {t("suggestions.popularBadge")}
-          </span>
-        )}
-
-        {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline dark:text-blue-400"
-          >
-            <ExternalLink className="h-3 w-3" />
-            Povezava
-          </a>
-        )}
-
-        <div className="flex items-center gap-3 pt-1">
-          <VoteButton
-            suggestionId={id}
-            voteCount={voteCount}
-            hasVoted={hasVoted}
-          />
-          <Link
-            href={`/suggestions/${id}`}
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <MessageSquare className="h-4 w-4" />
-            <span className="tabular-nums">{commentCount}</span>
-          </Link>
-        </div>
+        {/* Comments (right) */}
+        <Link
+          href={`/suggestions/${id}`}
+          className="inline-flex shrink-0 items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <MessageSquare className="h-4 w-4" />
+          <span className="tabular-nums">{commentCount}</span>
+        </Link>
       </CardContent>
     </Card>
   );

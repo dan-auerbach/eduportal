@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { t } from "@/lib/i18n";
+import { getTenantContext } from "@/lib/tenant";
 import { getAdminRewards, getPendingRedemptions, getAllRedemptions } from "@/actions/rewards";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +10,9 @@ import { PendingRedemptions } from "./pending-redemptions";
 import { RewardRedemptionHistory, FullRedemptionLog } from "./redemption-log";
 
 export default async function AdminRewardsPage() {
+  const ctx = await getTenantContext();
+  if (!ctx.config.features.rewards) redirect("/admin");
+
   const [rewardsResult, pendingResult, allRedemptionsResult] = await Promise.all([
     getAdminRewards(),
     getPendingRedemptions(),

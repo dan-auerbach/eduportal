@@ -4,6 +4,7 @@ import { prisma } from "./prisma";
 import { getCurrentUser, type SessionUser } from "./auth";
 import type { TenantRole, TenantTheme, TenantPlan } from "@/generated/prisma/client";
 import type { Locale } from "@/lib/i18n";
+import { resolveTenantConfig, type TenantConfig } from "./tenant-config";
 
 const TENANT_COOKIE = "mentor-tenant";
 const OWNER_IMPERSONATION_COOKIE = "mentor-owner-tenant";
@@ -16,6 +17,7 @@ export type TenantContext = {
   tenantPlan: TenantPlan;
   tenantLocale: Locale;
   tenantLogoUrl: string | null;
+  config: TenantConfig;
   membership: { id: string; role: TenantRole } | null;
   effectiveRole: TenantRole;
   isOwnerImpersonating: boolean;
@@ -184,6 +186,7 @@ async function _getTenantContextImpl(): Promise<TenantContext> {
     tenantPlan: tenant.plan,
     tenantLocale,
     tenantLogoUrl: tenant.logoUrl,
+    config: resolveTenantConfig(tenant.config),
     membership: membership ? { id: membership.id, role: membership.role } : null,
     effectiveRole,
     isOwnerImpersonating,

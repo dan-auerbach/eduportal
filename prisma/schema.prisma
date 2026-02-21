@@ -82,6 +82,9 @@ model Tenant {
   emailResetSubject    String?
   emailResetBody       String?  @db.Text
 
+  // Per-tenant configuration (XP rules, feature flags, ranks, etc.)
+  config               Json?
+
   emailTokens          EmailToken[]
   emailPreferences     EmailPreference[]
 }

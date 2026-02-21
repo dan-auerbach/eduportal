@@ -428,10 +428,11 @@ export async function confirmAnswer(messageId: string): Promise<ActionResult<voi
       void awardXp({
         userId: msg.userId,
         tenantId: ctx.tenantId,
-        amount: XP_RULES.MENTOR_CONFIRMATION,
+        amount: ctx.config.xpRules.MENTOR_CONFIRMATION ?? XP_RULES.MENTOR_CONFIRMATION,
         source: "MENTOR_CONFIRMATION",
         sourceEntityId: messageId,
         description: "Odgovor potrjen s strani mentorja",
+        config: ctx.config,
       }).catch(() => {/* XP award failure should not break confirmation */});
     }
 

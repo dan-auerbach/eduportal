@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getTenantContext } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
 import { t } from "@/lib/i18n";
@@ -16,6 +17,7 @@ export default async function LeaderboardPage({
   searchParams: Promise<{ group?: string }>;
 }) {
   const ctx = await getTenantContext();
+  if (!ctx.config.features.leaderboard) redirect("/dashboard");
   const params = await searchParams;
   const groupId = params.group || undefined;
 

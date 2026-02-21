@@ -18,10 +18,9 @@ type ActionResult<T = void> =
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-/** Format a Date as "d. MMMM yyyy ob HH:mm" in Europe/Ljubljana timezone */
-function formatDateTimeCET(date: Date, locale: string): string {
+/** Format a Date as "d. MMMM yyyy ob HH:mm" in the given timezone */
+function formatDateTimeCET(date: Date, locale: string, tz = "Europe/Ljubljana"): string {
   const loc = locale === "sl" ? "sl-SI" : "en-GB";
-  const tz = "Europe/Ljubljana";
   const datePart = date.toLocaleDateString(loc, {
     day: "numeric",
     month: "long",
@@ -802,12 +801,14 @@ export async function sendLiveEventCreatedNotification(opts: {
   try {
     const tenant = await prisma.tenant.findUnique({
       where: { id: opts.tenantId },
-      select: { name: true, locale: true },
+      select: { name: true, locale: true, config: true },
     });
     if (!tenant) return;
 
     const locale = (tenant.locale === "en" ? "en" : "sl") as Locale;
     const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
+    const { resolveTenantConfig } = await import("@/lib/tenant-config");
+    const tenantConfig = resolveTenantConfig(tenant.config);
 
     // Find unique users across all selected groups
     const userGroups = await prisma.userGroup.findMany({
@@ -829,7 +830,7 @@ export async function sendLiveEventCreatedNotification(opts: {
       }
     }
 
-    const formattedDate = formatDateTimeCET(opts.startsAt, locale);
+    const formattedDate = formatDateTimeCET(opts.startsAt, locale, tenantConfig.timezone);
 
     for (const [userId, user] of usersMap) {
       // Check email preference

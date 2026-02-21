@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { t } from "@/lib/i18n";
+import { getTenantContext } from "@/lib/tenant";
 import { getSuggestions } from "@/actions/suggestions";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +21,9 @@ export default async function AdminSuggestionsPage({
 }: {
   searchParams: Promise<{ status?: string }>;
 }) {
+  const ctx = await getTenantContext();
+  if (!ctx.config.features.suggestions) redirect("/admin");
+
   const params = await searchParams;
   const statusFilter = params.status as SuggestionStatus | undefined;
 

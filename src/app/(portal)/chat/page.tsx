@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getTenantContext } from "@/lib/tenant";
 import { setLocale } from "@/lib/i18n";
@@ -6,6 +7,7 @@ import { buildChatLabels } from "@/lib/chat-labels";
 
 export default async function ChatPage() {
   const ctx = await getTenantContext();
+  if (!ctx.config.features.chat) redirect("/dashboard");
   setLocale(ctx.tenantLocale);
 
   // Fetch current topic

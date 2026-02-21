@@ -26,7 +26,7 @@ export default async function UpdatesPage() {
     },
   });
 
-  // Group entries by local date (Europe/Ljubljana)
+  // Group entries by local date
   const dateLocale = getDateLocale();
   const groupMap = new Map<string, DayGroup>();
 

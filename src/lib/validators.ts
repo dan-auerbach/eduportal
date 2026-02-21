@@ -314,3 +314,27 @@ export const SuggestionCommentSchema = z.object({
   body: z.string().min(1, "Komentar ne sme biti prazen").max(1000),
   parentId: z.string().cuid().nullable().optional(),
 });
+
+// ---- Tenant config (per-tenant configuration) ----
+const RankThresholdSchema = z.object({
+  rank: z.enum(["VAJENEC", "POMOCNIK", "MOJSTER", "MENTOR"]),
+  minXp: z.number().int().min(0),
+  label: z.string().min(1).max(50),
+});
+
+export const TenantConfigSchema = z.object({
+  xpRules: z.record(z.string(), z.number().int().min(0).max(10000)).optional(),
+  rankThresholds: z.array(RankThresholdSchema).length(4).optional(),
+  quizHighScorePercent: z.number().int().min(50).max(100).optional(),
+  suggestionVoteThreshold: z.number().int().min(1).max(100).optional(),
+  features: z.object({
+    chat: z.boolean(),
+    radar: z.boolean(),
+    suggestions: z.boolean(),
+    rewards: z.boolean(),
+    leaderboard: z.boolean(),
+    liveEvents: z.boolean(),
+    aiBuilder: z.boolean(),
+  }).partial().optional(),
+  timezone: z.string().min(1).max(100).optional(),
+});

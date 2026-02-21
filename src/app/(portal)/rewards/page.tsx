@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { t } from "@/lib/i18n";
+import { getTenantContext } from "@/lib/tenant";
 import { getStorefrontRewards } from "@/actions/rewards";
 import { getMyXpBalance } from "@/actions/xp";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +10,9 @@ import { RewardGrid } from "./reward-grid";
 import Link from "next/link";
 
 export default async function RewardsStorefrontPage() {
+  const ctx = await getTenantContext();
+  if (!ctx.config.features.rewards) redirect("/dashboard");
+
   const [rewardsResult, balanceResult] = await Promise.all([
     getStorefrontRewards(),
     getMyXpBalance(),

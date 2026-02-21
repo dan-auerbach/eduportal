@@ -88,10 +88,11 @@ export async function completeSection(
         void awardXp({
           userId: ctx.user.id,
           tenantId: ctx.tenantId,
-          amount: XP_RULES.MODULE_COMPLETED,
+          amount: ctx.config.xpRules.MODULE_COMPLETED ?? XP_RULES.MODULE_COMPLETED,
           source: "MODULE_COMPLETED",
           sourceEntityId: section.moduleId,
           description: "Zaključen modul",
+          config: ctx.config,
         }).catch(() => {/* XP award failure should not break progress */});
       }
     }

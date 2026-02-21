@@ -270,14 +270,15 @@ export async function submitQuizAttempt(
     });
 
     // Award XP for high quiz score (≥90%) — fire-and-forget
-    if (score >= 90) {
+    if (score >= (ctx.config.quizHighScorePercent ?? 90)) {
       void awardXp({
         userId: ctx.user.id,
         tenantId: ctx.tenantId,
-        amount: XP_RULES.QUIZ_HIGH_SCORE,
+        amount: ctx.config.xpRules.QUIZ_HIGH_SCORE ?? XP_RULES.QUIZ_HIGH_SCORE,
         source: "QUIZ_HIGH_SCORE",
         sourceEntityId: quizId,
         description: `Kviz ${score}%`,
+        config: ctx.config,
       }).catch(() => {/* XP award failure should not break quiz */});
     }
 
@@ -320,10 +321,11 @@ export async function submitQuizAttempt(
           void awardXp({
             userId: ctx.user.id,
             tenantId: ctx.tenantId,
-            amount: XP_RULES.MODULE_COMPLETED,
+            amount: ctx.config.xpRules.MODULE_COMPLETED ?? XP_RULES.MODULE_COMPLETED,
             source: "MODULE_COMPLETED",
             sourceEntityId: quiz.moduleId,
             description: "Zaključen modul (kviz opravljen)",
+            config: ctx.config,
           }).catch(() => {/* XP award failure should not break quiz */});
         }
       }

@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getTenantContext } from "@/lib/tenant";
 import { setLocale, t } from "@/lib/i18n";
 import { Radar } from "lucide-react";
@@ -18,6 +19,7 @@ export default async function RadarPage({
   searchParams: SearchParams;
 }) {
   const ctx = await getTenantContext();
+  if (!ctx.config.features.radar) redirect("/dashboard");
   setLocale(ctx.tenantLocale);
 
   const params = await searchParams;

@@ -73,6 +73,7 @@ export type TenantCountAggregateOutputType = {
   emailInviteBody: number
   emailResetSubject: number
   emailResetBody: number
+  config: number
   _all: number
 }
 
@@ -126,6 +127,7 @@ export type TenantCountAggregateInputType = {
   emailInviteBody?: true
   emailResetSubject?: true
   emailResetBody?: true
+  config?: true
   _all?: true
 }
 
@@ -216,6 +218,7 @@ export type TenantGroupByOutputType = {
   emailInviteBody: string | null
   emailResetSubject: string | null
   emailResetBody: string | null
+  config: runtime.JsonValue | null
   _count: TenantCountAggregateOutputType | null
   _min: TenantMinAggregateOutputType | null
   _max: TenantMaxAggregateOutputType | null
@@ -254,6 +257,7 @@ export type TenantWhereInput = {
   emailInviteBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
   emailResetSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
   emailResetBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  config?: Prisma.JsonNullableFilter<"Tenant">
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -319,6 +323,7 @@ export type TenantOrderByWithRelationInput = {
   emailInviteBody?: Prisma.SortOrderInput | Prisma.SortOrder
   emailResetSubject?: Prisma.SortOrderInput | Prisma.SortOrder
   emailResetBody?: Prisma.SortOrderInput | Prisma.SortOrder
+  config?: Prisma.SortOrderInput | Prisma.SortOrder
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   modules?: Prisma.ModuleOrderByRelationAggregateInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
@@ -387,6 +392,7 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   emailInviteBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
   emailResetSubject?: Prisma.StringNullableFilter<"Tenant"> | string | null
   emailResetBody?: Prisma.StringNullableFilter<"Tenant"> | string | null
+  config?: Prisma.JsonNullableFilter<"Tenant">
   memberships?: Prisma.MembershipListRelationFilter
   modules?: Prisma.ModuleListRelationFilter
   groups?: Prisma.GroupListRelationFilter
@@ -452,6 +458,7 @@ export type TenantOrderByWithAggregationInput = {
   emailInviteBody?: Prisma.SortOrderInput | Prisma.SortOrder
   emailResetSubject?: Prisma.SortOrderInput | Prisma.SortOrder
   emailResetBody?: Prisma.SortOrderInput | Prisma.SortOrder
+  config?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TenantCountOrderByAggregateInput
   _max?: Prisma.TenantMaxOrderByAggregateInput
   _min?: Prisma.TenantMinOrderByAggregateInput
@@ -475,6 +482,7 @@ export type TenantScalarWhereWithAggregatesInput = {
   emailInviteBody?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
   emailResetSubject?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
   emailResetBody?: Prisma.StringNullableWithAggregatesFilter<"Tenant"> | string | null
+  config?: Prisma.JsonNullableWithAggregatesFilter<"Tenant">
 }
 
 export type TenantCreateInput = {
@@ -492,6 +500,7 @@ export type TenantCreateInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -557,6 +566,7 @@ export type TenantUncheckedCreateInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -622,6 +632,7 @@ export type TenantUpdateInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -687,6 +698,7 @@ export type TenantUncheckedUpdateInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -752,6 +764,7 @@ export type TenantCreateManyInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TenantUpdateManyMutationInput = {
@@ -769,6 +782,7 @@ export type TenantUpdateManyMutationInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TenantUncheckedUpdateManyInput = {
@@ -786,6 +800,7 @@ export type TenantUncheckedUpdateManyInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TenantCountOrderByAggregateInput = {
@@ -803,6 +818,7 @@ export type TenantCountOrderByAggregateInput = {
   emailInviteBody?: Prisma.SortOrder
   emailResetSubject?: Prisma.SortOrder
   emailResetBody?: Prisma.SortOrder
+  config?: Prisma.SortOrder
 }
 
 export type TenantMaxOrderByAggregateInput = {
@@ -1566,6 +1582,7 @@ export type TenantCreateWithoutMembershipsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -1630,6 +1647,7 @@ export type TenantUncheckedCreateWithoutMembershipsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -1710,6 +1728,7 @@ export type TenantUpdateWithoutMembershipsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -1774,6 +1793,7 @@ export type TenantUncheckedUpdateWithoutMembershipsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -1838,6 +1858,7 @@ export type TenantCreateWithoutUserPermissionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -1902,6 +1923,7 @@ export type TenantUncheckedCreateWithoutUserPermissionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -1982,6 +2004,7 @@ export type TenantUpdateWithoutUserPermissionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2046,6 +2069,7 @@ export type TenantUncheckedUpdateWithoutUserPermissionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2110,6 +2134,7 @@ export type TenantCreateWithoutGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -2174,6 +2199,7 @@ export type TenantUncheckedCreateWithoutGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -2254,6 +2280,7 @@ export type TenantUpdateWithoutGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -2318,6 +2345,7 @@ export type TenantUncheckedUpdateWithoutGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -2382,6 +2410,7 @@ export type TenantCreateWithoutUserGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2446,6 +2475,7 @@ export type TenantUncheckedCreateWithoutUserGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -2526,6 +2556,7 @@ export type TenantUpdateWithoutUserGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -2590,6 +2621,7 @@ export type TenantUncheckedUpdateWithoutUserGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -2654,6 +2686,7 @@ export type TenantCreateWithoutModulesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagCreateNestedManyWithoutTenantInput
@@ -2718,6 +2751,7 @@ export type TenantUncheckedCreateWithoutModulesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutTenantInput
@@ -2798,6 +2832,7 @@ export type TenantUpdateWithoutModulesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUpdateManyWithoutTenantNestedInput
@@ -2862,6 +2897,7 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
   tags?: Prisma.TagUncheckedUpdateManyWithoutTenantNestedInput
@@ -2926,6 +2962,7 @@ export type TenantCreateWithoutModuleGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -2990,6 +3027,7 @@ export type TenantUncheckedCreateWithoutModuleGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3070,6 +3108,7 @@ export type TenantUpdateWithoutModuleGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3134,6 +3173,7 @@ export type TenantUncheckedUpdateWithoutModuleGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3198,6 +3238,7 @@ export type TenantCreateWithoutModulePrerequisitesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3262,6 +3303,7 @@ export type TenantUncheckedCreateWithoutModulePrerequisitesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3342,6 +3384,7 @@ export type TenantUpdateWithoutModulePrerequisitesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3406,6 +3449,7 @@ export type TenantUncheckedUpdateWithoutModulePrerequisitesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3470,6 +3514,7 @@ export type TenantCreateWithoutSectionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3534,6 +3579,7 @@ export type TenantUncheckedCreateWithoutSectionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3614,6 +3660,7 @@ export type TenantUpdateWithoutSectionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3678,6 +3725,7 @@ export type TenantUncheckedUpdateWithoutSectionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -3742,6 +3790,7 @@ export type TenantCreateWithoutSectionCompletionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -3806,6 +3855,7 @@ export type TenantUncheckedCreateWithoutSectionCompletionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -3886,6 +3936,7 @@ export type TenantUpdateWithoutSectionCompletionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -3950,6 +4001,7 @@ export type TenantUncheckedUpdateWithoutSectionCompletionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4014,6 +4066,7 @@ export type TenantCreateWithoutModuleAccessesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4078,6 +4131,7 @@ export type TenantUncheckedCreateWithoutModuleAccessesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4158,6 +4212,7 @@ export type TenantUpdateWithoutModuleAccessesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4222,6 +4277,7 @@ export type TenantUncheckedUpdateWithoutModuleAccessesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4286,6 +4342,7 @@ export type TenantCreateWithoutAttachmentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4350,6 +4407,7 @@ export type TenantUncheckedCreateWithoutAttachmentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4430,6 +4488,7 @@ export type TenantUpdateWithoutAttachmentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4494,6 +4553,7 @@ export type TenantUncheckedUpdateWithoutAttachmentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4558,6 +4618,7 @@ export type TenantCreateWithoutQuizzesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4622,6 +4683,7 @@ export type TenantUncheckedCreateWithoutQuizzesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4702,6 +4764,7 @@ export type TenantUpdateWithoutQuizzesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -4766,6 +4829,7 @@ export type TenantUncheckedUpdateWithoutQuizzesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -4830,6 +4894,7 @@ export type TenantCreateWithoutQuizQuestionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -4894,6 +4959,7 @@ export type TenantUncheckedCreateWithoutQuizQuestionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -4974,6 +5040,7 @@ export type TenantUpdateWithoutQuizQuestionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5038,6 +5105,7 @@ export type TenantUncheckedUpdateWithoutQuizQuestionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5102,6 +5170,7 @@ export type TenantCreateWithoutQuizAttemptsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5166,6 +5235,7 @@ export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5246,6 +5316,7 @@ export type TenantUpdateWithoutQuizAttemptsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5310,6 +5381,7 @@ export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5374,6 +5446,7 @@ export type TenantCreateWithoutSelfAssessmentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5438,6 +5511,7 @@ export type TenantUncheckedCreateWithoutSelfAssessmentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5518,6 +5592,7 @@ export type TenantUpdateWithoutSelfAssessmentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5582,6 +5657,7 @@ export type TenantUncheckedUpdateWithoutSelfAssessmentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5646,6 +5722,7 @@ export type TenantCreateWithoutProgressOverridesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5710,6 +5787,7 @@ export type TenantUncheckedCreateWithoutProgressOverridesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -5790,6 +5868,7 @@ export type TenantUpdateWithoutProgressOverridesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -5854,6 +5933,7 @@ export type TenantUncheckedUpdateWithoutProgressOverridesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -5918,6 +5998,7 @@ export type TenantCreateWithoutCertificatesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -5982,6 +6063,7 @@ export type TenantUncheckedCreateWithoutCertificatesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6062,6 +6144,7 @@ export type TenantUpdateWithoutCertificatesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6126,6 +6209,7 @@ export type TenantUncheckedUpdateWithoutCertificatesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6190,6 +6274,7 @@ export type TenantCreateWithoutCommentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6254,6 +6339,7 @@ export type TenantUncheckedCreateWithoutCommentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6334,6 +6420,7 @@ export type TenantUpdateWithoutCommentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6398,6 +6485,7 @@ export type TenantUncheckedUpdateWithoutCommentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6462,6 +6550,7 @@ export type TenantCreateWithoutNotificationsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6526,6 +6615,7 @@ export type TenantUncheckedCreateWithoutNotificationsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6606,6 +6696,7 @@ export type TenantUpdateWithoutNotificationsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6670,6 +6761,7 @@ export type TenantUncheckedUpdateWithoutNotificationsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -6734,6 +6826,7 @@ export type TenantCreateWithoutNotificationDedupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -6798,6 +6891,7 @@ export type TenantUncheckedCreateWithoutNotificationDedupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -6878,6 +6972,7 @@ export type TenantUpdateWithoutNotificationDedupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -6942,6 +7037,7 @@ export type TenantUncheckedUpdateWithoutNotificationDedupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7006,6 +7102,7 @@ export type TenantCreateWithoutCategoriesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7070,6 +7167,7 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7150,6 +7248,7 @@ export type TenantUpdateWithoutCategoriesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7214,6 +7313,7 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7278,6 +7378,7 @@ export type TenantCreateWithoutCompanyPinnedModulesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7342,6 +7443,7 @@ export type TenantUncheckedCreateWithoutCompanyPinnedModulesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7422,6 +7524,7 @@ export type TenantUpdateWithoutCompanyPinnedModulesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7486,6 +7589,7 @@ export type TenantUncheckedUpdateWithoutCompanyPinnedModulesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7550,6 +7654,7 @@ export type TenantCreateWithoutTagsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7614,6 +7719,7 @@ export type TenantUncheckedCreateWithoutTagsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7694,6 +7800,7 @@ export type TenantUpdateWithoutTagsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -7758,6 +7865,7 @@ export type TenantUncheckedUpdateWithoutTagsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -7822,6 +7930,7 @@ export type TenantCreateWithoutModuleTagsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -7886,6 +7995,7 @@ export type TenantUncheckedCreateWithoutModuleTagsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -7966,6 +8076,7 @@ export type TenantUpdateWithoutModuleTagsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -8030,6 +8141,7 @@ export type TenantUncheckedUpdateWithoutModuleTagsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -8094,6 +8206,7 @@ export type TenantCreateWithoutModuleMentorsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -8158,6 +8271,7 @@ export type TenantUncheckedCreateWithoutModuleMentorsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -8238,6 +8352,7 @@ export type TenantUpdateWithoutModuleMentorsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -8302,6 +8417,7 @@ export type TenantUncheckedUpdateWithoutModuleMentorsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -8366,6 +8482,7 @@ export type TenantCreateWithoutChangeLogsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -8430,6 +8547,7 @@ export type TenantUncheckedCreateWithoutChangeLogsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -8510,6 +8628,7 @@ export type TenantUpdateWithoutChangeLogsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -8574,6 +8693,7 @@ export type TenantUncheckedUpdateWithoutChangeLogsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -8638,6 +8758,7 @@ export type TenantCreateWithoutModuleReviewsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -8702,6 +8823,7 @@ export type TenantUncheckedCreateWithoutModuleReviewsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -8782,6 +8904,7 @@ export type TenantUpdateWithoutModuleReviewsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -8846,6 +8969,7 @@ export type TenantUncheckedUpdateWithoutModuleReviewsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -8910,6 +9034,7 @@ export type TenantCreateWithoutAuditLogsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -8974,6 +9099,7 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -9054,6 +9180,7 @@ export type TenantUpdateWithoutAuditLogsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -9118,6 +9245,7 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -9182,6 +9310,7 @@ export type TenantCreateWithoutChangelogEntriesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -9246,6 +9375,7 @@ export type TenantUncheckedCreateWithoutChangelogEntriesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -9326,6 +9456,7 @@ export type TenantUpdateWithoutChangelogEntriesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -9390,6 +9521,7 @@ export type TenantUncheckedUpdateWithoutChangelogEntriesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -9454,6 +9586,7 @@ export type TenantCreateWithoutChatMessagesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -9518,6 +9651,7 @@ export type TenantUncheckedCreateWithoutChatMessagesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -9598,6 +9732,7 @@ export type TenantUpdateWithoutChatMessagesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -9662,6 +9797,7 @@ export type TenantUncheckedUpdateWithoutChatMessagesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -9726,6 +9862,7 @@ export type TenantCreateWithoutLiveEventsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -9790,6 +9927,7 @@ export type TenantUncheckedCreateWithoutLiveEventsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -9870,6 +10008,7 @@ export type TenantUpdateWithoutLiveEventsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -9934,6 +10073,7 @@ export type TenantUncheckedUpdateWithoutLiveEventsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -9998,6 +10138,7 @@ export type TenantCreateWithoutLiveEventMaterialsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -10062,6 +10203,7 @@ export type TenantUncheckedCreateWithoutLiveEventMaterialsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -10142,6 +10284,7 @@ export type TenantUpdateWithoutLiveEventMaterialsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -10206,6 +10349,7 @@ export type TenantUncheckedUpdateWithoutLiveEventMaterialsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -10270,6 +10414,7 @@ export type TenantCreateWithoutLiveEventAttendancesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -10334,6 +10479,7 @@ export type TenantUncheckedCreateWithoutLiveEventAttendancesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -10414,6 +10560,7 @@ export type TenantUpdateWithoutLiveEventAttendancesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -10478,6 +10625,7 @@ export type TenantUncheckedUpdateWithoutLiveEventAttendancesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -10542,6 +10690,7 @@ export type TenantCreateWithoutLiveEventGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -10606,6 +10755,7 @@ export type TenantUncheckedCreateWithoutLiveEventGroupsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -10686,6 +10836,7 @@ export type TenantUpdateWithoutLiveEventGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -10750,6 +10901,7 @@ export type TenantUncheckedUpdateWithoutLiveEventGroupsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -10814,6 +10966,7 @@ export type TenantCreateWithoutSessionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -10878,6 +11031,7 @@ export type TenantUncheckedCreateWithoutSessionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -10958,6 +11112,7 @@ export type TenantUpdateWithoutSessionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -11022,6 +11177,7 @@ export type TenantUncheckedUpdateWithoutSessionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -11086,6 +11242,7 @@ export type TenantCreateWithoutRadarPostsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -11150,6 +11307,7 @@ export type TenantUncheckedCreateWithoutRadarPostsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -11230,6 +11388,7 @@ export type TenantUpdateWithoutRadarPostsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -11294,6 +11453,7 @@ export type TenantUncheckedUpdateWithoutRadarPostsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -11358,6 +11518,7 @@ export type TenantCreateWithoutRadarSeenInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -11422,6 +11583,7 @@ export type TenantUncheckedCreateWithoutRadarSeenInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -11502,6 +11664,7 @@ export type TenantUpdateWithoutRadarSeenInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -11566,6 +11729,7 @@ export type TenantUncheckedUpdateWithoutRadarSeenInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -11630,6 +11794,7 @@ export type TenantCreateWithoutEmailTokensInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -11694,6 +11859,7 @@ export type TenantUncheckedCreateWithoutEmailTokensInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -11774,6 +11940,7 @@ export type TenantUpdateWithoutEmailTokensInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -11838,6 +12005,7 @@ export type TenantUncheckedUpdateWithoutEmailTokensInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -11902,6 +12070,7 @@ export type TenantCreateWithoutEmailPreferencesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -11966,6 +12135,7 @@ export type TenantUncheckedCreateWithoutEmailPreferencesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -12046,6 +12216,7 @@ export type TenantUpdateWithoutEmailPreferencesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -12110,6 +12281,7 @@ export type TenantUncheckedUpdateWithoutEmailPreferencesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -12174,6 +12346,7 @@ export type TenantCreateWithoutAiModuleBuildsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -12238,6 +12411,7 @@ export type TenantUncheckedCreateWithoutAiModuleBuildsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -12318,6 +12492,7 @@ export type TenantUpdateWithoutAiModuleBuildsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -12382,6 +12557,7 @@ export type TenantUncheckedUpdateWithoutAiModuleBuildsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -12446,6 +12622,7 @@ export type TenantCreateWithoutXpTransactionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -12510,6 +12687,7 @@ export type TenantUncheckedCreateWithoutXpTransactionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -12590,6 +12768,7 @@ export type TenantUpdateWithoutXpTransactionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -12654,6 +12833,7 @@ export type TenantUncheckedUpdateWithoutXpTransactionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -12718,6 +12898,7 @@ export type TenantCreateWithoutXpBalancesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -12782,6 +12963,7 @@ export type TenantUncheckedCreateWithoutXpBalancesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -12862,6 +13044,7 @@ export type TenantUpdateWithoutXpBalancesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -12926,6 +13109,7 @@ export type TenantUncheckedUpdateWithoutXpBalancesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -12990,6 +13174,7 @@ export type TenantCreateWithoutRewardsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -13054,6 +13239,7 @@ export type TenantUncheckedCreateWithoutRewardsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -13134,6 +13320,7 @@ export type TenantUpdateWithoutRewardsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -13198,6 +13385,7 @@ export type TenantUncheckedUpdateWithoutRewardsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -13262,6 +13450,7 @@ export type TenantCreateWithoutRewardRedemptionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -13326,6 +13515,7 @@ export type TenantUncheckedCreateWithoutRewardRedemptionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -13406,6 +13596,7 @@ export type TenantUpdateWithoutRewardRedemptionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -13470,6 +13661,7 @@ export type TenantUncheckedUpdateWithoutRewardRedemptionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -13534,6 +13726,7 @@ export type TenantCreateWithoutSuggestionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -13598,6 +13791,7 @@ export type TenantUncheckedCreateWithoutSuggestionsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -13678,6 +13872,7 @@ export type TenantUpdateWithoutSuggestionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -13742,6 +13937,7 @@ export type TenantUncheckedUpdateWithoutSuggestionsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -13806,6 +14002,7 @@ export type TenantCreateWithoutSuggestionVotesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -13870,6 +14067,7 @@ export type TenantUncheckedCreateWithoutSuggestionVotesInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -13950,6 +14148,7 @@ export type TenantUpdateWithoutSuggestionVotesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -14014,6 +14213,7 @@ export type TenantUncheckedUpdateWithoutSuggestionVotesInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -14078,6 +14278,7 @@ export type TenantCreateWithoutSuggestionCommentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -14142,6 +14343,7 @@ export type TenantUncheckedCreateWithoutSuggestionCommentsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -14222,6 +14424,7 @@ export type TenantUpdateWithoutSuggestionCommentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -14286,6 +14489,7 @@ export type TenantUncheckedUpdateWithoutSuggestionCommentsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -14350,6 +14554,7 @@ export type TenantCreateWithoutMediaAssetsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupCreateNestedManyWithoutTenantInput
@@ -14414,6 +14619,7 @@ export type TenantUncheckedCreateWithoutMediaAssetsInput = {
   emailInviteBody?: string | null
   emailResetSubject?: string | null
   emailResetBody?: string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutTenantInput
   modules?: Prisma.ModuleUncheckedCreateNestedManyWithoutTenantInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTenantInput
@@ -14494,6 +14700,7 @@ export type TenantUpdateWithoutMediaAssetsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTenantNestedInput
@@ -14558,6 +14765,7 @@ export type TenantUncheckedUpdateWithoutMediaAssetsInput = {
   emailInviteBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailResetBody?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  config?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.ModuleUncheckedUpdateManyWithoutTenantNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTenantNestedInput
@@ -15076,6 +15284,7 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   emailInviteBody?: boolean
   emailResetSubject?: boolean
   emailResetBody?: boolean
+  config?: boolean
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   groups?: boolean | Prisma.Tenant$groupsArgs<ExtArgs>
@@ -15142,6 +15351,7 @@ export type TenantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   emailInviteBody?: boolean
   emailResetSubject?: boolean
   emailResetBody?: boolean
+  config?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -15159,6 +15369,7 @@ export type TenantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   emailInviteBody?: boolean
   emailResetSubject?: boolean
   emailResetBody?: boolean
+  config?: boolean
 }, ExtArgs["result"]["tenant"]>
 
 export type TenantSelectScalar = {
@@ -15176,9 +15387,10 @@ export type TenantSelectScalar = {
   emailInviteBody?: boolean
   emailResetSubject?: boolean
   emailResetBody?: boolean
+  config?: boolean
 }
 
-export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt" | "chatTopic" | "emailInviteSubject" | "emailInviteBody" | "emailResetSubject" | "emailResetBody", ExtArgs["result"]["tenant"]>
+export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "theme" | "plan" | "locale" | "createdAt" | "archivedAt" | "chatTopic" | "emailInviteSubject" | "emailInviteBody" | "emailResetSubject" | "emailResetBody" | "config", ExtArgs["result"]["tenant"]>
 export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Tenant$membershipsArgs<ExtArgs>
   modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
@@ -15300,6 +15512,7 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     emailInviteBody: string | null
     emailResetSubject: string | null
     emailResetBody: string | null
+    config: runtime.JsonValue | null
   }, ExtArgs["result"]["tenant"]>
   composites: {}
 }
@@ -15785,6 +15998,7 @@ export interface TenantFieldRefs {
   readonly emailInviteBody: Prisma.FieldRef<"Tenant", 'String'>
   readonly emailResetSubject: Prisma.FieldRef<"Tenant", 'String'>
   readonly emailResetBody: Prisma.FieldRef<"Tenant", 'String'>
+  readonly config: Prisma.FieldRef<"Tenant", 'Json'>
 }
     
 

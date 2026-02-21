@@ -48,10 +48,7 @@ function getEffectiveUrl(event: LiveEventDTO): string | null {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-// Force CET timezone so server-rendered times match the user's local time
-const TZ = "Europe/Ljubljana";
-
-function formatEventDateTime(isoString: string, locale: string): string {
+function formatEventDateTime(isoString: string, locale: string, tz: string): string {
   const loc = locale === "sl" ? "sl-SI" : "en-GB";
   const d = new Date(isoString);
   const datePart = d.toLocaleDateString(loc, {
@@ -59,13 +56,13 @@ function formatEventDateTime(isoString: string, locale: string): string {
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: TZ,
+    timeZone: tz,
   });
-  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: TZ });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: tz });
   return `${datePart} ob ${timePart}`;
 }
 
-function formatEventDateShort(isoString: string, locale: string): string {
+function formatEventDateShort(isoString: string, locale: string, tz: string): string {
   const loc = locale === "sl" ? "sl-SI" : "en-GB";
   const d = new Date(isoString);
   const datePart = d.toLocaleDateString(loc, {
@@ -73,9 +70,9 @@ function formatEventDateShort(isoString: string, locale: string): string {
     day: "numeric",
     month: "short",
     year: "numeric",
-    timeZone: TZ,
+    timeZone: tz,
   });
-  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: TZ });
+  const timePart = d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: tz });
   return `${datePart}, ${timePart}`;
 }
 
@@ -170,6 +167,7 @@ function EventHighlight({
   groups,
   locale,
   myAttendance,
+  tz,
 }: {
   event: LiveEventDTO;
   isAdmin: boolean;
@@ -177,6 +175,7 @@ function EventHighlight({
   groups: { id: string; name: string }[];
   locale: string;
   myAttendance: MyAttendanceMap;
+  tz: string;
 }) {
   const effectiveUrl = getEffectiveUrl(event);
   const attendance = myAttendance[event.id];
@@ -206,7 +205,7 @@ function EventHighlight({
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="h-4 w-4 text-muted-foreground" />
           <span className="font-medium">
-            {formatEventDateTime(event.startsAt, locale)}
+            {formatEventDateTime(event.startsAt, locale, tz)}
           </span>
         </div>
 
@@ -292,6 +291,7 @@ function EventListItem({
   locale,
   isPast,
   myAttendance,
+  tz,
 }: {
   event: LiveEventDTO;
   showJoin: boolean;
@@ -301,6 +301,7 @@ function EventListItem({
   locale: string;
   isPast: boolean;
   myAttendance: MyAttendanceMap;
+  tz: string;
 }) {
   const effectiveUrl = getEffectiveUrl(event);
   const attendance = myAttendance[event.id];
@@ -315,7 +316,7 @@ function EventListItem({
             <LocationTypeBadge event={event} />
           </div>
           <p className="text-sm text-muted-foreground">
-            {formatEventDateShort(event.startsAt, locale)}
+            {formatEventDateShort(event.startsAt, locale, tz)}
           </p>
           <EventLocationInfo event={event} compact />
           <EventGroupBadges event={event} />
@@ -388,6 +389,7 @@ function EventListItem({
 
 export default async function MentorLivePage() {
   const ctx = await getTenantContext();
+  if (!ctx.config.features.liveEvents) redirect("/dashboard");
   setLocale(ctx.tenantLocale);
 
   const role = ctx.effectiveRole;
@@ -467,6 +469,7 @@ export default async function MentorLivePage() {
           groups={groups}
           locale={locale}
           myAttendance={myAttendance}
+          tz={ctx.config.timezone}
         />
       )}
 
@@ -486,6 +489,7 @@ export default async function MentorLivePage() {
                 locale={locale}
                 isPast={false}
                 myAttendance={myAttendance}
+                tz={ctx.config.timezone}
               />
             ))}
           </div>
@@ -508,6 +512,7 @@ export default async function MentorLivePage() {
                 locale={locale}
                 isPast={true}
                 myAttendance={myAttendance}
+                tz={ctx.config.timezone}
               />
             ))}
           </div>

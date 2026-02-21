@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 import { prisma } from "@/lib/prisma";
 import { awardXp, XP_RULES } from "@/lib/xp";
+import { resolveTenantConfig } from "@/lib/tenant-config";
 import { logAudit } from "@/lib/audit";
 
 /**
@@ -50,6 +51,13 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Event not found" }, { status: 404 });
   }
 
+  // Resolve tenant config for XP amounts
+  const tenant = await prisma.tenant.findUnique({
+    where: { id: tenantId },
+    select: { config: true },
+  });
+  const tenantConfig = resolveTenantConfig(tenant?.config);
+
   // Find or create attendance
   let attendance = await prisma.liveEventAttendance.findUnique({
     where: { eventId_userId: { eventId, userId } },
@@ -81,10 +89,11 @@ export async function GET(req: Request) {
       await awardXp({
         userId,
         tenantId,
-        amount: XP_RULES.EVENT_ATTENDED,
+        amount: tenantConfig.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED,
         source: "EVENT_ATTENDED",
         sourceEntityId: eventId,
         description: "Prisotnost na dogodku v živo",
+        config: tenantConfig,
       });
 
       await prisma.liveEventAttendance.update({
@@ -107,7 +116,7 @@ export async function GET(req: Request) {
       tenantId,
       type: "EVENT_ATTENDANCE_CONFIRMED",
       title: "Prisotnost potrjena",
-      message: `Vaša prisotnost na "${event.title}" je bila potrjena. Prejeli ste ${XP_RULES.EVENT_ATTENDED} XP.`,
+      message: `Vaša prisotnost na "${event.title}" je bila potrjena. Prejeli ste ${tenantConfig.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED} XP.`,
       link: "/mentor-v-zivo",
     },
   });

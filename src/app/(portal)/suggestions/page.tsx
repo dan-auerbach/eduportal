@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { t } from "@/lib/i18n";
+import { getTenantContext } from "@/lib/tenant";
 import { getSuggestions } from "@/actions/suggestions";
 import { Card, CardContent } from "@/components/ui/card";
 import { SuggestionCard } from "@/components/suggestions/suggestion-card";
@@ -12,6 +14,9 @@ export default async function SuggestionsPage({
 }: {
   searchParams: Promise<{ sort?: string; status?: string }>;
 }) {
+  const ctx = await getTenantContext();
+  if (!ctx.config.features.suggestions) redirect("/dashboard");
+
   const params = await searchParams;
   const sort = (params.sort as "popular" | "newest") || "popular";
   const status = (params.status as SuggestionStatus) || undefined;

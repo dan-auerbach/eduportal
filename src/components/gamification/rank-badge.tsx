@@ -47,6 +47,8 @@ type RankBadgeProps = {
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   className?: string;
+  /** Custom rank labels from tenant config (overrides default Slovenian labels) */
+  rankLabels?: Partial<Record<ReputationRank, string>>;
 };
 
 const sizeClasses = {
@@ -55,10 +57,11 @@ const sizeClasses = {
   lg: { icon: "h-5 w-5", text: "text-base", padding: "px-3 py-1.5 gap-1.5" },
 };
 
-export function RankBadge({ rank, size = "md", showLabel = true, className }: RankBadgeProps) {
+export function RankBadge({ rank, size = "md", showLabel = true, className, rankLabels }: RankBadgeProps) {
   const config = RANK_CONFIG[rank];
   const sizes = sizeClasses[size];
   const Icon = config.icon;
+  const label = rankLabels?.[rank] ?? config.label;
 
   return (
     <span
@@ -74,7 +77,7 @@ export function RankBadge({ rank, size = "md", showLabel = true, className }: Ra
       )}
     >
       <Icon className={sizes.icon} />
-      {showLabel && <span>{config.label}</span>}
+      {showLabel && <span>{label}</span>}
     </span>
   );
 }

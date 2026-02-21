@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { awardXp, XP_RULES } from "@/lib/xp";
+import { awardXp } from "@/lib/xp";
+import { resolveTenantConfig } from "@/lib/tenant-config";
 import { format } from "date-fns";
 import { t, setLocale, isValidLocale, DEFAULT_LOCALE } from "@/lib/i18n";
 import { withCron } from "@/lib/observability";
@@ -13,7 +14,7 @@ export const GET = withCron("compliance-check", async (req) => {
   // Get all active tenants
   const tenants = await prisma.tenant.findMany({
     where: { archivedAt: null },
-    select: { id: true, locale: true },
+    select: { id: true, locale: true, config: true },
   });
 
   let expiredCount = 0;
@@ -21,6 +22,7 @@ export const GET = withCron("compliance-check", async (req) => {
 
   for (const tenant of tenants) {
     setLocale(isValidLocale(tenant.locale) ? tenant.locale : DEFAULT_LOCALE);
+    const tenantConfig = resolveTenantConfig(tenant.config);
 
     // Find certificates for modules that have validityMonths set
     const certificates = await prisma.certificate.findMany({
@@ -205,6 +207,7 @@ export const GET = withCron("compliance-check", async (req) => {
           source: "COMPLIANCE_RENEWAL",
           sourceEntityId: mg.module.id,
           description: "Pravočasna obnovitev certifikata",
+          config: tenantConfig,
         });
 
         // Dedup

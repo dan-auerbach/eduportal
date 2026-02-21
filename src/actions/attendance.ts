@@ -104,13 +104,14 @@ export async function cancelRegistration(
 
     // If was ATTENDED and XP was awarded, reverse XP atomically (D4 fix)
     if (attendance.status === "ATTENDED" && attendance.xpAwarded) {
+      const eventXp = ctx.config.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED;
       try {
         await prisma.$transaction([
           prisma.xpTransaction.create({
             data: {
               tenantId: ctx.tenantId,
               userId: ctx.user.id,
-              amount: -XP_RULES.EVENT_ATTENDED,
+              amount: -eventXp,
               source: "EVENT_ATTENDED",
               sourceEntityId: `${eventId}:reversal`,
               description: "Preklicana prisotnost na dogodku",
@@ -119,8 +120,8 @@ export async function cancelRegistration(
           prisma.userXpBalance.updateMany({
             where: { userId: ctx.user.id, tenantId: ctx.tenantId },
             data: {
-              totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
-              lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
+              totalXp: { decrement: eventXp },
+              lifetimeXp: { decrement: eventXp },
             },
           }),
         ]);
@@ -299,10 +300,11 @@ export async function confirmAttendance(
         const result = await awardXp({
           userId,
           tenantId: ctx.tenantId,
-          amount: XP_RULES.EVENT_ATTENDED,
+          amount: ctx.config.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED,
           source: "EVENT_ATTENDED",
           sourceEntityId: eventId,
           description: "Prisotnost na dogodku v živo",
+          config: ctx.config,
         });
         updateData.xpAwarded = true;
         updateData.xpTransactionId = result.newTotal.toString();
@@ -320,6 +322,7 @@ export async function confirmAttendance(
     });
 
     // Notify user
+    const eventXpAmount = ctx.config.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED;
     await prisma.notification.create({
       data: {
         userId,
@@ -327,7 +330,7 @@ export async function confirmAttendance(
         type: "EVENT_ATTENDANCE_CONFIRMED",
         title: "Prisotnost potrjena",
         message: xpAwarded
-          ? `Vaša prisotnost je bila potrjena. Prejeli ste ${XP_RULES.EVENT_ATTENDED} XP.`
+          ? `Vaša prisotnost je bila potrjena. Prejeli ste ${eventXpAmount} XP.`
           : "Vaša prisotnost je bila potrjena.",
         link: "/mentor-v-zivo",
       },
@@ -412,13 +415,14 @@ export async function revokeAttendance(
 
     // Reverse XP atomically if was awarded (D4 fix)
     if (attendance.xpAwarded) {
+      const revokeXp = ctx.config.xpRules.EVENT_ATTENDED ?? XP_RULES.EVENT_ATTENDED;
       try {
         await prisma.$transaction([
           prisma.xpTransaction.create({
             data: {
               tenantId: ctx.tenantId,
               userId,
-              amount: -XP_RULES.EVENT_ATTENDED,
+              amount: -revokeXp,
               source: "EVENT_ATTENDED",
               sourceEntityId: `${eventId}:reversal`,
               description: "Preklicana prisotnost — označen kot odsoten",
@@ -427,8 +431,8 @@ export async function revokeAttendance(
           prisma.userXpBalance.updateMany({
             where: { userId, tenantId: ctx.tenantId },
             data: {
-              totalXp: { decrement: XP_RULES.EVENT_ATTENDED },
-              lifetimeXp: { decrement: XP_RULES.EVENT_ATTENDED },
+              totalXp: { decrement: revokeXp },
+              lifetimeXp: { decrement: revokeXp },
             },
           }),
         ]);

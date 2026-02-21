@@ -10,6 +10,7 @@ import {
   Sheet,
   SheetContent,
 } from "@/components/ui/sheet";
+import type { TenantFeatures } from "@/lib/tenant-config";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ type AppShellProps = {
   tenantTheme?: string;
   effectiveRole?: string;
   isOwnerImpersonating?: boolean;
+  features?: TenantFeatures;
 };
 
 export function AppShell({
@@ -29,6 +31,7 @@ export function AppShell({
   tenantTheme,
   effectiveRole,
   isOwnerImpersonating,
+  features,
 }: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -43,6 +46,7 @@ export function AppShell({
         tenantName={tenantName}
         tenantLogoUrl={tenantLogoUrl}
         navCounts={navCounts}
+        features={features}
       />
 
       {/* Mobile drawer */}
@@ -55,6 +59,7 @@ export function AppShell({
               tenantLogoUrl={tenantLogoUrl}
               navCounts={navCounts}
               onNavigate={() => setMobileOpen(false)}
+              features={features}
             />
           </div>
         </SheetContent>

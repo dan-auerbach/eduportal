@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendEmail, renderTemplate, buildEmailFooter } from "@/lib/email";
 import { EMAIL_DEFAULTS } from "@/lib/email-defaults";
+import { resolveTenantConfig } from "@/lib/tenant-config";
 import { setLocale, isValidLocale, DEFAULT_LOCALE } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { timingSafeEqual } from "crypto";
 
-/** Format a Date as "d. MMMM yyyy ob HH:mm" in Europe/Ljubljana timezone */
-function formatDateTimeCET(date: Date, locale: string): string {
+/** Format a Date as "d. MMMM yyyy ob HH:mm" in the given timezone */
+function formatDateTimeCET(date: Date, locale: string, tz = "Europe/Ljubljana"): string {
   const loc = locale === "sl" ? "sl-SI" : "en-GB";
-  const tz = "Europe/Ljubljana";
   const datePart = date.toLocaleDateString(loc, {
     day: "numeric",
     month: "long",
@@ -51,12 +51,13 @@ export async function GET(req: Request) {
   // Get all active tenants
   const tenants = await prisma.tenant.findMany({
     where: { archivedAt: null },
-    select: { id: true, name: true, locale: true },
+    select: { id: true, name: true, locale: true, config: true },
   });
 
   for (const tenant of tenants) {
     const locale = (isValidLocale(tenant.locale) ? tenant.locale : DEFAULT_LOCALE) as Locale;
     setLocale(locale);
+    const tenantConfig = resolveTenantConfig(tenant.config);
     const defaults = EMAIL_DEFAULTS[locale] ?? EMAIL_DEFAULTS.sl;
 
     // Find events starting in the next 24 hours, including their groups
@@ -148,7 +149,7 @@ export async function GET(req: Request) {
         if (existing) continue;
 
         // Build email
-        const formattedDate = formatDateTimeCET(event.startsAt, locale);
+        const formattedDate = formatDateTimeCET(event.startsAt, locale, tenantConfig.timezone);
         const subject = renderTemplate(defaults.liveReminderSubject, {
           eventTitle: event.title,
           startsAt: formattedDate,

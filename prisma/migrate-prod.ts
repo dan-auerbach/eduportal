@@ -362,6 +362,12 @@ const MIGRATIONS: Migration[] = [
       `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = 'SUGGESTION_DELETED' AND enumtypid = (SELECT oid FROM pg_type WHERE typname = 'AuditAction')) THEN ALTER TYPE "AuditAction" ADD VALUE 'SUGGESTION_DELETED'; END IF; END $$;`,
     ],
   },
+  {
+    name: "20260221100000_tenant_config",
+    statements: [
+      `ALTER TABLE "Tenant" ADD COLUMN IF NOT EXISTS "config" JSONB;`,
+    ],
+  },
 ];
 
 /**

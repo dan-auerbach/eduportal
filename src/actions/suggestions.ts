@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getTenantContext, TenantAccessError } from "@/lib/tenant";
 import { requirePermission, ForbiddenError } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
-import { awardXp, SUGGESTION_VOTE_THRESHOLD, XP_RULES } from "@/lib/xp";
+import { awardXp, XP_RULES } from "@/lib/xp";
 import { rateLimitSuggestionVote, rateLimitSuggestionCreate } from "@/lib/rate-limit";
 import { CreateSuggestionSchema, SuggestionCommentSchema } from "@/lib/validators";
 import { withAction } from "@/lib/observability";
@@ -187,10 +187,11 @@ export async function createSuggestion(
       await awardXp({
         userId: ctx.user.id,
         tenantId: ctx.tenantId,
-        amount: XP_RULES.SUGGESTION_CREATED,
+        amount: ctx.config.xpRules.SUGGESTION_CREATED ?? XP_RULES.SUGGESTION_CREATED,
         source: "SUGGESTION_CREATED",
         sourceEntityId: suggestion.id,
         description: `Ustvarjen predlog: "${data.title}"`,
+        config: ctx.config,
       });
     } catch {
       // Unique constraint violation = already awarded, silently skip
@@ -256,18 +257,20 @@ export async function voteSuggestion(
       hasVoted = true;
 
       // Check if crossed threshold → notify admins + award XP to author
+      const voteThreshold = ctx.config.suggestionVoteThreshold;
       if (
-        suggestion.voteCount < SUGGESTION_VOTE_THRESHOLD &&
-        newVoteCount >= SUGGESTION_VOTE_THRESHOLD
+        suggestion.voteCount < voteThreshold &&
+        newVoteCount >= voteThreshold
       ) {
         // Award XP to suggestion author
         await awardXp({
           userId: suggestion.userId,
           tenantId: ctx.tenantId,
-          amount: XP_RULES.TOP_SUGGESTION,
+          amount: ctx.config.xpRules.TOP_SUGGESTION ?? XP_RULES.TOP_SUGGESTION,
           source: "TOP_SUGGESTION",
           sourceEntityId: suggestionId,
-          description: `Predlog "${suggestion.title}" je dosegel ${SUGGESTION_VOTE_THRESHOLD} glasov`,
+          description: `Predlog "${suggestion.title}" je dosegel ${voteThreshold} glasov`,
+          config: ctx.config,
         });
 
         // Notify admins
@@ -386,10 +389,11 @@ export async function updateSuggestionStatus(
         await awardXp({
           userId: suggestion.userId,
           tenantId: ctx.tenantId,
-          amount: XP_RULES.SUGGESTION_APPROVED,
+          amount: ctx.config.xpRules.SUGGESTION_APPROVED ?? XP_RULES.SUGGESTION_APPROVED,
           source: "SUGGESTION_APPROVED",
           sourceEntityId: id,
           description: `Predlog odobren: "${suggestion.title}"`,
+          config: ctx.config,
         });
       } catch {
         // Unique constraint violation = already awarded, silently skip
@@ -398,12 +402,13 @@ export async function updateSuggestionStatus(
 
     // Reverse XP if changing FROM APPROVED to something else (rare admin reversal)
     if (oldStatus === "APPROVED" && status === "REJECTED") {
+      const approvedXp = ctx.config.xpRules.SUGGESTION_APPROVED ?? XP_RULES.SUGGESTION_APPROVED;
       try {
         await prisma.xpTransaction.create({
           data: {
             tenantId: ctx.tenantId,
             userId: suggestion.userId,
-            amount: -XP_RULES.SUGGESTION_APPROVED,
+            amount: -approvedXp,
             source: "SUGGESTION_APPROVED",
             sourceEntityId: `${id}:reversal`,
             description: `Preklicana odobritev predloga: "${suggestion.title}"`,
@@ -413,8 +418,8 @@ export async function updateSuggestionStatus(
         await prisma.userXpBalance.updateMany({
           where: { userId: suggestion.userId, tenantId: ctx.tenantId },
           data: {
-            totalXp: { decrement: XP_RULES.SUGGESTION_APPROVED },
-            lifetimeXp: { decrement: XP_RULES.SUGGESTION_APPROVED },
+            totalXp: { decrement: approvedXp },
+            lifetimeXp: { decrement: approvedXp },
           },
         });
       } catch {
@@ -533,7 +538,7 @@ export async function deleteSuggestion(
 
       // Always reverse SUGGESTION_CREATED XP
       xpReversals.push({
-        amount: XP_RULES.SUGGESTION_CREATED,
+        amount: ctx.config.xpRules.SUGGESTION_CREATED ?? XP_RULES.SUGGESTION_CREATED,
         source: "SUGGESTION_CREATED",
         desc: `Izbrisan predlog: "${suggestion.title}"`,
       });
@@ -541,16 +546,16 @@ export async function deleteSuggestion(
       // Reverse SUGGESTION_APPROVED XP if suggestion was approved
       if (suggestion.status === "APPROVED") {
         xpReversals.push({
-          amount: XP_RULES.SUGGESTION_APPROVED,
+          amount: ctx.config.xpRules.SUGGESTION_APPROVED ?? XP_RULES.SUGGESTION_APPROVED,
           source: "SUGGESTION_APPROVED",
           desc: `Izbrisan odobren predlog: "${suggestion.title}"`,
         });
       }
 
       // Reverse TOP_SUGGESTION XP if suggestion crossed vote threshold
-      if (suggestion.voteCount >= SUGGESTION_VOTE_THRESHOLD) {
+      if (suggestion.voteCount >= ctx.config.suggestionVoteThreshold) {
         xpReversals.push({
-          amount: XP_RULES.TOP_SUGGESTION,
+          amount: ctx.config.xpRules.TOP_SUGGESTION ?? XP_RULES.TOP_SUGGESTION,
           source: "TOP_SUGGESTION",
           desc: `Izbrisan priljubljen predlog: "${suggestion.title}"`,
         });

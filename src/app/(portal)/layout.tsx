@@ -37,6 +37,7 @@ export default async function PortalLayout({ children }: { children: React.React
           tenantTheme={tenantContext.tenantTheme}
           effectiveRole={tenantContext.effectiveRole}
           isOwnerImpersonating={tenantContext.isOwnerImpersonating}
+          features={tenantContext.config.features}
         >
           {children}
         </AppShell>

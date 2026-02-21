@@ -32,8 +32,9 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import type { TenantFeatures } from "@/lib/tenant-config";
 
-type NavItem = { href: string; labelKey: string; icon: LucideIcon; ownerOnly?: boolean; minRole?: "SUPER_ADMIN" | "OWNER" };
+type NavItem = { href: string; labelKey: string; icon: LucideIcon; ownerOnly?: boolean; minRole?: "SUPER_ADMIN" | "OWNER"; featureKey?: keyof TenantFeatures };
 
 const ROLE_LEVEL: Record<string, number> = { EMPLOYEE: 1, ADMIN: 2, SUPER_ADMIN: 3, OWNER: 4 };
 
@@ -41,12 +42,12 @@ const employeeNav: NavItem[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: LayoutDashboard },
   { href: "/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/certificates", labelKey: "nav.certificates", icon: Award },
-  { href: "/leaderboard", labelKey: "nav.leaderboard", icon: Trophy },
-  { href: "/rewards", labelKey: "nav.rewards", icon: Gift },
-  { href: "/suggestions", labelKey: "nav.suggestions", icon: Lightbulb },
-  { href: "/chat", labelKey: "nav.chat", icon: Hash },
-  { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio },
-  { href: "/radar", labelKey: "nav.radar", icon: Radar },
+  { href: "/leaderboard", labelKey: "nav.leaderboard", icon: Trophy, featureKey: "leaderboard" },
+  { href: "/rewards", labelKey: "nav.rewards", icon: Gift, featureKey: "rewards" },
+  { href: "/suggestions", labelKey: "nav.suggestions", icon: Lightbulb, featureKey: "suggestions" },
+  { href: "/chat", labelKey: "nav.chat", icon: Hash, featureKey: "chat" },
+  { href: "/mentor-v-zivo", labelKey: "nav.mentorLive", icon: Radio, featureKey: "liveEvents" },
+  { href: "/radar", labelKey: "nav.radar", icon: Radar, featureKey: "radar" },
 ];
 
 const adminNav: NavItem[] = [
@@ -57,8 +58,8 @@ const adminNav: NavItem[] = [
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
   { href: "/admin/manager", labelKey: "nav.managerDashboard", icon: BarChart3 },
-  { href: "/admin/rewards", labelKey: "nav.adminRewards", icon: Gift },
-  { href: "/admin/suggestions", labelKey: "nav.adminSuggestions", icon: Lightbulb },
+  { href: "/admin/rewards", labelKey: "nav.adminRewards", icon: Gift, featureKey: "rewards" },
+  { href: "/admin/suggestions", labelKey: "nav.adminSuggestions", icon: Lightbulb, featureKey: "suggestions" },
   { href: "/admin/compliance", labelKey: "nav.compliance", icon: ShieldCheck },
   { href: "/admin/feedback", labelKey: "nav.feedback", icon: Star },
   { href: "/admin/audit-log", labelKey: "nav.auditLog", icon: FileText, ownerOnly: true },
@@ -79,13 +80,14 @@ type SidebarProps = {
   tenantLogoUrl?: string | null;
   onNavigate?: () => void;
   navCounts?: NavCounts;
+  features?: TenantFeatures;
 };
 
 /**
  * SidebarContent — shared nav content used in both desktop sidebar and mobile drawer.
  * Badge counts come from `navCounts` prop (single /api/nav-counts poll in AppShell).
  */
-export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCounts }: SidebarProps) {
+export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCounts, features }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
@@ -107,6 +109,7 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
   const navItems = rawNavItems.filter((item) => {
     if (item.ownerOnly && !isOwner) return false;
     if (item.minRole && userLevel < (ROLE_LEVEL[item.minRole] ?? 99)) return false;
+    if (item.featureKey && features && !features[item.featureKey]) return false;
     return true;
   });
 
@@ -272,10 +275,10 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
 /**
  * Desktop sidebar — hidden on mobile, shown on md+
  */
-export function Sidebar({ tenantId, tenantName, tenantLogoUrl, navCounts }: SidebarProps) {
+export function Sidebar({ tenantId, tenantName, tenantLogoUrl, navCounts, features }: SidebarProps) {
   return (
     <aside className="hidden md:flex h-full w-64 flex-col border-r bg-card">
-      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} navCounts={navCounts} />
+      <SidebarContent tenantId={tenantId} tenantName={tenantName} tenantLogoUrl={tenantLogoUrl} navCounts={navCounts} features={features} />
     </aside>
   );
 }

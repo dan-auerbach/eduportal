@@ -10,7 +10,9 @@ import {
   UpdateTenantSchema,
   CreateMembershipSchema,
   UpdateMembershipSchema,
+  TenantConfigSchema,
 } from "@/lib/validators";
+import { resolveTenantConfig } from "@/lib/tenant-config";
 import type { ActionResult } from "@/types";
 import type { TenantPlan, TenantRole } from "@/generated/prisma/client";
 import { checkUserLimit } from "@/lib/plan";
@@ -776,5 +778,93 @@ export async function changeTenantPlan(
       success: false,
       error: e instanceof Error ? e.message : "Napaka pri spremembi paketa",
     };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// updateTenantConfig - SUPER_ADMIN+. Update per-tenant JSON config.
+// ---------------------------------------------------------------------------
+export async function updateTenantConfig(
+  data: unknown,
+): Promise<ActionResult<{ id: string }>> {
+  try {
+    const ctx = await getTenantContext();
+
+    if (ctx.effectiveRole !== "SUPER_ADMIN" && ctx.effectiveRole !== ("OWNER" as TenantRole)) {
+      return { success: false, error: "Nimate pravic za posodabljanje konfiguracije" };
+    }
+
+    const parsed = TenantConfigSchema.parse(data);
+
+    // Fetch current config and deep-merge
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: ctx.tenantId },
+      select: { config: true },
+    });
+    const existing = resolveTenantConfig(tenant?.config);
+
+    const merged = {
+      ...existing,
+      ...(parsed.xpRules !== undefined && {
+        xpRules: { ...existing.xpRules, ...parsed.xpRules },
+      }),
+      ...(parsed.rankThresholds !== undefined && {
+        rankThresholds: parsed.rankThresholds,
+      }),
+      ...(parsed.quizHighScorePercent !== undefined && {
+        quizHighScorePercent: parsed.quizHighScorePercent,
+      }),
+      ...(parsed.suggestionVoteThreshold !== undefined && {
+        suggestionVoteThreshold: parsed.suggestionVoteThreshold,
+      }),
+      ...(parsed.features !== undefined && {
+        features: { ...existing.features, ...parsed.features },
+      }),
+      ...(parsed.timezone !== undefined && {
+        timezone: parsed.timezone,
+      }),
+    };
+
+    await prisma.tenant.update({
+      where: { id: ctx.tenantId },
+      data: { config: merged },
+    });
+
+    await logAudit({
+      actorId: ctx.user.id,
+      tenantId: ctx.tenantId,
+      action: "TENANT_UPDATED",
+      entityType: "Tenant",
+      entityId: ctx.tenantId,
+      metadata: { configChanges: parsed },
+    });
+
+    revalidatePath("/");
+
+    return { success: true, data: { id: ctx.tenantId } };
+  } catch (e) {
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "Napaka pri posodabljanju konfiguracije",
+    };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// getTenantConfig - SUPER_ADMIN+. Get current tenant config.
+// ---------------------------------------------------------------------------
+export async function getTenantConfig(): Promise<ActionResult<{
+  config: import("@/lib/tenant-config").TenantConfig;
+}>> {
+  try {
+    const ctx = await getTenantContext();
+
+    if (ctx.effectiveRole !== "SUPER_ADMIN" && ctx.effectiveRole !== ("OWNER" as TenantRole)) {
+      return { success: false, error: "Nimate pravic" };
+    }
+
+    return { success: true, data: { config: ctx.config } };
+  } catch (e) {
+    return { success: false, error: e instanceof Error ? e.message : "Napaka" };
   }
 }

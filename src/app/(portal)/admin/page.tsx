@@ -1,244 +1,212 @@
+import { getTenantContext } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
-import { getTenantContext, hasMinRole } from "@/lib/tenant";
-import { requirePermission } from "@/lib/permissions";
-import { getPlanLimits } from "@/lib/plan";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Users,
-  BookOpen,
-  BarChart3,
-  Clock,
-  ArrowRight,
-  Activity,
-} from "lucide-react";
-import Link from "next/link";
-import { format } from "date-fns";
-import { getDateLocale } from "@/lib/i18n/date-locale";
 import { t } from "@/lib/i18n";
+import { getManagerDashboardData } from "@/actions/manager-dashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { RankBadge } from "@/components/gamification/rank-badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import {
+  AlertTriangle,
+  Zap,
+  CheckCircle2,
+  Lightbulb,
+  Trophy,
+} from "lucide-react";
+import { ManagerFilters } from "./filters";
+import { CompletionHeatmap } from "./heatmap";
 
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ group?: string }>;
+}) {
   const ctx = await getTenantContext();
-  await requirePermission(ctx.user, "VIEW_ANALYTICS", { tenantId: ctx.tenantId });
+  const params = await searchParams;
+  const groupId = params.group || undefined;
 
-  const [
-    totalUsers,
-    activeUsers,
-    totalModules,
-    publishedModules,
-    totalCompletions,
-    totalSections,
-    pendingDeadlines,
-    recentAuditLogs,
-  ] = await Promise.all([
-    prisma.membership.count({ where: { tenantId: ctx.tenantId, user: { deletedAt: null } } }),
-    prisma.membership.count({ where: { tenantId: ctx.tenantId, user: { isActive: true, deletedAt: null } } }),
-    prisma.module.count({ where: { tenantId: ctx.tenantId } }),
-    prisma.module.count({ where: { status: "PUBLISHED", tenantId: ctx.tenantId } }),
-    prisma.sectionCompletion.count({ where: { section: { module: { tenantId: ctx.tenantId } } } }),
-    prisma.section.count({ where: { module: { tenantId: ctx.tenantId } } }),
-    prisma.moduleGroup.count({
-      where: {
-        deadlineDays: { not: null },
-        module: { tenantId: ctx.tenantId },
-      },
-    }),
-    prisma.auditLog.findMany({
-      where: {
-        tenantId: ctx.tenantId,
-        action: { notIn: ["OWNER_IMPERSONATION", "TENANT_DELETED"] },
-      },
-      take: 10,
-      orderBy: { createdAt: "desc" },
-      include: {
-        actor: {
-          select: { firstName: true, lastName: true },
-        },
-      },
+  const [dashResult, groups] = await Promise.all([
+    getManagerDashboardData(groupId),
+    prisma.group.findMany({
+      where: { tenantId: ctx.tenantId },
+      select: { id: true, name: true },
+      orderBy: { name: "asc" },
     }),
   ]);
 
-  // Completion rate = total completions / (sections × users who have access)
-  // This gives the average % of sections completed across all users
-  const completionRate =
-    totalSections > 0 && activeUsers > 0
-      ? Math.round((totalCompletions / (totalSections * activeUsers)) * 100)
-      : 0;
+  if (!dashResult.success) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold tracking-tight">{t("manager.title")}</h1>
+        <Card>
+          <CardContent className="py-12 text-center text-muted-foreground">
+            <p>{dashResult.error ?? t("common.error")}</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
-  const limits = getPlanLimits(ctx.tenantPlan);
-  const planBadgeMap = { FREE: "secondary", STARTER: "outline", PRO: "default" } as const;
+  const data = dashResult.data;
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold">{t("admin.dashboard.title")}</h1>
-            <Badge variant={planBadgeMap[ctx.tenantPlan]} className="text-xs">
-              {t(`plan.${ctx.tenantPlan.toLowerCase()}Badge`)}
-            </Badge>
-          </div>
-          <p className="text-muted-foreground">
-            {t("admin.dashboard.subtitle")}
-          </p>
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">{t("manager.title")}</h1>
+        <p className="text-muted-foreground">{t("manager.subtitle")}</p>
       </div>
 
-      {/* Stats cards */}
+      <ManagerFilters groups={groups} currentGroup={groupId ?? ""} />
+
+      {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">{t("admin.dashboard.totalUsers")}</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("manager.usersAtRisk")}
+            </CardTitle>
+            <AlertTriangle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalUsers}</div>
-            <p className="text-xs text-muted-foreground">
-              {limits.maxUsers !== null
-                ? t("plan.usage", { used: String(totalUsers), max: String(limits.maxUsers) })
-                : t("admin.dashboard.active", { count: activeUsers })}
-            </p>
+            <p className="text-2xl font-bold">{data.kpi.usersAtRisk}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t("admin.dashboard.activeModules")}
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("manager.avgEngagement")}
             </CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
+            <Zap className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {publishedModules} / {totalModules}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              {limits.maxModules !== null
-                ? t("admin.dashboard.publishedOfLimit", { published: String(publishedModules), total: String(totalModules), max: String(limits.maxModules) })
-                : t("admin.dashboard.publishedOfTotal", { published: String(publishedModules), total: String(totalModules) })}
-            </p>
+            <p className="text-2xl font-bold">{data.kpi.avgEngagementXp} XP</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t("admin.dashboard.completionRate")}
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("manager.completionRate")}
             </CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{completionRate}%</div>
-            <p className="text-xs text-muted-foreground">
-              {t("admin.dashboard.completionDetail", { completed: String(totalCompletions), total: String(totalSections * activeUsers) })}
-            </p>
+            <p className="text-2xl font-bold">{data.kpi.overallCompletionRate}%</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t("admin.dashboard.pendingDeadlines")}
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {t("manager.activeSuggestions")}
             </CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Lightbulb className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{pendingDeadlines}</div>
-            <p className="text-xs text-muted-foreground">
-              {t("admin.dashboard.upcomingDeadlines", { count: pendingDeadlines })}
-            </p>
+            <p className="text-2xl font-bold">{data.kpi.activeSuggestions}</p>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent Activity */}
+        {/* Risk Users */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Activity className="h-4 w-4" />
-              {t("admin.dashboard.recentActivity")}
+            <CardTitle className="flex items-center gap-2 text-base">
+              <AlertTriangle className="h-5 w-5 text-red-500" />
+              {t("manager.riskUsers")}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {recentAuditLogs.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  {t("admin.dashboard.noRecentActivity")}
-                </p>
-              ) : (
-                recentAuditLogs.map((log) => (
+            {data.riskUsers.length === 0 ? (
+              <p className="py-4 text-center text-sm text-muted-foreground">
+                {t("manager.noRiskUsers")}
+              </p>
+            ) : (
+              <div className="space-y-2 max-h-80 overflow-y-auto">
+                {data.riskUsers.slice(0, 20).map((user, i) => (
                   <div
-                    key={log.id}
-                    className="flex items-start justify-between gap-2 border-b pb-3 last:border-0"
+                    key={`${user.userId}-${user.moduleId}-${i}`}
+                    className="flex items-center justify-between rounded-md border px-3 py-2"
                   >
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium">
-                        {t(`auditActions.${log.action}`)}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {log.actor
-                          ? `${log.actor.firstName} ${log.actor.lastName}`
-                          : t("common.system")}{" "}
-                        &middot; {log.entityType}
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">{user.userName}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {user.moduleTitle} &middot; {user.groupName}
                       </p>
                     </div>
-                    <Badge variant="outline" className="shrink-0 text-xs">
-                      {format(new Date(log.createdAt), "d. MMM, HH:mm", { locale: getDateLocale() })}
+                    <Badge variant="destructive" className="shrink-0">
+                      {user.daysOverdue}d {t("manager.overdue")}
                     </Badge>
                   </div>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        {/* Quick Links */}
+        {/* Top Performers */}
         <Card>
           <CardHeader>
-            <CardTitle>{t("admin.dashboard.quickActions")}</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Trophy className="h-5 w-5 text-yellow-500" />
+              {t("manager.topPerformers")}
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              {hasMinRole(ctx.effectiveRole, "SUPER_ADMIN") && (
-                <Button variant="outline" className="w-full justify-between" asChild>
-                  <Link href="/admin/users">
-                    {t("admin.dashboard.manageUsers")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              )}
-              <Button variant="outline" className="w-full justify-between" asChild>
-                <Link href="/admin/modules">
-                  {t("admin.dashboard.manageModules")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" className="w-full justify-between" asChild>
-                <Link href="/admin/groups">
-                  {t("admin.dashboard.manageGroups")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" className="w-full justify-between" asChild>
-                <Link href="/admin/progress">
-                  {t("admin.dashboard.viewProgress")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              {ctx.user.role === "OWNER" && (
-                <Button variant="outline" className="w-full justify-between" asChild>
-                  <Link href="/admin/audit-log">
-                    {t("admin.dashboard.viewAuditLog")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              )}
-            </div>
+            {data.topPerformers.length === 0 ? (
+              <p className="py-4 text-center text-sm text-muted-foreground">
+                {t("manager.noPerformers")}
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {data.topPerformers.map((user, i) => {
+                  const initials = `${user.userName.split(" ").map((w) => w[0] ?? "").join("")}`.toUpperCase().slice(0, 2);
+                  return (
+                    <div
+                      key={user.userId}
+                      className="flex items-center gap-3 rounded-md border px-3 py-2"
+                    >
+                      <span className="w-5 text-center text-xs font-bold text-muted-foreground">
+                        {i + 1}
+                      </span>
+                      <Avatar className="h-7 w-7">
+                        <AvatarFallback className="text-xs">{initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium truncate">{user.userName}</p>
+                        <RankBadge rank={user.rank} size="sm" />
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold tabular-nums flex items-center gap-0.5">
+                          <Zap className="h-3 w-3 text-yellow-500" />
+                          {user.lifetimeXp.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          +{user.xpThisMonth} {t("manager.thisMonth")}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
+
+      {/* Completion Heatmap */}
+      {data.heatmap.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("manager.completionHeatmap")}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CompletionHeatmap cells={data.heatmap} />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

@@ -51,13 +51,12 @@ const employeeNav: NavItem[] = [
 ];
 
 const adminNav: NavItem[] = [
-  { href: "/admin", labelKey: "nav.overview", icon: LayoutDashboard },
+  { href: "/admin", labelKey: "nav.managerDashboard", icon: BarChart3 },
   { href: "/admin/modules", labelKey: "nav.modules", icon: BookOpen },
   { href: "/admin/users", labelKey: "nav.users", icon: Users, minRole: "SUPER_ADMIN" },
   { href: "/admin/groups", labelKey: "nav.groups", icon: FolderOpen },
   { href: "/admin/progress", labelKey: "nav.progress", icon: BarChart3 },
   { href: "/admin/late-users", labelKey: "nav.lateUsers", icon: AlertTriangle },
-  { href: "/admin/manager", labelKey: "nav.managerDashboard", icon: BarChart3 },
   { href: "/admin/rewards", labelKey: "nav.adminRewards", icon: Gift, featureKey: "rewards" },
   { href: "/admin/suggestions", labelKey: "nav.adminSuggestions", icon: Lightbulb, featureKey: "suggestions" },
   { href: "/admin/compliance", labelKey: "nav.compliance", icon: ShieldCheck },

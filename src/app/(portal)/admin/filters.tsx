@@ -27,7 +27,7 @@ export function ManagerFilters({ groups, currentGroup }: ManagerFiltersProps) {
       params.set("group", value);
     }
     const qs = params.toString();
-    router.push(`/admin/manager${qs ? `?${qs}` : ""}`);
+    router.push(`/admin${qs ? `?${qs}` : ""}`);
   }
 
   if (groups.length === 0) return null;

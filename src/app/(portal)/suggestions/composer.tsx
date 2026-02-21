@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { t } from "@/lib/i18n";
 
-export function SuggestionComposer() {
+export function SuggestionComposer({ xpCreated = 10 }: { xpCreated?: number }) {
   const [title, setTitle] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -26,7 +26,7 @@ export function SuggestionComposer() {
         isAnonymous,
       });
       if (result.success) {
-        toast.success(t("suggestions.createSuccess"));
+        toast.success(t("suggestions.createSuccess", { xp: String(xpCreated) }));
         setTitle("");
         setIsAnonymous(false);
         router.refresh();
@@ -62,7 +62,7 @@ export function SuggestionComposer() {
           ) : (
             <Sparkles className="mr-1.5 h-4 w-4" />
           )}
-          {t("suggestions.submit")}
+          {t("suggestions.submit", { xp: String(xpCreated) })}
         </Button>
       </div>
       <div className="flex items-center justify-between">

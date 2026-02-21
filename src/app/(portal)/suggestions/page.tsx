@@ -37,16 +37,16 @@ export default async function SuggestionsPage({
               </h1>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
-              {t("suggestions.heroSubtitle")}
+              {t("suggestions.heroSubtitle", { xpCreated: String(ctx.config.xpRules.SUGGESTION_CREATED) })}
             </p>
           </div>
           <div className="flex shrink-0 flex-col items-center rounded-2xl bg-white/80 px-6 py-4 shadow-sm dark:bg-card/80">
             <Sparkles className="mb-1 h-5 w-5 text-amber-500" />
-            <span className="text-3xl font-bold text-amber-600 dark:text-amber-400">+10 XP</span>
+            <span className="text-3xl font-bold text-amber-600 dark:text-amber-400">+{ctx.config.xpRules.SUGGESTION_CREATED} XP</span>
             <span className="text-xs text-muted-foreground">{t("suggestions.heroXpLabel")}</span>
             <span className="mt-2 flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
               <Flame className="h-3 w-3" />
-              {t("suggestions.heroXpBonus")}
+              {t("suggestions.heroXpBonus", { xpTop: String(ctx.config.xpRules.TOP_SUGGESTION) })}
             </span>
           </div>
         </CardContent>
@@ -54,7 +54,7 @@ export default async function SuggestionsPage({
 
       {/* Composer */}
       <div className="mt-6">
-        <SuggestionComposer />
+        <SuggestionComposer xpCreated={ctx.config.xpRules.SUGGESTION_CREATED} />
       </div>
 
       {/* Sort/Filter tabs */}
@@ -85,6 +85,9 @@ export default async function SuggestionsPage({
                 commentCount={s.commentCount}
                 hasVoted={s.hasVoted}
                 createdAt={s.createdAt}
+                xpCreated={ctx.config.xpRules.SUGGESTION_CREATED}
+                xpTop={ctx.config.xpRules.TOP_SUGGESTION}
+                voteThreshold={ctx.config.suggestionVoteThreshold}
               />
             ))}
           </div>

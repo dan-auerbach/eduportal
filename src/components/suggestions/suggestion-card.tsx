@@ -30,6 +30,12 @@ type SuggestionCardProps = {
   hasVoted: boolean;
   createdAt: string;
   className?: string;
+  /** XP amount for creating a suggestion (from tenant config) */
+  xpCreated?: number;
+  /** XP amount for popular suggestion (from tenant config) */
+  xpTop?: number;
+  /** Vote threshold for "popular" badge (from tenant config) */
+  voteThreshold?: number;
 };
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -44,10 +50,13 @@ export function SuggestionCard({
   hasVoted,
   createdAt,
   className,
+  xpCreated = 10,
+  xpTop = 75,
+  voteThreshold = 5,
 }: SuggestionCardProps) {
   const statusConfig = STATUS_CONFIG[status];
   const date = new Date(createdAt);
-  const isPopular = voteCount >= 5;
+  const isPopular = voteCount >= voteThreshold;
 
   return (
     <Card
@@ -74,7 +83,7 @@ export function SuggestionCard({
             {isPopular && (
               <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
                 <Flame className="h-2.5 w-2.5" />
-                {t("suggestions.popularBadge")}
+                {t("suggestions.popularBadge", { xp: String(xpTop) })}
               </span>
             )}
             <Badge variant={statusConfig.variant} className="shrink-0 text-[10px]">
@@ -92,7 +101,7 @@ export function SuggestionCard({
             </time>
             <span className="inline-flex items-center gap-0.5 rounded-full bg-amber-100/80 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
               <Sparkles className="h-2.5 w-2.5" />
-              {t("suggestions.authorXp")}
+              {t("suggestions.authorXp", { xp: String(xpCreated) })}
             </span>
           </div>
         </div>

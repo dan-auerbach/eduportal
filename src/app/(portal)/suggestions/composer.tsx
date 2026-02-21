@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Lightbulb, Loader2, ChevronDown, ChevronUp } from "lucide-react";
+import { Lightbulb, Loader2, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { createSuggestion } from "@/actions/suggestions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -47,15 +47,18 @@ export function SuggestionComposer() {
   }
 
   return (
-    <Card>
+    <Card className="border-dashed">
       <CardHeader
         className="cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-base">
-            <Lightbulb className="h-5 w-5 text-yellow-500" />
+            <Lightbulb className="h-5 w-5 text-amber-500" />
             {t("suggestions.newSuggestion")}
+            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+              +10 XP
+            </span>
           </CardTitle>
           {isOpen ? (
             <ChevronUp className="h-4 w-4 text-muted-foreground" />
@@ -65,7 +68,7 @@ export function SuggestionComposer() {
         </div>
       </CardHeader>
       {isOpen && (
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5 px-6 pb-6">
           <div className="space-y-1.5">
             <Label htmlFor="sg-title">{t("suggestions.titleField")}</Label>
             <Input
@@ -83,7 +86,7 @@ export function SuggestionComposer() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder={t("suggestions.descriptionPlaceholder")}
-              rows={3}
+              rows={4}
               maxLength={2000}
             />
           </div>
@@ -107,13 +110,24 @@ export function SuggestionComposer() {
               {t("suggestions.anonymous")}
             </Label>
           </div>
-          <Button
-            onClick={handleSubmit}
-            disabled={isPending || !title.trim() || description.trim().length < 10}
-          >
-            {isPending && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}
-            {t("suggestions.submit")}
-          </Button>
+          <div className="space-y-1.5">
+            <Button
+              size="lg"
+              onClick={handleSubmit}
+              disabled={isPending || !title.trim() || description.trim().length < 10}
+              className="font-semibold"
+            >
+              {isPending ? (
+                <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-1.5 h-4 w-4" />
+              )}
+              {t("suggestions.submit")}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              {t("suggestions.submitHelper")}
+            </p>
+          </div>
         </CardContent>
       )}
     </Card>

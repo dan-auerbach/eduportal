@@ -228,7 +228,14 @@ export function SidebarContent({ tenantName, tenantLogoUrl, onNavigate, navCount
             >
               <item.icon className={cn("h-4 w-4 shrink-0", isMentorLive && isActive && "animate-pulse")} style={isMentorLive && isActive ? { animationDuration: "3s" } : undefined} />
               <div className="flex-1 min-w-0">
-                <span>{t(item.labelKey)}</span>
+                <span className="flex items-center gap-1.5">
+                  {t(item.labelKey)}
+                  {item.href === "/suggestions" && (
+                    <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+                      +10 XP
+                    </span>
+                  )}
+                </span>
                 {liveSubLabel && (
                   <span className="block text-[10px] leading-tight text-muted-foreground truncate mt-0.5">
                     {liveSubLabel}

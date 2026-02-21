@@ -3,9 +3,10 @@
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, ExternalLink, User } from "lucide-react";
+import { MessageSquare, ExternalLink, User, Flame, Sparkles } from "lucide-react";
 import { VoteButton } from "./vote-button";
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 import type { SuggestionStatus } from "@/generated/prisma/client";
 
 // ── Status config ────────────────────────────────────────────────────────────
@@ -50,6 +51,7 @@ export function SuggestionCard({
 }: SuggestionCardProps) {
   const statusConfig = STATUS_CONFIG[status];
   const date = new Date(createdAt);
+  const isPopular = voteCount >= 5;
 
   return (
     <Card
@@ -64,7 +66,7 @@ export function SuggestionCard({
           >
             {title}
           </Link>
-          <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <User className="h-3 w-3" />
               <span>{authorName ?? "Anonimno"}</span>
@@ -73,6 +75,10 @@ export function SuggestionCard({
             <time dateTime={createdAt}>
               {date.toLocaleDateString("sl-SI", { day: "numeric", month: "short", year: "numeric" })}
             </time>
+            <span className="inline-flex items-center gap-0.5 rounded-full bg-amber-100/80 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+              <Sparkles className="h-2.5 w-2.5" />
+              {t("suggestions.authorXp")}
+            </span>
           </div>
         </div>
         <Badge variant={statusConfig.variant}>{statusConfig.label}</Badge>
@@ -80,6 +86,13 @@ export function SuggestionCard({
 
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
+
+        {isPopular && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+            <Flame className="h-3 w-3" />
+            {t("suggestions.popularBadge")}
+          </span>
+        )}
 
         {link && (
           <a
